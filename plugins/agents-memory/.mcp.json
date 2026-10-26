@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "agents-memory": {
+      "command": "/bin/bash",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/scripts/launch.sh"
+      ],
+      "env": {
+        "AGENTS_MEMORY_MCP_ENABLED": "${user_config.enable_mcp}",
+        "AGENTS_MEMORY_CONFIG": "${user_config.config_file}",
+        "AGENTS_MEMORY_AGENT_TOKEN_FILE": "${user_config.agent_token_file}",
+        "AGENTS_MEMORY_RUNTIME_DIR": "${user_config.runtime_directory}",
+        "AGENTS_MEMORY_DOWNLOAD_ALLOWED": "${user_config.allow_download}",
+        "AGENTS_MEMORY_RECOVERY_ACK": "${user_config.allow_service_recovery}"
+      }
+    }
+  }
+}

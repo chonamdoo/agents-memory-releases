@@ -1,0 +1,46 @@
+{
+  "name": "agents-memory",
+  "version": "0.1.0-preview.20261026",
+  "description": "Opt-in MCP transport to an explicitly configured local memory authority. No automatic authority bootstrap.",
+  "author": {
+    "name": "chonamdoo"
+  },
+  "homepage": "https://github.com/chonamdoo/agents-memory-releases",
+  "repository": "https://github.com/chonamdoo/agents-memory-releases",
+  "license": "MIT",
+  "userConfig": {
+    "enable_mcp": {
+      "type": "boolean",
+      "title": "Connect to your prepared memory authority",
+      "description": "Enable only after explicit DB, identity and model-route setup. Disabled by default.",
+      "default": false
+    },
+    "config_file": {
+      "type": "file",
+      "title": "Existing private authority config",
+      "description": "Absolute path outside the plugin/cache. No config is generated."
+    },
+    "agent_token_file": {
+      "type": "file",
+      "title": "Existing scoped agent token file",
+      "description": "Absolute path to a private existing file; the token value is never stored in plugin settings."
+    },
+    "runtime_directory": {
+      "type": "directory",
+      "title": "Verified installed runtime directory (optional)",
+      "description": "Exact directory containing this release bundle. Leave empty to use the plugin runtime cache."
+    },
+    "allow_download": {
+      "type": "boolean",
+      "title": "Allow pinned runtime download",
+      "description": "Download only this prerelease archive after SHA256 verification. No DB, service or credential setup.",
+      "default": false
+    },
+    "allow_service_recovery": {
+      "type": "boolean",
+      "title": "Acknowledge existing managed-service recovery",
+      "description": "The core MCP transport may recover an already-enabled receipt-owned service. It never installs one and honors an explicit stopped latch.",
+      "default": false
+    }
+  }
+}

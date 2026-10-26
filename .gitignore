@@ -1,0 +1,9 @@
+*.tar.gz
+*.whl
+*.py
+*.pyc
+.env
+*.key
+*.token
+build/
+private/

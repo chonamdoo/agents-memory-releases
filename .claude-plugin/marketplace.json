@@ -1,0 +1,16 @@
+{
+  "name": "agents-memory",
+  "owner": {
+    "name": "chonamdoo"
+  },
+  "metadata": {
+    "description": "Opt-in MCP tools for an independently prepared local memory authority."
+  },
+  "plugins": [
+    {
+      "name": "agents-memory",
+      "source": "./plugins/agents-memory",
+      "description": "macOS arm64 binary MCP transport; explicit onboarding and scoped credentials required."
+    }
+  ]
+}
