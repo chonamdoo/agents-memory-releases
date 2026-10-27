@@ -14,6 +14,8 @@ This is a preview, not a stable or fully validated product release.
 - Private Python source/bytecode, wheels/sdist, build/environment dumps, operational config/keys/data and private reports are excluded. Thin OMP adapter, schemas/prompts and protocol behavior remain observable. Native code is reverse-engineerable.
 - Existing MIT application notice and third-party notices/runtime exceptions are preserved.
 
+A supplemental pinned bootstrap starts company subscription onboarding (Codex Terra or Claude Haiku) and supports idempotent binary placement; home deployments preserve their existing Jev configuration. It does not make an unconfigured authority or CLI login ready automatically.
+
 Download the assets from this preview, verify SHA256SUMS, then follow INSTALL.md. Existing native integrations require explicit owned uninstall/reinstall while preserving scoped settings and retained queues; no old-generation queue is automatically replayed.
 
 ---

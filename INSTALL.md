@@ -2,7 +2,7 @@
 
 ## Verify and place the binary
 
-Download agents-memory-macos-arm64.tar.gz, SHA256SUMS, install.sh and THIRD_PARTY_NOTICES.md from the same prerelease. In that download directory run:
+Download all assets from the same prerelease (including SHA256SUMS, the archive, scripts and documentation) to verify the complete SHA256SUMS file. In that download directory run:
 
 ```sh
 shasum -a 256 -c SHA256SUMS
@@ -50,3 +50,23 @@ The supported server subscription routes are pinned: Codex uses gpt-6.1-terra; C
 For a new, separately authorized authority, setup selection is --judge subscription --subscription-host codex (or claude) --subscription-policy allow --ack-subscription-egress. Keep the required identity/DB/private-path arguments from setup --help. Operator enrollment verifies the selected CLI and creates a scoped local worker credential; it never requests a new provider API key. Do not run enrollment where local credential issuance or source egress is forbidden. Existing installations require explicit operator approval before changing routes. The plugin does not perform these actions automatically.
 
 Check the existing login locally with codex login status or claude auth status. Do not paste credential values or private DSNs into chat, the plugin cache or a repository. New account login remains a separate user action. On this preview, actual Codex MCP model consumption and real E5 quality remain unverified; do not confuse protocol smoke with those checks.
+
+## One command to start a company installation (macOS arm64)
+
+```sh
+/bin/bash -c 'set -e; d=$(mktemp -d); trap '\''rm -rf "$d"'\'' EXIT; curl --fail --silent --show-error --location --proto =https --proto-redir =https https://github.com/chonamdoo/agents-memory-releases/releases/download/v0.1.0-preview.20261027/bootstrap.sh -o "$d/bootstrap.sh"; printf "%s  %s\n" 3f23903257300446b12406b72a5bd60080fd4ddfb5224dd80a2ef977f78a363d "$d/bootstrap.sh" | shasum -a 256 -c -; /bin/bash "$d/bootstrap.sh" --company'
+```
+
+Choose `local` for the core and DB location, then `codex` (Terra) or `claude` (Haiku). This command verifies a pinned bootstrap and release archive, installs the complete binary bundle, and records your choices in the displayed onboarding command. Repeating it verifies the existing version byte-for-byte and does not overwrite it, your DB, settings, keys or queues. A cloud choice is rejected explicitly. It does not connect the MCP merely by placing the binary.
+
+Company setup uses **subscription**, without Jev or automatic API-credit/cross-provider fallback. The official CLI must already be signed in and permitted by company policy. Actual Codex MCP consumption remains unverified in this preview (an approval-policy restriction was observed); a successful install does not remove that restriction. No login credentials are extracted or shared. Company DB/authority and scoped MCP credentials must be prepared explicitly by the operator; this binary does not bundle PostgreSQL or auto-provision cloud resources.
+
+For a new authority only, the same bootstrap accepts `--config /absolute/new/private/config.json --` followed by the required `setup --help` identity and private-file arguments (`--deployment-id`, `--realm`, `--mode company`, `--owner-id`, `--dsn-file`, `--migrator-dsn-file`, `--state-dir`, `--journal-dir`). Without `--initialize`, it runs `--plan-only` and creates no authority or credentials. With `--initialize` it still requires the terminal confirmation `INITIALIZE` before schema initialization, scoped local credential issuance and subscription quota consumption. No unattended enrollment is performed. Existing configuration is refused, not resumed or overwritten by this bootstrap. Service start, project registration/scoped agent enrollment and optional native hooks remain separate explicit operator steps; use the installed binary's help and the operator's approved paths. Do not issue broad credentials just to bypass an unavailable scope.
+
+For Claude Code's MCP marketplace use the three commands above and configure the prepared authority paths. For Codex or OMP, use the prepared project's explicit `host-install` path; no forced host-session reload is performed. Verify the distribution directory/version and `bundle-manifest.json`; `agents-memory --version` reports the application `0.1.0` rather than the preview tag.
+
+## Home and company are separate configurations
+
+The **home Mac update preserves existing Jev, its key and the existing DB**. Do not run company subscription enrollment against that authority. The same binary supports these routes through separate configuration; there is no second source codebase. `bootstrap.sh --home` places/verifies only the binary and never changes a home provider. Existing native services/hooks require the explicit owned update procedure above, preserving the previous bundle for rollback.
+
+Rollback: retain `0.1.0-preview.20261026` beside the new bundle. For an existing schema0008 authority, use the current version's owned `service uninstall`, then the previous binary's `service install` with the unchanged private config. Preserve token files and queues; do not replay another installation generation. DB/schema downgrade is not supplied; this executable rollback is not a substitute for a migration recovery plan.

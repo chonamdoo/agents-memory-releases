@@ -27,3 +27,5 @@ In Claude Code 2.1.310 or later:
 ```
 
 This is the maintainer’s own marketplace; it has not been submitted to Anthropic’s directory. Configure with `/plugin configure agents-memory@agents-memory` only after preparing your own authority.
+
+Company one-command installation entrypoint and separate home-Jev guidance: [INSTALL.md](INSTALL.md#one-command-to-start-a-company-installation-macos-arm64). The bootstrap installs the binary and asks for the supported local location/official subscription host; authority/DB/authentication prerequisites remain explicit.
