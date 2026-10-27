@@ -1,8 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 umask 077
-version=0.1.0-preview.20261026
-expected=bcbf5ec101499829686e4dc1c03a377061d6a1d53e7dd606e7783e6c7548b81b
+version=0.1.0-preview.20261027
+expected=c727383185a3e7459971cb82a42987f8158ba00e4ad38303023db83f113aeca1
 archive=${1:-agents-memory-macos-arm64.tar.gz}
 prefix=${2:-"$HOME/.local/share/agents-memory/releases"}
 [[ $(uname -s) == Darwin && $(uname -m) == arm64 ]] || { echo 'Requires macOS arm64.' >&2; exit 64; }

@@ -2,9 +2,9 @@
 set -euo pipefail
 umask 077
 plugin_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)
-version=0.1.0-preview.20261026
-archive_sha=bcbf5ec101499829686e4dc1c03a377061d6a1d53e7dd606e7783e6c7548b81b
-archive_url=https://github.com/chonamdoo/agents-memory-releases/releases/download/v0.1.0-preview.20261026/agents-memory-macos-arm64.tar.gz
+version=0.1.0-preview.20261027
+archive_sha=c727383185a3e7459971cb82a42987f8158ba00e4ad38303023db83f113aeca1
+archive_url=https://github.com/chonamdoo/agents-memory-releases/releases/download/v0.1.0-preview.20261027/agents-memory-macos-arm64.tar.gz
 fail() { printf 'agents-memory: %s\n' "$1" >&2; exit "${2:-78}"; }
 [[ ${AGENTS_MEMORY_MCP_ENABLED:-false} == true ]] || fail 'Onboarding required. Run /agents-memory:setup before enabling MCP.'
 [[ ${AGENTS_MEMORY_RECOVERY_ACK:-false} == true ]] || fail 'Explicit acknowledgment of existing managed-service recovery is required.'

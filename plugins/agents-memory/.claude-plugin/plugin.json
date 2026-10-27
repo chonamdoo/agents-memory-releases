@@ -1,6 +1,6 @@
 {
   "name": "agents-memory",
-  "version": "0.1.0-preview.20261026",
+  "version": "0.1.0-preview.20261027",
   "description": "Opt-in MCP transport to an explicitly configured local memory authority. No automatic authority bootstrap.",
   "author": {
     "name": "chonamdoo"

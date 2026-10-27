@@ -1,8 +1,5 @@
-INSTALL.md
 LICENSE
 README.md
-SUPPORT.md
-THIRD_PARTY_NOTICES.md
 _cffi_backend.so
 agents-memory
 agents_memory/host_templates/omp.ts
@@ -110,6 +107,8 @@ licenses/referencing/METADATA
 licenses/referencing/licenses/COPYING
 licenses/rpds-py/METADATA
 licenses/rpds-py/licenses/LICENSE
+licenses/setuptools/METADATA
+licenses/setuptools/licenses/LICENSE
 licenses/sse-starlette/METADATA
 licenses/sse-starlette/licenses/AUTHORS
 licenses/sse-starlette/licenses/LICENSE
@@ -123,6 +122,8 @@ licenses/typing_extensions/METADATA
 licenses/typing_extensions/licenses/LICENSE
 licenses/uvicorn/METADATA
 licenses/uvicorn/licenses/LICENSE.md
+licenses/wheel/METADATA
+licenses/wheel/licenses/LICENSE.txt
 markupsafe/_speedups.so
 pydantic_core/_pydantic_core.so
 rpds/rpds.so

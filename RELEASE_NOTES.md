@@ -1,3 +1,23 @@
+# v0.1.0-preview.20261027: macOS arm64 memory/MCP preview
+
+This is a preview, not a stable or fully validated product release.
+
+- Compiled production source: 05cea567b5185fc59f9117fa3330c18e59bbf152. Mac regression fixture SHA: af8f8aab857069033b830e36298e34441ebe25e7; production sources/build inputs are identical. Application CLI version remains 0.1.0.
+- Binary SHA256: 61788ab0fd6cea88e124be1b5e7c4bae6a490e0e396fae51cd55e488780c2f35.
+- Archive SHA256: c727383185a3e7459971cb82a42987f8158ba00e4ad38303023db83f113aeca1.
+- macOS 26.6.2 arm64: committed Mac regression 78 PASS; isolated actual old/new compiled binary upgrade 2 PASS (prompt recall off/on).
+- Fresh source-denied compiled smoke passed setup/migration0008, delayed-DB readiness, MCP stdio, generated OMP capture/FULL receipt, deterministic extraction/recall/correction/retraction. No model calls. The smoke driver observes the new background queue; storage was not made synchronous.
+- Bounded background capture/lifecycle fixes are included. Existing operating services and native hooks are not silently replaced by installing this plugin or archive.
+- Limitations: real E5/model quality and actual Codex model consumption remain unverified. Four pre-existing source CI skips remain; this preview does not claim all product gates. Interactive OMP/Claude UI and another physical Mac are not certified.
+- Bundled CPython3.13.16; no separate Python for the core. Optional semantic encoding requires a separately managed runtime/model. PostgreSQL18.x/pgvector>=0.8.7 remain external prerequisites.
+- Ad-hoc signing only: no Developer ID/notarization. No security bypass, new account, credentials, DB reset, service installation or paid call is performed by the installer/plugin.
+- Private Python source/bytecode, wheels/sdist, build/environment dumps, operational config/keys/data and private reports are excluded. Thin OMP adapter, schemas/prompts and protocol behavior remain observable. Native code is reverse-engineerable.
+- Existing MIT application notice and third-party notices/runtime exceptions are preserved.
+
+Download the assets from this preview, verify SHA256SUMS, then follow INSTALL.md. Existing native integrations require explicit owned uninstall/reinstall while preserving scoped settings and retained queues; no old-generation queue is automatically replayed.
+
+---
+
 # v0.1.0-preview.20261026: macOS arm64 binary + Claude Code marketplace preview
 
 This prerelease packages the previously tested compiled core (application version 0.1.0) with distribution metadata and an opt-in MCP marketplace transport. It is not a stable release.

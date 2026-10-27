@@ -38,3 +38,15 @@ Requires Claude Code 2.1.310 or later for this tested configuration:
 The plugin initially refuses to connect. Read the setup skill, prepare a private config and a scoped agent token file outside the plugin cache, then set plugin configuration in `/plugin configure agents-memory@agents-memory`. The plugin stores paths, not token values. Enable connection and acknowledge that the core transport can recover an already-enabled, receipt-owned service. It never installs a service or changes its stopped latch. Downloading the pinned runtime needs a separate opt-in; otherwise select a verified installed runtime directory.
 
 The plugin supplies on-demand MCP tools, not automatic capture or guaranteed recall. Native capture hooks are a separate opt-in integration. A plugin update/cache relocation does not move authority data or credentials. Plugin data stores only runtime dependencies and may be removed by Claude Code on uninstall; do not store DB state, journals or tokens there.
+
+## Updating this preview
+
+Download/install the new versioned bundle without overwriting the old one. This does not replace a running service or existing native hooks. Use an explicit operator-controlled update and owned host uninstall/reinstall with the same scoped config/token files and original prompt-recall choice. Retain old queues; never replay another generation automatically. No DB reset is required or performed. Validate readiness and MCP before changing your integration.
+
+## Subscription host/model selection
+
+The supported server subscription routes are pinned: Codex uses gpt-6.1-terra; Claude Code uses claude-haiku-5-5. Choose only the host your organization permits and that is already officially signed in. No cross-provider or API-credit fallback is performed. Optional model availability still depends on the account; a configured route is not proof of a successful model response.
+
+For a new, separately authorized authority, setup selection is --judge subscription --subscription-host codex (or claude) --subscription-policy allow --ack-subscription-egress. Keep the required identity/DB/private-path arguments from setup --help. Operator enrollment verifies the selected CLI and creates a scoped local worker credential; it never requests a new provider API key. Do not run enrollment where local credential issuance or source egress is forbidden. Existing installations require explicit operator approval before changing routes. The plugin does not perform these actions automatically.
+
+Check the existing login locally with codex login status or claude auth status. Do not paste credential values or private DSNs into chat, the plugin cache or a repository. New account login remains a separate user action. On this preview, actual Codex MCP model consumption and real E5 quality remain unverified; do not confuse protocol smoke with those checks.
