@@ -1,3 +1,7 @@
+> **2026-11-01 Hindsight reference preview:** follow [the separate Hindsight guide](profiles/hindsight-reference/INSTALL.md).
+> The instructions below and existing bootstrap/marketplace install the **older Native macOS binary**.
+> This release does not upgrade that binary, initialize a cloud server, or migrate existing memories.
+
 # Installation and explicit onboarding
 
 ## Verify and place the binary

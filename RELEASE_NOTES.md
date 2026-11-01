@@ -1,3 +1,30 @@
+# v0.1.0-hindsight-reference-preview.20261101: official Hindsight configuration bundle
+
+This prerelease publishes a reference profile and validation metadata, not a new Native/macOS executable
+or a stable/SOTA-certified release. No existing installer, marketplace entry, binary or earlier asset is replaced.
+
+- Official source14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2, API-slim1.1.0; NoneLLM/chunks/ONNX/RRF.
+- Linux local startup, exact10 bank-scoped MCP tools, seven manual categories, strict7positive+2negative
+  queries and canary deletion passed. A new session recalled the source after owned comparison models/bridge stopped.
+- One known private policy: source bytes preserved;5typed conditions and5exact quotation spans matched.
+  The coding agent received full source. This is not a blind/retrieval-only score or proof of a complete corpus.
+- API/worker/ONNX PSS snapshot~751MiB excludes DB and retained comparisons. A separate optional-generation
+  matched32k→16k trial reduced model-only PSS30.4% with identical innerJSON; no general QA or speed claim.
+- Core full-generation replacement/deletion and bounded official-client ACK replay have separate evidence;
+  do not infer generated observations or automatic-hook recovery in this no-LLM profile.
+-21source-pinned ecosystem candidates, including ai-memory-lab, were reviewed. No new wrapper/dependency
+  demonstrated sufficient benefit; no external adapter, unmerged PR or private implementation is included.
+- Official plugin observation-only recall/default-bank settings need separate configuration/revalidation.
+  Multiuser ACL, mental-model retraction, all native hooks, fresh macOS/clean install and SOTA quality remain unproven.
+- Earlier full concise policy-extraction and Reflect trials remain failed. This reduced-feature path does not fix them.
+- The bundle includes no runtime, model, DB, credentials, private policy/questions/answers or private Python source.
+  Recipient prerequisites and online dependency installation are explicit; this is not an offline installer.
+
+Verify SHA256SUMS and follow the included INSTALL.md. Existing Native releases and bootstrap stay available
+at their original pinned tags. No GitHub Actions, production cutover or automatic host/config changes occur.
+
+---
+
 # v0.1.0-preview.20261027: macOS arm64 memory/MCP preview
 
 This is a preview, not a stable or fully validated product release.

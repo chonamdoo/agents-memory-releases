@@ -1,0 +1,13 @@
+{
+  "scope": "Manual examples for an independently prepared loopback Hindsight server. Existing global client configuration is not modified. Replace my-project with your fresh bank.",
+  "claude_code_project_configuration_example": {
+    "mcpServers": {
+      "hindsight-reference": {
+        "type": "http",
+        "url": "http://127.0.0.1:8116/mcp/my-project/"
+      }
+    }
+  },
+  "codex_config_toml_example": "[mcp_servers.hindsight_reference]\nurl = \"http://127.0.0.1:8116/mcp/my-project/\"\n",
+  "host_native_integration_verified_by_this_release": false
+}
