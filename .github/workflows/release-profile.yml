@@ -1,0 +1,41 @@
+name: Release profile validation
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-profile-${{ github.event.pull_request.head.repo.full_name || github.repository }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Configuration and published preview integrity
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      CI_TESTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ env.CI_TESTED_SHA }}
+          persist-credentials: false
+      - name: Check exact current source
+        run: test "$(git rev-parse HEAD)" = "$CI_TESTED_SHA"
+      - name: Check current profile and legacy installation contract
+        run: python3 .github/ci/verify-profile "$GITHUB_WORKSPACE"
+      - name: Read published configuration preview
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: v0.1.0-hindsight-reference-preview.20261101
+          path: published-preview
+          persist-credentials: false
+      - name: Check exact published commit
+        run: test "$(git -C published-preview rev-parse HEAD)" = 99625c39d01ba91b997c698b26a761d14be53768
+      - name: Check published profile with the same verifier
+        run: python3 .github/ci/verify-profile "$GITHUB_WORKSPACE/published-preview"
