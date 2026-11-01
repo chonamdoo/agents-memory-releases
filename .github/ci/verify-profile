@@ -1,0 +1,83 @@
+#!/usr/bin/env python3
+"""Validate public distribution metadata only; never install or execute a runtime."""
+import hashlib
+import json
+from pathlib import Path
+import re
+import sys
+
+ROOT = Path(sys.argv[1]).resolve()
+CHECKS = Path(__file__).resolve().parent
+PROFILE = ROOT / 'profiles/hindsight-reference'
+FILES = {'CONTENTS_SHA256SUMS','INSTALL.md','LICENSE','MODEL_SHA256SUMS','NOTICES.md',
+         'PROGRESS.ko.md','README.ko.md','UPSTREAM.json','VALIDATION.json',
+         'hindsight-reference.env.example','mcp.examples.json'}
+
+def checksums(path):
+    result = {}
+    for line in path.read_text().splitlines():
+        digest, name = line.split('  ', 1)
+        assert re.fullmatch(r'[0-9a-f]{64}', digest), 'Invalid SHA-256'
+        assert not Path(name).is_absolute() and '..' not in Path(name).parts
+        assert name not in result, 'Duplicate manifest entry'
+        result[name] = digest
+    return result
+
+def verify_file(root, name, expected):
+    path = root / name
+    assert path.is_file() and not path.is_symlink(), 'Missing or symlinked payload'
+    assert path.stat().st_size < 1024 * 1024, 'Unexpected large distribution metadata'
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == expected, f'Checksum mismatch: {name}'
+
+assert PROFILE.parent.is_dir() and not PROFILE.parent.is_symlink()
+assert PROFILE.is_dir() and not PROFILE.is_symlink()
+assert {p.name for p in PROFILE.iterdir()} == FILES, 'Unexpected profile contents'
+assert all(p.is_file() and not p.is_symlink() and p.stat().st_size < 1024 * 1024
+           for p in PROFILE.iterdir()), 'Unexpected payload file type or size'
+manifest = checksums(PROFILE / 'CONTENTS_SHA256SUMS')
+assert set(manifest) == FILES - {'CONTENTS_SHA256SUMS'}
+for name, expected in manifest.items():
+    verify_file(PROFILE, name, expected)
+for name, expected in checksums(CHECKS / 'legacy-preview.sha256').items():
+    verify_file(ROOT, name, expected)
+
+upstream = json.loads((PROFILE / 'UPSTREAM.json').read_bytes())
+assert upstream['hindsight_commit'] == '14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2'
+assert upstream['model_and_runtime_binaries_included'] is False
+model = checksums(PROFILE / 'MODEL_SHA256SUMS')
+assert set(model) == {'model.onnx','tokenizer.json','config.json','tokenizer_config.json','special_tokens_map.json'}
+assert len(upstream['model_assets']) == len(model)
+assert {a['local_name']: a['sha256'] for a in upstream['model_assets']} == model
+prefix = 'https://huggingface.co/intfloat/multilingual-e5-small/resolve/' + upstream['model_revision'] + '/'
+assert all(a['source'].startswith(prefix) and type(a['bytes']) is int and a['bytes'] > 0
+           for a in upstream['model_assets'])
+
+settings = {}
+for line in (PROFILE / 'hindsight-reference.env.example').read_text().splitlines():
+    if line and not line.startswith('#'):
+        key, value = line.split('=', 1)
+        assert key not in settings, 'Duplicate configuration'
+        settings[key] = value.strip('"')
+for key in ('HINDSIGHT_API_LLM_PROVIDER','HINDSIGHT_API_RETAIN_LLM_PROVIDER',
+            'HINDSIGHT_API_REFLECT_LLM_PROVIDER','HINDSIGHT_API_CONSOLIDATION_LLM_PROVIDER',
+            'HINDSIGHT_API_MENTAL_MODEL_REFRESH_LLM_PROVIDER','HINDSIGHT_API_DECISION_MODEL_PROVIDER'):
+    assert settings[key] == 'none', 'Unexpected generative provider'
+assert settings['HINDSIGHT_API_RETAIN_EXTRACTION_MODE'] == 'chunks'
+assert settings['HINDSIGHT_API_ENABLE_OBSERVATIONS'] == 'false'
+assert settings['HINDSIGHT_API_ENABLE_AUTO_CONSOLIDATION'] == 'false'
+assert settings['HINDSIGHT_API_EMBEDDINGS_PROVIDER'] == 'onnx'
+assert settings['HINDSIGHT_API_RERANKER_PROVIDER'] == 'rrf'
+assert settings['HINDSIGHT_API_WORKER_ENABLED'] == 'true'
+assert settings['HINDSIGHT_API_WORKER_MAX_SLOTS'] == '1'
+assert settings['HINDSIGHT_API_WORKER_CONSOLIDATION_RESERVED_SLOTS'] == '0'
+assert settings['HINDSIGHT_API_WORKER_MAX_RETRIES'] == '0'
+assert settings['HF_HUB_OFFLINE'] == settings['TRANSFORMERS_OFFLINE'] == '1'
+assert set(settings['HINDSIGHT_API_MCP_ENABLED_TOOLS'].split(',')) == {
+    'retain','sync_retain','recall','get_document','delete_document','get_memory',
+    'list_memories','list_documents','get_operation','list_operations'}
+validation = json.loads((PROFILE / 'VALIDATION.json').read_bytes())
+assert validation['sota_quality_proven'] is False
+assert validation['runtime_binary_model_database_credentials_or_private_policy_included'] is False
+assert validation['all_host_hooks_verified'] is False
+json.loads((PROFILE / 'mcp.examples.json').read_bytes())
+print('PASS: profile payload, model provenance, reduced-feature contract and legacy installation files')
