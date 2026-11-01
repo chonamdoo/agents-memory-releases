@@ -1,3 +1,15 @@
+# agents-memory release previews
+
+The new [Hindsight reference preview](profiles/hindsight-reference/README.ko.md) provides tested official
+configuration, manual setup/MCP examples and bounded validation results. It is a **configuration bundle**;
+Python/Hindsight/PostgreSQL/model artifacts are separate prerequisites. It is not a replacement macOS binary.
+
+[Download the Hindsight reference prerelease](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v0.1.0-hindsight-reference-preview.20261101).
+SOTA accuracy and recipient-machine/macOS installation remain unproven. Existing Native installers and
+marketplace entries below keep their 20261027 pinned target and do not switch to Hindsight automatically.
+
+---
+
 # agents-memory binary preview
 
 A local memory authority and MCP transport for macOS Apple Silicon. The application is compiled; Python source and bytecode are not shipped. The Python runtime and native libraries are included, so a separate Python installation is not required for the core. Optional semantic encoding uses a separately managed runtime/model.
