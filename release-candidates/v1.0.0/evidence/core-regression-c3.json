@@ -1,0 +1,27 @@
+{
+  "candidate_id": "hindsight-local-v1.0.0-c3",
+  "source_commit": "30706fc1c1e6a7d5aaccee3bf643b0370bbaf5be",
+  "source_digest": "c3cc23146a76800b10452f96a84fb655c6294c59de1b1f2c8b289f768d0243f5",
+  "target_version": "1.0.0",
+  "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
+  "admission_patch_sha256": "fe2d94e53bfb97da0e0a9ebfabbfaba157ea191a33ecc79d1cc286dda12b4794",
+  "platform": "Darwin-arm64",
+  "kind": "redacted_local_execution_attestation_not_QA_score",
+  "observed_at": "2026-11-03",
+  "source_pr": "https://github.com/chonamdoo/agents-memory/pull/59",
+  "execution_platform": "Linux-x86_64",
+  "tested_source_branch_commit": "c287cd20f13a418e7fc18ece891a7e70a00adf83",
+  "metrics": {
+    "passed": 421,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "phases_passed": 1263,
+    "complete": true,
+    "source_digest_before": "c3cc23146a76800b10452f96a84fb655c6294c59de1b1f2c8b289f768d0243f5",
+    "source_digest_after": "c3cc23146a76800b10452f96a84fb655c6294c59de1b1f2c8b289f768d0243f5",
+    "original_receipt_sha256": "88cb8fd1d877844ca42d79e99ede9916ee4be32e22359b83514730ae1fe0a710"
+  },
+  "scope": "421 unique focused local tests in8files;1263phases, noMac/actualproviderQA credit. Merged source content verified equal to tested source; unrelated historical receipts preserved and not reused."
+}

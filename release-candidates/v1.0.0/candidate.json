@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "candidate_id": "hindsight-local-v1.0.0-c1",
+  "candidate_id": "hindsight-local-v1.0.0-c3",
   "target_version": "1.0.0",
   "source_repository": "chonamdoo/agents-memory",
-  "source_commit": "3c56065e90e30dec8dc1e234301e3efa9cb14082",
-  "source_digest": "41dbd31f354e1c40570a51b3098d861415d34900620aa883609965509eaf9273",
+  "source_commit": "30706fc1c1e6a7d5aaccee3bf643b0370bbaf5be",
+  "source_digest": "c3cc23146a76800b10452f96a84fb655c6294c59de1b1f2c8b289f768d0243f5",
   "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
-  "admission_patch_sha256": "47aeb4222e2243222a97d424f655fe3cf86f9a4738a8c0f2cacb7076f729ec82",
+  "admission_patch_sha256": "fe2d94e53bfb97da0e0a9ebfabbfaba157ea191a33ecc79d1cc286dda12b4794",
   "platform": "Darwin-arm64",
   "profiles": {
     "personal": {
@@ -18,30 +18,21 @@
     },
     "company": {
       "provider": "subscription-cli",
-      "host": null,
-      "answer_model": null,
-      "admission_model": null,
-      "judge_model": null
+      "host": "codex",
+      "answer_model": "gpt-6.1-sol",
+      "admission_model": "gpt-6.1-sol",
+      "judge_model": "gpt-6.1-sol"
     }
   },
   "evidence": {
     "core_regression": {
-      "path": "evidence/core-regression.json",
-      "sha256": "9f13b61bfc28a8686b624d5840bf1e4aad6d75caec11482595066301c5cece23"
+      "path": "evidence/core-regression-c3.json",
+      "sha256": "68281f4a4fde31c81e5a81b72b493ec162cc3de45a6e4c453360e59cb434476a"
     },
     "answer_quality": null,
-    "admission_quality": {
-      "path": "evidence/personal-admission.json",
-      "sha256": "d6e699cb3b24311104908c5a1ad1b74e3b7ce8dc8e235b6bc2c88735f565415d"
-    },
-    "security": {
-      "path": "evidence/personal-security.json",
-      "sha256": "1ee3ceaf7234b0eb0d830dd7bdec6777b14874d72f57a987782b0d09a95d01ae"
-    },
-    "runtime_contract": {
-      "path": "evidence/personal-runtime.json",
-      "sha256": "d0e829972e21cb2e43285b85267e252285be6e035b53c0ba70d09ff963d6fd71"
-    },
+    "admission_quality": null,
+    "security": null,
+    "runtime_contract": null,
     "performance": null,
     "mac_install": null,
     "distribution": null
