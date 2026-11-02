@@ -1,0 +1,25 @@
+{
+  "candidate_id": "hindsight-local-v1.0.0-c3",
+  "source_commit": "30706fc1c1e6a7d5aaccee3bf643b0370bbaf5be",
+  "source_digest": "c3cc23146a76800b10452f96a84fb655c6294c59de1b1f2c8b289f768d0243f5",
+  "target_version": "1.0.0",
+  "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
+  "admission_patch_sha256": "fe2d94e53bfb97da0e0a9ebfabbfaba157ea191a33ecc79d1cc286dda12b4794",
+  "platform": "Darwin-arm64",
+  "kind": "non_release_credit_Linux_capture_under_controlled_gateway_stall",
+  "execution_platform": "Linux-x86_64",
+  "metrics": {
+    "samples": 100,
+    "source_bytes_each": 65536,
+    "capture_p50_ms": 88.11918149876874,
+    "capture_p95_ms": 93.02214299532352,
+    "capture_max_ms": 95.77162200002931,
+    "worker_lock_held_across_all_samples": true,
+    "all_queued_originals_exact": true,
+    "gateway_requests": 1,
+    "provider_calls": 0
+  },
+  "execution_result_sha256": "91d11b15de8ebd1f48ec2f0227e37ffbb419434a374410b94d0620cfbe29ba53",
+  "scope": "Real product capture/drain against controlled local HTTP503 fault sink; not actual Hindsight/model latency, Mac p95, CloudRun or host-hook invocation proof",
+  "release_performance_points": 0
+}

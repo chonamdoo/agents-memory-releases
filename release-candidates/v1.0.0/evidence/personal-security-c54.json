@@ -1,0 +1,35 @@
+{
+  "candidate_id": "hindsight-local-v1.0.0-c3",
+  "source_commit": "30706fc1c1e6a7d5aaccee3bf643b0370bbaf5be",
+  "source_digest": "c3cc23146a76800b10452f96a84fb655c6294c59de1b1f2c8b289f768d0243f5",
+  "target_version": "1.0.0",
+  "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
+  "admission_patch_sha256": "fe2d94e53bfb97da0e0a9ebfabbfaba157ea191a33ecc79d1cc286dda12b4794",
+  "platform": "Darwin-arm64",
+  "kind": "redacted_current_source_actual_handler_security_execution",
+  "profiles": {
+    "personal": {
+      "actual_provider": true,
+      "provider": "jev",
+      "host": "codex",
+      "model": "jev-1.14.0",
+      "profile_config_sha256": "55a2e7ab1db96a56a9e9dda91a49f0c8432cc23d0bc92dcc962c45ecf15327b9",
+      "checks": {
+        "provenance": true,
+        "project_scope": true,
+        "update_delete": true,
+        "secrets_injection": true
+      },
+      "actual_service": true,
+      "cases": 20,
+      "violations": 0
+    },
+    "company": null
+  },
+  "execution_platform": "Linux-x86_64",
+  "execution_result_sha256": "605bf92df7d578632c15b261693527c4b111c927dab1982d87d329eeac522286",
+  "scope": "RealASGIhandlers/engine/PG/E5/Jev,20coupledassertions not20independentattacks. Single-user bankscoping notteamACL; correction explicitdelete-retain;3 supportedHindsightkeycapturetail subcases within safety1 notinflatedcount. Injection503 means nonpublication only. NoMac/company/QA/cloudIAM proof.",
+  "observed_model_calls": 9,
+  "supported_hsk_capture_tail_subcases": 3,
+  "group_result_sha256": "5be51bbc1860e7ca4325b9a03d8831345a6c611bd7201c81e717d04f160104ff"
+}
