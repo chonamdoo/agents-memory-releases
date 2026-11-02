@@ -1,0 +1,31 @@
+{
+  "candidate_id": "hindsight-local-v1.0.0-c1",
+  "source_commit": "3c56065e90e30dec8dc1e234301e3efa9cb14082",
+  "source_digest": "41dbd31f354e1c40570a51b3098d861415d34900620aa883609965509eaf9273",
+  "target_version": "1.0.0",
+  "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
+  "admission_patch_sha256": "47aeb4222e2243222a97d424f655fe3cf86f9a4738a8c0f2cacb7076f729ec82",
+  "platform": "Darwin-arm64",
+  "profiles": {
+    "personal": {
+      "actual_provider": true,
+      "provider": "jev",
+      "host": "codex",
+      "model": "jev-1.14.0",
+      "profile_config_sha256": "55a2e7ab1db96a56a9e9dda91a49f0c8432cc23d0bc92dcc962c45ecf15327b9",
+      "checks": {
+        "retain_recall": true,
+        "timestamp": true,
+        "restart_durability": true,
+        "retry_recovery": true,
+        "delete": true
+      },
+      "actual_service": true
+    },
+    "company": null
+  },
+  "execution_platform": "Linux-x86_64",
+  "execution_result_sha256": "33e4a7908a6971f6da394d33d389c416bd279fe88a5bc5315813653637b77096",
+  "observed_model_calls": 2,
+  "scope": "ActualTCP HTTP/official engine/PG/E5 on Linux with admitted deterministic positivecontrols. Originalreview scenario remainsFAIL; no Mac/caller/QA proof."
+}

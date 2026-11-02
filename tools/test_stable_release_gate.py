@@ -112,6 +112,17 @@ class StableGateTests(unittest.TestCase):
         self.attach("answer_quality", value)
         result = gate.evaluate(self.root)
         self.assertEqual(result["score"], 65)
+        self.assertEqual(result["profile_scores"], {"personal": 100, "company": 65})
+        self.assertFalse(result["ready"])
+
+    def test_profile_progress_never_adds_up_to_joint_readiness(self):
+        self.attach("answer_quality")
+        receipt = self.receipt("runtime_contract")
+        receipt["profiles"]["personal"] = None
+        self.attach("runtime_contract", receipt)
+        result = gate.evaluate(self.root)
+        self.assertEqual(result["profile_scores"], {"personal": 35, "company": 45})
+        self.assertEqual(result["score"], 35)
         self.assertFalse(result["ready"])
 
     def test_qa_cannot_replace_fixed_denominator_or_hide_errors(self):

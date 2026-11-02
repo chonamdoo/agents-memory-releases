@@ -11,10 +11,10 @@
   "profiles": {
     "personal": {
       "provider": "jev",
-      "host": null,
-      "answer_model": null,
-      "admission_model": null,
-      "judge_model": null
+      "host": "codex",
+      "answer_model": "gpt-6.1-sol",
+      "admission_model": "jev-1.14.0",
+      "judge_model": "gpt-6.1-sol"
     },
     "company": {
       "provider": "subscription-cli",
@@ -30,9 +30,18 @@
       "sha256": "9f13b61bfc28a8686b624d5840bf1e4aad6d75caec11482595066301c5cece23"
     },
     "answer_quality": null,
-    "admission_quality": null,
-    "security": null,
-    "runtime_contract": null,
+    "admission_quality": {
+      "path": "evidence/personal-admission.json",
+      "sha256": "d6e699cb3b24311104908c5a1ad1b74e3b7ce8dc8e235b6bc2c88735f565415d"
+    },
+    "security": {
+      "path": "evidence/personal-security.json",
+      "sha256": "1ee3ceaf7234b0eb0d830dd7bdec6777b14874d72f57a987782b0d09a95d01ae"
+    },
+    "runtime_contract": {
+      "path": "evidence/personal-runtime.json",
+      "sha256": "d0e829972e21cb2e43285b85267e252285be6e035b53c0ba70d09ff963d6fd71"
+    },
     "performance": null,
     "mac_install": null,
     "distribution": null
