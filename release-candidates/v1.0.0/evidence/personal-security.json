@@ -1,0 +1,32 @@
+{
+  "candidate_id": "hindsight-local-v1.0.0-c1",
+  "source_commit": "3c56065e90e30dec8dc1e234301e3efa9cb14082",
+  "source_digest": "41dbd31f354e1c40570a51b3098d861415d34900620aa883609965509eaf9273",
+  "target_version": "1.0.0",
+  "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
+  "admission_patch_sha256": "47aeb4222e2243222a97d424f655fe3cf86f9a4738a8c0f2cacb7076f729ec82",
+  "platform": "Darwin-arm64",
+  "profiles": {
+    "personal": {
+      "actual_provider": true,
+      "provider": "jev",
+      "host": "codex",
+      "model": "jev-1.14.0",
+      "profile_config_sha256": "55a2e7ab1db96a56a9e9dda91a49f0c8432cc23d0bc92dcc962c45ecf15327b9",
+      "checks": {
+        "provenance": true,
+        "project_scope": true,
+        "update_delete": true,
+        "secrets_injection": true
+      },
+      "actual_service": true,
+      "cases": 20,
+      "violations": 0
+    },
+    "company": null
+  },
+  "execution_platform": "Linux-x86_64",
+  "execution_result_sha256": "e95020811d24424cee4c9ce56969644ce6f2491c43a940bb89e9e3e46b53f4c1",
+  "observed_model_calls": 9,
+  "scope": "ASGI handlers +actualenginePG/E5/Jev. Coupled20scenarios; bankscoping notACL; correctionexplicitdelete-retain, notautomatic; noMac/QA proof."
+}

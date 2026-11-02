@@ -227,7 +227,9 @@ def evaluate(root):
         earned = weight if all(v == "통과" for v in states.values()) else 0
         score += earned
         rows.append({"id": key, "label": label, "weight": weight, "earned": earned, **states})
-    return {"candidate": c, "rows": rows, "score": score, "maximum": sum(x[1] for x in CHECKS.values()),
+    profile_scores = {p: sum(row["weight"] for row in rows if row[p] == "통과") for p in PROFILES}
+    return {"candidate": c, "rows": rows, "score": score, "profile_scores": profile_scores,
+            "maximum": sum(x[1] for x in CHECKS.values()),
             "ready": score == 100 and all(row[p] == "통과" for row in rows for p in PROFILES)}
 
 
@@ -239,7 +241,8 @@ def render(result):
              "| 항목 | 배점 | 개인 Jev | 회사 구독 CLI | 획득 |", "| --- | ---: | --- | --- | ---: |"]
     for row in result["rows"]:
         lines.append(f"| {row['label']} | {row['weight']} | {row['personal']} | {row['company']} | {row['earned']} |")
-    lines += ["", f"**현재: {result['score']}/100 · 정식 배포: {'가능' if result['ready'] else '차단'}**", "",
+    lines += ["", f"**공동 출시 점수: {result['score']}/100 · 정식 배포: {'가능' if result['ready'] else '차단'}**",
+              f"개인용 진행: {result['profile_scores']['personal']}/100 · 회사용 진행: {result['profile_scores']['company']}/100.", "",
               "기준·종료 조건·이슈 이관: [출시 계약](README.ko.md). "
               "공통 회귀 결과는 한 번만 배점하며 과거 작은 QA/typed 대역 결과를 실제 프로필 품질로 세지 않는다.", ""]
     return "\n".join(lines)
@@ -257,7 +260,7 @@ def main(argv=None):
             print(render(result), end="")
             return 0
         print(json.dumps({"candidate_id": result["candidate"]["candidate_id"], "score": result["score"],
-                          "maximum": result["maximum"], "ready": result["ready"],
+                          "maximum": result["maximum"], "profile_scores": result["profile_scores"], "ready": result["ready"],
                           "blocked": [r["id"] for r in result["rows"] if r["earned"] != r["weight"]]}))
         return 0 if result["ready"] else 3
     except (KeyError, OSError, TypeError, ValueError, OverflowError):
