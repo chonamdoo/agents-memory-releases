@@ -30,9 +30,18 @@
       "sha256": "68281f4a4fde31c81e5a81b72b493ec162cc3de45a6e4c453360e59cb434476a"
     },
     "answer_quality": null,
-    "admission_quality": null,
-    "security": null,
-    "runtime_contract": null,
+    "admission_quality": {
+      "path": "evidence/personal-admission-c54.json",
+      "sha256": "30680195158fbcadda0f55eb5ab9d548e35d314de4c5945428497bfda9440ec3"
+    },
+    "security": {
+      "path": "evidence/personal-security-c54.json",
+      "sha256": "3e3a723cc246f68ed33720b6204780219f9a7bd9856de77b488a2af4b3510a92"
+    },
+    "runtime_contract": {
+      "path": "evidence/personal-runtime-c54.json",
+      "sha256": "8c3ab7f13a67a834c045fa9da92233311880f58a3ebde237a914a23bbf32f293"
+    },
     "performance": null,
     "mac_install": null,
     "distribution": null

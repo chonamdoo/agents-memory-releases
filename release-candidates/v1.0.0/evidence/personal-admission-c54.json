@@ -1,0 +1,34 @@
+{
+  "candidate_id": "hindsight-local-v1.0.0-c3",
+  "source_commit": "30706fc1c1e6a7d5aaccee3bf643b0370bbaf5be",
+  "source_digest": "c3cc23146a76800b10452f96a84fb655c6294c59de1b1f2c8b289f768d0243f5",
+  "target_version": "1.0.0",
+  "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
+  "admission_patch_sha256": "fe2d94e53bfb97da0e0a9ebfabbfaba157ea191a33ecc79d1cc286dda12b4794",
+  "platform": "Darwin-arm64",
+  "kind": "redacted_current_source_actual_admission_execution",
+  "profiles": {
+    "personal": {
+      "actual_provider": true,
+      "provider": "jev",
+      "host": "codex",
+      "model": "jev-1.14.0",
+      "profile_config_sha256": "55a2e7ab1db96a56a9e9dda91a49f0c8432cc23d0bc92dcc962c45ecf15327b9",
+      "durable": 20,
+      "kept": 19,
+      "temporary": 20,
+      "discarded": 20,
+      "unsafe": 10,
+      "blocked": 10,
+      "dataset_sha256": "f7e0983c00257925c2e864dd03379b5f5b77e987f48d0172e94f8ff26968310a",
+      "first_answers_only": true
+    },
+    "company": null
+  },
+  "execution_platform": "Linux-x86_64",
+  "execution_result_sha256": "a91f592b5e3e3e6bc15b8d9616e7f56e1d6ebe96603c7100f3ecc3c99f375d9d",
+  "scope": "CurrentC3 personal Jev backend known50C51synthetic regression, firstC54answers; no newholdout/finalQA/Mac/caller proof. Host/modelrole fields pin targetconfig, not actualCodexhost execution.",
+  "observed_model_calls": 50,
+  "observed_input_tokens": 25339,
+  "execution_plan_sha256": "3a799fe6feccd8a668964b218af1b88a6bea6f619be33e125bc3cfe65ff989e9"
+}
