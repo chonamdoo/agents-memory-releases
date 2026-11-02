@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Validate public distribution metadata only; never install or execute a runtime."""
+import ast
 import hashlib
 import json
 from pathlib import Path
@@ -12,6 +13,9 @@ PROFILE = ROOT / 'profiles/hindsight-reference'
 FILES = {'CONTENTS_SHA256SUMS','INSTALL.md','LICENSE','MODEL_SHA256SUMS','NOTICES.md',
          'PROGRESS.ko.md','README.ko.md','UPSTREAM.json','VALIDATION.json',
          'hindsight-reference.env.example','mcp.examples.json'}
+HELPER_FILES = {'local.py','e5-assets.sha256.json','claude.mcp.example.json',
+                'codex.mcp.example.toml','coding-agents.recall.example.json',
+                'policy-ko-bank.json','LOCAL.md','POLICY-EXPERIMENT.ko.md'}
 
 def checksums(path):
     result = {}
@@ -31,9 +35,14 @@ def verify_file(root, name, expected):
 
 assert PROFILE.parent.is_dir() and not PROFILE.parent.is_symlink()
 assert PROFILE.is_dir() and not PROFILE.is_symlink()
-assert {p.name for p in PROFILE.iterdir()} == FILES, 'Unexpected profile contents'
 assert all(p.is_file() and not p.is_symlink() and p.stat().st_size < 1024 * 1024
            for p in PROFILE.iterdir()), 'Unexpected payload file type or size'
+validation = json.loads((PROFILE / 'VALIDATION.json').read_bytes())
+helper_preview = validation.get('local_helper_preview')
+if helper_preview is not None:
+    assert helper_preview['schema_version'] == 1
+    FILES |= HELPER_FILES
+assert {p.name for p in PROFILE.iterdir()} == FILES, 'Unexpected profile contents'
 manifest = checksums(PROFILE / 'CONTENTS_SHA256SUMS')
 assert set(manifest) == FILES - {'CONTENTS_SHA256SUMS'}
 for name, expected in manifest.items():
@@ -75,9 +84,31 @@ assert settings['HF_HUB_OFFLINE'] == settings['TRANSFORMERS_OFFLINE'] == '1'
 assert set(settings['HINDSIGHT_API_MCP_ENABLED_TOOLS'].split(',')) == {
     'retain','sync_retain','recall','get_document','delete_document','get_memory',
     'list_memories','list_documents','get_operation','list_operations'}
-validation = json.loads((PROFILE / 'VALIDATION.json').read_bytes())
 assert validation['sota_quality_proven'] is False
 assert validation['runtime_binary_model_database_credentials_or_private_policy_included'] is False
 assert validation['all_host_hooks_verified'] is False
 json.loads((PROFILE / 'mcp.examples.json').read_bytes())
+if helper_preview is not None:
+    import tomllib
+    assert json.loads((PROFILE / 'e5-assets.sha256.json').read_bytes()) == model
+    ast.parse((PROFILE / 'local.py').read_text())  # Parse only; never run the launcher.
+    url = 'http://127.0.0.1:18240/mcp/new-project-reference/'
+    claude = json.loads((PROFILE / 'claude.mcp.example.json').read_bytes())
+    assert claude == {'mcpServers': {'hindsight-reference': {'type': 'http', 'url': url}}}
+    codex = tomllib.loads((PROFILE / 'codex.mcp.example.toml').read_text())
+    assert codex == {'mcp_servers': {'hindsight_reference': {'url': url}}}
+    preset = json.loads((PROFILE / 'policy-ko-bank.json').read_bytes())
+    assert preset == {'updates': {'retain_chunk_size': 800, 'retain_structured_chunk_size': None}}
+    plugin = json.loads((PROFILE / 'coding-agents.recall.example.json').read_bytes())
+    assert plugin['autoInject'] == 'recall' and plugin['manageBankConfig'] is False
+    assert plugin['retainSessions'] is False and plugin['autoUpdate'] is False
+    assert plugin['recallOptions']['types'] == ['world', 'experience']
+    assert helper_preview['default_retain_chunk_size'] == 3000
+    assert helper_preview['shared_database_safe'] is False
+    assert helper_preview['host_configuration_automatically_written'] is False
+    assert settings['HINDSIGHT_API_DATABASE_SCHEMA'] == 'hindsight_reference'
+    assert settings['HINDSIGHT_API_RETAIN_CHUNK_SIZE'] == '3000'
+    assert settings['PYTHON_DOTENV_DISABLED'] == '1'
+    assert validation['experimental_policy_800']['status'] == 'EXPERIMENTAL_UNPROMOTED'
+    assert validation['experimental_policy_800']['candidate_only_strict_qa']['gate_result'] == 'FAIL'
 print('PASS: profile payload, model provenance, reduced-feature contract and legacy installation files')

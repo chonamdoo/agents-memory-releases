@@ -1,0 +1,23 @@
+{
+  "serverMode": "self-hosted",
+  "apiUrl": "http://127.0.0.1:18240",
+  "optInOnly": true,
+  "mapPathToBank": {"/absolute/path/to/project": "new-project-reference"},
+  "autoInject": "recall",
+  "injectTimeoutMs": 7000,
+  "recallOptions": {"types": ["world", "experience"], "budget": "low", "max_tokens": 2000},
+  "retainExtractionMode": "chunks",
+  "manageBankConfig": false,
+  "retainSessions": false,
+  "gitIngest": "none",
+  "codebaseSurvey": false,
+  "pageTriggerType": "manual",
+  "pages": {
+    "Component map": false,
+    "Core concepts": false,
+    "Conventions and patterns": false,
+    "Key decisions and rationale": false,
+    "Initiatives and enhancements": false
+  },
+  "autoUpdate": false
+}

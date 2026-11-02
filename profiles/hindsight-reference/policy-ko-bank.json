@@ -1,0 +1,6 @@
+{
+  "updates": {
+    "retain_chunk_size": 800,
+    "retain_structured_chunk_size": null
+  }
+}
