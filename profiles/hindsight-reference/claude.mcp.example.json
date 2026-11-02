@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "hindsight-reference": {
+      "type": "http",
+      "url": "http://127.0.0.1:18240/mcp/new-project-reference/"
+    }
+  }
+}

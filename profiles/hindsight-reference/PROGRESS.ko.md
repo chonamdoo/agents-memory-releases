@@ -23,3 +23,20 @@
 
 기존 설치에 대한 자동 DB 변환·기존 바이너리 교체·서비스/host hook 변경·새 외부 모델 전송은
 이번 배포가 수행하지 않습니다. 실제 수치는 VALIDATION.json의 profile별 범위와 함께 읽으세요.
+
+
+2026-11-02 공개 자료 업데이트: [guarded local helper](LOCAL.md), 다섯 asset checksum JSON,
+수동 Claude/Codex project MCP 예시와 선택적 recall-only plugin 예시를 추가했습니다.
+Python3.11 이상·공식 기존 설치·새 격리 DB·private cache가 필요합니다. 고정 schema는
+충돌 방어이며 공유 DB 안전성을 보장하지 않습니다. host 설정·데이터 이전은 자동 수행하지 않습니다.
+
+[EXPERIMENTAL 정책800자 집계](POLICY-EXPERIMENT.ko.md)는 검색 source coverage 증가와
+후보 QA24/32의28/32 gate FAIL을 함께 공개합니다. 일반3000자·RRF는 유지합니다.
+Darwin/arm64 CI는 고정 E5 CPU asset만 확인했으며 전체 Mac 제품 검증은 아닙니다.
+같은 알려진 corpus 6문서의 실험 800자 bank 새 16건 consumer-fidelity trial은 독립 strict 16/16,
+유보 4/4·정확한 지지 인용 28/28·unsupported 주장 0입니다. 48 KiB consumer가 공식 응답의
+완전한 미사용 chunk를 모두 전달했을 때의 QA 일관성 결과이며 backend 이득이나 보충 예산의 인과적 QA 개선은 아닙니다. 다른 질문의 원래
+32건 24/32 FAIL을 덮거나 75%→100% 향상으로 해석하지 않습니다. 새 설치 wrapper는 없습니다.
+CE paired capture는 실행상 유효했지만 사전 기준 RRF+2가 RRF 16/16 뒤 불가능하여 CE QA를
+생성하지 않았습니다. 품질 이득 미입증으로 미채택이며 RAM 절약보다 품질을 우선한 판단입니다.
+기존20261027 Native 바이너리·hash와 immutable20261101 tag/asset은 그대로 보존합니다.

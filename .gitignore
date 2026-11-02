@@ -1,6 +1,7 @@
 *.tar.gz
 *.whl
 *.py
+!profiles/hindsight-reference/local.py
 *.pyc
 .env
 *.key

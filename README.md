@@ -1,11 +1,14 @@
 # agents-memory release previews
 
 The new [Hindsight reference preview](profiles/hindsight-reference/README.ko.md) provides tested official
-configuration, manual setup/MCP examples and bounded validation results. It is a **configuration bundle**;
+configuration, a guarded stdlib helper, manual project MCP examples and bounded validation results. It is a **configuration/helper preview**;
 Python/Hindsight/PostgreSQL/model artifacts are separate prerequisites. It is not a replacement macOS binary.
 
 [Download the Hindsight reference prerelease](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v0.1.0-hindsight-reference-preview.20261101).
-SOTA accuracy and recipient-machine/macOS installation remain unproven. Existing Native installers and
+The current [helper instructions](profiles/hindsight-reference/LOCAL.md) and [experimental policy results](profiles/hindsight-reference/POLICY-EXPERIMENT.ko.md)
+are reviewable in this repository; the linked immutable prerelease remains the 20261101 bundle.
+Pinned E5 assets passed a Darwin/arm64 CPU CI smoke; full Hindsight/PostgreSQL and recipient-machine/macOS installation remain unproven.
+SOTA accuracy is unproven. Existing Native installers and
 marketplace entries below keep their 20261027 pinned target and do not switch to Hindsight automatically.
 
 ---

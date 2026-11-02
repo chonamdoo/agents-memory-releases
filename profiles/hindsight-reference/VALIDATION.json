@@ -1,11 +1,9 @@
 {
   "kind": "configuration_and_validation_preview_not_native_binary_upgrade",
-  "date": "2026-11-01",
+  "date": "2026-11-02",
   "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
   "tested_platform": "Linux x86_64, Python3.13, CPU quota4cores",
   "profile": "NoneLLM/chunks/OBSfalse/autoConsolidationfalse/localONNX/RRF",
-  "configuration_example_values_checked": 31,
-  "path_placeholders_requiring_local_values": 2,
   "local_boundary_tests_passed": 6,
   "local_boundary_subtests_passed": 6,
   "reference": {
@@ -65,5 +63,123 @@
   "all_host_hooks_verified": false,
   "new_external_adapters": 0,
   "sota_quality_proven": false,
-  "github_actions_run": false
+  "initial_preview_date": "2026-11-01",
+  "local_helper_preview": {
+    "schema_version": 1,
+    "source_pr": "https://github.com/chonamdoo/agents-memory/pull/51",
+    "source_merge_commit": "48793d2331a501efa51b07fcbb8ceaa0799b35a1",
+    "source_exact_head_ci_run": 41385568603,
+    "source_exact_head_ci_checks_passed": 8,
+    "python_minimum": "3.11",
+    "default_retain_chunk_size": 3000,
+    "check_mode": "asset hashing, settings validation, loopback bind/close only; no connect, DB call, subprocess, installation or download",
+    "start_mode": "explicit foreground exec of preinstalled official API; permits initialization/migration of supplied new isolated DB",
+    "source_pin_verified_by_helper": false,
+    "database_freshness_verified_by_helper": false,
+    "schema": "hindsight_reference",
+    "shared_database_safe": false,
+    "host_configuration_automatically_written": false,
+    "consumer_fidelity_16_trial": "COMPLETED independent Astra strict grade16/16; separate questions and48KiB consumer; see consumer_fidelity_16",
+    "ce_quality_priority_trial": "NO_CE_QA; preregistered RRF+2 positive criterion impossible after RRF16/16; quality gain UNPROVEN; not adopted",
+    "current_reranker": "rrf",
+    "source_merge_ci_run": 41386502280,
+    "source_merge_ci_checks_passed": 8
+  },
+  "apple_silicon_asset_smoke": {
+    "ci_run": 41382015740,
+    "source_head": "5c135c93812cff2864622defe46bacce99861996",
+    "platform": "Darwin arm64 GitHub runner, Python3.12, ONNX Runtime CPUExecutionProvider",
+    "result": "PASS pinned E5 assets only",
+    "full_hindsight_postgresql_product_verified": false,
+    "user_mac_installation_hooks_injection_durability_verified": false,
+    "mac_full_stack_latency_ram_retrieval_quality_proven": false
+  },
+  "experimental_policy_800": {
+    "status": "EXPERIMENTAL_UNPROMOTED",
+    "scope": "fresh separate bank and original-document reingestion only; no global default or migration",
+    "known_development_source_coverage": {
+      "baseline": 4,
+      "candidate": 14,
+      "total": 14
+    },
+    "confirmation_ranked_source_coverage": {
+      "baseline": 6,
+      "candidate": 22,
+      "answerable_total": 24
+    },
+    "candidate_only_strict_qa": {
+      "passed": 24,
+      "total": 32,
+      "minimum": 28,
+      "gate_result": "FAIL"
+    },
+    "correct_unanswerable_abstentions": {
+      "passed": 8,
+      "total": 8
+    },
+    "exact_supported_citations": {
+      "passed": 66,
+      "total": 66
+    },
+    "unsupported_policy_assertions": 0,
+    "baseline_qa_delta_available": false,
+    "new_corpus_holdout": false,
+    "report": "POLICY-EXPERIMENT.ko.md"
+  },
+  "initial_preview_configuration_example_values_checked": 31,
+  "initial_preview_path_placeholders_requiring_local_values": 2,
+  "initial_preview_github_actions_run": false,
+  "consumer_fidelity_16": {
+    "status": "COMPLETED_INDEPENDENT_STRICT_GRADE",
+    "grader": "Astra",
+    "cases": 16,
+    "answerable": 12,
+    "information_absent_unanswerable": 4,
+    "strict_qa_passed": 16,
+    "correct_unanswerable_abstentions": 4,
+    "exact_supported_citations": 28,
+    "total_citations": 28,
+    "unsupported_policy_assertions": 0,
+    "corpus_scope": "six documents from same known87-document corpus; not fresh-corpus holdout",
+    "literal_dated_sync_or_graph_questions": 4,
+    "consumer_budget_bytes": 49152,
+    "primary_budget_bytes": 32768,
+    "supplemental_budget_bytes": 16384,
+    "consumer_evidence": "all complete previously unused chunks already returned by official MCP",
+    "change_scope": "evaluation-consumer fidelity consistency check; not backend retrieval gain, installed wrapper or automatic host-context change",
+    "original_32_strict_qa": "24/32 FAIL against28/32 remains unchanged; different questions; no75%-to-100% improvement claim",
+    "sota_or_full_mac_product_proven": false,
+    "rrf_recall_median_seconds": 0.04546,
+    "rrf_recall_max_seconds": 0.10697,
+    "rrf_run_phase_seconds": 8.001,
+    "run_phase_scope": "includes startup and queries; excludes QA",
+    "rrf_peak_rss_bytes": 814952448,
+    "bank_scope": "EXPERIMENTAL800-character policy bank; not general3000-character default quality validation",
+    "supplemental_budget_caused_qa_improvement_proven": false,
+    "qa_interpretation": "QA consistency observation; no causal QA improvement from supplemental16KiB established",
+    "answerable_strict_qa_passed": 12,
+    "dated_sync_or_graph_questions_are_answerable": true,
+    "absent_cases_are_separate_from_dated_cases": true,
+    "independent_grade_evidence": {
+      "supporting_checks_passed": 768,
+      "report_sha256": "7dc82dc6430c1156353ef7d76bca64364053bd8d53a140332152f6d515b9e81c",
+      "grades_sha256": "252548e6fd2c23e8ee0cdf14aee873ce6098650fc8965045d4d5a7d0f22ddec7",
+      "integrity_sha256": "c11019a23fa93e77782e470ed10db5dc61470d9208fbb2257faa4617c9a2b9fb",
+      "citations_sha256": "a835355e9784861205b851d26cff7e89ed105af94c9725024e5c96ba279b10d6",
+      "disclosure_scope": "logical digests and aggregate only; private raw questions, answers and policy bodies excluded; hashes do not establish public reproducibility"
+    }
+  },
+  "ce_quality_priority_16": {
+    "capture_operationally_valid": true,
+    "recall_median_seconds": 14.0711,
+    "recall_max_seconds": 16.9033,
+    "peak_rss_bytes": 1712435200,
+    "ce_qa_answers_generated": false,
+    "preregistered_positive_criterion": "CE strict QA at least RRF+2; impossible in16cases after RRF16/16",
+    "quality_gain": "UNPROVEN",
+    "adopted": false,
+    "ce_files_or_configuration_added": false,
+    "decision_basis": "insufficient evidence of quality gain; quality takes priority over capacity; not RAM savings",
+    "ce_answer_quality_comparison_available": false
+  }
 }

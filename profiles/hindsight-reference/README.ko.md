@@ -1,6 +1,6 @@
-# Hindsight 경량 reference 프리뷰 — 2026-11-01
+# Hindsight 경량 reference 프리뷰 — 2026-11-02
 
-공식 Hindsight를 문서·명시적 작업 기억 저장소로 사용하는 **설정/검증 자료 배포본**입니다.
+공식 Hindsight를 문서·명시적 작업 기억 저장소로 사용하는 **설정/helper/검증 자료 프리뷰**입니다.
 새 macOS 실행 파일이나 자동 설치기·DB·모델을 포함하지 않습니다. 기존 Native 바이너리는
 별도 20261027 프리뷰이며 이번 설정을 설치한다고 Hindsight로 바뀌지 않습니다.
 
@@ -10,7 +10,11 @@
 자동 사실 추출·관찰 통합·Reflect·mental model 기능은 이 profile에서 제공하지 않습니다.
 
 [누적 개선점·배포 포함 범위](PROGRESS.ko.md), [설치·연결 안내](INSTALL.md), [검증 범위](VALIDATION.json), [공식 source/model 식별](UPSTREAM.json)을
-먼저 확인하세요. GitHub에 게시한 구성 자료이며 운영 서버 전환·기존 데이터 이전은 하지 않습니다.
+먼저 확인하세요. [guarded helper 안내](LOCAL.md), [공개 정책 실험 집계](POLICY-EXPERIMENT.ko.md)와
+[검토된 source PR 51](https://github.com/chonamdoo/agents-memory/pull/51)도 포함합니다.
+`local.py --check`는 로컬 asset·설정·포트만 검사하며 `--start`만 공식 기존 API를 실행합니다.
+Python3.11 이상·공식 고정 Hindsight 설치·새 격리 DB·private cache는 별도 준비해야 합니다.
+새 API key·GGUF·Jev bridge·host 자동 설정은 필요하지 않습니다. GitHub에 게시한 구성 자료이며 운영 서버 전환·기존 데이터 이전은 하지 않습니다.
 
 | 확인한 개선/기능 | 실제 결과 | 해석 범위 |
 |---|---|---|
@@ -32,5 +36,20 @@ Vercel Eve, AgentZero/OpenWebUI 등의 실제 통합을 대조했습니다. 공�
 전체 GitHub 전수조사를 뜻하지 않습니다. 공식 Hindsight 자체와 필수 의존성은 별도로 설치합니다.
 
 Hindsight 이미지94.6%, 논문 v1의91.4%, 이번 known-case5/5는 모델·평가 조건이 다릅니다.
-**SOTA 정확도, 모든 실제 host hook, 다중 사용자 ACL, 전원 장애 복구, macOS 실행은 미입증입니다.**
+고정 E5 asset은 Darwin/arm64 CI의 CPU smoke를 통과했습니다. 전체 Hindsight/PostgreSQL,
+사용자 Mac 설치·hook·주입·내구성·latency·RAM·검색 품질은 확인하지 않았습니다.
+**SOTA 정확도, 모든 실제 host hook, 다중 사용자 ACL, 전원 장애 복구, 전체 macOS 제품 실행은 미입증입니다.**
 자동 전체 대화 업로드·외부 모델 호출·기존 Native DB 변환을 수행하는 도구는 포함하지 않습니다.
+
+
+800자 정책 preset은 **EXPERIMENTAL**이며 fresh 별도 bank·원문 재ingest에만 적용합니다.
+알려진 개발14문항의 source coverage4/14→14/14, 같은 corpus의 새32문항 중 답변 가능
+24건 source coverage6/24→22/24였지만, 후보 strict QA24/32는28/32 gate에 **FAIL**했습니다.
+8/8 유보·66/66 지지 인용·unsupported 주장0이 완전한 답변을 보장하지 않습니다.
+일반 기본 3000·RRF를 유지합니다. 같은 알려진 corpus 6문서의 실험 800자 bank에서 별도 새 16문항을 확인했을 때
+48 KiB consumer가 공식 반환 chunk를 완전하게 사용했고 독립 strict 16/16, 유보 4/4,
+지지 인용 28/28, unsupported 주장 0을 확인했습니다. 이는 consumer 충실도 확인이며
+backend 이득·보충 예산의 인과적 QA 개선이나 서로 다른 질문의 75%→100% 향상 점수가 아닙니다. 원래 32문항 FAIL은 유지합니다.
+CE QA는 수행하지 않아 품질 이득이 미입증이며 채택하지 않았습니다. RAM 절약이 선택 근거가 아닙니다.
+[새 16건의 범위와 CE 제한](POLICY-EXPERIMENT.ko.md)을 함께 확인하세요.
+기존 immutable tag `v0.1.0-hindsight-reference-preview.20261101`과 asset은 변경하지 않습니다.
