@@ -1,0 +1,80 @@
+{
+  "kind": "historical_candidate_snapshot_not_active_gate_input",
+  "evidence_paths_relative_to": "release-candidates/v1.0.0",
+  "historical_profile_scores_before_new_counterexample": {
+    "personal": 50,
+    "company": 15
+  },
+  "profile_scores_after_security_withdrawal": {
+    "personal": 35,
+    "company": 15
+  },
+  "joint_score": 15,
+  "candidate_snapshot": {
+    "schema_version": 1,
+    "candidate_id": "hindsight-local-v1.0.0-c1",
+    "target_version": "1.0.0",
+    "source_repository": "chonamdoo/agents-memory",
+    "source_commit": "3c56065e90e30dec8dc1e234301e3efa9cb14082",
+    "source_digest": "41dbd31f354e1c40570a51b3098d861415d34900620aa883609965509eaf9273",
+    "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
+    "admission_patch_sha256": "47aeb4222e2243222a97d424f655fe3cf86f9a4738a8c0f2cacb7076f729ec82",
+    "platform": "Darwin-arm64",
+    "profiles": {
+      "personal": {
+        "provider": "jev",
+        "host": "codex",
+        "answer_model": "gpt-6.1-sol",
+        "admission_model": "jev-1.14.0",
+        "judge_model": "gpt-6.1-sol"
+      },
+      "company": {
+        "provider": "subscription-cli",
+        "host": "codex",
+        "answer_model": "gpt-6.1-sol",
+        "admission_model": "gpt-6.1-sol",
+        "judge_model": "gpt-6.1-sol"
+      }
+    },
+    "evidence": {
+      "core_regression": {
+        "path": "evidence/core-regression.json",
+        "sha256": "9f13b61bfc28a8686b624d5840bf1e4aad6d75caec11482595066301c5cece23"
+      },
+      "answer_quality": null,
+      "admission_quality": {
+        "path": "evidence/personal-admission.json",
+        "sha256": "d6e699cb3b24311104908c5a1ad1b74e3b7ce8dc8e235b6bc2c88735f565415d"
+      },
+      "security": {
+        "path": "evidence/security-withdrawal-c52.json",
+        "sha256": "044cdbebc3e6dd76abdac69c95823454deacc2bc63db6f71a87185ac65ae2c87"
+      },
+      "runtime_contract": {
+        "path": "evidence/personal-runtime.json",
+        "sha256": "d0e829972e21cb2e43285b85267e252285be6e035b53c0ba70d09ff963d6fd71"
+      },
+      "performance": null,
+      "mac_install": null,
+      "distribution": null
+    },
+    "stopping": {
+      "max_new_candidates": 3,
+      "max_confirmation_runs": 1,
+      "stop_after_consecutive_no_gain": 2
+    },
+    "release_repository": "chonamdoo/agents-memory-releases",
+    "release_prerelease": false,
+    "release_draft": false,
+    "runtime_profile": {
+      "extraction": "chunks",
+      "retain_chunk_size": 3000,
+      "observations": false,
+      "auto_consolidation": false,
+      "embedding_model": "intfloat/multilingual-e5-small",
+      "embedding_revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+      "reranker": "rrf",
+      "context_max_bytes": 49152
+    }
+  }
+}

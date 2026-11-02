@@ -1,0 +1,28 @@
+{
+  "candidate_id": "hindsight-local-v1.0.0-c1",
+  "source_commit": "3c56065e90e30dec8dc1e234301e3efa9cb14082",
+  "source_digest": "41dbd31f354e1c40570a51b3098d861415d34900620aa883609965509eaf9273",
+  "target_version": "1.0.0",
+  "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
+  "admission_patch_sha256": "47aeb4222e2243222a97d424f655fe3cf86f9a4738a8c0f2cacb7076f729ec82",
+  "platform": "Darwin-arm64",
+  "kind": "readiness_withdrawal_not_new_aggregate_execution",
+  "observed_at": "2026-11-03",
+  "profiles": {
+    "personal": {
+      "readiness_withdrawn": true,
+      "reason": "Supported Hindsight key pattern is not excluded before private outbox; synthetic reproduction; no external transmission observed."
+    },
+    "company": null
+  },
+  "previous_execution_receipt": {
+    "path": "evidence/personal-security.json",
+    "sha256": "1ee3ceaf7234b0eb0d830dd7bdec6777b14874d72f57a987782b0d09a95d01ae",
+    "historical_cases_passed": 20
+  },
+  "counterexample_sha256": "c4c343f5fad2b68c3c1b4aa6074e4bd3d725dc88b98f405d5145368cdba99a4c",
+  "capture_guard_identical_c1_c2": true,
+  "network_calls_in_counterexample": 0,
+  "model_calls_in_counterexample": 0,
+  "scope": "C51 backend20casesremainvalidhistorically; currentreadinesswithdrawn pendingcapturefix andnewcandidateverification, notQAregression."
+}
