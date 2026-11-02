@@ -1,4 +1,14 @@
-# agents-memory release previews
+# agents-memory releases
+
+[정식 v1.0.0 출시 점수표](release-candidates/v1.0.0/SCORECARD.ko.md) ·
+[출시 후보·필수 조건·종료 기준](release-candidates/v1.0.0/README.ko.md)
+
+The selected stable candidate is the local, single-user Hindsight integration: personal Jev or
+company subscription CLI. Stable publication requires all evidence gates for both profiles
+(100/100 readiness points). It is currently blocked; no stable v1.0.0 has been published.
+Readiness points are not QA accuracy or a SOTA score. Earlier previews below remain unchanged.
+
+# Existing previews
 
 The new [Hindsight reference preview](profiles/hindsight-reference/README.ko.md) provides tested official
 configuration, a guarded stdlib helper, manual project MCP examples and bounded validation results. It is a **configuration/helper preview**;

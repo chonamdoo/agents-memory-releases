@@ -2,6 +2,8 @@
 *.whl
 *.py
 !profiles/hindsight-reference/local.py
+!tools/stable_release_gate.py
+!tools/test_stable_release_gate.py
 *.pyc
 .env
 *.key

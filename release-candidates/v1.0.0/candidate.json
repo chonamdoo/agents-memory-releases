@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "candidate_id": "hindsight-local-v1.0.0-c1",
+  "target_version": "1.0.0",
+  "source_repository": "chonamdoo/agents-memory",
+  "source_commit": "3c56065e90e30dec8dc1e234301e3efa9cb14082",
+  "source_digest": "41dbd31f354e1c40570a51b3098d861415d34900620aa883609965509eaf9273",
+  "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
+  "admission_patch_sha256": "47aeb4222e2243222a97d424f655fe3cf86f9a4738a8c0f2cacb7076f729ec82",
+  "platform": "Darwin-arm64",
+  "profiles": {
+    "personal": {
+      "provider": "jev",
+      "host": null,
+      "answer_model": null,
+      "admission_model": null,
+      "judge_model": null
+    },
+    "company": {
+      "provider": "subscription-cli",
+      "host": null,
+      "answer_model": null,
+      "admission_model": null,
+      "judge_model": null
+    }
+  },
+  "evidence": {
+    "core_regression": {
+      "path": "evidence/core-regression.json",
+      "sha256": "9f13b61bfc28a8686b624d5840bf1e4aad6d75caec11482595066301c5cece23"
+    },
+    "answer_quality": null,
+    "admission_quality": null,
+    "security": null,
+    "runtime_contract": null,
+    "performance": null,
+    "mac_install": null,
+    "distribution": null
+  },
+  "stopping": {
+    "max_new_candidates": 3,
+    "max_confirmation_runs": 1,
+    "stop_after_consecutive_no_gain": 2
+  },
+  "release_repository": "chonamdoo/agents-memory-releases",
+  "release_prerelease": false,
+  "release_draft": false,
+  "runtime_profile": {
+    "extraction": "chunks",
+    "retain_chunk_size": 3000,
+    "observations": false,
+    "auto_consolidation": false,
+    "embedding_model": "intfloat/multilingual-e5-small",
+    "embedding_revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+    "reranker": "rrf",
+    "context_max_bytes": 49152
+  }
+}
