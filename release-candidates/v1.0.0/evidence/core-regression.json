@@ -1,0 +1,25 @@
+{
+  "candidate_id": "hindsight-local-v1.0.0-c1",
+  "source_commit": "3c56065e90e30dec8dc1e234301e3efa9cb14082",
+  "source_digest": "41dbd31f354e1c40570a51b3098d861415d34900620aa883609965509eaf9273",
+  "target_version": "1.0.0",
+  "kind": "redacted_local_execution_attestation_not_QA_score",
+  "observed_at": "2026-11-02",
+  "source_pr": "https://github.com/chonamdoo/agents-memory/pull/57",
+  "metrics": {
+    "passed": 225,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "phases_passed": 675,
+    "complete": true,
+    "source_digest_before": "41dbd31f354e1c40570a51b3098d861415d34900620aa883609965509eaf9273",
+    "source_digest_after": "41dbd31f354e1c40570a51b3098d861415d34900620aa883609965509eaf9273",
+    "original_receipt_sha256": "624222db9d232d469fd1a5f1c3dbb2fdd27b9c76e977dd0cfa2dc6840993aa91"
+  },
+  "scope": "225 distinct local tests in four focused source files; no new macOS/real-provider QA proof. Target version names planned release, not a claim this receipt tested final1.0.0 packaging.",
+  "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
+  "admission_patch_sha256": "47aeb4222e2243222a97d424f655fe3cf86f9a4738a8c0f2cacb7076f729ec82",
+  "platform": "Darwin-arm64"
+}
