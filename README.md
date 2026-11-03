@@ -14,7 +14,12 @@ verification continues after publication. This score does not establish SOTA per
 
 ## Hindsight local v1.0.0
 
-[Download the stable local release](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.0) ·
+**Publication pending:** the final artifact and virtual100 validation are complete, but the
+current build environment blocks `uploads.github.com` (proxy CONNECT 403). The failed upload
+did not publish v1.0.0. Its network allowlist update must take effect before asset upload resumes.
+Existing previews remain available. No empty stable release is substituted for the tested artifact.
+
+[Stable release target (available after publication)](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.0) ·
 [설치 안내](distribution/hindsight-local/README.ko.md) ·
 [릴리즈 노트](release-candidates/v1.0.0/RELEASE-NOTES.ko.md) ·
 [최종 배포물 검증](release-candidates/v1.0.0/ARTIFACT-VERIFICATION.json).
