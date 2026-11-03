@@ -8,9 +8,13 @@
 - 본문 없는 현재 사용량과 반복 실패를 기록하고 수동 조언을 제공합니다. 비용·구독 쿼터 절감률을 만들어내지 않습니다. 자동 도구 삭제·stop 강제·host 설정 수정은 없습니다.
 - Jev/Claude/Codex 선택, 모델·키·프로젝트 설정을 업데이트 시 유지합니다. 새 설치 추천은 Claude Sonnet 5.5 / GPT-6.1 Terra이며 자동 모델 변경은 없습니다.
 
+[검증 결과](https://github.com/chonamdoo/agents-memory-releases/blob/main/release-candidates/v1.0.2/VERIFICATION.json) · [아스트라 검토](https://github.com/chonamdoo/agents-memory-releases/blob/main/release-candidates/v1.0.2/ADVERSARIAL-REVIEW.ko.md)
+
 [기록·사용량 기능 사용법](https://github.com/chonamdoo/agents-memory-releases/blob/main/distribution/hindsight-local/HISTORY.ko.md)
 
 1.0.0 컴파일 기반 코어를 재사용하고 새 기능 3개를 양 플랫폼 바이너리 확장으로 추가했습니다. private Python 원본·bytecode·생성 C는 배포하지 않습니다. Apple Silicon macOS 13 이상이 제품 대상이며 Linux는 명시적인 검증 경로입니다. macOS 바이너리는 교차 빌드와 구조·ad hoc 서명 해시를 검사했으며 Mac 기기 실행·Developer ID·공증은 검증하지 않았습니다.
+
+검증: 전체 로컬 CI **5,059개 통과**, 신규 기록 기능은 소스·설치된 바이너리에서 각각 41개 통과, 공개 wrapper/gate 검사 48개와 하위 검사 62개 통과. 실제 Claude Sonnet 5.5와 Codex GPT-6.1 Terra로 후보 분석·명시적 저장·E5/RRF 검색·정확한 문서 삭제를 확인했습니다. 합성 이력만 사용했으며 실제 사용자 대화는 읽지 않았습니다. 단일 합성 흐름으로 모델 품질이나 비용 절감률을 주장하지 않습니다.
 
 GitHub Actions는 실행하지 않으며 2026-12-01까지 보류합니다. 이전 버전 점수표를 이번 버전 검증으로 재사용하지 않습니다. Jev 키 처리는 합성 키로 검증하며 실제 Jev API 호출은 하지 않습니다.
 
