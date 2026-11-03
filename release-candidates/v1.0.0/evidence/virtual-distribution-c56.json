@@ -1,0 +1,65 @@
+{
+  "candidate_id": "hindsight-local-v1.0.0-c3",
+  "source_commit": "30706fc1c1e6a7d5aaccee3bf643b0370bbaf5be",
+  "source_digest": "c3cc23146a76800b10452f96a84fb655c6294c59de1b1f2c8b289f768d0243f5",
+  "target_version": "1.0.0",
+  "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
+  "admission_patch_sha256": "fe2d94e53bfb97da0e0a9ebfabbfaba157ea191a33ecc79d1cc286dda12b4794",
+  "platform": "Darwin-arm64",
+  "track": "virtual",
+  "execution_kind": "final_artifact_validation",
+  "execution_platform": "Linux-x86_64",
+  "model_quality_claim": false,
+  "execution_result_sha256": "faa88dbea585df506ee74c0294649a1e034361ef0f7f14011d7042a39b0ae6b8",
+  "metrics": {
+    "checks": {
+      "clean_install_without_checkout": true,
+      "instructions": true,
+      "rollback": true,
+      "licenses": true,
+      "checksums": true,
+      "sbom": true
+    },
+    "artifact_version": "1.0.0",
+    "artifact_source_commit": "30706fc1c1e6a7d5aaccee3bf643b0370bbaf5be",
+    "platform": "Darwin-arm64",
+    "prerelease": false,
+    "draft": false,
+    "assets": [
+      {
+        "name": "ARTIFACT-VERIFICATION.json",
+        "bytes": 7779,
+        "sha256": "faa88dbea585df506ee74c0294649a1e034361ef0f7f14011d7042a39b0ae6b8"
+      },
+      {
+        "name": "BUILD.json",
+        "bytes": 7520,
+        "sha256": "a918ed000e9d19e3fd06bcd4db4bb70a37c932585603f8538255e514f32a7bd0"
+      },
+      {
+        "name": "INSTALL.ko.md",
+        "bytes": 7302,
+        "sha256": "70f3f4fd921c982070b9acec9e27bde0752998412759bda5d64c9179bb2c94fb"
+      },
+      {
+        "name": "SBOM.json",
+        "bytes": 315586,
+        "sha256": "118db8d97ce152eff14ada79a58e25e972e2f799f1ea8ca4bc7d8078cfb77c48"
+      },
+      {
+        "name": "SHA256SUMS",
+        "bytes": 109,
+        "sha256": "6a5917767d0363c5473260b3dabd59245ea7f14d25dfcedeeb82d23dce0b6866"
+      },
+      {
+        "name": "agents-memory-hindsight-local-1.0.0.tar.gz",
+        "bytes": 154172731,
+        "sha256": "43a8128f2c751ce74d791fd8f29d983a6620381e8a986317714adcc626a5470b"
+      }
+    ],
+    "private_source_published": false,
+    "private_core_excluded": true,
+    "artifact_inspection_sha256": "db4735576d77631a03fd493c46375775e8bafa2ff3c2eb639f8d4d0699a5a807"
+  },
+  "scope": "Inspected final immutable archive; fresh source-denied Linux installation with explicit validation switch; target Mac ABI/signature static checks. Actual Mac/account tests remain after release."
+}

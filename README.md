@@ -7,9 +7,30 @@
 The user-selected policy is stable publication after virtual readiness reaches 100/100;
 real-environment verification continues after release. Virtual tests use explicit model-output
 doubles and do not establish actual account/CLI/macOS/model quality or SOTA performance.
-The current virtual score is 90/100, pending the inspected final public artifact. Actual progress
-is personal 50 / company 15 / joint 15. No stable v1.0.0 has been published. Private test wheels are
-not public release assets; existing previews and automatic install targets remain unchanged.
+The virtual release score is **100/100**, including the inspected final compiled artifact,
+fresh isolated installation, provider/configuration preservation and application rollback.
+Actual progress is personal 50 / company 15 / joint 15; actual macOS/account/model-quality
+verification continues after publication. This score does not establish SOTA performance.
+
+## Hindsight local v1.0.0
+
+[Download the stable local release](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.0) ·
+[설치 안내](distribution/hindsight-local/README.ko.md) ·
+[릴리즈 노트](release-candidates/v1.0.0/RELEASE-NOTES.ko.md) ·
+[최종 배포물 검증](release-candidates/v1.0.0/ARTIFACT-VERIFICATION.json).
+
+The production target is Apple Silicon macOS 13 or later, local only. The installer asks
+**Jev / local LLM (your subscribed Codex CLI)** and preserves that choice on upgrades.
+It bundles Python and the pinned E5 assets, installs hash-locked Hindsight dependencies,
+and keeps private memory implementation as compiled extensions. A separately provisioned
+local PostgreSQL/pgvector database and your selected provider login remain prerequisites.
+The bundled Linux path is for explicit virtual validation, not cloud/Linux production support.
+macOS execution and real account QA are not claimed; binaries have ad hoc signatures and
+no Developer ID/notarization. Public wrappers and licensed upstream Hindsight sources are
+included; raw private Python, bytecode and generated C are excluded.
+
+Existing Native previews, marketplace plugins and their pinned automatic installers below
+remain separate. This release does not automatically migrate their data or replace their commands.
 
 # Existing previews
 
