@@ -1,0 +1,9 @@
+{
+  "anonymous_http_download": true,
+  "parts": 19,
+  "all_parts_hash_verified": true,
+  "recombined_sha256": "3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34",
+  "exact_archive_manifest_verified": true,
+  "version": "1.0.2",
+  "credential_headers_sent": false
+}

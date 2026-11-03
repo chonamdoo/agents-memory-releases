@@ -157,5 +157,14 @@
   "harness_notes": [
     "Recently closed ports were refused by preflight; independent unused ports were selected.",
     "Codex stale login was refused with 401; successful fresh authenticated test is recorded separately after user login."
-  ]
+  ],
+  "anonymous_download_verification": {
+    "anonymous_http_download": true,
+    "parts": 19,
+    "all_parts_hash_verified": true,
+    "recombined_sha256": "3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34",
+    "exact_archive_manifest_verified": true,
+    "version": "1.0.2",
+    "credential_headers_sent": false
+  }
 }
