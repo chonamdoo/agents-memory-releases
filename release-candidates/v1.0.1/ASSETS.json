@@ -1,0 +1,9 @@
+{
+  "version": "1.0.1",
+  "archive": "agents-memory-hindsight-local-1.0.1.tar.gz",
+  "archive_bytes": 154011708,
+  "sha256": "8b3aaa874baec86afd4ab87b7e8e6558a8f9a3323df616f0fcd83d7f7885fd9a",
+  "parts": 19,
+  "compiled_core_version": "1.0.0",
+  "private_source_or_bytecode_shipped": false
+}

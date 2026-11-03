@@ -2,13 +2,11 @@
 from __future__ import annotations
 
 import argparse
-from contextlib import contextmanager
 import fcntl
 import getpass
 import hashlib
 import json
 import os
-from pathlib import Path
 import platform
 import re
 import shlex
@@ -19,11 +17,14 @@ import sys
 import tarfile
 import uuid
 import warnings
+from contextlib import contextmanager
+from pathlib import Path
 
 PRODUCT = "agents-memory-hindsight-local"
 DEFAULT_PREFIX = Path.home() / ".local/share/agents-memory-hindsight"
 MODEL = re.compile(r"[A-Za-z0-9][A-Za-z0-9_./:-]{0,127}\Z")
 JEV_KEY_ENV = "HINDSIGHT_API_MEMORY_ADMISSION_API_KEY"
+MODELS = {"claude": "claude-sonnet-5-5", "codex": "gpt-6.1-terra"}
 
 
 def digest(path):
@@ -93,7 +94,8 @@ def pending_jev_credential(prefix, profile):
 
 def profile_valid(value):
     required = {"schema_version", "deployment", "provider", "model", "codex_executable", "subscription_workdir", "api_port", "worker_port"}
-    if (not isinstance(value, dict) or set(value) != required or type(value["schema_version"]) is not int or value["schema_version"] != 1
+    if (not isinstance(value, dict) or not required <= set(value) or set(value) - required - {"subscription_host"}
+            or type(value["schema_version"]) is not int or value["schema_version"] != 1
             or value["deployment"] != "local" or value["provider"] not in {"jev", "local-llm"}
             or not isinstance(value["model"], str) or not MODEL.fullmatch(value["model"])
             or any(type(value[k]) is not int or not 1024 <= value[k] <= 65535 for k in ("api_port", "worker_port"))
@@ -106,12 +108,14 @@ def profile_valid(value):
         raise ValueError("Jev profile cannot contain a subscription route")
     if value["provider"] == "local-llm" and not value["subscription_workdir"]:
         raise ValueError("Subscription workdir is missing")
+    if value.get("subscription_host", "codex") not in MODELS:
+        raise ValueError("Choose Claude or Codex")
     return value
 
 
 def verify_bundle(bundle):
     manifest = json.loads((bundle / "MANIFEST.json").read_bytes())
-    if manifest.get("product") != PRODUCT or manifest.get("version") != "1.0.0":
+    if manifest.get("product") != PRODUCT or manifest.get("version") != "1.0.1":
         raise ValueError("Unexpected product/version")
     files = manifest["files"]
     observed = set()
@@ -182,7 +186,7 @@ def select_profile(args, prefix):
     path = prefix / "settings/profile.json"
     if path.exists():
         value = profile_valid(read_private(path))
-        if any(getattr(args, k) is not None for k in ("provider", "model", "codex")):
+        if any(getattr(args, k, None) is not None for k in ("provider", "model", "codex", "host", "executable")):
             raise ValueError("Existing profile is preserved; use the explicit configure command to change it")
         return value
     provider = args.provider
@@ -190,18 +194,38 @@ def select_profile(args, prefix):
         if not sys.stdin.isatty():
             raise ValueError("First install requires --provider jev or --provider local-llm")
         print("저장 판단에 사용할 LLM을 선택하세요. 배포 방식은 로컬입니다.")
-        answer = input("1) Jev  2) 로컬 LLM (구독 중인 Codex): ").strip()
+        answer = input("1) Jev  2) 구독 중인 LLM: ").strip()
         provider = {"1": "jev", "2": "local-llm"}.get(answer)
         if provider is None:
             raise ValueError("Select 1 or 2")
     workdir = prefix / "settings/subscription-workdir"
     workdir.mkdir(parents=True, mode=0o700, exist_ok=True)
-    executable = args.codex or shutil.which("codex")
-    return profile_valid({"schema_version": 1, "deployment": "local", "provider": provider,
-        "model": args.model or ("jev-1.14.0" if provider == "jev" else "gpt-6.1-sol"),
+    host = getattr(args, "host", None) or ("codex" if args.codex else None)
+    if provider == "local-llm" and host is None:
+        if sys.stdin.isatty():
+            host = input("구독 CLI [claude / codex]: ").strip().lower()
+        else:
+            raise ValueError("Pass --host claude or --host codex")
+    if provider == "local-llm" and host not in MODELS:
+        raise ValueError("Choose Claude or Codex")
+    if provider == "jev" and (host or args.codex or getattr(args, "executable", None)):
+        raise ValueError("Jev does not use a subscription executable")
+    if host == "claude" and args.codex:
+        raise ValueError("Use --executable for Claude")
+    executable = getattr(args, "executable", None) or args.codex or (shutil.which(host) if host else None)
+    model = args.model
+    if provider == "local-llm" and model is None:
+        if sys.stdin.isatty():
+            model = input(f"추천 모델 {MODELS[host]} [Enter로 선택 / 다른 ID 입력]: ").strip()
+        model = model or MODELS[host]
+    value = {"schema_version": 1, "deployment": "local", "provider": provider,
+        "model": model or "jev-1.14.0",
         "codex_executable": str(Path(executable).absolute()) if provider == "local-llm" and executable else None,
         "subscription_workdir": str(workdir) if provider == "local-llm" else None,
-        "api_port": 18250, "worker_port": 18251})
+        "api_port": 18250, "worker_port": 18251}
+    if host:
+        value["subscription_host"] = host
+    return profile_valid(value)
 
 
 def activate(prefix, install_id):
@@ -299,6 +323,8 @@ def main(argv=None):
     parser.add_argument("--provider", choices=("jev", "local-llm"))
     parser.add_argument("--model")
     parser.add_argument("--codex")
+    parser.add_argument("--host", choices=("claude", "codex"))
+    parser.add_argument("--executable", help="Existing signed-in selected CLI executable")
     parser.add_argument("--virtual-linux", action="store_true", help="Linux validation only; not production support")
     parser.add_argument("--wheelhouse", type=Path, help="Optional hash-verified offline dependency wheel directory")
     parser.add_argument("--rollback", action="store_true")

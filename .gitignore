@@ -14,3 +14,5 @@
 *.token
 build/
 private/
+
+!tools/tests/test_local_provider_settings.py

@@ -13,16 +13,15 @@ if __name__ == "__main__" and len(sys.argv) > 1 and sys.argv[1] == "hook":
         raise SystemExit(130)
 
 import argparse
-from contextlib import contextmanager
 import hashlib
 import http.client
 import importlib.util
 import json
 import os
-from pathlib import Path
-import re
 import shlex
 import subprocess
+from contextlib import contextmanager
+from pathlib import Path
 
 PAYLOAD = Path(__file__).resolve().parent
 INSTALL = PAYLOAD.parent
@@ -120,6 +119,7 @@ def project(args, selected):
 
 def bank_init(config, selected):
     from argparse import Namespace
+
     from agents_memory.hindsight_hook import load_config
     item = load_config(config)
     if item.host != "127.0.0.1" or item.port != selected["api_port"]:
@@ -128,7 +128,7 @@ def bank_init(config, selected):
     from _agents_memory_release import local
     args = Namespace(install_mode="personal" if selected["provider"] == "jev" else "company",
         judge_model=selected["model"], patched_package=str(vendor),
-        subscription_host="codex" if selected["provider"] == "local-llm" else None,
+        subscription_host=selected.get("subscription_host", "codex") if selected["provider"] == "local-llm" else None,
         subscription_executable=selected["codex_executable"], subscription_workdir=selected["subscription_workdir"],
         asset_dir=str(PAYLOAD / "models/e5-small"), host="127.0.0.1", api_port=selected["api_port"],
         worker_port=selected["worker_port"], bank=item.bank, hindsight_api=str(INSTALL / "venv/bin/hindsight-api"))
@@ -172,8 +172,8 @@ def serve(args, selected):
         "--judge-model", selected["model"], "--patched-package", str(vendor)]
     if selected["provider"] == "local-llm":
         if not selected["codex_executable"]:
-            raise ValueError("Configure an existing signed-in Codex executable first")
-        command.extend(["--subscription-host", "codex", "--subscription-executable", selected["codex_executable"],
+            raise ValueError("Configure an existing signed-in selected CLI executable first")
+        command.extend(["--subscription-host", selected.get("subscription_host", "codex"), "--subscription-executable", selected["codex_executable"],
                         "--subscription-workdir", selected["subscription_workdir"]])
     with provider_environment(selected):
         return local.main(command)
@@ -185,19 +185,33 @@ def configure(args, selected):
         if args.provider:
             value["provider"] = args.provider
             if args.provider != selected["provider"]:
-                value["model"] = "jev-1.14.0" if args.provider == "jev" else "gpt-6.1-sol"
+                value["model"] = "jev-1.14.0" if args.provider == "jev" else installer.MODELS[value.get("subscription_host", "codex")]
+        host = getattr(args, "host", None)
+        executable_argument = getattr(args, "executable", None) or args.codex
+        if host:
+            if value["provider"] != "local-llm":
+                raise ValueError("Select subscription mode before selecting its CLI")
+            if host == "claude" and args.codex:
+                raise ValueError("Use --executable for Claude")
+            if host != value.get("subscription_host", "codex"):
+                value["model"] = installer.MODELS[host]
+                resolved = executable_argument or installer.shutil.which(host)
+                if not resolved:
+                    raise ValueError("Install and sign in to the selected CLI first")
+                value["codex_executable"] = str(Path(resolved).resolve(strict=True))
+            value["subscription_host"] = host
         if args.model:
             value["model"] = args.model
         if value["provider"] == "jev":
-            if args.codex:
-                raise ValueError("Jev profile does not accept a Codex path")
+            if executable_argument:
+                raise ValueError("Jev profile does not accept a subscription path")
             value.update(codex_executable=None, subscription_workdir=None)
         else:
             workdir = PREFIX / "settings/subscription-workdir"
             workdir.mkdir(parents=True, mode=0o700, exist_ok=True)
             value["subscription_workdir"] = str(workdir)
-            if args.codex:
-                executable = Path(args.codex).expanduser().resolve(strict=True)
+            if executable_argument:
+                executable = Path(executable_argument).expanduser().resolve(strict=True)
                 if not executable.is_file() or not os.access(executable, os.X_OK):
                     raise ValueError("Codex must be an existing executable")
                 value["codex_executable"] = str(executable)
@@ -238,11 +252,14 @@ def main(argv=None):
     c.add_argument("--provider", choices=("jev", "local-llm"))
     c.add_argument("--model")
     c.add_argument("--codex")
+    c.add_argument("--host", choices=("claude", "codex"))
+    c.add_argument("--executable")
     c.add_argument("--jev-key", action="store_true", help="Replace the saved Jev key through hidden terminal input")
     args = parser.parse_args(argv)
     if args.version:
         from agents_memory import __version__
-        print("agents-memory Hindsight local " + __version__)
+        release = json.loads((PAYLOAD / "MANIFEST.json").read_bytes())["version"]
+        print("agents-memory Hindsight local " + release + " (core " + __version__ + ")")
         return 0
     selected = profile()
     if args.command == "profile":

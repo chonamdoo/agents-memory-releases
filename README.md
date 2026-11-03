@@ -1,5 +1,12 @@
 # agents-memory releases
 
+## 최신 패치 1.0.1
+
+[로컬 설치 파일 받기](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.1) · [설치·업데이트 안내](distribution/hindsight-local/README.ko.md)
+
+Jev 키 숨김 입력과 업데이트 시 provider·모델·키·프로젝트 설정 보존을 확인했습니다. 새 구독 설치는 Claude Sonnet 5.5 또는 Codex GPT-6.1 Terra를 선택합니다. 기존 설정은 자동 변경하지 않습니다. 컴파일 코어는 1.0.0과 동일한 공개 installer/wrapper 패치입니다. Actions는 실행하지 않았습니다. 아래 1.0.0 자료와 점수표는 해당 버전의 역사적 기록입니다.
+
+
 [가상 출시 점수표](release-candidates/v1.0.0/RELEASE-READINESS.ko.md) ·
 [실환경 추후 검증](release-candidates/v1.0.0/SCORECARD.ko.md) ·
 [두 단계 출시 정책](release-candidates/v1.0.0/README.ko.md)
