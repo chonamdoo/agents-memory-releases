@@ -14,15 +14,48 @@ verification continues after publication. This score does not establish SOTA per
 
 ## Hindsight local v1.0.0
 
-**Publication pending:** the final artifact and virtual100 validation are complete, but the
-current build environment blocks `uploads.github.com` (proxy CONNECT 403). The failed upload
-did not publish v1.0.0. Its network allowlist update must take effect before asset upload resumes.
-Existing previews remain available. No empty stable release is substituted for the tested artifact.
+**Publication pending:** the final artifact and virtual100 validation are complete. Network
+access to GitHub's upload server is enabled, but asset upload currently returns HTTP 401 with
+the build environment's existing authentication. v1.0.0 is not yet public. Existing previews
+remain available while publisher upload authentication is prepared.
 
 [Stable release target (available after publication)](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.0) ·
 [설치 안내](distribution/hindsight-local/README.ko.md) ·
 [릴리즈 노트](release-candidates/v1.0.0/RELEASE-NOTES.ko.md) ·
 [최종 배포물 검증](release-candidates/v1.0.0/ARTIFACT-VERIFICATION.json).
+
+### 설치 명령어 — v1.0.0 게시 후
+
+Apple Silicon Mac(macOS 13 이상)의 터미널에 아래 블록을 붙여 넣으세요. 배포 파일과
+체크섬을 다운로드하고 검증한 뒤 설치합니다. 처음에 **Jev / 로컬 LLM(구독 중인 Codex)**
+중 하나를 선택하며, 업데이트할 때 같은 명령을 실행하면 기존 설정을 유지합니다.
+릴리즈 게시가 끝나기 전에는 다운로드 주소가 아직 동작하지 않습니다.
+
+```sh
+(
+  set -eu
+  am_install_dir=$(mktemp -d "${TMPDIR:-/tmp}/agents-memory-install.XXXXXXXX")
+  cd "$am_install_dir"
+  curl --fail --location --output agents-memory-hindsight-local-1.0.0.tar.gz \
+    https://github.com/chonamdoo/agents-memory-releases/releases/download/v1.0.0/agents-memory-hindsight-local-1.0.0.tar.gz
+  curl --fail --location --output SHA256SUMS \
+    https://github.com/chonamdoo/agents-memory-releases/releases/download/v1.0.0/SHA256SUMS
+  shasum -a 256 -c SHA256SUMS
+  tar -xzf agents-memory-hindsight-local-1.0.0.tar.gz
+  cd agents-memory-hindsight-local-1.0.0
+  ./install.sh
+)
+```
+
+설치 확인:
+
+```sh
+"$HOME/.local/share/agents-memory-hindsight/current/bin/am-hindsight" --version
+"$HOME/.local/share/agents-memory-hindsight/current/bin/am-hindsight" profile
+```
+
+설치는 파일을 배치합니다. 로컬 PostgreSQL/pgvector, 선택한 provider의 인증,
+프로젝트 연결과 별도 drainer 시작은 [전체 설치 안내](distribution/hindsight-local/README.ko.md)를 따르세요.
 
 The production target is Apple Silicon macOS 13 or later, local only. The installer asks
 **Jev / local LLM (your subscribed Codex CLI)** and preserves that choice on upgrades.

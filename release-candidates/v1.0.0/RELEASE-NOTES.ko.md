@@ -30,15 +30,32 @@
 PostgreSQL 18.x + pgvector 0.8.7 이상인 새 로컬 전용 DB와 Jev 인증 또는 로그인된 Codex CLI는
 별도 준비합니다. 클라우드 배포와 다운로드형 로컬 생성 모델은 이번 범위에 포함하지 않습니다.
 
-릴리즈에서 `agents-memory-hindsight-local-1.0.0.tar.gz`와 `SHA256SUMS`를 함께 다운로드하세요.
-외부 SHA256SUMS는 이 압축 파일만 검증하므로 두 파일만으로 아래 절차를 실행할 수 있습니다.
-내부 manifest/checksums가 설치 파일·모델·runtime·라이선스·SBOM을 검증합니다.
+Mac 터미널에서 아래 블록을 실행하면 릴리즈 파일과 체크섬을 다운로드하고 검증한 뒤 설치합니다.
+처음에 Jev / 로컬 LLM(구독 중인 Codex)을 선택합니다. 업데이트할 때 같은 명령을 다시
+실행하면 provider·모델·프로젝트 설정·outbox를 유지합니다. 외부 SHA256SUMS는 압축 파일을,
+내부 manifest/checksums는 설치 파일·모델·runtime·라이선스·SBOM을 검증합니다.
 
 ```sh
-shasum -a 256 -c SHA256SUMS
-tar -xzf agents-memory-hindsight-local-1.0.0.tar.gz
-cd agents-memory-hindsight-local-1.0.0
-./install.sh
+(
+  set -eu
+  am_install_dir=$(mktemp -d "${TMPDIR:-/tmp}/agents-memory-install.XXXXXXXX")
+  cd "$am_install_dir"
+  curl --fail --location --output agents-memory-hindsight-local-1.0.0.tar.gz \
+    https://github.com/chonamdoo/agents-memory-releases/releases/download/v1.0.0/agents-memory-hindsight-local-1.0.0.tar.gz
+  curl --fail --location --output SHA256SUMS \
+    https://github.com/chonamdoo/agents-memory-releases/releases/download/v1.0.0/SHA256SUMS
+  shasum -a 256 -c SHA256SUMS
+  tar -xzf agents-memory-hindsight-local-1.0.0.tar.gz
+  cd agents-memory-hindsight-local-1.0.0
+  ./install.sh
+)
+```
+
+설치 확인:
+
+```sh
+"$HOME/.local/share/agents-memory-hindsight/current/bin/am-hindsight" --version
+"$HOME/.local/share/agents-memory-hindsight/current/bin/am-hindsight" profile
 ```
 
 [전체 설치·DB·계정·프로젝트 연결 안내](../../distribution/hindsight-local/README.ko.md)를 따르세요.
