@@ -1,12 +1,15 @@
 # agents-memory releases
 
-[정식 v1.0.0 출시 점수표](release-candidates/v1.0.0/SCORECARD.ko.md) ·
-[출시 후보·필수 조건·종료 기준](release-candidates/v1.0.0/README.ko.md)
+[가상 출시 점수표](release-candidates/v1.0.0/RELEASE-READINESS.ko.md) ·
+[실환경 추후 검증](release-candidates/v1.0.0/SCORECARD.ko.md) ·
+[두 단계 출시 정책](release-candidates/v1.0.0/README.ko.md)
 
-The selected stable candidate is the local, single-user Hindsight integration: personal Jev or
-company subscription CLI. Stable publication requires all evidence gates for both profiles
-(100/100 readiness points). It is currently blocked; no stable v1.0.0 has been published.
-Readiness points are not QA accuracy or a SOTA score. Earlier previews below remain unchanged.
+The user-selected policy is stable publication after virtual readiness reaches 100/100;
+real-environment verification continues after release. Virtual tests use explicit model-output
+doubles and do not establish actual account/CLI/macOS/model quality or SOTA performance.
+The current virtual score is 90/100, pending the inspected final public artifact. Actual progress
+is personal 50 / company 15 / joint 15. No stable v1.0.0 has been published. Private test wheels are
+not public release assets; existing previews and automatic install targets remain unchanged.
 
 # Existing previews
 

@@ -1,0 +1,36 @@
+{
+  "candidate_id": "hindsight-local-v1.0.0-c3",
+  "source_commit": "30706fc1c1e6a7d5aaccee3bf643b0370bbaf5be",
+  "source_digest": "c3cc23146a76800b10452f96a84fb655c6294c59de1b1f2c8b289f768d0243f5",
+  "target_version": "1.0.0",
+  "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
+  "admission_patch_sha256": "fe2d94e53bfb97da0e0a9ebfabbfaba157ea191a33ecc79d1cc286dda12b4794",
+  "platform": "Darwin-arm64",
+  "schema_version": 1,
+  "track": "virtual",
+  "execution_platform": "Linux-x86_64",
+  "model_quality_claim": false,
+  "evidence": {
+    "core_regression": {
+      "path": "evidence/virtual-core-c55.json",
+      "sha256": "d27544a0f13541074a6424c33f1b03563ea3d46448c4ffbc3dce06e638ae52b4"
+    },
+    "provider_contract": {
+      "path": "evidence/virtual-provider-c55.json",
+      "sha256": "c0c268af669b06984b8d990339741ed802ac20b8608f4fd85e568d126f03f714"
+    },
+    "service_lifecycle": {
+      "path": "evidence/virtual-service-c55.json",
+      "sha256": "e184ca09bdc9ae95d25e521a9dc1ed1cec2b611fa0a37d6db9d476be81a631d4"
+    },
+    "security": {
+      "path": "evidence/virtual-security-c55.json",
+      "sha256": "e004bae29af5d89f925ff3b02a38d06e3b42e7699c914ddbc95c8314d987fb07"
+    },
+    "virtual_install": {
+      "path": "evidence/virtual-install-c55.json",
+      "sha256": "a810b7d8798a171c4a6f485e5a469f06727505c548fd3089545479d5cf5c51ca"
+    },
+    "distribution": null
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "candidate_id": "hindsight-local-v1.0.0-c3",
+  "source_commit": "30706fc1c1e6a7d5aaccee3bf643b0370bbaf5be",
+  "source_digest": "c3cc23146a76800b10452f96a84fb655c6294c59de1b1f2c8b289f768d0243f5",
+  "target_version": "1.0.0",
+  "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
+  "admission_patch_sha256": "fe2d94e53bfb97da0e0a9ebfabbfaba157ea191a33ecc79d1cc286dda12b4794",
+  "platform": "Darwin-arm64",
+  "track": "virtual",
+  "execution_kind": "source_tests",
+  "execution_platform": "Linux-x86_64",
+  "model_quality_claim": false,
+  "execution_result_sha256": "88cb8fd1d877844ca42d79e99ede9916ee4be32e22359b83514730ae1fe0a710",
+  "metrics": {
+    "passed": 421,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "phases_passed": 1263,
+    "complete": true,
+    "source_digest_before": "c3cc23146a76800b10452f96a84fb655c6294c59de1b1f2c8b289f768d0243f5",
+    "source_digest_after": "c3cc23146a76800b10452f96a84fb655c6294c59de1b1f2c8b289f768d0243f5",
+    "original_receipt_sha256": "88cb8fd1d877844ca42d79e99ede9916ee4be32e22359b83514730ae1fe0a710"
+  },
+  "basis": "Existing actual421 strict current-source tests explicitly reused as stronger source-regression evidence only; no model/host quality inference."
+}
