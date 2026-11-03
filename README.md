@@ -14,10 +14,7 @@ verification continues after publication. This score does not establish SOTA per
 
 ## Hindsight local v1.0.0
 
-**Publication pending:** the final artifact and virtual100 validation are complete. Network
-access to GitHub's upload server is enabled, but asset upload currently returns HTTP 401 with
-the build environment's existing authentication. v1.0.0 is not yet public. Existing previews
-remain available while publisher upload authentication is prepared.
+**Publication pending:** final hidden-key Jev setup and split delivery are being validated before stable publication. v1.0.0 is not yet public.
 
 [Stable release target (available after publication)](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.0) ·
 [설치 안내](distribution/hindsight-local/README.ko.md) ·
@@ -28,7 +25,8 @@ remain available while publisher upload authentication is prepared.
 
 Apple Silicon Mac(macOS 13 이상)의 터미널에 아래 블록을 붙여 넣으세요. 배포 파일과
 체크섬을 다운로드하고 검증한 뒤 설치합니다. 처음에 **Jev / 로컬 LLM(구독 중인 Codex)**
-중 하나를 선택하며, 업데이트할 때 같은 명령을 실행하면 기존 설정을 유지합니다.
+중 하나를 선택합니다. Jev는 API 키를 숨김 입력으로 받고 사용자 전용 파일에 보관합니다.
+업데이트할 때 같은 명령을 실행하면 기존 provider·모델·키 설정을 유지합니다.
 릴리즈 게시가 끝나기 전에는 다운로드 주소가 아직 동작하지 않습니다.
 
 ```sh
@@ -36,10 +34,17 @@ Apple Silicon Mac(macOS 13 이상)의 터미널에 아래 블록을 붙여 넣�
   set -eu
   am_install_dir=$(mktemp -d "${TMPDIR:-/tmp}/agents-memory-install.XXXXXXXX")
   cd "$am_install_dir"
-  curl --fail --location --output agents-memory-hindsight-local-1.0.0.tar.gz \
-    https://github.com/chonamdoo/agents-memory-releases/releases/download/v1.0.0/agents-memory-hindsight-local-1.0.0.tar.gz
-  curl --fail --location --output SHA256SUMS \
-    https://github.com/chonamdoo/agents-memory-releases/releases/download/v1.0.0/SHA256SUMS
+  am_release=https://github.com/chonamdoo/agents-memory-releases/releases/download/v1.0.0
+  curl --fail --location --output SHA256SUMS "$am_release/SHA256SUMS"
+  curl --fail --location --output PARTS-SHA256SUMS "$am_release/PARTS-SHA256SUMS"
+  am_part=0
+  while [ "$am_part" -lt 19 ]; do
+    am_name=agents-memory-hindsight-local-1.0.0.tar.gz.part-$(printf '%03d' "$am_part")
+    curl --fail --location --output "$am_name" "$am_release/$am_name"
+    am_part=$((am_part + 1))
+  done
+  shasum -a 256 -c PARTS-SHA256SUMS
+  cat agents-memory-hindsight-local-1.0.0.tar.gz.part-* > agents-memory-hindsight-local-1.0.0.tar.gz
   shasum -a 256 -c SHA256SUMS
   tar -xzf agents-memory-hindsight-local-1.0.0.tar.gz
   cd agents-memory-hindsight-local-1.0.0
@@ -59,7 +64,11 @@ Apple Silicon Mac(macOS 13 이상)의 터미널에 아래 블록을 붙여 넣�
 
 The production target is Apple Silicon macOS 13 or later, local only. The installer asks
 **Jev / local LLM (your subscribed Codex CLI)** and preserves that choice on upgrades.
-It bundles Python and the pinned E5 assets, installs hash-locked Hindsight dependencies,
+It uses the official **`hindsight-api-slim`** distribution. Jev or subscribed Codex performs
+memory admission; no local generation LLM, PyTorch, Ollama or GGUF generation weights are installed.
+The pinned local **E5 embedding model remains for semantic search**: the current Jev/Codex
+integration supplies admission decisions, not an embedding API.
+It bundles Python and those E5 assets, installs hash-locked Hindsight dependencies,
 and keeps private memory implementation as compiled extensions. A separately provisioned
 local PostgreSQL/pgvector database and your selected provider login remain prerequisites.
 The bundled Linux path is for explicit virtual validation, not cloud/Linux production support.

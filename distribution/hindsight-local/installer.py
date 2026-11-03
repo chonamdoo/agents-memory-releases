@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 from contextlib import contextmanager
 import fcntl
+import getpass
 import hashlib
 import json
 import os
@@ -17,10 +18,12 @@ import subprocess
 import sys
 import tarfile
 import uuid
+import warnings
 
 PRODUCT = "agents-memory-hindsight-local"
 DEFAULT_PREFIX = Path.home() / ".local/share/agents-memory-hindsight"
 MODEL = re.compile(r"[A-Za-z0-9][A-Za-z0-9_./:-]{0,127}\Z")
+JEV_KEY_ENV = "HINDSIGHT_API_MEMORY_ADMISSION_API_KEY"
 
 
 def digest(path):
@@ -44,6 +47,48 @@ def read_private(path):
     if not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid() or info.st_mode & 0o077:
         raise ValueError("Private configuration ownership or permissions are invalid")
     return json.loads(path.read_bytes())
+
+
+def valid_jev_key(value):
+    if not isinstance(value, str) or not 1 <= len(value) <= 4096 or any(not 33 <= ord(c) <= 126 for c in value):
+        raise ValueError("Enter only the Jev API key, without spaces or line breaks")
+    return value
+
+
+def read_jev_credential(prefix):
+    path = prefix / "settings/jev-credential.json"
+    if not path.exists() and not path.is_symlink():
+        return None
+    if path.lstat().st_size > 16384:
+        raise ValueError("Invalid private Jev credential file")
+    value = read_private(path)
+    if (not isinstance(value, dict) or set(value) != {"schema_version", "api_key"}
+            or type(value["schema_version"]) is not int or value["schema_version"] != 1):
+        raise ValueError("Invalid private Jev credential format")
+    return valid_jev_key(value["api_key"])
+
+
+def prompt_jev_key():
+    if not sys.stdin.isatty():
+        raise ValueError("A terminal is required for hidden Jev key input")
+    try:
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", getpass.GetPassWarning)
+            value = getpass.getpass("Jev API 키 (입력 숨김): ")
+    except (EOFError, getpass.GetPassWarning):
+        raise ValueError("Secure terminal input is unavailable") from None
+    return valid_jev_key(value)
+
+
+def pending_jev_credential(prefix, profile):
+    if profile["provider"] != "jev" or read_jev_credential(prefix) is not None:
+        return None
+    if sys.stdin.isatty():
+        return prompt_jev_key()
+    # An explicit environment credential is supported for unattended installs.
+    # Keep it in the environment: a managed binding can be a proxy placeholder.
+    valid_jev_key(os.environ.get(JEV_KEY_ENV))
+    return None
 
 
 def profile_valid(value):
@@ -196,6 +241,7 @@ def install(args):
         raise ValueError("macOS 13 or newer is required")
     with install_lock(prefix):
         profile = select_profile(args, prefix)
+        pending_key = pending_jev_credential(prefix, profile)
         previous = active(prefix, owner)
         install_id = manifest["version"] + "-" + uuid.uuid4().hex
         folder = prefix / "installs" / install_id
@@ -232,6 +278,8 @@ def install(args):
             (prefix / "settings").mkdir(mode=0o700, exist_ok=True)
             if not (prefix / "settings/profile.json").exists():
                 private_json(prefix / "settings/profile.json", profile)
+            if pending_key is not None:
+                private_json(prefix / "settings/jev-credential.json", {"schema_version": 1, "api_key": pending_key})
             activate(prefix, install_id)
         except BaseException:
             # Only this attempt's newly created application directory is removed.
@@ -239,7 +287,7 @@ def install(args):
             raise
     print("Installed agents-memory Hindsight local " + manifest["version"])
     print("Command: " + shlex.quote(str(prefix / "current/bin/am-hindsight")))
-    print("Provider choice is preserved on update. Database, provider login and project connection remain explicit setup steps.")
+    print("Provider choice and any saved Jev credential are preserved on update. Database, subscription login and project connection remain explicit setup steps.")
     return 0
 
 
@@ -257,8 +305,11 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         return rollback(args.prefix.expanduser().absolute()) if args.rollback else install(args)
+    except KeyboardInterrupt:
+        print("Installation cancelled.", file=sys.stderr)
+        return 130
     except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError, tarfile.TarError):
-        print("Installation failed safely. Check release checksums, private prefix, platform and dependency-install.log; existing configuration was preserved.", file=sys.stderr)
+        print("Installation failed safely. Check release checksums, private prefix, platform, Jev key input/environment and dependency-install.log; existing configuration was preserved.", file=sys.stderr)
         return 2
 
 

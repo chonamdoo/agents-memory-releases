@@ -1,21 +1,38 @@
 # agents-memory Hindsight local 1.0.0
 
 Apple Silicon Mac(macOS 13 이상)에서 Hindsight를 로컬 기억 저장소로 실행합니다.
-설치 시 **Jev / 로컬 LLM(구독 중인 Codex)** 중 하나만 선택합니다. 배포 위치는 로컬로
+설치 시 **Jev / 로컬 LLM(구독 중인 Codex)** 중 하나를 선택합니다. Jev를 선택하면 API 키를
+화면에 표시하지 않는 입력창으로 받고 사용자 전용 파일에 저장합니다. 배포 위치는 로컬로
 고정되어 있으며 업데이트는 provider·모델·프로젝트 outbox를 유지합니다. 로컬 LLM은
 다운로드한 모델이 아니라 기존 구독 계정으로 로그인한 Codex CLI입니다. 자동 대체 경로는 없습니다.
 
 ## 설치
 
-GitHub `chonamdoo/agents-memory-releases`의 정식 `v1.0.0`에서 배포 tar.gz와
-`SHA256SUMS`를 함께 내려받고, 아래 순서로 실행하세요. Source code 자동 압축 파일은
+GitHub `chonamdoo/agents-memory-releases`의 정식 `v1.0.0` 배포물은 전송을 위해 19개 조각으로
+제공합니다. 아래 명령은 조각과 합친 압축 파일의 SHA256을 모두 검사한 뒤 설치합니다. Source code 자동 압축 파일은
 실행 제품이 아닙니다. 기존 Native 프리뷰 설치와 DB를 자동 변환하거나 덮어쓰지 않습니다.
 
 ```sh
-shasum -a 256 -c SHA256SUMS
-tar -xzf agents-memory-hindsight-local-1.0.0.tar.gz
-cd agents-memory-hindsight-local-1.0.0
-./install.sh
+(
+  set -eu
+  am_install_dir=$(mktemp -d "${TMPDIR:-/tmp}/agents-memory-install.XXXXXXXX")
+  cd "$am_install_dir"
+  am_release=https://github.com/chonamdoo/agents-memory-releases/releases/download/v1.0.0
+  curl --fail --location --output SHA256SUMS "$am_release/SHA256SUMS"
+  curl --fail --location --output PARTS-SHA256SUMS "$am_release/PARTS-SHA256SUMS"
+  am_part=0
+  while [ "$am_part" -lt 19 ]; do
+    am_name=agents-memory-hindsight-local-1.0.0.tar.gz.part-$(printf '%03d' "$am_part")
+    curl --fail --location --output "$am_name" "$am_release/$am_name"
+    am_part=$((am_part + 1))
+  done
+  shasum -a 256 -c PARTS-SHA256SUMS
+  cat agents-memory-hindsight-local-1.0.0.tar.gz.part-* > agents-memory-hindsight-local-1.0.0.tar.gz
+  shasum -a 256 -c SHA256SUMS
+  tar -xzf agents-memory-hindsight-local-1.0.0.tar.gz
+  cd agents-memory-hindsight-local-1.0.0
+  ./install.sh
+)
 ```
 
 기본 설치 위치는 `~/.local/share/agents-memory-hindsight`입니다. Python 3.13.18과
@@ -52,8 +69,18 @@ AM="$HOME/.local/share/agents-memory-hindsight/current/bin/am-hindsight"
 가리켜야 합니다. 서버 시작 시 Hindsight가 스키마를 생성/마이그레이션합니다. 이 설치기는
 DB·Docker·클라우드 자원을 생성하지 않습니다. 기존 DB와 backup을 별도 보관하세요.
 
-Jev는 환경 변수 `HINDSIGHT_API_MEMORY_ADMISSION_API_KEY`를 사용합니다. 키를 명령 인자,
-profile 파일, 프로젝트 본문에 넣지 마세요. 구독 Codex는 기존 CLI의 정상 로그인 상태를 사용하며
+Jev 첫 설치에서는 API 키를 숨김 입력으로 받습니다. 키는 설치 버전 디렉터리 밖의
+`settings/jev-credential.json`에 사용자만 읽고 쓸 수 있는 권한(0600)으로 저장하며, 업데이트와
+rollback에서 유지합니다. 이 파일은 암호화된 Keychain 저장소는 아닙니다. 프로필 출력·로그·
+명령 인자·프로젝트 본문에는 키를 넣지 않습니다. 교체할 때는 아래 명령을 실행하면 다시 숨김 입력을 받습니다.
+
+```sh
+"$AM" configure --jev-key
+```
+
+명시적으로 설정한 `HINDSIGHT_API_MEMORY_ADMISSION_API_KEY` 환경 변수가 있으면 저장한 파일보다
+우선합니다. 비대화형 설치는 이 환경 변수로 키를 제공해야 하며, 환경 변수 값은 파일로 복사하지 않습니다.
+구독 Codex는 Jev 키를 묻지 않고 기존 CLI의 정상 로그인 상태를 사용하며
 인증 파일을 복사하거나 읽어 표시하지 않습니다. API key/대체 endpoint와 구독 인증이
 충돌하면 안전하게 중지합니다. 회사 정책상 허용된 계정과 데이터만 사용하세요.
 
