@@ -1,0 +1,45 @@
+{
+  "candidate_id": "hindsight-local-v1.0.0-c3",
+  "source_commit": "30706fc1c1e6a7d5aaccee3bf643b0370bbaf5be",
+  "source_digest": "c3cc23146a76800b10452f96a84fb655c6294c59de1b1f2c8b289f768d0243f5",
+  "target_version": "1.0.0",
+  "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
+  "admission_patch_sha256": "fe2d94e53bfb97da0e0a9ebfabbfaba157ea191a33ecc79d1cc286dda12b4794",
+  "platform": "Darwin-arm64",
+  "track": "virtual",
+  "execution_kind": "isolated_install",
+  "execution_platform": "Linux-x86_64",
+  "model_quality_claim": false,
+  "execution_result_sha256": "e9dcddcfc4ef5bdddb6b7337c526ea2adbaf62377419834fff3836e04c712b0f",
+  "artifact_sha256": "43a8128f2c751ce74d791fd8f29d983a6620381e8a986317714adcc626a5470b",
+  "profiles": {
+    "personal": {
+      "target_profile": "personal",
+      "profile_config_sha256": "55a2e7ab1db96a56a9e9dda91a49f0c8432cc23d0bc92dcc962c45ecf15327b9",
+      "checks": {
+        "clean_install": true,
+        "isolated_process": true,
+        "installed_version": true,
+        "two_projects": true,
+        "upgrade_rollback": true,
+        "config_preserved": true
+      },
+      "version": "1.0.0"
+    },
+    "company": {
+      "target_profile": "company",
+      "profile_config_sha256": "84f47bd297c7ab682204efd6ac2638a586a77302964849af4b5adc2c925c7122",
+      "checks": {
+        "clean_install": true,
+        "isolated_process": true,
+        "installed_version": true,
+        "two_projects": true,
+        "upgrade_rollback": true,
+        "config_preserved": true
+      },
+      "version": "1.0.0"
+    }
+  },
+  "scope": "Final archive on Linux with explicit validation switch, both provider profiles, real compiled private code, real public installer and commands, no source checkout imports or account/provider requests.",
+  "roundtrip_limit": "Update/rollback proof is exact final 1.0.0 reinstallation and application pointer rollback, not Native preview migration or DB schema downgrade."
+}

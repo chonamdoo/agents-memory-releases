@@ -6,6 +6,8 @@
 !tools/test_stable_release_gate.py
 !tools/release_readiness.py
 !tools/test_release_readiness.py
+!distribution/hindsight-local/installer.py
+!distribution/hindsight-local/entry.py
 *.pyc
 .env
 *.key
