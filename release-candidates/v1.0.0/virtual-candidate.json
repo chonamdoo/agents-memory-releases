@@ -28,12 +28,12 @@
       "sha256": "e004bae29af5d89f925ff3b02a38d06e3b42e7699c914ddbc95c8314d987fb07"
     },
     "virtual_install": {
-      "path": "evidence/virtual-install-c56.json",
-      "sha256": "3265799d4558f59298391e3a9403b81ce0bab1280eb0f758d0a135f607f1bed8"
+      "path": "evidence/virtual-install-c59.json",
+      "sha256": "63bde7f8944674c3b7ed9f5979a939fb0289dfa8aa609d4c7b05fd218f91d985"
     },
     "distribution": {
-      "path": "evidence/virtual-distribution-c56.json",
-      "sha256": "a01a26701ac609f367bb02b54e82079662c8695525eaeb8ec3b246ae88e7e7d6"
+      "path": "evidence/virtual-distribution-c59.json",
+      "sha256": "a90aa71b719a3a81435e741f82aeb1c0fb9c3469e0e3160022f2458d745b8f16"
     }
   }
 }

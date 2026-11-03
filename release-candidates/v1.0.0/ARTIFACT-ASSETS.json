@@ -3,11 +3,17 @@
   "tag": "v1.0.0",
   "draft": false,
   "prerelease": false,
+  "logical_archive": {
+    "name": "agents-memory-hindsight-local-1.0.0.tar.gz",
+    "bytes": 154173788,
+    "sha256": "2211292a20783b6e88d75e83ce47b42896bd7a25760462f1e7ae6a352afa0ea2",
+    "transport": "19 release parts, verify parts then reassemble and verify full archive"
+  },
   "assets": [
     {
       "name": "ARTIFACT-VERIFICATION.json",
-      "bytes": 7779,
-      "sha256": "faa88dbea585df506ee74c0294649a1e034361ef0f7f14011d7042a39b0ae6b8"
+      "bytes": 8864,
+      "sha256": "eeec4222301e503a5776c2c3ec192a7c31d0527731c30076fb54f635c0b6546e"
     },
     {
       "name": "BUILD.json",
@@ -16,8 +22,13 @@
     },
     {
       "name": "INSTALL.ko.md",
-      "bytes": 7302,
-      "sha256": "70f3f4fd921c982070b9acec9e27bde0752998412759bda5d64c9179bb2c94fb"
+      "bytes": 8914,
+      "sha256": "c84c571430eacf1cfbb99f744c31cf8b8bf6264862f6907312822364733fac08"
+    },
+    {
+      "name": "PARTS-SHA256SUMS",
+      "bytes": 2242,
+      "sha256": "1933278c1b133195a052afdfaa958d6986e275f21595f67e7fb5de76ac9b7e8d"
     },
     {
       "name": "SBOM.json",
@@ -27,12 +38,102 @@
     {
       "name": "SHA256SUMS",
       "bytes": 109,
-      "sha256": "6a5917767d0363c5473260b3dabd59245ea7f14d25dfcedeeb82d23dce0b6866"
+      "sha256": "431523a93fefd98eefcf590c8f8a24850f49b7f8b266e9d72e3669f551df39d9"
     },
     {
-      "name": "agents-memory-hindsight-local-1.0.0.tar.gz",
-      "bytes": 154172731,
-      "sha256": "43a8128f2c751ce74d791fd8f29d983a6620381e8a986317714adcc626a5470b"
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-000",
+      "bytes": 8388608,
+      "sha256": "5a667aadd9d7eb5095160fb4b43081b7b0ea62f12df79807d1c6ca17bc478b29"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-001",
+      "bytes": 8388608,
+      "sha256": "78a884d3fd077fe7967caaadefc20e885b37217d836e7382b5e666ac1fd1f77c"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-002",
+      "bytes": 8388608,
+      "sha256": "a2d0d66d2733bf134f24aceac590ac63a765ebdf13067ee4cfe2209863705bb0"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-003",
+      "bytes": 8388608,
+      "sha256": "c8f32cc589496405fbc3415196d61139e41a562f7b93782ee4d4a1662247b0c6"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-004",
+      "bytes": 8388608,
+      "sha256": "494d2179a9d980fb206e5f36370c713c06ec0c7e14e5dca60ee662a0952467a5"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-005",
+      "bytes": 8388608,
+      "sha256": "f7aa948196a483bd03fb415e878d3e9dc2b56049aa9b1652f7927a09ee260df2"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-006",
+      "bytes": 8388608,
+      "sha256": "81f01284a2261b9114a2123dba507f0f5d9f0778020842a49b45c80900a3222f"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-007",
+      "bytes": 8388608,
+      "sha256": "d2111f2510a790670356a106e1bfb76a0844e2e6c7ccc645a3456bd972210e10"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-008",
+      "bytes": 8388608,
+      "sha256": "606a0a88595782f52c158f4206e9774bec5fc675188a8cf31e1d0c78b4e51b53"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-009",
+      "bytes": 8388608,
+      "sha256": "49a5c1455a27f3505c6037d6edc0bcd627cdc3a870928b85c637919808fa9413"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-010",
+      "bytes": 8388608,
+      "sha256": "e65190852deaf04a6bc3a22498dee91efa2f83e84daabcd0a861e69130b1d9fe"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-011",
+      "bytes": 8388608,
+      "sha256": "c1250cc41b629bac8c29e4756a28a370d6b77a725954e0c71f5fd26b41fd17f3"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-012",
+      "bytes": 8388608,
+      "sha256": "647617bdd9686e6f9c0c9cf88bdf6175ee3d6f12ffb09bf3bf3df467f02b0055"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-013",
+      "bytes": 8388608,
+      "sha256": "2269998fab0a96657f379a3ff4672430c295e9b94d99bb62dce5ae45f3a4bad0"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-014",
+      "bytes": 8388608,
+      "sha256": "5fd8398c6c1708d8dbd6e36d8fce56d07cbf8807906a18d098f644c9732599ec"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-015",
+      "bytes": 8388608,
+      "sha256": "4a6ec5fd20dfd7e19935ba713d4161d940602a242dea3d83b3412a9106f19bc2"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-016",
+      "bytes": 8388608,
+      "sha256": "f913d8090e5e557c424da8770ad53667d65017520e58786bfdf17df257346ffb"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-017",
+      "bytes": 8388608,
+      "sha256": "51f72526fb2b74392841c345134420e79e93d33dcd2446579ee72c414c05a445"
+    },
+    {
+      "name": "agents-memory-hindsight-local-1.0.0.tar.gz.part-018",
+      "bytes": 3178844,
+      "sha256": "9ed1de2586d2b5dc2a0fd06b8503ee814b3d63c09ccecb863a8c0793c164d34e"
     }
   ]
 }

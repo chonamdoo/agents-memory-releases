@@ -1,7 +1,19 @@
 """Public command routing and persistent local configuration; memory implementation is compiled."""
 from __future__ import annotations
 
+import sys
+
+# Prompt capture/drain never needs installer, provider, credential or service setup.
+# Dispatch before importing those modules so foreground input stays independent.
+if __name__ == "__main__" and len(sys.argv) > 1 and sys.argv[1] == "hook":
+    from agents_memory.hindsight_hook import main as _hook_main
+    try:
+        raise SystemExit(_hook_main(sys.argv[2:]))
+    except KeyboardInterrupt:
+        raise SystemExit(130)
+
 import argparse
+from contextlib import contextmanager
 import hashlib
 import http.client
 import importlib.util
@@ -11,7 +23,6 @@ from pathlib import Path
 import re
 import shlex
 import subprocess
-import sys
 
 PAYLOAD = Path(__file__).resolve().parent
 INSTALL = PAYLOAD.parent
@@ -20,6 +31,33 @@ spec = importlib.util.spec_from_file_location("release_installer", PAYLOAD / "in
 installer = importlib.util.module_from_spec(spec)
 sys.dont_write_bytecode = True
 spec.loader.exec_module(installer)
+
+
+@contextmanager
+def provider_environment(selected):
+    missing = object()
+    original = os.environ.get(installer.JEV_KEY_ENV, missing)
+    parent = provider_parent(selected, dict(os.environ))
+    added = not os.environ.get(installer.JEV_KEY_ENV) and bool(parent.get(installer.JEV_KEY_ENV))
+    if added:
+        os.environ[installer.JEV_KEY_ENV] = parent[installer.JEV_KEY_ENV]
+    try:
+        yield
+    finally:
+        if added:
+            if original is missing:
+                os.environ.pop(installer.JEV_KEY_ENV, None)
+            else:
+                os.environ[installer.JEV_KEY_ENV] = original
+
+
+def provider_parent(selected, parent):
+    result = dict(parent)
+    if selected["provider"] == "jev" and not result.get(installer.JEV_KEY_ENV):
+        key = installer.read_jev_credential(PREFIX)
+        if key is not None:
+            result[installer.JEV_KEY_ENV] = key
+    return result
 
 
 def profile():
@@ -96,7 +134,7 @@ def bank_init(config, selected):
         worker_port=selected["worker_port"], bank=item.bank, hindsight_api=str(INSTALL / "venv/bin/hindsight-api"))
     # The normal guard validates the local DB, exact vendor/model assets, provider and
     # unused service ports. Configure before serving; HTTP write restrictions stay intact.
-    _, child = local.prepare(args, dict(os.environ))
+    _, child = local.prepare(args, provider_parent(selected, dict(os.environ)))
     program = '''import asyncio,os,sys
 from pathlib import Path
 expected=Path(sys.argv[2]).resolve(strict=True)
@@ -137,7 +175,8 @@ def serve(args, selected):
             raise ValueError("Configure an existing signed-in Codex executable first")
         command.extend(["--subscription-host", "codex", "--subscription-executable", selected["codex_executable"],
                         "--subscription-workdir", selected["subscription_workdir"]])
-    return local.main(command)
+    with provider_environment(selected):
+        return local.main(command)
 
 
 def configure(args, selected):
@@ -162,7 +201,16 @@ def configure(args, selected):
                 if not executable.is_file() or not os.access(executable, os.X_OK):
                     raise ValueError("Codex must be an existing executable")
                 value["codex_executable"] = str(executable)
+        pending_key = None
+        if args.jev_key:
+            if value["provider"] != "jev":
+                raise ValueError("Select Jev before changing its API key")
+            pending_key = installer.prompt_jev_key()
+        elif value["provider"] == "jev":
+            pending_key = installer.pending_jev_credential(PREFIX, value)
         installer.private_json(PREFIX / "settings/profile.json", installer.profile_valid(value))
+        if pending_key is not None:
+            installer.private_json(PREFIX / "settings/jev-credential.json", {"schema_version": 1, "api_key": pending_key})
     print("Provider configuration updated explicitly. Existing project outboxes and database were preserved.")
     return 0
 
@@ -190,6 +238,7 @@ def main(argv=None):
     c.add_argument("--provider", choices=("jev", "local-llm"))
     c.add_argument("--model")
     c.add_argument("--codex")
+    c.add_argument("--jev-key", action="store_true", help="Replace the saved Jev key through hidden terminal input")
     args = parser.parse_args(argv)
     if args.version:
         from agents_memory import __version__
@@ -216,6 +265,9 @@ def main(argv=None):
 if __name__ == "__main__":
     try:
         raise SystemExit(main())
+    except KeyboardInterrupt:
+        print("Local command cancelled.", file=sys.stderr)
+        raise SystemExit(130)
     except (OSError, ValueError, KeyError, TypeError, http.client.HTTPException, subprocess.SubprocessError):
         print("Local command failed safely; check private configuration, credentials and declared prerequisites.", file=sys.stderr)
         raise SystemExit(2)

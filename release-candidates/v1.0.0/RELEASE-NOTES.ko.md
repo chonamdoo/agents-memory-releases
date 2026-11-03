@@ -8,7 +8,8 @@
 ## 포함한 개선
 
 - **로컬 전용 설치:** Jev / 로컬 LLM(구독 중인 Codex) 중 하나를 처음에 선택합니다.
-  업데이트에서 provider·모델·프로젝트 설정·outbox를 유지하고, 명시적인 configure만 변경합니다.
+  Jev는 API 키를 숨김 입력으로 받아 사용자 전용 0600 파일에 보관합니다.
+  업데이트에서 provider·모델·키·프로젝트 설정·outbox를 유지하고, 명시적인 configure만 변경합니다.
 - **Hindsight 내부 저장 판단:** 선택한 provider가 keep/discard/review를 판단합니다. 실패·review를
   성공으로 승격하거나 다른 provider로 자동 대체하지 않습니다. chunks·고정 E5 ONNX·RRF를 사용합니다.
 - **입력을 기다리게 하지 않는 저장:** 입력 훅은 로컬 private outbox에 기록하고 반환합니다.
@@ -27,10 +28,14 @@
 지원 대상은 **Apple Silicon Mac / macOS 13 이상 / 로컬 실행**입니다. Python 3.13.18,
 고정 E5 자산, 컴파일한 자체 구현과 MIT Hindsight vendor를 포함합니다. 외부 Python 의존성은
 고정 hash로 PyPI에서 설치합니다. 첫 설치에는 인터넷과 충분한 디스크 공간이 필요합니다.
+공식 `hindsight-api-slim`을 사용하며 로컬 생성 LLM·PyTorch·Ollama·GGUF 생성 모델은 설치하지 않습니다.
+Jev 또는 구독 Codex가 저장 판단을 맡습니다. 현재 이 연동에는 임베딩 API가 없으므로
+검색용 로컬 E5 임베딩은 유지합니다. 임베딩 모델은 답변을 생성하는 LLM과 역할이 다릅니다.
 PostgreSQL 18.x + pgvector 0.8.7 이상인 새 로컬 전용 DB와 Jev 인증 또는 로그인된 Codex CLI는
 별도 준비합니다. 클라우드 배포와 다운로드형 로컬 생성 모델은 이번 범위에 포함하지 않습니다.
 
-Mac 터미널에서 아래 블록을 실행하면 릴리즈 파일과 체크섬을 다운로드하고 검증한 뒤 설치합니다.
+배포 압축 파일은 8 MiB 이하의 19개 조각으로 제공합니다. Mac 터미널에서 아래 블록을 실행하면
+조각들을 다운로드해 각각의 SHA256을 확인하고, 합친 압축 파일의 SHA256까지 검사한 뒤 설치합니다.
 처음에 Jev / 로컬 LLM(구독 중인 Codex)을 선택합니다. 업데이트할 때 같은 명령을 다시
 실행하면 provider·모델·프로젝트 설정·outbox를 유지합니다. 외부 SHA256SUMS는 압축 파일을,
 내부 manifest/checksums는 설치 파일·모델·runtime·라이선스·SBOM을 검증합니다.
@@ -40,10 +45,17 @@ Mac 터미널에서 아래 블록을 실행하면 릴리즈 파일과 체크섬�
   set -eu
   am_install_dir=$(mktemp -d "${TMPDIR:-/tmp}/agents-memory-install.XXXXXXXX")
   cd "$am_install_dir"
-  curl --fail --location --output agents-memory-hindsight-local-1.0.0.tar.gz \
-    https://github.com/chonamdoo/agents-memory-releases/releases/download/v1.0.0/agents-memory-hindsight-local-1.0.0.tar.gz
-  curl --fail --location --output SHA256SUMS \
-    https://github.com/chonamdoo/agents-memory-releases/releases/download/v1.0.0/SHA256SUMS
+  am_release=https://github.com/chonamdoo/agents-memory-releases/releases/download/v1.0.0
+  curl --fail --location --output SHA256SUMS "$am_release/SHA256SUMS"
+  curl --fail --location --output PARTS-SHA256SUMS "$am_release/PARTS-SHA256SUMS"
+  am_part=0
+  while [ "$am_part" -lt 19 ]; do
+    am_name=agents-memory-hindsight-local-1.0.0.tar.gz.part-$(printf '%03d' "$am_part")
+    curl --fail --location --output "$am_name" "$am_release/$am_name"
+    am_part=$((am_part + 1))
+  done
+  shasum -a 256 -c PARTS-SHA256SUMS
+  cat agents-memory-hindsight-local-1.0.0.tar.gz.part-* > agents-memory-hindsight-local-1.0.0.tar.gz
   shasum -a 256 -c SHA256SUMS
   tar -xzf agents-memory-hindsight-local-1.0.0.tar.gz
   cd agents-memory-hindsight-local-1.0.0
@@ -68,12 +80,13 @@ Mac 터미널에서 아래 블록을 실행하면 릴리즈 파일과 체크섬�
 | --- | --- | --- |
 | 출시/실환경 점수표 검증 코드 | 40 tests 통과 | 로컬 실행; GitHub CI 미실행 |
 | 고정 C3 소스 핵심 회귀 | 421 tests / 1,263 phases, 실패·skip·xfail 0 | 이전 고정 소스 증거 유지; 전체 Native API를 배포한다는 뜻이 아님 |
-| 최종 설치본 provider 계약 | 50개씩 통과 | 개인/회사 출력 대역; 실제 인증·의미 이해 검증 아님 |
-| 최종 설치본 안전·출처·수정·삭제 | 20개씩 통과, 위반 0 | 실제 Hindsight/PG/E5 + 각 9회 모델 출력 대역 |
+| 고정 C3 provider 계약 증거 | 50개씩 통과 | C56 출력 대역, private 바이너리 동일; 실제 인증·의미 이해 검증 아님 |
+| 고정 C3 안전·출처·수정·삭제 증거 | 20개씩 통과, 위반 0 | C56 실제 Hindsight/PG/E5 + 각 9회 모델 출력 대역, 동일 바이너리 증거 유지 |
 | 새 설치·재설치·rollback | 두 provider 통과 | 같은 최종 1.0.0 설치와 애플리케이션 포인터 복구; Native 이전/DB downgrade 아님 |
-| 잠긴 drainer/설치와 64 KiB 입력 훅 | 20회씩 원문 보존 | Linux: 개인 p95 110.50ms/max 116.74ms, 회사 p95 147.96ms/max 150.40ms; 실제 Mac 지연 보장 아님 |
-| 공개 실행 경로 | 로컬 bank 초기화/API health/설정 확인 통과 | 실제 Linux API/PG/E5, HTTP 설정 변경 422 유지, 실제 모델 호출 0 |
-| 배포물 적대적 설치 검사 | 8개 통과 | 손상·누락·미소유 디렉터리·동시 rollback·cloud profile 거부와 기존 설정 보존 |
+| 잠긴 drainer/설치와 64 KiB 입력 훅 | 20회씩 원문 보존 | Linux: 개인 p95 173.32ms/max 288.47ms, 회사 p95 117.78ms/max 121.16ms; 실제 Mac 지연 보장 아님 |
+| 고정 C3 backend 증거 유지 | C56 로컬 bank 초기화/API health/설정 확인 통과 | private backend 바이너리 동일; 새 키 입력·credential loader·훅 분기는 별도 시험. 실제 Mac/계정 검증 아님 |
+| Jev 키 입력·보관·분기 | 13개 검사 + 실제 터미널 새 설치/교체 통과 | echo 없음, 0600, 버전 밖 저장, 환경 변수 우선, 구독 모드에서 읽지 않음 |
+| 분할 배포 무결성 | GitHub 조각 19개 재다운로드·재결합 일치 | 누락·변조·순서 변경 거부, 원본 압축 SHA256까지 검증 |
 | Mac 정적 검사 | 자체 확장 12개 + 공식 runtime Mach-O 10개 | ARM64/ABI/로드 경로/최소 OS; 자체 확장 ad hoc 서명 page hash 확인 |
 
 실제 Mac 실행, 사용자 Codex 훅/로그인, 실제 계정별 품질·지연·RAM은 출시 뒤 검증합니다.
@@ -81,6 +94,9 @@ Developer ID 서명과 Apple 공증은 없으며 Gatekeeper/격리 속성을 자
 프로젝트 bank는 사용자별 ACL이 아닙니다. 전송은 ACK 유실 시 중복 가능성이 있는 at-least-once이며,
 긴 원문을 수정/삭제할 때 Hindsight가 만든 관련 document ID 전부를 명시적으로 처리해야 합니다.
 자동 Reflect/관찰 통합/mental model 생성과 Native 프리뷰 전체 CLI는 제공하지 않습니다.
+
+Jev 키 파일은 사용자 전용 권한의 일반 파일이며 암호화된 Keychain 저장소는 아닙니다. 키 값은
+프로필 출력·릴리즈 파일·명령 인자에 포함하지 않습니다. 바꿀 때는 `am-hindsight configure --jev-key`를 실행합니다.
 
 자체 구현은 컴파일한 바이너리로 배포하며 원본 private Python/bytecode/생성 C는 제외했습니다.
 공개 installer/entry wrapper와 MIT upstream Python은 포함합니다. 바이너리 역분석 방지를 보장하지는 않습니다.
