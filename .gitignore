@@ -4,6 +4,8 @@
 !profiles/hindsight-reference/local.py
 !tools/stable_release_gate.py
 !tools/test_stable_release_gate.py
+!tools/release_readiness.py
+!tools/test_release_readiness.py
 *.pyc
 .env
 *.key

@@ -1,0 +1,67 @@
+{
+  "candidate_id": "hindsight-local-v1.0.0-c3",
+  "source_commit": "30706fc1c1e6a7d5aaccee3bf643b0370bbaf5be",
+  "source_digest": "c3cc23146a76800b10452f96a84fb655c6294c59de1b1f2c8b289f768d0243f5",
+  "target_version": "1.0.0",
+  "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
+  "admission_patch_sha256": "fe2d94e53bfb97da0e0a9ebfabbfaba157ea191a33ecc79d1cc286dda12b4794",
+  "platform": "Darwin-arm64",
+  "track": "virtual",
+  "execution_kind": "service_with_model_double",
+  "execution_platform": "Linux-x86_64",
+  "model_quality_claim": false,
+  "execution_result_sha256": "363284be5b89f2ab5ba0ecc6c642b01175d672963d3da45a08ee407c44328313",
+  "profiles": {
+    "personal": {
+      "target_profile": "personal",
+      "profile_config_sha256": "55a2e7ab1db96a56a9e9dda91a49f0c8432cc23d0bc92dcc962c45ecf15327b9",
+      "checks": {
+        "retain_recall": true,
+        "timestamp": true,
+        "restart_durability": true,
+        "retry_recovery": true,
+        "delete": true
+      },
+      "real_service": true,
+      "model_output_double": true,
+      "all_generated_parts_deleted": true,
+      "validation_method": "common_service_plus_mode_double",
+      "common_runtime_binding": {
+        "path": "evidence/personal-runtime-c54.json",
+        "sha256": "8c3ab7f13a67a834c045fa9da92233311880f58a3ebde237a914a23bbf32f293"
+      },
+      "profile_service_binding": {
+        "path": "evidence/virtual-security-c55.json",
+        "sha256": "e004bae29af5d89f925ff3b02a38d06e3b42e7699c914ddbc95c8314d987fb07"
+      },
+      "common_runtime_result_sha256": "22d17d994adf73aab62b00c18b6466244239ff6e5cacc196bd1fbaabb12bd02c",
+      "profile_service_result_sha256": "e81f8e22b7affd986ad9cd642b49f34d4d06929662943b2c405369a08e93b467"
+    },
+    "company": {
+      "target_profile": "company",
+      "profile_config_sha256": "84f47bd297c7ab682204efd6ac2638a586a77302964849af4b5adc2c925c7122",
+      "checks": {
+        "retain_recall": true,
+        "timestamp": true,
+        "restart_durability": true,
+        "retry_recovery": true,
+        "delete": true
+      },
+      "real_service": true,
+      "model_output_double": true,
+      "all_generated_parts_deleted": true,
+      "validation_method": "common_service_plus_mode_double",
+      "common_runtime_binding": {
+        "path": "evidence/personal-runtime-c54.json",
+        "sha256": "8c3ab7f13a67a834c045fa9da92233311880f58a3ebde237a914a23bbf32f293"
+      },
+      "profile_service_binding": {
+        "path": "evidence/virtual-security-c55.json",
+        "sha256": "e004bae29af5d89f925ff3b02a38d06e3b42e7699c914ddbc95c8314d987fb07"
+      },
+      "common_runtime_result_sha256": "22d17d994adf73aab62b00c18b6466244239ff6e5cacc196bd1fbaabb12bd02c",
+      "profile_service_result_sha256": "e81f8e22b7affd986ad9cd642b49f34d4d06929662943b2c405369a08e93b467"
+    }
+  },
+  "scope": "COMPOSED shared current-source realbackend runtime plus eachmode ASGI/PG/modeldouble result, not companyCLI E2E. No additional runtime/model execution represented."
+}

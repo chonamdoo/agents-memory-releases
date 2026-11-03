@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Offline stable-release evidence checks. Never publishes or calls a provider."""
+"""Offline real-environment audit, kept strict after publication. Never publishes or calls a provider."""
 from __future__ import annotations
 
 import argparse
@@ -210,6 +210,7 @@ def evaluate(root):
                     raise ValueError("evidence hash mismatch")
                 receipt = parse_json(raw)
                 if (not isinstance(receipt, dict) or
+                        receipt.get("track") not in (None, "actual") or
                         any(receipt.get(k) != c[k] for k in IDENTITY)):
                     raise ValueError("stale candidate evidence")
                 if key in SHARED:
@@ -235,14 +236,15 @@ def evaluate(root):
 
 def render(result):
     c = result["candidate"]
-    lines = ["# 정식 v1.0.0 출시 점수표", "", "이 점수는 정답률이 아니라 **출시 검증 완료 점수**다. "
-             "미검증은 0점으로 보류하며 품질 0%라는 뜻이 아니다. 모든 항목·두 프로필 통과(100/100)가 필요하다.", "",
+    lines = ["# 실환경 검증 점수표", "", "이 점수는 정답률이 아니라 **실환경 검증 완료 점수**다. "
+             "미검증은 0점이며 품질 0%라는 뜻이 아니다. 가상 점수와 별도로 출시 후에도 100/100까지 확인한다.", "",
              f"후보: `{c['candidate_id']}` · 소스: `{c['source_commit']}`", "",
              "| 항목 | 배점 | 개인 Jev | 회사 구독 CLI | 획득 |", "| --- | ---: | --- | --- | ---: |"]
     for row in result["rows"]:
         lines.append(f"| {row['label']} | {row['weight']} | {row['personal']} | {row['company']} | {row['earned']} |")
-    lines += ["", f"**공동 출시 점수: {result['score']}/100 · 정식 배포: {'가능' if result['ready'] else '차단'}**",
+    lines += ["", f"**공동 실환경 점수: {result['score']}/100 · 실환경 검증: {'완료' if result['ready'] else '미완료'}**",
               f"개인용 진행: {result['profile_scores']['personal']}/100 · 회사용 진행: {result['profile_scores']['company']}/100.", "",
+              "정식 게시 여부는 [가상 출시 점수표](RELEASE-READINESS.ko.md)를 따른다. "
               "기준·종료 조건·이슈 이관: [출시 계약](README.ko.md). "
               "공통 회귀 결과는 한 번만 배점하며 과거 작은 QA/typed 대역 결과를 실제 프로필 품질로 세지 않는다.", ""]
     return "\n".join(lines)
