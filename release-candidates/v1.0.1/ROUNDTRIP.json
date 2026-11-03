@@ -1,0 +1,9 @@
+{
+  "public_unauthenticated_http_download": true,
+  "parts_downloaded": 19,
+  "all_part_sha256_verified": true,
+  "reconstructed_archive_sha256_verified": true,
+  "archive_sha256": "7660caebf9157b67cbdb1369a07b622eb43abebe5e7296ed7f9877705d4e5b07",
+  "safe_archive_paths": true,
+  "github_actions_executed": false
+}

@@ -1,5 +1,9 @@
 # Hindsight 로컬 1.0.1
 
+[설치 파일·체크섬 다운로드 목록](https://github.com/chonamdoo/agents-memory-releases/tree/release-assets-v1.0.1/files) · [설치/업데이트 안내](https://github.com/chonamdoo/agents-memory-releases/blob/main/distribution/hindsight-local/README.ko.md)
+
+설치 파일은 전용 공개 다운로드 경로로 제공합니다. 아래 명령으로 19개 조각과 재결합 파일의 무결성을 확인한 뒤 설치할 수 있습니다.
+
 로컬 전용 설치 패치입니다. 검색용 E5 ONNX와 RRF를 유지하고, 로컬 생성 LLM은 설치하지 않습니다.
 
 - 처음 설치할 때 Jev / 구독 LLM을 선택합니다. 구독 LLM은 Claude / Codex를 선택하고 모델 ID를 직접 지정할 수 있습니다.
