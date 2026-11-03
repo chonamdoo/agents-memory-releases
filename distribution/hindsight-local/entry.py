@@ -155,7 +155,7 @@ async def run():
         await engine.close()
 asyncio.run(run())
 '''
-    result = subprocess.run([sys.executable, "-I", "-B", "-c", program, item.bank, str(vendor)], env=child, timeout=180)
+    result = subprocess.run([sys.executable, "-I", "-B", "-c", program, item.bank, str(vendor)], env=child, timeout=180, check=False)
     if result.returncode:
         raise ValueError("Local bank provisioning failed")
     print("Bank privacy screening enabled locally. Start the API next. Project banks route data; they are not per-user authorization boundaries.")
@@ -236,10 +236,16 @@ def main(argv=None):
     if argv and argv[0] == "hook":
         from agents_memory.hindsight_hook import main as hook_main
         return hook_main(argv[1:])
+    if argv and argv[0] == "history":
+        profile()
+        prepare_vendor()
+        from agents_memory.history_cli import main as history_main
+        return history_main(argv[1:], installation=PREFIX)
     parser = argparse.ArgumentParser(description="agents-memory Hindsight local")
     parser.add_argument("--version", action="store_true")
     sub = parser.add_subparsers(dest="command")
     sub.add_parser("profile")
+    sub.add_parser("history", help="Explicit history candidates, usage and manual advice")
     sub.add_parser("rollback")
     p = sub.add_parser("project-init")
     p.add_argument("path", type=Path)

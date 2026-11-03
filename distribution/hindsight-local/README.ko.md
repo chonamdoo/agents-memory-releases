@@ -1,4 +1,4 @@
-# agents-memory Hindsight local 1.0.1
+# agents-memory Hindsight local 1.0.2
 
 Apple Silicon Mac(macOS 13 이상)에서 Hindsight를 로컬 기억 저장소로 실행합니다.
 설치 시 **Jev / 구독 LLM(Claude / Codex)** 중 하나를 선택합니다. Jev를 선택하면 API 키를
@@ -8,7 +8,7 @@ Apple Silicon Mac(macOS 13 이상)에서 Hindsight를 로컬 기억 저장소로
 
 ## 설치
 
-GitHub `chonamdoo/agents-memory-releases`의 정식 `v1.0.1` 배포물은 전송을 위해 19개 조각으로
+GitHub `chonamdoo/agents-memory-releases`의 정식 `v1.0.2` 배포물은 전송을 위해 19개 조각으로
 제공합니다. 아래 명령은 조각과 합친 압축 파일의 SHA256을 모두 검사한 뒤 설치합니다. Source code 자동 압축 파일은
 실행 제품이 아닙니다. 기존 Native 프리뷰 설치와 DB를 자동 변환하거나 덮어쓰지 않습니다.
 
@@ -17,20 +17,20 @@ GitHub `chonamdoo/agents-memory-releases`의 정식 `v1.0.1` 배포물은 전송
   set -eu
   am_install_dir=$(mktemp -d "${TMPDIR:-/tmp}/agents-memory-install.XXXXXXXX")
   cd "$am_install_dir"
-  am_release=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/release-assets-v1.0.1/files
+  am_release=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/release-assets-v1.0.2/files
   curl --fail --location --output SHA256SUMS "$am_release/SHA256SUMS"
   curl --fail --location --output PARTS-SHA256SUMS "$am_release/PARTS-SHA256SUMS"
   am_part=0
   while [ "$am_part" -lt 19 ]; do
-    am_name=agents-memory-hindsight-local-1.0.1.tar.gz.part-$(printf '%03d' "$am_part")
+    am_name=agents-memory-hindsight-local-1.0.2.tar.gz.part-$(printf '%03d' "$am_part")
     curl --fail --location --output "$am_name" "$am_release/$am_name"
     am_part=$((am_part + 1))
   done
   shasum -a 256 -c PARTS-SHA256SUMS
-  cat agents-memory-hindsight-local-1.0.1.tar.gz.part-* > agents-memory-hindsight-local-1.0.1.tar.gz
+  cat agents-memory-hindsight-local-1.0.2.tar.gz.part-* > agents-memory-hindsight-local-1.0.2.tar.gz
   shasum -a 256 -c SHA256SUMS
-  tar -xzf agents-memory-hindsight-local-1.0.1.tar.gz
-  cd agents-memory-hindsight-local-1.0.1
+  tar -xzf agents-memory-hindsight-local-1.0.2.tar.gz
+  cd agents-memory-hindsight-local-1.0.2
   ./install.sh
 )
 ```
@@ -138,7 +138,11 @@ Mac 바이너리는 ARM64/ABI/서명 구조를 정적으로 검사하며 이 클
 불가능하다는 뜻은 아닙니다. `licenses/`, `SBOM.json`, `BUILD.json`, `MANIFEST.json`에
 출처·hash·라이선스와 배포 범위를 기록했습니다. 외부 의존성은 원래 라이선스 그대로 설치됩니다.
 
-1.0.1 설치 변경: 첫 설치에서 Jev / 구독 LLM을 선택하고, 구독 LLM이면 Claude / Codex를 선택합니다. 추천 모델은 Claude Sonnet 5.5 / GPT-6.1 Terra입니다. 기존 설치 업데이트에서는 provider·CLI·모델·Jev 키·프로젝트와 outbox를 유지합니다. 키 교체는 am-hindsight configure --jev-key로 명시합니다.
+1.0.2 설치 변경: 첫 설치에서 Jev / 구독 LLM을 선택하고, 구독 LLM이면 Claude / Codex를 선택합니다. 추천 모델은 Claude Sonnet 5.5 / GPT-6.1 Terra입니다. 기존 설치 업데이트에서는 provider·CLI·모델·Jev 키·프로젝트와 outbox를 유지합니다. 키 교체는 am-hindsight configure --jev-key로 명시합니다.
 자체 컴파일 코어는 1.0.0과 동일하며 공개 wrapper/installer를 갱신한 버전입니다. 실제 Mac 실행 검증은 이번에도 수행하지 않았습니다. Actions는 실행하지 않았습니다.
 
 Claude 명시 변경: am-hindsight configure --provider local-llm --host claude --executable /absolute/path/to/claude --model claude-sonnet-5-5
+
+## 선택형 기록·사용량 기능
+
+설치/업데이트는 과거 대화를 자동으로 읽지 않습니다. `am-hindsight history`로 프로젝트·기간·기록 디렉터리를 지정한 뒤 후보를 검토합니다. 분석 전 외부 전송, 저장 전 정확한 본문과 현재 적용 가능성을 각각 확인합니다. 사용량 원장과 반복 실패 조언은 수동 검토용입니다. [상세 사용법과 한계](HISTORY.ko.md)를 확인하세요. 자동 도구 삭제나 설정 변경은 없습니다.

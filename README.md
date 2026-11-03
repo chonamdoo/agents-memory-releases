@@ -1,11 +1,12 @@
 # agents-memory releases
 
-## 최신 패치 1.0.1
+## 최신 릴리즈 1.0.2
 
-[로컬 설치 파일 받기](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.1) · [설치·업데이트 안내](distribution/hindsight-local/README.ko.md)
+[로컬 설치 파일 받기](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.2) · [설치·업데이트 안내](distribution/hindsight-local/README.ko.md) · [선택형 기록·사용량 안내](distribution/hindsight-local/HISTORY.ko.md)
 
-Jev 키 숨김 입력과 업데이트 시 provider·모델·키·프로젝트 설정 보존을 확인했습니다. 새 구독 설치는 Claude Sonnet 5.5 또는 Codex GPT-6.1 Terra를 선택합니다. 기존 설정은 자동 변경하지 않습니다. 컴파일 코어는 1.0.0과 동일한 공개 installer/wrapper 패치입니다. Actions는 실행하지 않았습니다. 아래 1.0.0 자료와 점수표는 해당 버전의 역사적 기록입니다.
+프로젝트·기간을 지정한 과거 대화 후보 검토, 명시적 모델 분석과 저장, 정정·삭제, 본문 없는 사용량 원장과 수동 조언을 추가했습니다. 설치는 과거 이력을 자동으로 읽지 않으며 기존 Jev/Claude/Codex 선택·키·모델을 유지합니다. 검색용 E5 임베딩은 포함됩니다. 자동 도구 삭제·stop 강제·host 설정 변경은 하지 않습니다. GitHub Actions는 2026-12-01까지 실행하지 않습니다.
 
+아래 1.0.0 점수표와 설명은 해당 버전의 역사적 기록이며 1.0.2 검증 결과가 아닙니다.
 
 [가상 출시 점수표](release-candidates/v1.0.0/RELEASE-READINESS.ko.md) ·
 [실환경 추후 검증](release-candidates/v1.0.0/SCORECARD.ko.md) ·

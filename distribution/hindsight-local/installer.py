@@ -115,7 +115,7 @@ def profile_valid(value):
 
 def verify_bundle(bundle):
     manifest = json.loads((bundle / "MANIFEST.json").read_bytes())
-    if manifest.get("product") != PRODUCT or manifest.get("version") != "1.0.1":
+    if manifest.get("product") != PRODUCT or manifest.get("version") != "1.0.2":
         raise ValueError("Unexpected product/version")
     files = manifest["files"]
     observed = set()
@@ -289,7 +289,7 @@ def install(args):
                 subprocess.run([str(python), "-I", "-m", "pip", "install", "--no-index", "--no-deps",
                     str(next((payload / "components" / target).glob("*.whl")))], check=True,
                     stdout=stream, stderr=subprocess.STDOUT, timeout=120)
-            probe = "import agents_memory,agents_memory.hindsight_hook as h,_agents_memory_release.local as l;assert agents_memory.__version__=='1.0.0';assert h.__file__.endswith('.so') and l.__file__.endswith('.so')"
+            probe = "import agents_memory,agents_memory.hindsight_hook as h,agents_memory.history_sources as hs,agents_memory.hindsight_history as hh,agents_memory.history_cli as hc,_agents_memory_release.local as l;assert all(m.__file__.endswith('.so') for m in (hs,hh,hc));assert agents_memory.__version__=='1.0.0';assert h.__file__.endswith('.so') and l.__file__.endswith('.so')"
             subprocess.run([str(python), "-I", "-c", probe], check=True, timeout=30)
             (folder / "bin").mkdir(mode=0o700)
             launcher = folder / "bin/am-hindsight"

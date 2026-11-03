@@ -20,8 +20,8 @@ def installer():
 
 
 def args(**updates):
-    return argparse.Namespace(**dict(provider=None, model=None, codex=None, host=None,
-                                    executable=None) | updates)
+    return argparse.Namespace(**{"provider": None, "model": None, "codex": None, "host": None,
+                                    "executable": None} | updates)
 
 
 @pytest.mark.parametrize("host,model", [("claude", "claude-sonnet-5-5"), ("codex", "gpt-6.1-terra")])
