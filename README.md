@@ -14,20 +14,19 @@ verification continues after publication. This score does not establish SOTA per
 
 ## Hindsight local v1.0.0
 
-**Publication pending:** final hidden-key Jev setup and split delivery are being validated before stable publication. v1.0.0 is not yet public.
+**Stable v1.0.0 is published.** Download the release assets with the installation command below. The command verifies all 19 parts and the reconstructed archive before installation.
 
-[Stable release target (available after publication)](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.0) ·
+[Download the stable local release](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.0) ·
 [설치 안내](distribution/hindsight-local/README.ko.md) ·
 [릴리즈 노트](release-candidates/v1.0.0/RELEASE-NOTES.ko.md) ·
 [최종 배포물 검증](release-candidates/v1.0.0/ARTIFACT-VERIFICATION.json).
 
-### 설치 명령어 — v1.0.0 게시 후
+### 설치 명령어
 
 Apple Silicon Mac(macOS 13 이상)의 터미널에 아래 블록을 붙여 넣으세요. 배포 파일과
 체크섬을 다운로드하고 검증한 뒤 설치합니다. 처음에 **Jev / 로컬 LLM(구독 중인 Codex)**
 중 하나를 선택합니다. Jev는 API 키를 숨김 입력으로 받고 사용자 전용 파일에 보관합니다.
 업데이트할 때 같은 명령을 실행하면 기존 provider·모델·키 설정을 유지합니다.
-릴리즈 게시가 끝나기 전에는 다운로드 주소가 아직 동작하지 않습니다.
 
 ```sh
 (
