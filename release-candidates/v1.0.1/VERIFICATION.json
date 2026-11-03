@@ -46,5 +46,6 @@
   "public_repository_local_suite": {
     "passed": 48,
     "subtests_passed": 62
-  }
+  },
+  "download_transport": "Public dedicated Git branch; GitHub upload endpoint rejected credentials"
 }

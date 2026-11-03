@@ -17,7 +17,7 @@ GitHub `chonamdoo/agents-memory-releases`의 정식 `v1.0.1` 배포물은 전송
   set -eu
   am_install_dir=$(mktemp -d "${TMPDIR:-/tmp}/agents-memory-install.XXXXXXXX")
   cd "$am_install_dir"
-  am_release=https://github.com/chonamdoo/agents-memory-releases/releases/download/v1.0.1
+  am_release=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/release-assets-v1.0.1/files
   curl --fail --location --output SHA256SUMS "$am_release/SHA256SUMS"
   curl --fail --location --output PARTS-SHA256SUMS "$am_release/PARTS-SHA256SUMS"
   am_part=0
