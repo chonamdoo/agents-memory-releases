@@ -1,0 +1,161 @@
+{
+  "release": "1.0.2",
+  "base_compiled_core": "reused v1.0.0",
+  "compiled_feature_source_commit": "38e394efe60341d8d7e408a892d20d2d5caaf505",
+  "full_local_ci": {
+    "exit_code": 0,
+    "tests": 5059,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 1198.52,
+    "source_before": "8bc3a6ea8216a36ac642529bc5d68d9ea80c614cbbd86dd5d56ddf7c2c1b688f",
+    "source_after": "8bc3a6ea8216a36ac642529bc5d68d9ea80c614cbbd86dd5d56ddf7c2c1b688f",
+    "execution": "local Linux Python 3.13, PG18 + pgvector, age and native PG tooling; not Actions"
+  },
+  "new_history_source_tests": 41,
+  "new_history_installed_binary_tests": 41,
+  "public_repository_tests": {
+    "passed": 48,
+    "subtests_passed": 62
+  },
+  "lint": "src tests .github/ci and public wrappers passed",
+  "live_model_checks": [
+    {
+      "host": "claude",
+      "requested_model": "claude-sonnet-5-5",
+      "passed": true,
+      "compiled_history_workflow": true,
+      "zero_call_preview": true,
+      "analysis": {
+        "decisions": [
+          {
+            "id": "7f5f16a5fdd8d09597a928401b5bca09b259f99d36238c348ad209cc225349b7",
+            "decision": "keep"
+          }
+        ]
+      },
+      "exact_document_mapping": true,
+      "e5_rrf_recall": true,
+      "verified_remote_deletion": true,
+      "stats": {
+        "candidates": {
+          "forgotten": 1
+        },
+        "provider_and_backend_calls": 5,
+        "analysis_calls": 1,
+        "calls_with_unknown_usage": 4,
+        "known_input_tokens": 1925,
+        "cost_usd": null,
+        "subscription_quota_saved": null,
+        "measured_savings": null,
+        "historical_sessions_are_not_savings": true,
+        "live_reported_calls": 0,
+        "live_reported_input_tokens": 0,
+        "live_reported_cached_tokens": 0,
+        "live_reported_output_tokens": 0,
+        "live_usage_incomplete": 0,
+        "usage_scope": "reported counters; no independent billing attestation"
+      }
+    },
+    {
+      "host": "codex",
+      "requested_model": "gpt-6.1-terra",
+      "passed": true,
+      "compiled_history_workflow": true,
+      "zero_call_preview": true,
+      "analysis": {
+        "decisions": [
+          {
+            "id": "1a642c30bed1c2fa5bc76085999f1b75418f85cf7dc1f5f78bf7aab97b376f4e",
+            "decision": "keep"
+          }
+        ]
+      },
+      "exact_document_mapping": true,
+      "e5_rrf_recall": true,
+      "verified_remote_deletion": true,
+      "stats": {
+        "candidates": {
+          "forgotten": 1
+        },
+        "provider_and_backend_calls": 5,
+        "analysis_calls": 1,
+        "calls_with_unknown_usage": 4,
+        "known_input_tokens": 11371,
+        "cost_usd": null,
+        "subscription_quota_saved": null,
+        "measured_savings": null,
+        "historical_sessions_are_not_savings": true,
+        "live_reported_calls": 0,
+        "live_reported_input_tokens": 0,
+        "live_reported_cached_tokens": 0,
+        "live_reported_output_tokens": 0,
+        "live_usage_incomplete": 0,
+        "usage_scope": "reported counters; no independent billing attestation"
+      }
+    }
+  ],
+  "key_and_update_checks": {
+    "real_terminal_hidden_key_input": true,
+    "terminal_echo_disabled": true,
+    "key_absent_from_terminal_output": true,
+    "key_mode": "0600",
+    "successful_upgrade_preserved_provider_model_key_project_outbox": true,
+    "old_runtime_retained": true,
+    "failed_dependency_upgrade_preserved_current_pointer_and_settings": true,
+    "live_jev_api_call": false,
+    "scope": "synthetic Jev key; actual compiled artifact installation and update on Linux validation runtime"
+  },
+  "fresh_install_and_telemetry": {
+    "fresh_install_version": "agents-memory Hindsight local 1.0.2 (core 1.0.0)",
+    "new_codex_default_model": "gpt-6.1-terra",
+    "synthetic_telemetry_cli": true,
+    "deduplicated_usage": true,
+    "unknown_usage_preserved": true,
+    "expected_TDD_failure_resets_advice": true,
+    "protected_memory_tools_not_pruned": true,
+    "network_or_model_calls": 0,
+    "billing_attestation": false
+  },
+  "macos_binary_checks": [
+    {
+      "module": "history_cli.cpython-313-darwin.so",
+      "arm64": true,
+      "minimum_macos": "13.0",
+      "adhoc_signature_pages_verified": 13,
+      "real_macos_execution": false
+    },
+    {
+      "module": "history_sources.cpython-313-darwin.so",
+      "arm64": true,
+      "minimum_macos": "13.0",
+      "adhoc_signature_pages_verified": 18,
+      "real_macos_execution": false
+    },
+    {
+      "module": "hindsight_history.cpython-313-darwin.so",
+      "arm64": true,
+      "minimum_macos": "13.0",
+      "adhoc_signature_pages_verified": 26,
+      "real_macos_execution": false
+    }
+  ],
+  "final_bundle_manifest_checked": true,
+  "private_source_bytecode_generated_C_absent": true,
+  "local_archive_roundtrip": {
+    "parts": 19,
+    "recombined_sha256": "3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34",
+    "archive_exact_manifest_checked": true
+  },
+  "github_actions_executed": false,
+  "actions_suspended_through": "2026-12-01",
+  "real_macos_execution": false,
+  "jev_live_api": false,
+  "model_quality_or_quota_savings_claim": false,
+  "scope": "synthetic source histories only; no actual user history read",
+  "harness_notes": [
+    "Recently closed ports were refused by preflight; independent unused ports were selected.",
+    "Codex stale login was refused with 401; successful fresh authenticated test is recorded separately after user login."
+  ]
+}

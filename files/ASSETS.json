@@ -1,0 +1,12 @@
+{
+  "version": "1.0.2",
+  "archive": "agents-memory-hindsight-local-1.0.2.tar.gz",
+  "archive_bytes": 154715870,
+  "sha256": "3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34",
+  "parts": 19,
+  "compiled_core_version": "1.0.0",
+  "compiled_feature_version": "1.0.2",
+  "private_source_or_bytecode_shipped": false,
+  "download_base": "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/release-assets-v1.0.2/files",
+  "download_branch": "release-assets-v1.0.2"
+}
