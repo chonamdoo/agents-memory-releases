@@ -158,7 +158,7 @@ python verify.py --pg-bin /path/to/postgres/bin --e5 /path/to/e5-small --work /p
 Docker 실행 경로도 새 합성 DB로 확인할 수 있습니다. 기존 서버·볼륨은 사용하지 않고 검사 종료 후 생성한 컨테이너·네트워크만 지웁니다. 아래 명령은 이 서버 디렉터리에서 Linux의 로컬 Docker를 대상으로 실행합니다.
 
 ```sh
-docker build -t agents-memory-collaboration:0.2.0-qa .
+docker build -t agents-memory-collaboration:0.2.1-qa .
 PYTHONPATH=src python verify_docker.py --work /private/empty-docker-test-directory
 ```
 

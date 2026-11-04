@@ -191,3 +191,5 @@ Company one-command installation entrypoint and separate home-Jev guidance: [INS
 ## Optional personal sync and team server preview
 
 [Collaboration 0.2 developer preview](distribution/server/README.ko.md) adds an optional PostgreSQL/pgvector server, personal multi-PC sync, project-scoped team sharing, and durable MCP clients for Claude, Codex and OMP. The local product remains the default. This preview has a [separate behavior contract](distribution/server/CONTRACT.md) and [local verification record](distribution/server/VERIFICATION.json); it does not replace the stable local release or claim native Windows/macOS host validation.
+
+Use [the personal install selector](distribution/install.sh) to choose stable local memory (existing local LLM/Jev) or connection to your own server. The selector does not provision cloud infrastructure; [preview release notes](release-candidates/cloud-v0.2.1-preview.1/RELEASE-NOTES.ko.md) describe the tested paths and limits.

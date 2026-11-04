@@ -1,6 +1,6 @@
 {
   "version": "0.2.1",
-  "status": "developer_preview",
+  "status": "personal_server_prerelease_candidate",
   "date_utc": "2026-11-04",
   "base_commit": "8e0d088",
   "runtime_sha256": {
@@ -36,24 +36,24 @@
     "darwin_root_alias_simulations_and_permission_controls": 7
   },
   "stable_main_regressions": {
-    "passed": 127,
-    "subtests_passed": 62
+    "passed": 136,
+    "subtests_passed": 62,
+    "includes_install_mode_selector_tests": 9
   },
   "docker": {
     "health": {
       "ready": true,
       "semantic": true,
-      "version": "0.2.0"
+      "version": "0.2.1"
     },
     "two_replicas_equal": true,
     "session_preserved": true,
     "semantic_query_executed": true,
     "team_query_then_unshare": true,
     "read_only_rootfs": true,
-    "image_id": "sha256:e5a39ac669cbf11df1eab287e01885bde99c6473211806eb2814fb94c3b39097",
-    "tested_release": "0.2.0",
-    "tested_commit": "71c5f87eab4e624b77ceb86efc9d368194648aa0",
-    "new_0_2_1_image_tested": false
+    "image_id": "sha256:e0bb9c4a7f94f0ccd54615a1d276191c46d46c8d2980c200c698059550737219",
+    "tested_release": "0.2.1",
+    "new_0_2_1_image_tested": true
   },
   "wheel_sha256": "1fa76146e50471f411e031b670172022f888b30a140f7816d1bd33eae4c8521d",
   "wheel_equals_tested_artifact": true,
@@ -67,7 +67,9 @@
     "repeat_install_preserves_key": true,
     "missing_uv_bootstrap": "Linux x64: checksum-pinned uv 0.12.23 and managed Python 3.12.15",
     "tested_client_version": "0.2.1",
-    "cross_version_mac_upgrade_tested": false
+    "cross_version_mac_upgrade_tested": false,
+    "cross_version_mac_upgrade_reported": true,
+    "cross_version_mac_upgrade_evidence": "user-provided Ego report; not independently run in this Linux environment"
   },
   "fable_review": {
     "model": "claude-fable-5-1",
@@ -80,7 +82,7 @@
   "paid_resources_created": false,
   "deployed": false,
   "limitations": [
-    "Native Mac one-off host connection reported passed by user; normal launch approvals and this alias fix still need Mac confirmation. Native Windows unverified.",
+    "Native Mac pilot results are user-reported; Claude first interactive workspace trust and Mac login/sleep/network-change recovery remain unverified. Native Windows unverified.",
     "Full external transcript collection and arbitrary session-format conversion not implemented.",
     "Direct HTTP MCP and legacy Go proxy are online paths without local outbox.",
     "Account-scoped device keys; team/project grants enforced at query time, no per-device project whitelist.",
@@ -90,17 +92,43 @@
   ],
   "profile_ci_local": "PASS: current profile and legacy installation integrity",
   "mac_external_report": {
-    "source": "user-provided Ego report",
-    "tested_commit": "71c5f87eab4e624b77ceb86efc9d368194648aa0",
+    "source": "user-provided Ego reports",
+    "client_commit": "3ffe6f230876f44c495499ef2a2cf34cbb16d574",
+    "server_commit": "71c5f87eab4e624b77ceb86efc9d368194648aa0",
     "actual_hosts": [
       "Claude Code 2.1.318",
       "Codex 0.166.0",
       "OMP 18.16.0"
     ],
-    "one_off_setup_status_pass": true,
     "stdio_memory_roundtrip_pass": true,
-    "normal_launch_approval_pending": true,
-    "darwin_alias_fix_native_retest_pending": true,
-    "tunnel_autostart_and_real_reboot_unverified": true
+    "darwin_system_alias_native_pass": true,
+    "keys_and_data_preserved_on_upgrade": true,
+    "codex_interactive_status_pass": true,
+    "codex_recovery_tools_disabled_and_control_checked": true,
+    "omp_connection_pass": true,
+    "claude_noninteractive_pass": true,
+    "claude_interactive_workspace_trust_pending": true,
+    "tunnel_process_restart_pass": true,
+    "actual_gcp_vm_reboot_and_memory_persistence_pass": true,
+    "actual_mac_login_sleep_network_change_unverified": true,
+    "native_mac_hardlink_rejection_unverified": true,
+    "terminal_mac_in_scope": false
+  },
+  "release_local_date": "2026-11-05 Asia/Seoul",
+  "deployment_scope": "Release assets and source only; existing personal GCP VM is not modified by this release preparation.",
+  "install_selector": {
+    "choices": [
+      "local",
+      "personal-server"
+    ],
+    "local_installer_release": "v1.0.7",
+    "local_installer_sha256": "7e09e69e692dca8d910521d43aab613054afc1c45d689dfcfab0c225f3150177",
+    "cloud_resources_provisioned": false,
+    "local_judge_options": [
+      "local-llm",
+      "jev"
+    ],
+    "cloud_mcp_calls_jev": false,
+    "existing_hindsight_export": "explicit opt-in separate path; no automatic migration"
   }
 }

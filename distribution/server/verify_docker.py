@@ -13,7 +13,7 @@ from agents_memory_collab.client import Remote, Replica
 
 parser=argparse.ArgumentParser(description='Isolated local Docker smoke test; synthetic data only')
 parser.add_argument('--work',type=Path,required=True)
-parser.add_argument('--image',default='agents-memory-collaboration:0.2.0-qa')
+parser.add_argument('--image',default='agents-memory-collaboration:0.2.1-qa')
 args=parser.parse_args()
 root=args.work.absolute()
 if root.exists() and any(root.iterdir()):raise SystemExit('Use a new empty verification directory')

@@ -27,5 +27,6 @@ private/
 !tools/check-native-extension.py
 
 !distribution/server/**/*.py
+!tools/tests/test_install_mode_selector.py
 distribution/server/.venv/
 distribution/server/dist/
