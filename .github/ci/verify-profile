@@ -48,7 +48,14 @@ assert set(manifest) == FILES - {'CONTENTS_SHA256SUMS'}
 for name, expected in manifest.items():
     verify_file(PROFILE, name, expected)
 for name, expected in checksums(CHECKS / 'legacy-preview.sha256').items():
-    verify_file(ROOT, name, expected)
+    if name == '.claude-plugin/marketplace.json':
+        # The catalog may add new plugins; preserve the historical entry and identity.
+        catalog = json.loads((ROOT / name).read_bytes())
+        historical = {**catalog, 'plugins': [p for p in catalog['plugins'] if p.get('name') == 'agents-memory']}
+        canonical = (json.dumps(historical, indent=2, ensure_ascii=False) + '\n').encode()
+        assert hashlib.sha256(canonical).hexdigest() == expected, 'Legacy marketplace entry changed'
+    else:
+        verify_file(ROOT, name, expected)
 
 upstream = json.loads((PROFILE / 'UPSTREAM.json').read_bytes())
 assert upstream['hindsight_commit'] == '14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2'

@@ -20,6 +20,7 @@ import socket
 import stat
 import subprocess
 import sys
+import tarfile
 import threading
 import time
 import tomllib
@@ -28,7 +29,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
-VERSION = "1.0.4"
+VERSION = "1.0.5"
 CORE_VERSION = "1.0.2"
 PRODUCT = "agents-memory-hindsight-local"
 PREFIX = Path.home() / ".local/share/agents-memory-hindsight"
@@ -37,6 +38,17 @@ LABEL = "io.agents-memory.product-id"
 NAME = "agents-memory-local"
 DEFAULT_CONNECT = ["-c", 'exec "$HOME/.local/share/agents-memory-hindsight/bin/am-mcp" proxy']
 MAX_FILE = 2 * 1024 * 1024
+NATIVE_VERSION = "18.6.1-vector0.8.7"
+NATIVE_POSTGRES = {
+    "Darwin": ("aarch64-apple-darwin", "89e91cc80650a43d22c018b95ca356a0c9e15838a1182fed2880bfb5d7d9c9a6"),
+    "Linux": ("x86_64-unknown-linux-gnu", "e84b02dd8d0ce5879fb697330a789231c8b8f8d958dae3ad4d90fecc710b1315"),
+}
+NATIVE_VECTOR = {
+    "Darwin": ("pgvector-0.8.7-darwin-arm64.tar.gz", "394a5b31a2847cfa3f85585fc8a154b6fb8b8a883259e250ed4d0aee7fb09f33"),
+    "Linux": ("pgvector-0.8.7-linux-x86_64.tar.gz", "d6f9af78ab17d4db7ebc8564048bc7173a379fdf400ac2bb4393119426659a12"),
+}
+NATIVE_ASSET_BASE = "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/b594f4756d754681f6ebf0fb5f09674fb11a0bd4/distribution/mcp-local/assets/"
+OPERATION_LOG = None
 
 
 class Refused(Exception):
@@ -86,8 +98,12 @@ def run(args, *, env=None, cwd=None, input_data=None, timeout=180):
     result = subprocess.run(args, env=env, cwd=cwd, input=input_data, capture_output=True,
                             timeout=timeout, check=False)
     if result.returncode:
-        # Provider, database and Docker errors may contain credentials. Keep the details private.
-        raise Refused("Operation failed; inspect the private service log or run status")
+        # Third-party diagnostics may contain credentials; only the private log receives them.
+        if OPERATION_LOG is not None:
+            previous = private_read(OPERATION_LOG) if OPERATION_LOG.exists() else b""
+            write_private(OPERATION_LOG, (previous + b"\n" + result.stderr[-131072:])[-1048576:])
+        operation = Path(args[0]).name
+        raise Refused(f"{operation} failed (exit {result.returncode}); inspect the private operations.log")
     return result.stdout
 
 
@@ -115,8 +131,8 @@ def owner(prefix, *, versions=(CORE_VERSION,)):
 
 
 @contextmanager
-def locked(prefix):
-    path = prefix / "settings/mcp-setup.lock"
+def locked(prefix, name="mcp-setup.lock"):
+    path = prefix / "settings" / name
     if path.exists() or path.is_symlink():
         private_read(path)
     descriptor = os.open(path, os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
@@ -206,6 +222,150 @@ def inspect_docker(prefix, kind, name):
     return json.loads(docker(prefix, kind, "inspect", name))[0]
 
 
+def native_runtime(prefix):
+    """Fetch a pinned, relocatable PostgreSQL runtime. No system installs or Docker."""
+    system = platform.system()
+    if (system, platform.machine()) not in {("Darwin", "arm64"), ("Linux", "x86_64")}:
+        raise Refused("Native database requires Apple Silicon macOS 15+ or the Linux validation host")
+    if system == "Darwin" and int(platform.mac_ver()[0].split(".")[0]) < 15:
+        raise Refused("Automatic local database requires macOS 15 or newer")
+    target, checksum = NATIVE_POSTGRES[system]
+    directory = prefix / "database" / NATIVE_VERSION
+    marker = directory / "RUNTIME.json"
+    if marker.exists():
+        receipt = read_json(marker)
+        if receipt.get("version") != NATIVE_VERSION or receipt.get("product_id") != owner(prefix)["id"]:
+            raise Refused("Native database runtime identity changed")
+        for name, expected in receipt["files"].items():
+            path = directory / name
+            if path.is_symlink() or not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+                raise Refused("Native database runtime changed; existing data was preserved")
+        return directory
+    if directory.exists():
+        raise Refused("Incomplete native database runtime; existing files were preserved")
+    parent = prefix / "database"
+    safe_parents(parent)
+    parent.mkdir(mode=0o700, exist_ok=True)
+    work = parent / (".download-" + uuid.uuid4().hex)
+    work.mkdir(mode=0o700)
+    try:
+        def download(url, destination, expected):
+            run(["curl", "--fail", "--silent", "--show-error", "--location", "--retry", "2",
+                 "--connect-timeout", "20", "--max-time", "600", "--proto", "=https",
+                 "--proto-redir", "=https", url, "-o", str(destination)], timeout=650)
+            if hashlib.sha256(destination.read_bytes()).hexdigest() != expected:
+                raise Refused("Native database download integrity verification failed")
+
+        archive = work / "postgres.tar.gz"
+        download(f"https://github.com/theseus-rs/postgresql-binaries/releases/download/18.6.1/postgresql-18.6.1-{target}.tar.gz",
+                 archive, checksum)
+        with tarfile.open(archive) as source:
+            source.extractall(work, filter="data")
+        unpacked = work / ("postgresql-18.6.1-" + target)
+        vector = work / "vector.tar.gz"
+        asset, vector_hash = NATIVE_VECTOR[system]
+        download(NATIVE_ASSET_BASE + asset, vector, vector_hash)
+        with tarfile.open(vector) as source:
+            source.extractall(unpacked, filter="data")
+        files = {}
+        for name in ("bin/postgres", "bin/initdb", "bin/pg_ctl", "bin/psql", "lib/vector.so",
+                     "share/extension/vector.control", "share/extension/vector--0.8.7.sql"):
+            path = unpacked / name
+            if path.is_symlink() or not path.is_file():
+                raise Refused("Native database asset is incomplete")
+            files[name] = hashlib.sha256(path.read_bytes()).hexdigest()
+        write_json(unpacked / "RUNTIME.json", {"version": NATIVE_VERSION,
+                   "product_id": owner(prefix)["id"], "files": files})
+        os.replace(unpacked, directory)
+        return directory
+    finally:
+        shutil.rmtree(work)
+
+
+def native_database(prefix, state, *, provision):
+    if state.get("runtime_version") != NATIVE_VERSION:
+        raise Refused("Unsupported native database version; existing data was preserved")
+    parsed = urlsplit(state["url"])
+    if (parsed.hostname != "127.0.0.1" or parsed.port != state.get("port") or parsed.username != "am_local"
+            or parsed.path != "/am_hindsight_local" or not re.fullmatch(r"[A-Za-z0-9_-]{20,128}", parsed.password or "")):
+        raise Refused("Native database URL changed; existing data was preserved")
+    root = prefix / "database"
+    safe_parents(root)
+    root.mkdir(mode=0o700, exist_ok=True)
+    marker = root / "OWNER.json"
+    identity = {"product_id": owner(prefix)["id"], "runtime_version": NATIVE_VERSION}
+    if not marker.exists() and provision and not (root / "data").exists():
+        write_json(marker, identity)
+    if not marker.exists():
+        raise Refused("Existing native database directory has no ownership marker; existing data was preserved")
+    if read_json(marker) != identity:
+        raise Refused("Refusing to adopt an unrelated native database")
+    runtime = native_runtime(prefix)
+    data = root / "data"
+    safe_parents(data)
+    if not data.exists():
+        if not provision:
+            raise Refused("Native database is not initialized")
+        temporary = root / (".initialize-" + uuid.uuid4().hex)
+        password_file = root / (".password-" + uuid.uuid4().hex)
+        write_private(password_file, (parsed.password + "\n").encode())
+        try:
+            run([str(runtime / "bin/initdb"), "-D", str(temporary), "-U", "am_local",
+                 "--pwfile=" + str(password_file), "--auth-host=scram-sha-256", "--auth-local=reject",
+                 "--encoding=UTF8", "--locale=C"], timeout=120)
+            write_private(temporary / "agents-memory.conf", (
+                f"listen_addresses = '127.0.0.1'\nport = {state['port']}\nunix_socket_directories = ''\n"
+                "max_connections = 150\nshared_buffers = '128MB'\n").encode())
+            with (temporary / "postgresql.conf").open("ab") as stream:
+                stream.write(b"\ninclude = 'agents-memory.conf'\n")
+            os.replace(temporary, data)
+        finally:
+            password_file.unlink(missing_ok=True)
+            if temporary.exists():
+                shutil.rmtree(temporary)
+    if (data / "PG_VERSION").read_text().strip() != "18":
+        raise Refused("Native database major version changed")
+    command = [str(runtime / "bin/pg_ctl"), "-D", str(data)]
+    running = subprocess.run(command + ["status"], capture_output=True, check=False).returncode == 0
+    if not running:
+        run(command + ["-l", str(root / "postgres.log"), "-w", "-t", "60", "start"], timeout=75)
+    environment = {k: v for k, v in os.environ.items() if not k.startswith("PG")}
+    environment.update(PGHOST="127.0.0.1", PGPORT=str(state["port"]), PGUSER="am_local",
+                       PGPASSWORD=parsed.password, PGDATABASE="postgres", PGCONNECT_TIMEOUT="5")
+    psql = [str(runtime / "bin/psql"), "-X", "-A", "-t", "-v", "ON_ERROR_STOP=1"]
+    observed = run(psql + ["-c", "SELECT current_setting('data_directory')"], env=environment).decode().strip()
+    if observed != str(data):
+        raise Refused("The database port belongs to a different data directory")
+    exists = run(psql + ["-c", "SELECT 1 FROM pg_database WHERE datname='am_hindsight_local'"], env=environment).strip()
+    if not exists:
+        if not provision:
+            raise Refused("The owned memory database is absent")
+        run(psql + ["-c", "CREATE DATABASE am_hindsight_local"], env=environment)
+    environment["PGDATABASE"] = "am_hindsight_local"
+    run(psql + ["-c", "CREATE EXTENSION IF NOT EXISTS vector"], env=environment)
+    version = run(psql + ["-c", "SELECT extversion FROM pg_extension WHERE extname='vector'"], env=environment).decode().strip()
+    if version != "0.8.7":
+        raise Refused("Native pgvector version differs from the pinned release")
+    return state["url"]
+
+
+def stop_native_database(prefix):
+    path = prefix / "settings/mcp-database.json"
+    if not path.exists():
+        return
+    state = read_json(path)
+    if state.get("mode") != "native":
+        return
+    if state.get("product_id") != owner(prefix)["id"]:
+        raise Refused("Native database identity changed; no process was stopped")
+    runtime = native_runtime(prefix)
+    data = prefix / "database/data"
+    safe_parents(data)
+    command = [str(runtime / "bin/pg_ctl"), "-D", str(data)]
+    if subprocess.run(command + ["status"], capture_output=True, check=False).returncode == 0:
+        run(command + ["-w", "-t", "60", "-m", "fast", "stop"], timeout=75)
+
+
 def ensure_database(prefix, *, provision=False):
     identity = owner(prefix)["id"]
     path = prefix / "settings/mcp-database.json"
@@ -216,25 +376,19 @@ def ensure_database(prefix, *, provision=False):
         if external:
             write_json(path, {"mode": "external", "url": database_valid(external), "product_id": identity})
         else:
-            executable = shutil.which("docker")
-            if not executable:
-                raise Refused("Start Docker Desktop, or provide a dedicated local DATABASE_URL, then rerun setup")
-            endpoint = docker_endpoint(executable)
             password = secrets.token_urlsafe(32)
             port = available_port()
-            name = "am-hindsight-" + identity[:16]
-            write_json(path, {"mode": "docker", "product_id": identity, "image": PG_IMAGE,
-                             "docker_endpoint": endpoint, "docker_executable": str(Path(executable).resolve()),
-                             "container": name, "volume": name + "-data", "port": port,
+            write_json(path, {"mode": "native", "product_id": identity, "runtime_version": NATIVE_VERSION,
+                             "port": port,
                              "url": f"postgresql://am_local:{password}@127.0.0.1:{port}/am_hindsight_local"})
-            write_private(prefix / "settings/mcp-postgres.env",
-                          f"POSTGRES_USER=am_local\nPOSTGRES_PASSWORD={password}\nPOSTGRES_DB=am_hindsight_local\n".encode())
     state = read_json(path)
     if state.get("product_id") != identity:
         raise Refused("Database receipt identity mismatch")
     database_valid(state["url"])
     if state["mode"] == "external":
         return state["url"]
+    if state["mode"] == "native":
+        return native_database(prefix, state, provision=provision)
     if state.get("mode") != "docker" or state.get("image") != PG_IMAGE:
         raise Refused("Unsupported database receipt; existing state was preserved")
     parsed = urlsplit(state["url"])
@@ -349,6 +503,13 @@ def install_helper(prefix):
     directory = prefix / "integration" / (VERSION + "-" + uuid.uuid4().hex)
     directory.mkdir(parents=True, mode=0o700)
     write_private(directory / "setup.py", source)
+    target = "darwin-arm64" if platform.system() == "Darwin" else "linux-x86_64"
+    candidates = [Path(__file__).parent / ("connector-" + target),
+                  Path(__file__).parent.parent / "bin" / ("connector-" + target)]
+    connector = next((path for path in candidates if path.is_file()), None)
+    if connector is not None:
+        write_private(directory / "connector", connector.read_bytes())
+        (directory / "connector").chmod(0o700)
     temporary = prefix / "integration" / (".current-" + uuid.uuid4().hex)
     temporary.symlink_to(directory.name)
     os.replace(temporary, prefix / "integration/current")
@@ -358,6 +519,12 @@ def install_helper(prefix):
     write_private(command, ("#!/bin/sh\nexec " + shlex.quote(python) + " -I " + shlex.quote(helper)
                             + " --prefix " + shlex.quote(str(prefix)) + " \"$@\"\n").encode())
     command.chmod(0o700)
+    if connector is not None:
+        command = prefix / "bin/am-connect"
+        write_private(command, ("#!/bin/sh\nexec " + shlex.quote(str(prefix / "integration/current/connector"))
+                      + " --prefix " + shlex.quote(str(prefix)) + " --helper " + shlex.quote(helper)
+                      + " --project \"$PWD\" \"$@\"\n").encode())
+        command.chmod(0o700)
 
 
 def project_record(prefix, project):
@@ -421,6 +588,26 @@ def stop_agent(prefix):
     return exists
 
 
+def stop_virtual_agent(prefix):
+    """Linux validation only; stop the exact owned helper, never a port's arbitrary PID."""
+    value = read_json(prefix / "settings/mcp-process.json")
+    if value.get("product_id") != owner(prefix)["id"] or type(value.get("pid")) is not int or value["pid"] <= 1:
+        raise Refused("Virtual service process identity changed")
+    pid = value["pid"]
+    expected = [str(prefix / "current/venv/bin/python"), "-I", str(prefix / "integration/current/setup.py"),
+                "--prefix", str(prefix), "service-run"]
+    observed = (Path("/proc") / str(pid) / "cmdline").read_bytes().rstrip(b"\0").split(b"\0")
+    if observed != [os.fsencode(arg) for arg in expected]:
+        raise Refused("Refusing to stop an unrelated virtual process")
+    os.kill(pid, signal.SIGTERM)
+    deadline = time.monotonic() + 30
+    while ready(prefix) and time.monotonic() < deadline:
+        time.sleep(.2)
+    if ready(prefix):
+        raise Refused("Virtual service has not stopped")
+    return True
+
+
 
 def wait_service_ports(prefix):
     profile = read_json(prefix / "settings/profile.json")
@@ -435,6 +622,25 @@ def wait_service_ports(prefix):
             if time.monotonic() >= deadline:
                 raise Refused("Previous local API connections have not released their ports; retry setup shortly") from None
             time.sleep(.5)
+
+
+def initial_service_ports(prefix):
+    """A new installation can select free ports; existing project bindings never move."""
+    if (prefix / "settings/mcp-projects.json").exists():
+        return
+    path = prefix / "settings/profile.json"
+    profile = read_json(path)
+    try:
+        for port in (profile["api_port"], profile["worker_port"]):
+            with socket.socket() as probe:
+                probe.bind(("127.0.0.1", port))
+    except OSError:
+        api = available_port()
+        worker = available_port()
+        while api == worker:
+            worker = available_port()
+        profile.update(api_port=api, worker_port=worker)
+        write_json(path, profile)
 
 
 def require_service_credentials(prefix):
@@ -480,7 +686,9 @@ def start_agent(prefix):
 
 
 def configure_client(project, prefix, client, *, dry_run=False):
-    if client == "claude-plugin":
+    if client in {"claude-plugin", "connector"}:
+        if client == "connector":
+            return {"client": client, "registration": "automatic MCP connector"}
         if prefix != PREFIX:
             raise Refused("Marketplace plugin uses the default prefix; use --client claude for a custom prefix")
         # Installed plugin discovers the per-project receipt through its stdio launcher.
@@ -570,6 +778,7 @@ def setup(args):
         configure_client(args.project, args.prefix, client, dry_run=True)
     install_core(args)
     with locked(args.prefix):
+        initial_service_ports(args.prefix)
         receipt = args.prefix / "settings/mcp-projects.json"
         installed = args.prefix / "integration/current/setup.py"
         service_receipt = args.prefix / "settings/mcp-service.json"
@@ -589,11 +798,15 @@ def setup(args):
                 with phase("기존 API 연결을 정리하고 있습니다 (최대 90초)"):
                     wait_service_ports(args.prefix)
         elif ready(args.prefix):
-            raise Refused("Stop the virtual test API before provisioning another project")
+            was_running = stop_virtual_agent(args.prefix)
+            with phase("이전 검증 API 연결을 정리하고 있습니다"):
+                wait_service_ports(args.prefix)
         try:
             require_service_credentials(args.prefix)
-            with phase("로컬 DB를 준비하고 있습니다. Docker Desktop을 실행해 두세요"):
+            with phase("앱 전용 로컬 DB를 자동으로 준비하고 있습니다"):
                 database = ensure_database(args.prefix, provision=True)
+            with phase("로컬 API 실행 포트를 확인하고 있습니다"):
+                wait_service_ports(args.prefix)
             install_helper(args.prefix)
             environment = dict(os.environ) | {"DATABASE_URL": database}
             command = str(args.prefix / "current/bin/am-hindsight")
@@ -624,10 +837,16 @@ def setup(args):
 
 
 def service_run(prefix):
+    with locked(prefix, "mcp-service-process.lock"):
+        return owned_service_run(prefix)
+
+
+def owned_service_run(prefix):
     identity = owner(prefix)["id"]
     receipt = read_json(prefix / "settings/mcp-service.json")
     if receipt != {"enabled": True, "product_id": identity}:
         raise Refused("Service was explicitly stopped; run am-mcp start to enable it")
+    write_json(prefix / "settings/mcp-process.json", {"product_id": identity, "pid": os.getpid()})
     records = read_json(prefix / "settings/mcp-projects.json")
     if not records:
         raise Refused("Configure a project before starting the API")
@@ -719,6 +938,7 @@ async def proxy(prefix, project):
     from mcp.client.streamable_http import streamable_http_client
     from mcp.server.lowlevel import Server
     from mcp.server.stdio import stdio_server
+    from mcp.types import CallToolResult, TextContent
 
     async with httpx2.AsyncClient(trust_env=False, follow_redirects=False, timeout=120) as http:  # noqa: SIM117 - keep transport/session lifetimes explicit
         async with streamable_http_client(item["mcp_url"], http_client=http) as streams:
@@ -728,15 +948,36 @@ async def proxy(prefix, project):
 
                 async def list_tools(ctx, params):
                     del ctx, params
-                    return await session.list_tools()
+                    result = await session.list_tools()
+                    for tool in result.tools:
+                        if tool.name == "sync_retain":
+                            tool.input_schema = admission_tool_schema(tool.input_schema)
+                    return result
 
                 async def call_tool(ctx, params):
                     del ctx
-                    return await session.call_tool(params.name, params.arguments)
+                    if params.name == "sync_retain" and not admission_arguments_valid(params.arguments or {}):
+                        return CallToolResult(content=[TextContent(type="text", text="This local profile accepts plain text with optional timestamp/tags. Custom context, metadata, document_id and strategy are not supported.")], is_error=True)
+                    result = await session.call_tool(params.name, params.arguments)
+                    if isinstance(result.structured_content, dict) and result.structured_content.get("status") in {"error", "retryable"}:
+                        result.is_error = True
+                    return result
 
                 server = Server(NAME, version=VERSION, on_list_tools=list_tools, on_call_tool=call_tool)
                 async with stdio_server() as (incoming, outgoing):
                     await server.run(incoming, outgoing, server.create_initialization_options())
+
+
+def admission_tool_schema(schema):
+    value = dict(schema)
+    value["properties"] = {key: item for key, item in schema.get("properties", {}).items()
+                           if key in {"content", "timestamp", "tags"}}
+    return value
+
+
+def admission_arguments_valid(arguments):
+    return (arguments.get("context") in (None, "", "general")
+            and not any(arguments.get(key) for key in ("metadata", "document_id", "strategy")))
 
 
 def parser():
@@ -746,7 +987,7 @@ def parser():
     command = commands.add_parser("setup", help="Install core, prepare DB/service and register the selected MCP apps")
     command.add_argument("--prefix", type=Path, default=argparse.SUPPRESS)
     command.add_argument("--project", type=Path, required=True)
-    command.add_argument("--client", action="append", choices=("claude", "codex", "omp", "claude-plugin"))
+    command.add_argument("--client", action="append", choices=("claude", "codex", "omp", "claude-plugin", "connector"))
     command.add_argument("--bundle", type=Path)
     command.add_argument("--provider", choices=("jev", "local-llm"))
     command.add_argument("--judge-host", choices=("claude", "codex"))
@@ -756,19 +997,25 @@ def parser():
     command.add_argument("--no-start", action="store_true", help="Prepare only; does not claim a working MCP connection")
     command = commands.add_parser("proxy", help="Stdio MCP transport to the configured project's local API")
     command.add_argument("--project", type=Path, default=Path.cwd())
+    command.add_argument("--transport-only", action="store_true", help=argparse.SUPPRESS)
     for name in ("status", "start", "stop", "service-run"):
         commands.add_parser(name)
     return result
 
 
 def main(argv=None):
+    global OPERATION_LOG
     os.umask(0o077)
     args = parser().parse_args(argv)
     args.prefix = args.prefix.expanduser().absolute()
+    OPERATION_LOG = args.prefix / "integration/logs/operations.log"
     try:
         if args.command == "setup":
             output = setup(args)
         elif args.command == "proxy":
+            connector = args.prefix / "bin/am-connect"
+            if not args.transport_only and connector.is_file():
+                os.execv(str(connector), [str(connector), "--project", str(args.project)])
             asyncio.run(proxy(args.prefix, args.project))
             return 0
         elif args.command == "service-run":
@@ -788,6 +1035,7 @@ def main(argv=None):
                     write_json(args.prefix / "settings/mcp-service.json",
                                {"enabled": False, "product_id": owner(args.prefix)["id"]})
                     stop_agent(args.prefix)
+                    stop_native_database(args.prefix)
                     _, path = launch_details(args.prefix)
                     if path.exists():
                         stopped = plistlib.loads(private_read(path))

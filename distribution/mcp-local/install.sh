@@ -1,17 +1,17 @@
 #!/bin/bash
-# MCP installer 1.0.4. Memory core and E5 assets remain the verified binary release 1.0.2.
+# MCP installer 1.0.5. Memory core and E5 assets remain the verified binary release 1.0.2.
 set -euo pipefail
 umask 077
 base=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/eb80f6277f6d712a89e854f0f54b7067a9bfc9cc/files
-helper_url=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.4/distribution/mcp-local/setup.py
-helper_sha=08b55bf0c33dcc8d881084e5c9b18905820ed9d8e648f320594b72a69cb5c4b9
+helper_url=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.5/distribution/mcp-local/setup.py
+helper_sha=f2530e989a93d682974fd2d660ee3b158abd82ef136c2123c37423759927aa9a
 archive_sha=3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34
 for argument in "$@"; do
   if [[ $argument == --help || $argument == -h ]]; then
     echo 'Usage: bash install.sh --client claude|codex|omp --project /absolute/project'
     echo 'Repeat --client to connect multiple apps. Claude marketplace setup uses --client claude-plugin.'
     echo 'Optional: --provider jev|local-llm --judge-host claude|codex --model ID --executable PATH --prefix PATH'
-    echo 'Requires Apple Silicon macOS 13+ and running Docker Desktop, or a dedicated local DATABASE_URL.'
+    echo 'Requires Apple Silicon macOS 15+. The native PostgreSQL database is prepared automatically; Docker is not needed.'
     exit 0
   fi
 done
@@ -35,18 +35,40 @@ for argument in "$@"; do
   [[ $argument != --virtual-linux ]] || virtual=true
 done
 case "$(uname -s):$(uname -m)" in
-  Darwin:arm64) target=darwin-arm64 ;;
-  Linux:x86_64) [[ $virtual == true ]] || { echo 'Linux is for explicit validation only.' >&2; exit 2; }; target=linux-x86_64 ;;
-  *) echo 'Requires Apple Silicon macOS 13 or newer.' >&2; exit 2 ;;
+  Darwin:arm64) target=darwin-arm64; connector_sha=12d086652913c03de837437248a205980f9d997ff489ba60681ce5177d532979 ;;
+  Linux:x86_64) [[ $virtual == true ]] || { echo 'Linux is for explicit validation only.' >&2; exit 2; }; target=linux-x86_64; connector_sha=b547489c5abd8b50defb471ffe160dc98f6e3a5bf199e522cdc14a636da8e795 ;;
+  *) echo 'Requires Apple Silicon macOS 15 or newer.' >&2; exit 2 ;;
 esac
 work=$(mktemp -d "${TMPDIR:-/tmp}/agents-memory-mcp.XXXXXXXX")
 trap 'rm -rf -- "$work"' EXIT HUP INT TERM
-fetch() { curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' --tlsv1.2 "$1" --output "$2"; }
+fetch() { curl --fail --silent --show-error --location --retry 2 --connect-timeout 20 --max-time 600 --proto '=https' --proto-redir '=https' --tlsv1.2 "$1" --output "$2"; }
 check() {
   local actual
   if command -v shasum >/dev/null 2>&1; then actual=$(shasum -a 256 "$1"); else actual=$(sha256sum "$1"); fi
   [[ ${actual%% *} == "$2" ]] || { echo 'Release integrity verification failed.' >&2; exit 2; }
 }
+fetch "$helper_url" "$work/setup.py"
+check "$work/setup.py" "$helper_sha"
+fetch "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.5/plugins/agents-memory-local/bin/connector-$target" "$work/connector-$target"
+check "$work/connector-$target" "$connector_sha"
+selected_prefix="$HOME/.local/share/agents-memory-hindsight"
+next_prefix=false
+for argument in "$@"; do
+  if [[ $next_prefix == true ]]; then selected_prefix=$argument; next_prefix=false; fi
+  case "$argument" in --prefix) next_prefix=true ;; --prefix=*) selected_prefix=${argument#--prefix=} ;; esac
+done
+python="$selected_prefix/current/venv/bin/python"
+if [[ -x $python && -f "$selected_prefix/PRODUCT.json" ]] &&
+   "$python" -I -c 'import json,sys; from pathlib import Path; sys.exit(json.loads(Path(sys.argv[1]).read_bytes()).get("version") != "1.0.2")' "$selected_prefix/current/READY.json"; then
+  if [[ -t 0 ]]; then
+    "$python" -I "$work/setup.py" setup "$@"
+  elif { true </dev/tty; } 2>/dev/null; then
+    "$python" -I "$work/setup.py" setup "$@" </dev/tty
+  else
+    "$python" -I "$work/setup.py" setup "$@"
+  fi
+  exit $?
+fi
 echo 'Downloading the pinned local memory core and E5 search embeddings...' >&2
 part=0
 while [[ $part -lt 19 ]]; do
@@ -56,8 +78,6 @@ while [[ $part -lt 19 ]]; do
 done
 cat "$work"/*.tar.gz.part-* > "$work/core.tar.gz"
 check "$work/core.tar.gz" "$archive_sha"
-fetch "$helper_url" "$work/setup.py"
-check "$work/setup.py" "$helper_sha"
 tar -xzf "$work/core.tar.gz" -C "$work"
 bundle="$work/agents-memory-hindsight-local-1.0.2"
 mkdir "$work/bootstrap"

@@ -1,0 +1,14 @@
+{
+  "version": "1.0.5",
+  "compiler": "go version go1.27.3 linux/amd64",
+  "cgo": false,
+  "source": "../scripts/connector.go",
+  "source_sha256": "941575b0f387ddb177f8bde0e308a75ce216a65c79264b3de7538872244125b9",
+  "helper_sha256": "f2530e989a93d682974fd2d660ee3b158abd82ef136c2123c37423759927aa9a",
+  "files": {
+    "connector-linux-x86_64": "b547489c5abd8b50defb471ffe160dc98f6e3a5bf199e522cdc14a636da8e795",
+    "connector-darwin-arm64": "12d086652913c03de837437248a205980f9d997ff489ba60681ce5177d532979"
+  },
+  "tool_contract_sha256": "cf82947a56e79c8d8f60ff79324d2280510c70bd132d77847b99bfd001ee869f",
+  "real_macos_execution": false
+}

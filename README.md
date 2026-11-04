@@ -1,20 +1,30 @@
 # agents-memory releases
 
-## MCP 설치: Claude · Codex · OMP (1.0.4)
+## MCP 자동 설치: Claude · Codex · OMP (1.0.5)
 
-[1.0.4 정식 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.4)
+[1.0.5 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.5) · [설치·운영 안내](distribution/mcp-local/README.ko.md)
 
-1.0.4는 초기 설정 전에도 연결을 유지하고 `setup_status`로 안내합니다. 키 입력 후 Enter와 설치 진행 상태를 표시하며, 홈 폴더를 프로젝트로 지정하는 실수를 막습니다.
+플러그인을 설치하고 MCP를 연결하면 로컬 실행 환경, **검색용 E5 임베딩**, 앱 전용 PostgreSQL/pgvector와 API가 자동으로 준비됩니다. **Docker·Colima 수동 설정은 필요하지 않습니다. Apple Silicon macOS 15 이상**이 필요합니다.
 
-Claude Code에서는 자체 마켓으로 설치합니다:
+처음 한 번만 브라우저에서 Jev 또는 구독 중인 Claude·Codex를 선택합니다. Jev는 같은 화면에서 키를 입력하고 이후 업데이트에서도 설정을 유지합니다. 설치 진행은 `setup_status`로 확인하며 도구 목록은 처음부터 제공하며, 준비 전 호출은 진행 상태를 안내하고 준비가 끝나면 같은 연결에서 자동으로 동작합니다.
+
+OMP:
+
+```sh
+omp plugin marketplace add chonamdoo/agents-memory-releases
+omp plugin install agents-memory-local@agents-memory
+```
+
+Claude Code:
 
 ```text
 /plugin marketplace add chonamdoo/agents-memory-releases
 /plugin install agents-memory-local@agents-memory
-/agents-memory-local:setup
 ```
 
-Codex·OMP는 [공통 MCP 설치 도우미](distribution/mcp-local/README.ko.md)를 사용하세요. 도우미가 로컬 DB·API 준비와 프로젝트 MCP 등록을 처리합니다. 판단 모델은 별도로 Jev / 구독 Claude / 구독 Codex를 선택하며 기존 설정을 유지합니다. Docker Desktop 또는 전용 로컬 PostgreSQL이 필요합니다. 기존 Native 프리뷰 `agents-memory`와 새 플러그인 `agents-memory-local`은 별개입니다. 공식 디렉터리 심사 등재를 뜻하지 않습니다.
+Codex와 직접 MCP 등록은 [공통 설치 도우미](distribution/mcp-local/README.ko.md)를 사용합니다. OMP는 MCP 연결 대상이며 기억 저장 판단은 Jev / 구독 Claude / 구독 Codex가 담당합니다. 설치·연결은 판단 모델을 호출하거나 과거 이력을 읽지 않습니다. 예전 Docker/외부 DB 설정이 남아 있으면 데이터를 보존하고 자동 변환하지 않습니다.
+
+기존 Native 프리뷰 `agents-memory`와 최신 `agents-memory-local`은 별개입니다. 자체 마켓 배포이며 공식 디렉터리 등재를 뜻하지 않습니다. Linux E2E와 macOS 파일 구조 검증의 범위는 릴리즈 기록에 명시하며 macOS 실기 실행을 주장하지 않습니다.
 
 ## 로컬 코어 릴리즈 1.0.2
 

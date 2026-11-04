@@ -22,3 +22,5 @@ private/
 
 !plugins/agents-memory-local/scripts/setup.py
 !tools/tests/test_mcp_onboarding.py
+!tools/tests/test_mcp_native_database.py
+!tools/build-auto-connector.py

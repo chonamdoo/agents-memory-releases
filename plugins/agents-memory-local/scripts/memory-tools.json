@@ -1,0 +1,504 @@
+[
+  {
+    "annotations": {
+      "destructiveHint": false,
+      "openWorldHint": false,
+      "readOnlyHint": false
+    },
+    "description": "Store information to long-term memory and wait for completion.\n\nUnlike retain (which is asynchronous), this tool blocks until the memory\nis fully stored and immediately available for recall.",
+    "inputSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "description": "The fact/memory to store (be specific and include relevant details)",
+          "type": "string"
+        },
+        "tags": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional tags for scoped visibility filtering (e.g., ['project:alpha', 'user:123'])"
+        },
+        "timestamp": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "When this event/fact occurred (ISO format, e.g., '2024-01-15T10:30:00Z'). Useful for timeline tracking."
+        }
+      },
+      "required": [
+        "content"
+      ],
+      "type": "object"
+    },
+    "name": "sync_retain",
+    "outputSchema": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "title": "Sync Retain"
+  },
+  {
+    "annotations": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "description": "Search memories to provide personalized, context-aware responses.\n\nUse this tool PROACTIVELY to:\n- Check user's preferences before making suggestions\n- Recall user's history to provide continuity\n- Remember user's goals and context\n- Personalize responses based on past interactions",
+    "inputSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "budget": {
+          "default": "high",
+          "type": "string"
+        },
+        "include_chunks": {
+          "default": false,
+          "type": "boolean"
+        },
+        "include_entities": {
+          "default": false,
+          "type": "boolean"
+        },
+        "include_source_facts": {
+          "default": false,
+          "type": "boolean"
+        },
+        "max_chunk_tokens": {
+          "default": 8192,
+          "type": "integer"
+        },
+        "max_entity_tokens": {
+          "default": 500,
+          "type": "integer"
+        },
+        "max_source_facts_tokens": {
+          "default": 4096,
+          "type": "integer"
+        },
+        "max_tokens": {
+          "default": 4096,
+          "type": "integer"
+        },
+        "min_scores": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "prefer_observations": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "query": {
+          "type": "string"
+        },
+        "query_timestamp": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "tag_groups": {
+          "anyOf": [
+            {
+              "items": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "tags": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "tags_match": {
+          "default": "any",
+          "enum": [
+            "any",
+            "all",
+            "any_strict",
+            "all_strict",
+            "exact"
+          ],
+          "type": "string"
+        },
+        "temporal_window": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "types": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "type": "object"
+    },
+    "name": "recall",
+    "outputSchema": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "title": "Recall"
+  },
+  {
+    "annotations": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "description": "Browse stored memories with optional filtering.\n\nLists memory units (facts) stored in the bank. Unlike recall, this is a direct\nbrowse/search without relevance ranking.",
+    "inputSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "limit": {
+          "default": 100,
+          "description": "Maximum number of results (default: 100)",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "offset": {
+          "default": 0,
+          "description": "Pagination offset (default: 0)",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "q": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional text search query to filter memories"
+        },
+        "tags": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional list of tag names to filter by."
+        },
+        "tags_match": {
+          "default": "any",
+          "description": "How to combine tags: 'any' (OR, default) or 'all' (AND)\nboth also include untagged memories; 'any_strict'/'all_strict'\nexclude untagged; 'exact' matches the tag set exactly.",
+          "enum": [
+            "any",
+            "all",
+            "any_strict",
+            "all_strict",
+            "exact"
+          ],
+          "type": "string"
+        },
+        "type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Filter by fact type: 'world', 'experience', or 'observation'"
+        }
+      },
+      "type": "object"
+    },
+    "name": "list_memories",
+    "outputSchema": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "title": "List Memories"
+  },
+  {
+    "annotations": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "description": "Get a specific memory by ID.\n\nReturns the full memory unit including content, metadata, and timestamps.",
+    "inputSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "memory_id": {
+          "description": "The ID of the memory to retrieve",
+          "type": "string"
+        }
+      },
+      "required": [
+        "memory_id"
+      ],
+      "type": "object"
+    },
+    "name": "get_memory",
+    "outputSchema": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "title": "Get Memory"
+  },
+  {
+    "annotations": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "description": "List documents in this memory bank.\n\nDocuments are containers for related memories (e.g., a conversation transcript,\na meeting notes file). Memories created with a document_id are grouped under that document.",
+    "inputSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "limit": {
+          "default": 100,
+          "description": "Maximum number of results (default: 100)",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "offset": {
+          "default": 0,
+          "description": "Pagination offset (default: 0). Page until the returned items add up to 'total'.\nA 'q' search is capped: when 'total_is_estimate' is true there are more\nmatches than 'total' — narrow 'q' to reach them.",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "q": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional search query to filter documents"
+        }
+      },
+      "type": "object"
+    },
+    "name": "list_documents",
+    "outputSchema": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "title": "List Documents"
+  },
+  {
+    "annotations": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "description": "Get a specific document by ID.\n\nReturns document metadata and associated memory information.",
+    "inputSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "document_id": {
+          "description": "The ID of the document to retrieve",
+          "type": "string"
+        }
+      },
+      "required": [
+        "document_id"
+      ],
+      "type": "object"
+    },
+    "name": "get_document",
+    "outputSchema": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "title": "Get Document"
+  },
+  {
+    "annotations": {
+      "destructiveHint": true,
+      "openWorldHint": false,
+      "readOnlyHint": false
+    },
+    "description": "Delete a document and its associated memories.\n\nPermanently removes a document and all memories linked to it.",
+    "inputSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "document_id": {
+          "description": "The ID of the document to delete",
+          "type": "string"
+        }
+      },
+      "required": [
+        "document_id"
+      ],
+      "type": "object"
+    },
+    "name": "delete_document",
+    "outputSchema": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "title": "Delete Document"
+  },
+  {
+    "annotations": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "description": "List async operations for this memory bank.\n\nOperations track background tasks like retain processing, mental model refresh, etc.",
+    "inputSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "exclude_parents": {
+          "default": false,
+          "description": "Exclude parent batch operations (default: False)",
+          "type": "boolean"
+        },
+        "limit": {
+          "default": 20,
+          "description": "Maximum number of results, 1-100 (default: 20)",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "offset": {
+          "default": 0,
+          "description": "Number of operations to skip (default: 0). Page until you reach 'total'.",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "status": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Filter by status: 'pending', 'running', 'completed', 'failed', 'cancelled'"
+        },
+        "type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Filter by operation type: 'retain', 'consolidation', 'refresh_mental_model',\n'file_convert_retain', 'webhook_delivery'"
+        }
+      },
+      "type": "object"
+    },
+    "name": "list_operations",
+    "outputSchema": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "title": "List Operations"
+  },
+  {
+    "annotations": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "description": "Get the status of an async operation.\n\nCheck progress of background tasks like retain processing or mental model refresh.",
+    "inputSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "operation_id": {
+          "description": "The ID of the operation to check",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operation_id"
+      ],
+      "type": "object"
+    },
+    "name": "get_operation",
+    "outputSchema": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "title": "Get Operation"
+  }
+]

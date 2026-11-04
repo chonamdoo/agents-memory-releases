@@ -15,7 +15,7 @@
     {
       "name": "agents-memory-local",
       "source": "./plugins/agents-memory-local",
-      "description": "Current local Hindsight MCP integration with explicit Claude/Codex/OMP setup. E5 included; Jev or subscribed Claude/Codex admission."
+      "description": "Auto-installing local Hindsight MCP for Claude/Codex/OMP. Native DB and E5 included; Jev or subscribed Claude/Codex admission."
     }
   ]
 }

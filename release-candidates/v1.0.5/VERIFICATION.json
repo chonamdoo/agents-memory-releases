@@ -1,0 +1,145 @@
+{
+  "version": "1.0.5",
+  "core_version": "1.0.2",
+  "verification_date": "2026-11-04",
+  "local_ci": {
+    "pytest_passed": 72,
+    "go_tests_passed": 7,
+    "go_race_detector": true,
+    "ruff": true,
+    "profile_and_legacy_contract": true,
+    "shell_syntax": true
+  },
+  "artifacts": {
+    "version": "1.0.5",
+    "compiler": "go version go1.27.3 linux/amd64",
+    "cgo": false,
+    "source": "../scripts/connector.go",
+    "source_sha256": "941575b0f387ddb177f8bde0e308a75ce216a65c79264b3de7538872244125b9",
+    "helper_sha256": "f2530e989a93d682974fd2d660ee3b158abd82ef136c2123c37423759927aa9a",
+    "files": {
+      "connector-linux-x86_64": "b547489c5abd8b50defb471ffe160dc98f6e3a5bf199e522cdc14a636da8e795",
+      "connector-darwin-arm64": "12d086652913c03de837437248a205980f9d997ff489ba60681ce5177d532979"
+    },
+    "tool_contract_sha256": "cf82947a56e79c8d8f60ff79324d2280510c70bd132d77847b99bfd001ee869f",
+    "real_macos_execution": false
+  },
+  "native_database": {
+    "runtime": "PostgreSQL 18.6",
+    "pgvector": "0.8.7",
+    "listen_addresses": "127.0.0.1",
+    "docker_or_colima_used": false,
+    "global_docker_configuration_changed": false
+  },
+  "cold_codex": {
+    "version": "1.0.5",
+    "initialize_seconds": 0.0051417830036371015,
+    "states": [
+      "needs_configuration",
+      "downloading",
+      "installing",
+      "preparing",
+      "ready"
+    ],
+    "tools": [
+      "setup_status",
+      "sync_retain",
+      "recall",
+      "list_memories",
+      "get_memory",
+      "list_documents",
+      "get_document",
+      "delete_document",
+      "list_operations",
+      "get_operation"
+    ],
+    "same_session_ready": true,
+    "docker_used": false,
+    "provider": "codex",
+    "model_calls_during_setup": 0
+  },
+  "cold_jev": {
+    "version": "1.0.5",
+    "initialize_seconds": 0.00412759100436233,
+    "states": [
+      "needs_configuration",
+      "downloading",
+      "installing",
+      "preparing",
+      "ready"
+    ],
+    "tools": [
+      "setup_status",
+      "sync_retain",
+      "recall",
+      "list_memories",
+      "get_memory",
+      "list_documents",
+      "get_document",
+      "delete_document",
+      "list_operations",
+      "get_operation"
+    ],
+    "same_session_ready": true,
+    "docker_used": false,
+    "provider": "jev",
+    "model_calls_during_setup": 0
+  },
+  "jev_credential": {
+    "synthetic_key_only": true,
+    "private_file_mode": "0600",
+    "not_in_mcp_output": true,
+    "key_reused_on_retry": true,
+    "paid_calls_during_setup": 0
+  },
+  "actual_storage_and_search": {
+    "judge": "gpt-6.1-terra",
+    "signed_in_cli": true,
+    "synthetic_project_fact_stored": true,
+    "e5_semantic_recall_passed": true,
+    "provider_and_db_settings_preserved": true
+  },
+  "clients": {
+    "claude": {
+      "version": "2.1.317",
+      "mcp_health": "connected",
+      "trust_only_in_isolated_fixture": true
+    },
+    "codex": {
+      "version": "0.163.0",
+      "tools": 10,
+      "real_mcp_recall": true
+    },
+    "omp": {
+      "version": "18.16.0",
+      "tools": 10,
+      "model_calls_during_discovery": 0
+    }
+  },
+  "protocol": {
+    "stable_tool_contract_for_cached_clients": true,
+    "calls_gated_on_backend_readiness": true,
+    "list_changed_notification": true,
+    "initialization_under_10ms_in_cold_fixture": true,
+    "cross_origin_configuration_rejected": true
+  },
+  "macos": {
+    "target": "arm64",
+    "minimum_version": "15",
+    "native_postgres_minimum_checked_from_macho": true,
+    "connector_code_signature_command": true,
+    "archive_safe_extraction_checked": true,
+    "physical_device_execution": false,
+    "developer_id_or_notarization": false
+  },
+  "github_actions": {
+    "run_dispatched": false,
+    "baseline_last_run": 41388806223,
+    "do_not_run_through": "2026-12-01"
+  },
+  "limits": [
+    "Linux end-to-end validation does not establish physical macOS behavior.",
+    "Jev credential test uses a synthetic key and establishes storage and startup, not live Jev authentication.",
+    "Existing Docker/external databases are preserved and not automatically migrated."
+  ]
+}

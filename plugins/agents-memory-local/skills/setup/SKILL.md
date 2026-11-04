@@ -1,23 +1,13 @@
 ---
 name: setup
-description: Set up this project's local memory MCP connection for Claude, Codex or OMP using the pinned public installer.
+description: Check automatic local memory setup progress for Claude, Codex or OMP.
 disable-model-invocation: true
 ---
 
-Use the user's language. This plugin connects MCP tools; installing it does not read histories, start paid model requests or create a DB by itself.
+Use the user's language. Call this plugin's `setup_status` and report its actual state. Version 1.0.5 automatically prepares the native database, runtime, E5 search embeddings and local API on MCP connection. Docker/Colima and a manual setup command are not required for a fresh installation. Apple Silicon macOS 15+ is required. Host trust remains the user's app-level choice.
 
-When the user invokes this setup skill, explain that setup installs the pinned binary core and E5 search embeddings, prepares a dedicated local PostgreSQL/pgvector Docker volume (or uses their explicitly provided dedicated local DATABASE_URL), installs a macOS LaunchAgent, and adds this project's selected MCP client entry. Docker Desktop must be installed and running for managed DB mode. Production target is Apple Silicon macOS 13+. OMP is a connection target, not an admission model provider.
+If a one-time choice is missing, direct the user to the local browser address returned by `setup_status`. It offers Jev or the user's subscribed Claude/Codex CLI. Jev's key is entered in that local page only. Never request credentials in chat, copy subscription auth, change the provider, or silently fall back to another model. OMP is a connection target only. Existing settings and keys survive upgrades. Setup and connection do not call the judgment model or scan history.
 
-Ask only for missing choices: MCP app Claude / Codex / OMP (multiple allowed), and memory admission Jev / subscribed Claude / subscribed Codex. Recommend claude-sonnet-5-5 for Claude and gpt-6.1-terra for Codex; let the user choose another exact model. Existing installations preserve their provider, model and Jev key. Do not change providers merely because the MCP app changes. Current session authorization applies; do not ask again for actions the user already requested.
+While preparing, report progress and allow automatic tool discovery to finish. Do not run another installer in parallel. On a setup error, explain the specific returned state, check only relevant private diagnostics without exposing keys, and retry the MCP connection after resolving the cause. Do not alter Docker contexts, Colima profiles or unrelated databases. Existing Docker/external receipts preserve the old database and are not silently converted.
 
-For the Claude marketplace plugin connection, run this project's trusted installer:
-
-```sh
-bash "${CLAUDE_PLUGIN_ROOT}/scripts/install.sh" --client claude-plugin --project "$PWD"
-```
-
-For noninteractive subscription setup, add `--provider local-llm --judge-host claude --model claude-sonnet-5-5 --executable /absolute/path/to/claude` or the equivalent Codex options. For additional apps, repeat `--client codex` / `--client omp`; the same local service is shared. Never write a duplicate direct Claude MCP entry when the installed marketplace plugin already supplies it.
-
-Jev's key must be entered in the user's own terminal through the hidden prompt. Never request a key in chat, put it in command arguments, copy auth tokens, install another model provider or silently fall back. If a prompt requires a terminal, give the user the exact command for their terminal. Do not claim a working connection from configuration files alone.
-
-After successful setup, ask the user to reconnect MCP/restart the host, and verify tool discovery. Use `~/.local/share/agents-memory-hindsight/bin/am-mcp status` for status; `stop` explicitly disables the LaunchAgent and is respected by the proxy. Existing database volumes, settings and project queues are preserved on updates. History import, automatic prompt capture and host context injection are separate explicit workflows; none is enabled by this plugin.
+Explicit `am-mcp stop` prevents automatic restart; do not override it without a user request. Use `~/.local/share/agents-memory-hindsight/bin/am-mcp status` for service state. Do not claim memory is ready until the actual memory tools are available.

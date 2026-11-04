@@ -1,19 +1,23 @@
-# agents-memory-local
+# agents-memory-local 1.0.5
 
-Current local Hindsight MCP plugin for Claude Code. The same setup helper connects Codex and OMP. Memory admission remains a separate choice of Jev or your signed-in Claude/Codex CLI. OMP is a connection target.
+Automatic local memory MCP for Claude Code, Codex and OMP. On first MCP connection, the connector immediately answers `setup_status`, opens a local browser form for your one-time Jev / subscribed Claude / subscribed Codex choice, then installs the pinned binary core, E5 search embeddings, native PostgreSQL/pgvector and API. No Docker, Colima or system Python is required. Existing choices and saved keys are reused on updates.
+
+Requires Apple Silicon **macOS 15+** and the selected subscription CLI's existing installation/login. Jev's key is entered only in the local form and stored in a user-private file. OMP is a connection target, not a judgment provider. Setup makes no paid model calls and scans no histories.
+
+Claude Code:
 
 ```text
 /plugin marketplace add chonamdoo/agents-memory-releases
 /plugin install agents-memory-local@agents-memory
-/agents-memory-local:setup
 ```
 
-Requires Apple Silicon macOS 13+, running Docker Desktop (or an explicitly provisioned dedicated loopback PostgreSQL 18 + pgvector DB), and the selected provider's existing login/key. Setup downloads the SHA256-pinned 1.0.2 binary core and E5 search assets, prepares owned local state and installs a macOS user LaunchAgent. No generation model weights, cloud resources, history scan, automatic chat capture or context injection are installed. Before setup, the dependency-free connector exposes only `setup_status` with `ready:false` and actionable instructions. It does not claim that memory is ready; reconnect MCP afterward and approve the host's project trust prompt.
+OMP:
 
-This plugin uses the default `~/.local/share/agents-memory-hindsight` installation. Config, keys, queues, database receipts and the MCP gateway stay outside the plugin/cache. Updating or removing the plugin does not erase persistent state. For custom prefixes use the common helper with direct client registration instead. Explicit `am-mcp stop` is respected.
+```sh
+omp plugin marketplace add chonamdoo/agents-memory-releases
+omp plugin install agents-memory-local@agents-memory
+```
 
-OMP also accepts this marketplace with `omp plugin marketplace add chonamdoo/agents-memory-releases` and `omp plugin install agents-memory-local@agents-memory`; run the common setup helper with `--client omp` for initial runtime preparation.
+Connect MCP in your project. If the browser does not open, call `setup_status` for its local address. The stable tool list is available immediately for clients that cache it; memory calls remain gated on actual readiness and work on the same connection after setup finishes. Host trust/approval still applies. The default runtime is `~/.local/share/agents-memory-hindsight`; it stays outside the plugin cache. Explicit `am-mcp stop` is respected. Existing Docker/external database receipts are preserved rather than silently migrated.
 
-This is the maintainer's own marketplace, not an official Anthropic directory listing. The old `agents-memory` plugin remains the separate Native preview. Read the [full setup and operating guide](https://github.com/chonamdoo/agents-memory-releases/blob/v1.0.4/distribution/mcp-local/README.ko.md).
-
-Linux validates the same binary core, gateway and native client formats. macOS device execution is not claimed. The binary core is ad hoc signed, not Developer ID signed/notarized. Jev keys are stored privately (0600), not in an encrypted Keychain.
+[Codex setup and full Korean guide](https://github.com/chonamdoo/agents-memory-releases/blob/v1.0.5/distribution/mcp-local/README.ko.md). This is the maintainer's own marketplace, not an official directory listing. The older `agents-memory` plugin remains a separate Native preview. Linux end-to-end verification does not establish physical macOS execution; release evidence states that limit. Binaries use ad hoc signing without Developer ID/notarization.
