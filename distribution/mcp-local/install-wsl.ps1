@@ -39,7 +39,9 @@ set -euo pipefail
 umask 077
 version=$1
 expected=$2
-project=$3
+# Windows PowerShell 5.1's native argument binder strips literal double quotes.
+# Decode UTF-8 data here instead of passing a raw Linux path through that binder.
+project=$(printf '%s' "$3" | base64 --decode)
 shift 3
 [[ $(id -u) != 0 ]] || { echo 'Open Ubuntu once and create a normal Linux user; do not install as root.' >&2; exit 2; }
 [[ -d "$project" && $(realpath "$project") != "$HOME" && $(realpath "$project") != / ]] || { echo 'Choose an existing project folder inside WSL, not your home or the filesystem root.' >&2; exit 2; }
@@ -63,7 +65,8 @@ bash "$work/install.sh" "${args[@]}"
         if ($LASTEXITCODE -ne 0 -or -not ($amLinuxScript -join '').StartsWith('/')) {
             throw 'Could not map the temporary installer into WSL. Check Windows drive mounting in this distribution.'
         }
-        & wsl.exe --distribution $Distro --exec bash -l ($amLinuxScript -join '').Trim() $amVersion $amInstallerSha $Project @Client
+        $amProjectPayload = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($Project))
+        & wsl.exe --distribution $Distro --exec bash -l ($amLinuxScript -join '').Trim() $amVersion $amInstallerSha $amProjectPayload @Client
         if ($LASTEXITCODE -ne 0) {
             throw "WSL installer failed (exit $LASTEXITCODE). Read the preceding stage; existing keys and memory data are preserved."
         }

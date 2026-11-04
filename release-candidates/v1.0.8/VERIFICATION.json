@@ -2,14 +2,18 @@
   "version": "1.0.8",
   "release_state": "development draft; not published",
   "stable_version": "1.0.7",
-  "pytest_passed": 98,
+  "pytest_passed": 105,
   "go_tests_passed": 9,
   "go_race_detector": true,
   "ruff": true,
   "powershell": {
     "version": "7.6.9 Linux",
     "syntax_and_mock_wsl_boundary": true,
-    "real_windows_execution": false
+    "real_windows_execution": true,
+    "windows_version": "10 22H2 x64, build 19045",
+    "windows_powershell": "5.1.19041.1682",
+    "native_argv_quote_regression_fixed": true,
+    "actual_wsl_installation": false
   },
   "linux_runtime": {
     "version": "1.0.8",
@@ -70,9 +74,15 @@
     "compose_win10_valid": true,
     "compose_win11_valid": true,
     "daemon_kvm_device_probe_exit": 127,
-    "reason": "/dev/kvm absent; storage also below required minimum",
-    "vm_started": false,
-    "windows_product_verified": false
+    "reason": "KVM absent; TCG booted real Windows; ephemeral disk reinitialized on restart with missing wrapper boot marker",
+    "vm_started": true,
+    "windows_product_verified": false,
+    "tcg_compose_valid": true,
+    "os_desktop_reached": true,
+    "acceleration": "TCG software emulation",
+    "current_state": "stopped",
+    "evaluation_image_expired": true,
+    "disk_restart_guard_added": true
   },
   "windows_native_ready": false,
   "github_actions_dispatched": false,
@@ -113,8 +123,11 @@
     "real_macos_execution": false
   },
   "limitations": [
-    "Windows-native core, extension and installer are not available.",
-    "Actual Windows/WSL and macOS execution were not performed in this environment.",
+    "Windows-native core and installer are not available; vector.dll is a build-only prototype.",
+    "Real Windows 10 PowerShell probes ran; actual WSL and full product Windows/macOS execution did not.",
+    "PostgreSQL on the clean Windows guest failed due to missing Microsoft VC runtime DLLs.",
+    "Windows 11 and full product upgrade/data-preservation checks remain.",
+    "The expired Windows 10 evaluation and reset ephemeral disk are not a release-qualification environment.",
     "This candidate must not be advertised as native Windows support.",
     "No additional cloud instance or paid resource was created."
   ]

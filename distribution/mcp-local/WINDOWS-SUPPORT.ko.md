@@ -37,10 +37,10 @@ macOS Intel 지원은 이 Windows 요청에 자동으로 포함하지 않습니�
 
 Windows용 컴파일 코어·Python/의존성·PostgreSQL/pgvector를 해시로 고정하고 Windows ACL·잠금·프로세스 관리를 구현해야 합니다. Windows 설치·로그인된 Claude/Codex 호출과 세 MCP 앱의 실제 연결, 저장 후 다른 세션에서 검색, 기존 버전 업데이트 및 키/DB 보존을 Windows 10/11에서 검증한 뒤 네이티브 설치기를 공개합니다.
 
-현재 작업 환경은 Linux이며 실제 Windows 실행 환경은 연결되어 있지 않습니다. PowerShell 7 파서와 모의 WSL 경계 검사는 Windows 10/11 실기 검증을 대신하지 않습니다. 이 조건이 해결되기 전에는 Windows 네이티브 안정 릴리즈를 만들지 않습니다. 사용자 지시에 따라 2026-12-01까지 GitHub Actions는 실행하지 않으며 Windows 빌드·검증도 별도 로컬 실행으로 수행해야 합니다.
+현재 Linux 환경에서 TCG 소프트웨어 에뮬레이션으로 실제 Windows 10 22H2 x64 데스크톱까지 부팅했습니다. Windows PowerShell 5.1의 경로 인자 전달 문제를 수정하고 실제 Windows에서 검사했습니다. WSL 실행은 모의 실행 파일을 사용했으며 WSL 설치·전체 제품·Windows 11 검증은 남았습니다. 새 Windows의 PostgreSQL 실행에서는 VC 런타임 DLL 누락을 확인했습니다. 이 조건이 해결되기 전에는 Windows 네이티브 안정 릴리즈를 만들지 않습니다. 사용자 지시에 따라 2026-12-01까지 GitHub Actions는 실행하지 않으며 Windows 빌드·검증도 별도 로컬 실행으로 수행해야 합니다.
 
 ## Windows PC가 없는 경우
 
-별도 클라우드의 실제 Windows 10/11 x64 VM에서도 검증할 수 있습니다. Linux 호스트를 쓰려면 KVM을 제공하는 클라우드에서 [Docker 기반 Windows VM 구성](../../tools/windows-vm/README.ko.md)을 실행합니다. 일반 관리형 컨테이너나 Mac Docker Desktop에 컨테이너를 하나 더 추가하는 것만으로 KVM이 생기지는 않습니다.
+별도 클라우드의 실제 Windows 10/11 x64 VM에서도 검증할 수 있습니다. Linux 호스트에서는 KVM 가속 또는 느린 TCG 소프트웨어 에뮬레이션으로 [Docker 기반 Windows VM 구성](../../tools/windows-vm/README.ko.md)을 실행합니다. 일반 관리형 컨테이너나 Mac Docker Desktop에 컨테이너를 하나 더 추가하는 것만으로 KVM이 생기지는 않습니다.
 
-실행 전 현재 환경의 실제 Docker 장치 전달도 검사했으며 `/dev/kvm` 부재로 실패했습니다. 새 클라우드 VM 생성 도구·외부 계정 자격 증명은 이 세션에 연결되어 있지 않습니다. 새 VM이 생성되었다거나 Windows 검증이 끝났다고 주장하지 않습니다. Windows 클라이언트 VM을 직접 제공하는 경우 OS·이미지·라이선스 조건과 비용을 확인하고, Linux VM이라면 중첩 가상화/KVM을 확인한 뒤 선택해야 합니다.
+현재 환경에는 `/dev/kvm`이 없지만 `KVM=N`의 TCG 대체 경로로 실제 Windows를 부팅했습니다. 평가판 만료 및 임시 테스트 디스크 재초기화 때문에 현재 VM은 중지했고 결과를 보존했습니다. 테스트 Compose에는 기존 표시 없는 디스크의 자동 덮어쓰기를 거부하는 시작 검사를 추가했습니다. 추가 클라우드 VM 생성 도구·외부 계정 자격 증명은 이 세션에 연결되어 있지 않으며 외부 유료 VM은 만들지 않았습니다. Windows 제품 검증이 끝났다고 주장하지 않습니다. Windows 클라이언트 VM을 직접 제공하는 경우 OS·이미지·라이선스 조건과 비용을 확인하고, Linux VM이라면 중첩 가상화/KVM을 확인한 뒤 선택해야 합니다.

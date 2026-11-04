@@ -3,6 +3,7 @@ x-windows-base: &windows-base
   # Linux amd64 VM wrapper, pinned from dockurr/windows:latest on 2026-11-04.
   image: docker.io/dockurr/windows@sha256:59f8bed19cfd49cf1701debe34f9df6311e61a4e2ae68aa9f41206e2184e31cc
   platform: linux/amd64
+  entrypoint: [/bin/bash, /am-vm-start-guard.sh]
   devices:
     - /dev/kvm
     - /dev/net/tun
@@ -27,6 +28,7 @@ services:
     volumes:
       - win11-data:/storage
       - ./oem:/oem:ro
+      - ./start-guard.sh:/am-vm-start-guard.sh:ro
   win10:
     <<: *windows-base
     profiles: [win10]
@@ -38,6 +40,7 @@ services:
     volumes:
       - win10-data:/storage
       - ./oem:/oem:ro
+      - ./start-guard.sh:/am-vm-start-guard.sh:ro
 
 volumes:
   win11-data:

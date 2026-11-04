@@ -54,7 +54,8 @@ $global:amTestProject = '/home/test/project with space ''quotes'' $(touch SHOULD
 & $amTarget -Client claude,codex,omp -Distro 'Ubuntu-24.04' -Project $global:amTestProject
 if ($global:amTestRuns.Count -ne 1) { throw 'Expected one multi-client installation' }
 $amInvocation = $global:amTestRuns[0]
-if ($amInvocation[8] -ne $global:amTestProject -or ($amInvocation[9..11] -join ',') -ne 'claude,codex,omp') {
+$amDecodedProject = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($amInvocation[8]))
+if ($amDecodedProject -ne $global:amTestProject -or ($amInvocation[9..11] -join ',') -ne 'claude,codex,omp') {
     throw ('Argument boundaries were not preserved: ' + ($amInvocation | ConvertTo-Json -Compress))
 }
 if (Test-Path -LiteralPath $global:amTestTemp) { throw 'Temporary script was not removed' }
