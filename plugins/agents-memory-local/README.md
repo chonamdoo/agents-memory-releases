@@ -1,6 +1,6 @@
 # agents-memory-local 1.0.6
 
-macOS hotfix: matches PostgreSQL's `vector.dylib` filename and automatically repairs verified 1.0.5 installations without changing keys, model settings or database data. Existing OMP users: `omp plugin upgrade agents-memory-local@agents-memory`, then `/mcp reload`.
+macOS hotfix: matches PostgreSQL's `vector.dylib` filename and automatically repairs verified 1.0.5 installations without changing keys, model settings or database data. Existing OMP users: `omp plugin marketplace update agents-memory`, then `omp plugin upgrade agents-memory-local@agents-memory`. Confirm version 1.0.6 and restart OMP. Upgrading without refreshing the marketplace may reinstall the cached old version.
 
 Automatic local memory MCP for Claude Code, Codex and OMP. On first MCP connection, the connector immediately answers `setup_status`, opens a local browser form for your one-time Jev / subscribed Claude / subscribed Codex choice, then installs the pinned binary core, E5 search embeddings, native PostgreSQL/pgvector and API. No Docker, Colima or system Python is required. Existing choices and saved keys are reused on updates.
 

@@ -4,7 +4,7 @@
 
 [1.0.6 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.6) · [설치·운영 안내](distribution/mcp-local/README.ko.md)
 
-1.0.6은 macOS pgvector 모듈 이름 오류를 수정하고, 1.0.5의 실패한 설치를 키·설정·DB 데이터 변경 없이 자동 복구합니다. 기존 OMP 사용자는 `omp plugin upgrade agents-memory-local@agents-memory` 후 `/mcp reload`로 새 연결기를 불러오세요.
+1.0.6은 macOS pgvector 모듈 이름 오류를 수정하고, 1.0.5의 실패한 설치를 키·설정·DB 데이터 변경 없이 자동 복구합니다. 기존 OMP 사용자는 `omp plugin marketplace update agents-memory` → `omp plugin upgrade agents-memory-local@agents-memory` 순서로 실행하고, 1.0.6 설치를 확인한 뒤 OMP를 다시 시작하세요.
 
 플러그인을 설치하고 MCP를 연결하면 로컬 실행 환경, **검색용 E5 임베딩**, 앱 전용 PostgreSQL/pgvector와 API가 자동으로 준비됩니다. **Docker·Colima 수동 설정은 필요하지 않습니다. Apple Silicon macOS 15 이상**이 필요합니다.
 

@@ -1,0 +1,21 @@
+{
+  "version": "1.0.6",
+  "marketplace_source_type": "github",
+  "marketplace_source": "chonamdoo/agents-memory-releases",
+  "reproduction": {
+    "cached_catalog_version": "1.0.4",
+    "upgrade_without_marketplace_update": "1.0.4",
+    "registry_after_upgrade_without_refresh": "1.0.4"
+  },
+  "fix": {
+    "commands": [
+      "omp plugin marketplace update agents-memory",
+      "omp plugin upgrade agents-memory-local@agents-memory"
+    ],
+    "installed_version": "1.0.6",
+    "registry_version": "1.0.6"
+  },
+  "preserved_existing_plugin_registration": true,
+  "model_calls": 0,
+  "note": "Supersedes the local-catalog-only assumption in the prior PUBLIC-DELIVERY-VERIFICATION upgrade test."
+}

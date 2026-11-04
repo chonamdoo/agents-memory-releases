@@ -13,5 +13,7 @@
   "provider_settings_preserved": true,
   "omp_direct_instruction_migration_verified": true,
   "physical_macos_execution": false,
-  "github_actions_last_run_unchanged": 41388806223
+  "github_actions_last_run_unchanged": 41388806223,
+  "marketplace_fixture_source": "local catalog; this earlier upgrade check did not validate GitHub catalog refresh",
+  "github_catalog_upgrade_evidence": "GITHUB-MARKETPLACE-CACHE-VERIFICATION.json"
 }

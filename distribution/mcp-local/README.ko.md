@@ -1,8 +1,9 @@
 # Claude · Codex · OMP 자동 로컬 MCP 설치 (1.0.6)
 
-**1.0.6 macOS 수정:** PostgreSQL이 요구하는 `vector.dylib` 이름으로 배포합니다. 1.0.5에서 `could not access file "vector"`로 실패했다면 아래 명령으로 플러그인만 업데이트하고 OMP에서 `/mcp reload`를 실행하세요. 기존 키·모델·DB 데이터를 유지한 채 검증된 모듈 이름을 자동 복구합니다. 삭제나 재설치는 필요하지 않습니다.
+**1.0.6 macOS 수정:** PostgreSQL이 요구하는 `vector.dylib` 이름으로 배포합니다. 1.0.5에서 `could not access file "vector"`로 실패했다면 아래 두 명령을 순서대로 실행해 마켓 정보를 갱신하고 플러그인을 업데이트하세요. 업그레이드 출력이 1.0.6인지 확인한 뒤 OMP를 다시 시작하세요. 기존 키·모델·DB 데이터를 유지한 채 검증된 모듈 이름을 자동 복구합니다. 삭제나 재설치는 필요하지 않습니다. `plugin upgrade`만 실행하면 오래된 마켓 캐시의 버전을 다시 설치할 수 있습니다.
 
 ```sh
+omp plugin marketplace update agents-memory
 omp plugin upgrade agents-memory-local@agents-memory
 ```
 
