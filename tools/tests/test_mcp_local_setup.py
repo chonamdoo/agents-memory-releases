@@ -5,7 +5,6 @@ import importlib.util
 import json
 import os
 import plistlib
-import subprocess
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -234,11 +233,18 @@ def test_nested_project_routes_to_its_explicit_receipt(helper, installation, tmp
         helper.project_record(installation, child)
 
 
-def test_proxy_failure_keeps_stdout_free_of_protocol_noise(helper, installation, tmp_path):
-    result = subprocess.run([helper.sys.executable, str(SOURCE), "--prefix", str(installation), "proxy",
-                             "--project", str(tmp_path)], capture_output=True, check=False)
-    assert result.returncode == 2 and not result.stdout
-    assert b"agents-memory-local" in result.stderr
+def test_unconfigured_proxy_reports_setup_without_connecting(helper, installation, tmp_path, monkeypatch):
+    import asyncio
+
+    states = []
+
+    async def diagnostic(state):
+        states.append(state)
+
+    monkeypatch.setattr(helper, "diagnostic_server", diagnostic)
+    monkeypatch.setattr(helper, "ready", lambda *args: pytest.fail("Incomplete setup attempted HTTP"))
+    asyncio.run(helper.proxy(installation, tmp_path))
+    assert states == ["setup_incomplete"]
 
 
 def test_bootstrap_accepts_custom_prefix_after_setup_subcommand(helper, tmp_path):
@@ -247,15 +253,13 @@ def test_bootstrap_accepts_custom_prefix_after_setup_subcommand(helper, tmp_path
     assert args.prefix == tmp_path and args.client == ["omp"] and args.judge_host is None
 
 
-def test_default_plugin_and_native_transports_match_for_deduplication(helper, installation, tmp_path, monkeypatch):
-    monkeypatch.setattr(helper, "PREFIX", installation)
+def test_native_omp_suppresses_only_its_own_marketplace_alias(helper, installation, tmp_path):
     project = tmp_path / "project"
     project.mkdir()
     helper.configure_client(project, installation, "omp")
-    native = json.loads((project / ".omp/mcp.json").read_text())["mcpServers"][helper.NAME]
-    plugin_path = SOURCE.parents[1] / ".." / "plugins/agents-memory-local/.mcp.json"
-    plugin = json.loads(plugin_path.read_text())["mcpServers"][helper.NAME]
-    assert (native["command"], native["args"]) == (plugin["command"], plugin["args"])
+    servers = json.loads((project / ".omp/mcp.json").read_text())["mcpServers"]
+    assert servers[helper.NAME + ":" + helper.NAME]["enabled"] is False
+    assert servers[helper.NAME].get("enabled") is not False
 
 
 def test_preflight_registration_makes_no_changes(helper, installation, tmp_path):
@@ -314,10 +318,16 @@ def test_published_bootstrap_pins_helper_and_matches_marketplace_copy():
 def test_stopped_proxy_never_connects_even_if_a_port_is_ready(helper, installation, tmp_path, monkeypatch):
     import asyncio
 
+    states = []
+
+    async def diagnostic(state):
+        states.append(state)
+
     helper.write_json(installation / "settings/mcp-service.json", {"enabled": False, "product_id": "a" * 32})
     monkeypatch.setattr(helper, "ready", lambda *args: pytest.fail("Stopped proxy attempted HTTP"))
-    with pytest.raises(helper.Refused, match="explicitly stopped"):
-        asyncio.run(helper.proxy(installation, tmp_path))
+    monkeypatch.setattr(helper, "diagnostic_server", diagnostic)
+    asyncio.run(helper.proxy(installation, tmp_path))
+    assert states == ["explicitly_stopped"]
 
 
 def test_existing_transport_environment_is_not_silently_adopted(helper, installation, tmp_path):

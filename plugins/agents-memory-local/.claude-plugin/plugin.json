@@ -1,6 +1,6 @@
 {
   "name": "agents-memory-local",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Project-scoped MCP tools for the local Hindsight binary core, with an explicit shared Claude/Codex/OMP setup helper.",
   "author": {
     "name": "chonamdoo"

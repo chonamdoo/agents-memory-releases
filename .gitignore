@@ -19,3 +19,6 @@ private/
 
 !distribution/mcp-local/setup.py
 !tools/tests/test_mcp_local_setup.py
+
+!plugins/agents-memory-local/scripts/setup.py
+!tools/tests/test_mcp_onboarding.py

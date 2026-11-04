@@ -1,8 +1,12 @@
+> 1.0.4: 초기 설정 전에는 MCP가 종료되지 않고 `setup_status`로 필요한 단계를 안내합니다. `ready:false`는 기억 기능이 아직 준비되지 않았다는 뜻입니다. 마켓 설치만으로 DB·Jev 키 설정이 끝나지는 않습니다.
+>
+> Jev 키는 입력할 때 보이지 않습니다. Enter로 확정하면 `입력 확인 완료`와 설치 단계가 표시됩니다. 설치 중에는 중복 실행하지 마세요. 홈 폴더(~)는 프로젝트로 지정할 수 없으며 실제 프로젝트에서 실행해야 합니다.
+
 # Claude · Codex · OMP용 로컬 MCP 설치
 
 MCP 연결 앱은 **Claude Code / Codex / OMP(오마이파이)** 중 선택합니다. 여러 앱이 같은 프로젝트의 로컬 기억을 공유할 수 있습니다. 기억 저장 여부를 판단하는 모델은 별도로 **Jev / 구독 Claude / 구독 Codex** 중 선택합니다. MCP 앱 선택으로 판단 모델을 바꾸지 않습니다.
 
-이번 1.0.3은 설치·연결 배포판입니다. 검증된 1.0.2 컴파일 코어와 검색용 E5 임베딩을 그대로 사용하며, 생성 LLM 가중치는 설치하지 않습니다.
+이번 1.0.4은 설치·연결 배포판입니다. 검증된 1.0.2 컴파일 코어와 검색용 E5 임베딩을 그대로 사용하며, 생성 LLM 가중치는 설치하지 않습니다.
 
 ## 먼저 준비할 것
 
@@ -44,7 +48,7 @@ omp plugin install agents-memory-local@agents-memory
 
 ```sh
 curl --fail --silent --show-error --location \
-  https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.3/distribution/mcp-local/install.sh \
+  https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.4/distribution/mcp-local/install.sh \
   -o /tmp/agents-memory-mcp-install.sh
 bash /tmp/agents-memory-mcp-install.sh --client codex --project "$PWD"
 ```
@@ -62,7 +66,7 @@ bash /tmp/agents-memory-mcp-install.sh \
 
 실제 등록 위치는 프로젝트 `.mcp.json`(Claude), `.codex/config.toml`(Codex), `.omp/mcp.json`(OMP)입니다. 다른 MCP·모델 설정을 보존하고 기존 파일을 0600 백업으로 남깁니다. 같은 이름의 다른 서버, 명시적으로 비활성화한 항목, 손상된 설정이나 심볼릭 링크가 있으면 덮어쓰지 않고 중단합니다. Codex/Claude의 프로젝트 신뢰와 승인 정책을 존중합니다. OMP에서 프로젝트 MCP 읽기를 꺼 놓았다면 OMP 설정에서 직접 활성화해야 합니다. OMP 프로필별 사용자 설정은 변경하지 않습니다.
 
-기본 경로의 마켓·앱별 등록은 같은 실행 명령을 사용해 OMP의 동일 연결 중복 제거가 작동하도록 합니다. OMP의 기본 xdev 도구 표시 방식에서는 도구가 마운트되어 평면 목록에 보이지 않을 수 있습니다. `/mcp list`, `/mcp test agents-memory-local`로 연결을 확인하세요.
+OMP 직접 등록은 같은 프로젝트에서 이 플러그인의 가져온 별칭만 비활성화해 중복 연결을 막습니다. 다른 MCP 서버와 사용자가 직접 설정한 항목은 변경하지 않습니다. OMP의 기본 xdev 도구 표시 방식에서는 도구가 마운트되어 평면 목록에 보이지 않을 수 있습니다. `/mcp list`, `/mcp test agents-memory-local`로 연결을 확인하세요.
 
 ## 설치 후 운영
 

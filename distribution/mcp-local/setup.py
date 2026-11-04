@@ -20,6 +20,7 @@ import socket
 import stat
 import subprocess
 import sys
+import threading
 import time
 import tomllib
 import uuid
@@ -27,7 +28,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
-VERSION = "1.0.3"
+VERSION = "1.0.4"
 CORE_VERSION = "1.0.2"
 PRODUCT = "agents-memory-hindsight-local"
 PREFIX = Path.home() / ".local/share/agents-memory-hindsight"
@@ -127,6 +128,27 @@ def locked(prefix):
         yield
     finally:
         os.close(descriptor)
+
+
+
+@contextmanager
+def phase(label):
+    finished = threading.Event()
+    print("[agents-memory] " + label, file=sys.stderr, flush=True)
+
+    def report():
+        seconds = 0
+        while not finished.wait(10):
+            seconds += 10
+            print(f"[agents-memory {seconds}초] {label} · 진행 중", file=sys.stderr, flush=True)
+
+    monitor = threading.Thread(target=report, daemon=True)
+    monitor.start()
+    try:
+        yield
+    finally:
+        finished.set()
+        monitor.join(timeout=1)
 
 
 def available_port():
@@ -287,7 +309,38 @@ def install_core(args):
             command.extend([option, value])
     if args.virtual_linux:
         command.append("--virtual-linux")
-    subprocess.run(command, check=True, timeout=1200)
+    initial = {p.name for p in (prefix / "installs").glob("*")} if (prefix / "installs").exists() else set()
+    finished = threading.Event()
+
+    def progress():
+        started = time.monotonic()
+        last_phase, last_notice = None, started
+        while not finished.wait(.5):
+            try:
+                folders = [p for p in (prefix / "installs").glob("*") if p.name not in initial]
+                installing = any((p / "dependency-install.log").exists() for p in folders)
+            except OSError:
+                folders, installing = [], False
+            if installing:
+                current = "입력 확인 완료 · 의존성을 설치하고 있습니다. 창을 닫지 마세요."
+            elif folders:
+                current = "입력 확인 완료 · Python 실행 환경을 준비하고 있습니다."
+            else:
+                current = "설정 입력 대기/준비 중 · 숨김 입력은 Enter로 확정하세요."
+            now = time.monotonic()
+            if current != last_phase or now - last_notice >= 10:
+                print(f"[agents-memory {int(now - started)}초] {current}", file=sys.stderr, flush=True)
+                last_phase, last_notice = current, now
+
+    print("Jev 키는 입력해도 화면에 표시되지 않습니다. Enter로 확정하면 의존성 설치가 이어집니다.",
+          file=sys.stderr, flush=True)
+    monitor = threading.Thread(target=progress, daemon=True)
+    monitor.start()
+    try:
+        subprocess.run(command, check=True, timeout=1200)
+    finally:
+        finished.set()
+        monitor.join(timeout=1)
     owner(prefix)
 
 
@@ -311,6 +364,8 @@ def project_record(prefix, project):
     records = read_json(prefix / "settings/mcp-projects.json")
     # A host may launch its plugin from a subdirectory of the explicitly configured project.
     for candidate in (project, *project.parents):
+        if candidate in {Path.home().resolve(), Path("/")}:
+            continue
         item = records.get(str(candidate))
         if item:
             expected = hashlib.sha256(os.fsencode(candidate)).hexdigest()[:24]
@@ -452,13 +507,16 @@ def configure_client(project, prefix, client, *, dry_run=False):
     if not isinstance(servers, dict):
         raise Refused("Existing MCP configuration is malformed")
     existing = servers.get(NAME)
+    alias = NAME + ":" + NAME
+    suppress_alias = client == "omp" and alias not in servers
     if existing is not None:
         if (existing.get("command") != command or existing.get("args") != arguments
                 or existing.get("env") not in (None, {}) or existing.get("url")
                 or existing.get("cwd") not in (None, str(project))
                 or existing.get("enabled") is False or NAME in data.get("disabledServers", [])):
             raise Refused("Existing same-name MCP entry differs or is disabled; no overwrite performed")
-        return {"client": client, "path": str(path), "changed": False}
+        if not suppress_alias:
+            return {"client": client, "path": str(path), "changed": False}
     if NAME in data.get("disabledServers", []):
         raise Refused("This MCP server is explicitly disabled; enable it in the host before connecting")
     if client == "codex":
@@ -468,10 +526,12 @@ def configure_client(project, prefix, client, *, dry_run=False):
         output = raw + appended.encode()
         tomllib.loads(output.decode())
     else:
-        data.setdefault(key, {})[NAME] = {"type": "stdio", **desired}
+        data.setdefault(key, {}).setdefault(NAME, {"type": "stdio", **desired})
         if client == "omp":
             data[key][NAME]["timeout"] = 120000
             data[key][NAME]["instructions"] = False
+            if suppress_alias:
+                data[key][alias] = {"type": "stdio", **desired, "enabled": False}
         output = (json.dumps(data, ensure_ascii=False, indent=2) + "\n").encode()
     if dry_run:
         return {"client": client, "path": str(path), "changed": True}
@@ -492,6 +552,8 @@ def setup(args):
     if not args.project.is_absolute() or not args.project.is_dir():
         raise Refused("Choose an existing absolute project directory")
     args.project = args.project.resolve()
+    if args.project in {Path.home().resolve(), Path("/")}:
+        raise Refused("Run setup in your actual project folder, not HOME or the filesystem root; cd to the project and rerun with --project \"$PWD\"")
     if platform.system() != "Darwin" and not args.virtual_linux:
         raise Refused("Production support is Apple Silicon macOS; Linux requires --virtual-linux")
     if args.virtual_linux and not args.no_start:
@@ -524,17 +586,20 @@ def setup(args):
         if platform.system() == "Darwin":
             was_running = stop_agent(args.prefix)
             if was_running:
-                wait_service_ports(args.prefix)
+                with phase("기존 API 연결을 정리하고 있습니다 (최대 90초)"):
+                    wait_service_ports(args.prefix)
         elif ready(args.prefix):
             raise Refused("Stop the virtual test API before provisioning another project")
         try:
             require_service_credentials(args.prefix)
-            database = ensure_database(args.prefix, provision=True)
+            with phase("로컬 DB를 준비하고 있습니다. Docker Desktop을 실행해 두세요"):
+                database = ensure_database(args.prefix, provision=True)
             install_helper(args.prefix)
             environment = dict(os.environ) | {"DATABASE_URL": database}
             command = str(args.prefix / "current/bin/am-hindsight")
             item = json.loads(run([command, "project-init", str(args.project)], env=environment))
-            run([command, "bank-init", "--config", item["hook_config"]], env=environment, timeout=240)
+            with phase("현재 프로젝트의 기억 저장소를 준비하고 있습니다"):
+                run([command, "bank-init", "--config", item["hook_config"]], env=environment, timeout=240)
             path = args.prefix / "settings/mcp-projects.json"
             records = read_json(path) if path.exists() else {}
             records[str(args.project)] = {k: item[k] for k in ("project", "bank", "hook_config", "mcp_url")}
@@ -542,7 +607,8 @@ def setup(args):
             write_json(args.prefix / "settings/mcp-service.json",
                        {"enabled": True, "product_id": owner(args.prefix)["id"]})
             if not args.no_start:
-                start_agent(args.prefix)
+                with phase("로컬 API 시작 및 준비 상태 확인 중 (최대 120초)"):
+                    start_agent(args.prefix)
             configured = [configure_client(args.project, args.prefix, client) for client in clients]
             return {"version": VERSION, "core_version": CORE_VERSION, "project": str(args.project),
                     "clients": configured, "service_ready": ready(args.prefix),
@@ -590,13 +656,64 @@ def service_run(prefix):
                 child.wait()
 
 
+def connection_status(prefix, project):
+    try:
+        identity = owner(prefix)["id"]
+        receipt = prefix / "settings/mcp-service.json"
+        if not receipt.exists():
+            return "setup_incomplete", None
+        if read_json(receipt) != {"enabled": True, "product_id": identity}:
+            return "explicitly_stopped", None
+        if not (prefix / "settings/mcp-projects.json").exists():
+            return "project_not_configured", None
+        item = project_record(prefix, project.resolve())
+        if not ready(prefix):
+            return "api_not_ready", None
+        return "ready", item
+    except Refused:
+        return "project_or_installation_needs_review", None
+    except (OSError, ValueError, KeyError, TypeError):
+        return "setup_incomplete", None
+
+
+async def diagnostic_server(state):
+    from mcp.server.lowlevel import Server
+    from mcp.server.stdio import stdio_server
+    from mcp.types import CallToolResult, ListToolsResult, TextContent, Tool
+
+    explanation = {
+        "explicitly_stopped": "API를 명시적으로 중지한 상태입니다. 준비가 됐다면 am-mcp start 후 MCP를 다시 연결하세요.",
+        "api_not_ready": "설정은 있지만 로컬 API가 준비되지 않았습니다. Docker Desktop을 실행하고 am-mcp status / start를 확인하세요.",
+        "project_not_configured": "현재 프로젝트가 아직 연결되지 않았습니다. 홈 폴더가 아닌 실제 프로젝트에서 설치 도우미를 실행하세요.",
+    }.get(state, "설치 또는 프로젝트 설정이 완료되지 않았습니다. 아래 설치 도우미로 확인하세요.")
+    guide = (explanation + "\n키는 숨김 입력입니다. 입력 후 Enter를 누르고 설치 완료 메시지를 기다리세요.\n"
+             "curl -fsSL https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.4/distribution/mcp-local/install.sh -o /tmp/agents-memory-mcp-install.sh\n"
+             'bash /tmp/agents-memory-mcp-install.sh --client omp --project "$PWD"\n'
+             "설정 완료 후 OMP에서는 /mcp reload를 실행하세요. 현재 메모리 도구는 준비되지 않았습니다.")
+
+    async def list_tools(ctx, params):
+        del ctx, params
+        return ListToolsResult(tools=[Tool(name="setup_status", description="Show local-memory setup state and safe next steps. No installation, history reads or model calls.",
+                                           input_schema={"type": "object", "properties": {}, "additionalProperties": False})])
+
+    async def call_tool(ctx, params):
+        del ctx
+        if params.name != "setup_status":
+            return CallToolResult(content=[TextContent(type="text", text="Only setup_status is available until memory is ready.")], is_error=True)
+        return CallToolResult(content=[TextContent(type="text", text=guide)],
+                              structured_content={"ready": False, "state": state, "setupRequired": True, "version": VERSION})
+
+    server = Server(NAME + "-setup", version=VERSION, instructions="This is setup status only; memory is not ready. Call setup_status for next steps. Never request API keys in chat.",
+                    on_list_tools=list_tools, on_call_tool=call_tool)
+    async with stdio_server() as (incoming, outgoing):
+        await server.run(incoming, outgoing, server.create_initialization_options())
+
+
 async def proxy(prefix, project):
-    identity = owner(prefix)["id"]
-    if read_json(prefix / "settings/mcp-service.json") != {"enabled": True, "product_id": identity}:
-        raise Refused("Service was explicitly stopped; run am-mcp start to enable it")
-    item = project_record(prefix, project.resolve())
-    if not ready(prefix):
-        raise Refused("Local API is not ready; run am-mcp status or am-mcp start")
+    state, item = connection_status(prefix, project)
+    if state != "ready":
+        await diagnostic_server(state)
+        return
     import httpx2
     from mcp import ClientSession
     from mcp.client.streamable_http import streamable_http_client

@@ -1,0 +1,12 @@
+{
+  "version": "1.0.4",
+  "purpose": "dependency-free MCP setup status; no installation/network/model/history operations",
+  "source": "../scripts/setup-status.c",
+  "source_sha256": "4fbfa54cbe3435441462289a380af319581faa2348f4673600620a4a2e235496",
+  "files": {
+    "setup-status-linux-x86_64": "7dadc3875b8f145e34e78b38e2261f81e2bfea6dc60a1c4374f3a44471dbefaa",
+    "setup-status-darwin-arm64": "c3a43f670de31561b3ecb9cc5cfe71bde50dcdce7f1e066eaedfa418e7792624"
+  },
+  "compiler": "Linux cc; macOS Zig 0.17.0 target arm64 macOS13",
+  "real_macos_execution": false
+}

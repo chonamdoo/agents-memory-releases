@@ -1,10 +1,10 @@
 #!/bin/bash
-# MCP installer 1.0.3. Memory core and E5 assets remain the verified binary release 1.0.2.
+# MCP installer 1.0.4. Memory core and E5 assets remain the verified binary release 1.0.2.
 set -euo pipefail
 umask 077
 base=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/eb80f6277f6d712a89e854f0f54b7067a9bfc9cc/files
-helper_url=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.3/distribution/mcp-local/setup.py
-helper_sha=9da880a3c2ad70288ade26fe9413f06c2fa499535d87ec8979147b8cf0f30ab5
+helper_url=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.4/distribution/mcp-local/setup.py
+helper_sha=08b55bf0c33dcc8d881084e5c9b18905820ed9d8e648f320594b72a69cb5c4b9
 archive_sha=3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34
 for argument in "$@"; do
   if [[ $argument == --help || $argument == -h ]]; then
@@ -15,6 +15,21 @@ for argument in "$@"; do
     exit 0
   fi
 done
+project_argument=""
+next_project=false
+for argument in "$@"; do
+  if [[ $next_project == true ]]; then project_argument=$argument; next_project=false; fi
+  case "$argument" in --project) next_project=true ;; --project=*) project_argument=${argument#--project=} ;; esac
+done
+if [[ -n $project_argument && -d $project_argument ]]; then
+  selected_project=$(cd "$project_argument" && pwd -P)
+  selected_home=$(cd "$HOME" && pwd -P)
+  if [[ $selected_project == "$selected_home" || $selected_project == / ]]; then
+    echo '실제 작업 프로젝트에서 실행하세요. 홈 폴더(~)는 프로젝트로 사용할 수 없습니다.' >&2
+    echo 'cd /absolute/path/to/project 후 --project "$PWD"로 다시 실행하세요.' >&2
+    exit 2
+  fi
+fi
 virtual=false
 for argument in "$@"; do
   [[ $argument != --virtual-linux ]] || virtual=true
