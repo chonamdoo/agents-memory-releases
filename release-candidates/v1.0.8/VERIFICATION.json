@@ -1,0 +1,121 @@
+{
+  "version": "1.0.8",
+  "release_state": "development draft; not published",
+  "stable_version": "1.0.7",
+  "pytest_passed": 98,
+  "go_tests_passed": 9,
+  "go_race_detector": true,
+  "ruff": true,
+  "powershell": {
+    "version": "7.6.9 Linux",
+    "syntax_and_mock_wsl_boundary": true,
+    "real_windows_execution": false
+  },
+  "linux_runtime": {
+    "version": "1.0.8",
+    "host": "Linux x86_64",
+    "actual_database_vector_api_mcp": true,
+    "vector_version": "0.8.7",
+    "distance": 1,
+    "three_client_project_configs": true,
+    "owned_process_start_stop_restart": true,
+    "database_identity_preserved": true,
+    "provider_key_and_db_receipt_preserved": true,
+    "tools": 10,
+    "model_calls": 0,
+    "wsl_platform_branch": "selected with test double; actual Windows execution NOT performed",
+    "physical_windows_execution": false
+  },
+  "clients": {
+    "claude": {
+      "version": "2.1.317",
+      "direct_mcp_connected": true,
+      "host": "Linux x86_64",
+      "fixture_project_approval": true,
+      "model_calls": 0
+    },
+    "codex": {
+      "client": "Codex CLI 0.163.0",
+      "configuration_source": "verified installer project config",
+      "installation": "direct project MCP registration",
+      "version": "1.0.8",
+      "memory_tools": 10,
+      "model_calls": 0,
+      "mcp_server_discovered": true
+    },
+    "omp": {
+      "omp_version": "18.16.0",
+      "wrapper_version": "1.0.8",
+      "installation": "direct project MCP registration",
+      "isolated_client_home": true,
+      "mcp_connected": true,
+      "tools": [
+        "mcp__agents_memory_local_delete_document",
+        "mcp__agents_memory_local_get_document",
+        "mcp__agents_memory_local_get_memory",
+        "mcp__agents_memory_local_get_operation",
+        "mcp__agents_memory_local_list_documents",
+        "mcp__agents_memory_local_list_memories",
+        "mcp__agents_memory_local_list_operations",
+        "mcp__agents_memory_local_recall",
+        "mcp__agents_memory_local_setup_status",
+        "mcp__agents_memory_local_sync_retain"
+      ],
+      "tool_contract_available": true,
+      "model_calls": 0,
+      "provider_settings_reused": true
+    }
+  },
+  "docker_windows_vm": {
+    "compose_win10_valid": true,
+    "compose_win11_valid": true,
+    "daemon_kvm_device_probe_exit": 127,
+    "reason": "/dev/kvm absent; storage also below required minimum",
+    "vm_started": false,
+    "windows_product_verified": false
+  },
+  "windows_native_ready": false,
+  "github_actions_dispatched": false,
+  "github_actions_last_run_unchanged": 41388806223,
+  "build": {
+    "version": "1.0.8",
+    "compiler": "go version go1.27.3 linux/amd64",
+    "cgo": false,
+    "source": "../scripts/connector.go",
+    "source_sha256": "d75a0c80608141f17d00fd08fe83db81f50b5e1d088e28912b8422c640e786b6",
+    "helper_sha256": "92bdbada9691402748a607955c0242f00b44598536e153b5b6bc3c12982bf7cd",
+    "files": {
+      "connector-linux-x86_64": "12f395e7f7bbde97a3f53fe974117eaecc27c137c3b45e7ab359df22e0b4abef",
+      "connector-darwin-arm64": "a8f45bdfab3ea38a8671e295ce13bd08c084ae411ae0683954385bc96d87c2c2"
+    },
+    "tool_contract_sha256": "4adc915b11478f7ea045d7c2571c2c9d39e92ab24bf4e34bba14cb3bb22fc96d",
+    "memory_instructions_sha256": "a01401a0e8cd374f58a9d5071b0368074e498f0334758f74d1ffd4ebdacfd54f",
+    "native_extension_contracts": {
+      "Darwin": {
+        "platform": "Darwin",
+        "postgres_dlsuffix": ".dylib",
+        "module": "lib/vector.dylib",
+        "module_sha256": "1df94b3118d43915dc1194fcebc2b6fb51aff79550a388afe89e2b40998a5f2f",
+        "postgres_header_sha256": "4d368ab43a4ba40c7aededea7511ad953a30cbbf2e6dd1f880bd78caeecb2a5c",
+        "lookup_contract": "passed",
+        "native_execution": false
+      },
+      "Linux": {
+        "platform": "Linux",
+        "postgres_dlsuffix": ".so",
+        "module": "lib/vector.so",
+        "module_sha256": "f6af19f4566583b0987c73b13ae07b6b22825573abd04d0c3f6b738f142b4ff8",
+        "postgres_header_sha256": "414d01b4eed7dd0ab1ee9fd76b114203ed1ba156ea739dc15355f4d437ac8740",
+        "lookup_contract": "passed",
+        "native_execution": false
+      }
+    },
+    "real_macos_execution": false
+  },
+  "limitations": [
+    "Windows-native core, extension and installer are not available.",
+    "Actual Windows/WSL and macOS execution were not performed in this environment.",
+    "This candidate must not be advertised as native Windows support.",
+    "No additional cloud instance or paid resource was created."
+  ]
+}

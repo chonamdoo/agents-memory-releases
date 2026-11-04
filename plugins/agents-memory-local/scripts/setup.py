@@ -29,7 +29,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
-VERSION = "1.0.7"
+VERSION = "1.0.8"
 CORE_VERSION = "1.0.2"
 PRODUCT = "agents-memory-hindsight-local"
 PREFIX = Path.home() / ".local/share/agents-memory-hindsight"
@@ -73,6 +73,12 @@ MEMORY_RECALL_DESCRIPTION = (
 
 class Refused(Exception):
     pass
+
+
+def is_wsl2():
+    """Only the supported WSL2 kernel, not WSL1 or an inherited Windows variable."""
+    return (platform.system() == "Linux" and platform.machine() == "x86_64"
+            and "microsoft-standard-wsl2" in platform.release().lower())
 
 
 def private_read(path: Path):
@@ -312,7 +318,7 @@ def native_runtime(prefix):
     """Fetch a pinned, relocatable PostgreSQL runtime. No system installs or Docker."""
     system = platform.system()
     if (system, platform.machine()) not in {("Darwin", "arm64"), ("Linux", "x86_64")}:
-        raise Refused("Native database requires Apple Silicon macOS 15+ or the Linux validation host")
+        raise Refused("Native database requires Apple Silicon macOS 15+, Windows WSL2 x64 or the Linux validation host")
     if system == "Darwin" and int(platform.mac_ver()[0].split(".")[0]) < 15:
         raise Refused("Automatic local database requires macOS 15 or newer")
     target, checksum = NATIVE_POSTGRES[system]
@@ -561,7 +567,7 @@ def install_core(args):
                           ("--model", args.model), ("--executable", args.executable)):
         if value:
             command.extend([option, value])
-    if args.virtual_linux:
+    if args.virtual_linux or is_wsl2():
         command.append("--virtual-linux")
     initial = {p.name for p in (prefix / "installs").glob("*")} if (prefix / "installs").exists() else set()
     finished = threading.Event()
@@ -689,23 +695,54 @@ def stop_agent(prefix):
 
 
 def stop_virtual_agent(prefix):
-    """Linux validation only; stop the exact owned helper, never a port's arbitrary PID."""
+    """Linux/WSL2: stop the exact owned helper, never a port's arbitrary PID."""
     value = read_json(prefix / "settings/mcp-process.json")
     if value.get("product_id") != owner(prefix)["id"] or type(value.get("pid")) is not int or value["pid"] <= 1:
-        raise Refused("Virtual service process identity changed")
+        raise Refused("Local service process identity changed")
     pid = value["pid"]
     expected = [str(prefix / "current/venv/bin/python"), "-I", str(prefix / "integration/current/setup.py"),
                 "--prefix", str(prefix), "service-run"]
     observed = (Path("/proc") / str(pid) / "cmdline").read_bytes().rstrip(b"\0").split(b"\0")
     if observed != [os.fsencode(arg) for arg in expected]:
-        raise Refused("Refusing to stop an unrelated virtual process")
+        raise Refused("Refusing to stop an unrelated local process")
     os.kill(pid, signal.SIGTERM)
     deadline = time.monotonic() + 30
-    while ready(prefix) and time.monotonic() < deadline:
+    while time.monotonic() < deadline:
+        try:
+            alive = (Path("/proc") / str(pid) / "cmdline").read_bytes().rstrip(b"\0").split(b"\0") == observed
+        except FileNotFoundError:
+            alive = False
+        if not alive and not ready(prefix):
+            return True
         time.sleep(.2)
+    raise Refused("Local service has not stopped")
+
+
+def start_process_agent(prefix):
+    """Start the owned WSL/Linux service without requiring systemd or Docker."""
+    owner(prefix)
     if ready(prefix):
-        raise Refused("Virtual service has not stopped")
-    return True
+        raise Refused("A service already occupies the configured API port; inspect status before starting")
+    wait_service_ports(prefix)
+    write_json(prefix / "settings/mcp-service.json", {"enabled": True, "product_id": owner(prefix)["id"]})
+    logs = prefix / "integration/logs"
+    logs.mkdir(parents=True, mode=0o700, exist_ok=True)
+    path = logs / "service.log"
+    if path.exists() or path.is_symlink():
+        private_read(path)
+    descriptor = os.open(path, os.O_WRONLY | os.O_APPEND | os.O_CREAT | os.O_NOFOLLOW, 0o600)
+    with os.fdopen(descriptor, "ab") as log:
+        child = subprocess.Popen([str(prefix / "current/venv/bin/python"), "-I",
+                                  str(prefix / "integration/current/setup.py"), "--prefix", str(prefix), "service-run"],
+                                 stdin=subprocess.DEVNULL, stdout=log, stderr=log, start_new_session=True)
+    deadline = time.monotonic() + 120
+    while time.monotonic() < deadline:
+        if child.poll() is not None:
+            raise Refused("Local service exited during startup; inspect the private service.log")
+        if ready(prefix):
+            return
+        time.sleep(.5)
+    raise Refused("Local service is not ready; inspect the private service.log")
 
 
 
@@ -864,9 +901,9 @@ def setup(args):
     args.project = args.project.resolve()
     if args.project in {Path.home().resolve(), Path("/")}:
         raise Refused("Run setup in your actual project folder, not HOME or the filesystem root; cd to the project and rerun with --project \"$PWD\"")
-    if platform.system() != "Darwin" and not args.virtual_linux:
-        raise Refused("Production support is Apple Silicon macOS; Linux requires --virtual-linux")
-    if args.virtual_linux and not args.no_start:
+    if platform.system() != "Darwin" and not args.virtual_linux and not is_wsl2():
+        raise Refused("Requires Apple Silicon macOS 15+ or Windows WSL2 x64; other Linux needs --virtual-linux")
+    if args.virtual_linux and not args.no_start and not is_wsl2():
         raise Refused("Virtual Linux setup uses --no-start; run service-run explicitly in the test harness")
     clients = args.client
     if not clients:
@@ -885,6 +922,7 @@ def setup(args):
         installed = args.prefix / "integration/current/setup.py"
         service_receipt = args.prefix / "settings/mcp-service.json"
         reusable = (receipt.exists() and installed.exists() and service_receipt.exists()
+                    and (args.prefix / "integration/current/connector").is_file()
                     and hashlib.sha256(private_read(installed)).digest() == hashlib.sha256(Path(__file__).read_bytes()).digest()
                     and read_json(service_receipt) == {"enabled": True, "product_id": owner(args.prefix)["id"]})
         if reusable and str(args.project) in read_json(receipt) and ready(args.prefix):
@@ -901,7 +939,7 @@ def setup(args):
                     wait_service_ports(args.prefix)
         elif ready(args.prefix):
             was_running = stop_virtual_agent(args.prefix)
-            with phase("이전 검증 API 연결을 정리하고 있습니다"):
+            with phase("이전 로컬 API 연결을 정리하고 있습니다"):
                 wait_service_ports(args.prefix)
         try:
             require_service_credentials(args.prefix)
@@ -923,7 +961,7 @@ def setup(args):
                        {"enabled": True, "product_id": owner(args.prefix)["id"]})
             if not args.no_start:
                 with phase("로컬 API 시작 및 준비 상태 확인 중 (최대 120초)"):
-                    start_agent(args.prefix)
+                    (start_agent if platform.system() == "Darwin" else start_process_agent)(args.prefix)
             configured = [configure_client(args.project, args.prefix, client) for client in clients]
             return {"version": VERSION, "core_version": CORE_VERSION, "project": str(args.project),
                     "clients": configured, "service_ready": ready(args.prefix),
@@ -932,7 +970,7 @@ def setup(args):
         except BaseException:
             if was_running and not ready(args.prefix):
                 try:
-                    start_agent(args.prefix)
+                    (start_agent if platform.system() == "Darwin" else start_process_agent)(args.prefix)
                 except (Refused, OSError, subprocess.SubprocessError):
                     print("Previous service could not be restarted; inspect am-mcp status.", file=sys.stderr)
             raise
@@ -1119,7 +1157,8 @@ def main(argv=None):
             output = setup(args)
         elif args.command == "proxy":
             connector = args.prefix / "bin/am-connect"
-            if not args.transport_only and connector.is_file():
+            if (not args.transport_only and connector.is_file()
+                    and (args.prefix / "integration/current/connector").is_file()):
                 os.execv(str(connector), [str(connector), "--project", str(args.project)])
             asyncio.run(proxy(args.prefix, args.project))
             return 0
@@ -1132,23 +1171,29 @@ def main(argv=None):
                       "projects": list(read_json(args.prefix / "settings/mcp-projects.json")),
                       "log": str(args.prefix / "integration/logs/service.log")}
         else:
-            if platform.system() != "Darwin":
-                raise Refused("start/stop manage macOS LaunchAgents; virtual harnesses own service-run directly")
+            if platform.system() != "Darwin" and not is_wsl2():
+                raise Refused("start/stop require macOS or WSL2; virtual harnesses own service-run directly")
             with locked(args.prefix):
                 owner(args.prefix)
                 if args.command == "stop":
                     write_json(args.prefix / "settings/mcp-service.json",
                                {"enabled": False, "product_id": owner(args.prefix)["id"]})
-                    stop_agent(args.prefix)
+                    if platform.system() == "Darwin":
+                        stop_agent(args.prefix)
+                    elif ready(args.prefix):
+                        stop_virtual_agent(args.prefix)
                     stop_native_database(args.prefix)
-                    _, path = launch_details(args.prefix)
-                    if path.exists():
+                    path = launch_details(args.prefix)[1] if platform.system() == "Darwin" else None
+                    if path is not None and path.exists():
                         stopped = plistlib.loads(private_read(path))
                         stopped.update(RunAtLoad=False, KeepAlive=False)
                         write_private(path, plistlib.dumps(stopped))
                 else:
-                    stop_agent(args.prefix)
-                    start_agent(args.prefix)
+                    if platform.system() == "Darwin":
+                        stop_agent(args.prefix)
+                        start_agent(args.prefix)
+                    elif not ready(args.prefix):
+                        start_process_agent(args.prefix)
             output = {"service_ready": ready(args.prefix), "command": args.command}
         print(json.dumps(output, ensure_ascii=False, indent=2))
         return 0

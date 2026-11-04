@@ -134,6 +134,83 @@ def test_client_choice_does_not_change_judge_or_key(helper, installation, tmp_pa
     assert (profile.read_bytes(), key.read_bytes()) == before
 
 
+@pytest.mark.parametrize("system,machine,release,expected", [
+    ("Linux", "x86_64", "6.6.87.2-microsoft-standard-WSL2", True),
+    ("Linux", "x86_64", "5.15.167.4-microsoft-standard-WSL2", True),
+    ("Linux", "x86_64", "4.4.0-19041-Microsoft", False),
+    ("Linux", "aarch64", "6.6.87.2-microsoft-standard-WSL2", False),
+    ("Linux", "x86_64", "6.12.0-generic", False),
+    ("Windows", "AMD64", "11", False),
+])
+def test_windows_support_requires_actual_wsl2_x64_kernel(helper, monkeypatch, system, machine, release, expected):
+    monkeypatch.setattr(helper.platform, "system", lambda: system)
+    monkeypatch.setattr(helper.platform, "machine", lambda: machine)
+    monkeypatch.setattr(helper.platform, "release", lambda: release)
+    monkeypatch.setenv("WSL_INTEROP", "/not-evidence-of-wsl2")
+    assert helper.is_wsl2() is expected
+
+
+def test_wsl_setup_reaches_install_without_virtual_no_start_flags(helper, tmp_path, monkeypatch):
+    project = tmp_path / "project"
+    project.mkdir()
+    monkeypatch.setattr(helper, "is_wsl2", lambda: True)
+    monkeypatch.setattr(helper.platform, "system", lambda: "Linux")
+
+    def reached(args):
+        assert not args.virtual_linux and not args.no_start
+        raise RuntimeError("reached supported WSL setup")
+
+    monkeypatch.setattr(helper, "install_core", reached)
+    args = helper.parser().parse_args(["setup", "--project", str(project), "--client", "codex"])
+    with pytest.raises(RuntimeError, match="reached supported WSL"):
+        helper.setup(args)
+
+
+def test_wsl_installs_immutable_linux_core_without_requiring_virtual_user_flag(helper, tmp_path, monkeypatch):
+    monkeypatch.setattr(helper, "is_wsl2", lambda: True)
+    monkeypatch.setattr(helper.threading.Thread, "start", lambda self: None)
+    monkeypatch.setattr(helper.threading.Thread, "join", lambda self, **kwargs: None)
+
+    def run(command, **kwargs):
+        assert "--virtual-linux" in command
+        assert str(tmp_path / "bundle/installer.py") in command
+        raise RuntimeError("verified Linux core route")
+
+    monkeypatch.setattr(helper.subprocess, "run", run)
+    args = argparse.Namespace(prefix=tmp_path / "runtime", bundle=tmp_path / "bundle", provider="jev",
+                              judge_host=None, model=None, executable=None, virtual_linux=False)
+    with pytest.raises(RuntimeError, match="verified Linux core"):
+        helper.install_core(args)
+
+
+def test_wsl_service_start_is_private_and_uses_exact_owned_helper(helper, installation, monkeypatch):
+    calls = []
+    readiness = iter([False, False, True])
+    monkeypatch.setattr(helper, "ready", lambda prefix: next(readiness))
+    monkeypatch.setattr(helper.time, "sleep", lambda delay: None)
+    monkeypatch.setattr(helper, "wait_service_ports", lambda prefix: None)
+
+    def spawn(command, **kwargs):
+        calls.append((command, kwargs))
+        return SimpleNamespace(poll=lambda: None)
+
+    monkeypatch.setattr(helper.subprocess, "Popen", spawn)
+    helper.start_process_agent(installation)
+    command, kwargs = calls[0]
+    assert command == [str(installation / "current/venv/bin/python"), "-I",
+                       str(installation / "integration/current/setup.py"), "--prefix", str(installation), "service-run"]
+    assert kwargs["start_new_session"] and kwargs["stdin"] == helper.subprocess.DEVNULL
+    assert helper.read_json(installation / "settings/mcp-service.json")["enabled"] is True
+    assert (installation / "integration/logs/service.log").stat().st_mode & 0o777 == 0o600
+
+
+def test_wsl_service_does_not_replace_unowned_live_api(helper, installation, monkeypatch):
+    monkeypatch.setattr(helper, "ready", lambda prefix: True)
+    monkeypatch.setattr(helper.subprocess, "Popen", lambda *args, **kwargs: pytest.fail("Started over live API"))
+    with pytest.raises(helper.Refused, match="already occupies"):
+        helper.start_process_agent(installation)
+
+
 def test_owner_rejects_manifest_changes(helper, installation):
     (installation / "current/payload/MANIFEST.json").write_text("{}")
     with pytest.raises(helper.Refused, match="manifest changed"):

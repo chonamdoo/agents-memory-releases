@@ -1,32 +1,63 @@
 # agents-memory releases
 
-## MCP 자동 설치: Claude · Codex · OMP (1.0.7)
+> **1.0.8 development draft; stable remains 1.0.7. Native Windows is not released.**
 
-[1.0.7 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.7) · [설치·운영 안내](distribution/mcp-local/README.ko.md)
+## MCP 설치: Claude · Codex · OMP (1.0.8)
 
-1.0.7은 macOS pgvector 모듈 이름 오류를 수정하고, 1.0.5의 실패한 설치를 키·설정·DB 데이터 변경 없이 자동 복구합니다. 기존 OMP 사용자는 `omp plugin marketplace update agents-memory` → `omp plugin upgrade agents-memory-local@agents-memory` 순서로 실행하고, 1.0.7 설치를 확인한 뒤 OMP를 다시 시작하세요.
+[설치·업데이트 안내](distribution/mcp-local/README.ko.md) · [Windows 목표·진행 상태](distribution/mcp-local/WINDOWS-SUPPORT.ko.md)
 
-플러그인을 설치하고 MCP를 연결하면 로컬 실행 환경, **검색용 E5 임베딩**, 앱 전용 PostgreSQL/pgvector와 API가 자동으로 준비됩니다. **Docker·Colima 수동 설정은 필요하지 않습니다. Apple Silicon macOS 15 이상**이 필요합니다.
+MCP를 연결하면 로컬 코어, **검색용 E5 임베딩**, 전용 PostgreSQL/pgvector와 API를 준비합니다. Docker·Colima 설정은 필요하지 않습니다. 처음 한 번 Jev 또는 구독 Claude·Codex를 선택하며 키·모델·DB는 업데이트 후에도 유지합니다. OMP는 MCP 연결 대상입니다.
 
-처음 한 번만 브라우저에서 Jev 또는 구독 중인 Claude·Codex를 선택합니다. Jev는 같은 화면에서 키를 입력하고 이후 업데이트에서도 설정을 유지합니다. 설치 진행은 `setup_status`로 확인하며 도구 목록은 처음부터 제공하며, 준비 전 호출은 진행 상태를 안내하고 준비가 끝나면 같은 연결에서 자동으로 동작합니다.
+현재 배포 대상은 **Apple Silicon macOS 15+**입니다. Windows x64는 **WSL2 안에서 세 CLI를 실행하는 설치 경로를 프리뷰로 추가**했습니다. WSL 없는 네이티브 Windows 실행은 아직 제공하지 않습니다. Windows 실기 실행 검증도 아직 하지 않았습니다.
 
-OMP:
+### Claude Code
+
+프로젝트에서 실행합니다.
+
+```sh
+claude plugin marketplace add chonamdoo/agents-memory-releases
+claude plugin install agents-memory-local@agents-memory
+```
+
+업데이트:
+
+```sh
+claude plugin marketplace update agents-memory
+claude plugin update agents-memory-local@agents-memory
+```
+
+Claude 안에서는 같은 명령을 `/plugin marketplace add ...`, `/plugin install ...` 형태로 사용할 수 있습니다. 업데이트 후 Claude를 다시 시작합니다.
+
+### Codex
+
+프로젝트에 직접 MCP를 등록합니다. **설치와 업데이트 모두 같은 두 명령**을 사용합니다.
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.8/distribution/mcp-local/install.sh -o /tmp/agents-memory-mcp-install.sh
+bash /tmp/agents-memory-mcp-install.sh --client codex --project "$PWD"
+```
+
+Codex를 다시 시작하고 프로젝트 신뢰·MCP 사용을 승인합니다. 현재 Codex 마켓 플러그인 방식은 프로젝트 경로 전달 문제가 있어 권장하지 않습니다. 위 도우미는 프로젝트 MCP 설정을 등록하고 기존 모델·다른 서버를 보존합니다.
+
+### OMP
 
 ```sh
 omp plugin marketplace add chonamdoo/agents-memory-releases
 omp plugin install agents-memory-local@agents-memory
 ```
 
-Claude Code:
+업데이트:
 
-```text
-/plugin marketplace add chonamdoo/agents-memory-releases
-/plugin install agents-memory-local@agents-memory
+```sh
+omp plugin marketplace update agents-memory
+omp plugin upgrade agents-memory-local@agents-memory
 ```
 
-Codex와 직접 MCP 등록은 [공통 설치 도우미](distribution/mcp-local/README.ko.md)를 사용합니다. OMP는 MCP 연결 대상이며 기억 저장 판단은 Jev / 구독 Claude / 구독 Codex가 담당합니다. 설치·연결은 판단 모델을 호출하거나 과거 이력을 읽지 않습니다. 예전 Docker/외부 DB 설정이 남아 있으면 데이터를 보존하고 자동 변환하지 않습니다.
+마켓을 먼저 갱신해야 오래된 버전이 다시 설치되지 않습니다. 업데이트 후 OMP를 완전히 종료하고 다시 실행합니다.
 
-기존 Native 프리뷰 `agents-memory`와 최신 `agents-memory-local`은 별개입니다. 자체 마켓 배포이며 공식 디렉터리 등재를 뜻하지 않습니다. Linux E2E와 macOS 파일 구조 검증의 범위는 릴리즈 기록에 명시하며 macOS 실기 실행을 주장하지 않습니다.
+세 앱 모두 `setup_status`의 **version: 1.0.8**, **ready: true**로 준비 완료를 확인합니다. 연결 중에는 설정·설치 진행과 로그 경로를 표시합니다. 1.0.5의 macOS pgvector 파일 이름 오류와 수동 복구 링크는 기존 DB·키를 보존하며 자동 복구합니다.
+
+자체 마켓 배포이며 공식 디렉터리 등재를 뜻하지 않습니다. 과거 대화 이력을 자동으로 읽지 않습니다. 예전 Native 프리뷰 `agents-memory`와 현재 `agents-memory-local`은 별도 저장소이며 기억을 자동으로 합치지 않습니다. GitHub Actions는 2026-12-01까지 실행하지 않습니다.
 
 ## 로컬 코어 릴리즈 1.0.2
 

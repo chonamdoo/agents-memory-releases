@@ -183,3 +183,24 @@ func TestPreviousVersionFailureDoesNotBlockRepairWorker(t *testing.T) {
 	if e:=atomic(filepath.Join(cache,"worker.json"),old);e!=nil {t.Fatal(e)}
 	if s:=current();s.State!="pending"||s.Version!=version {t.Fatal("stale failure prevents upgrade retry")}
 }
+
+func TestWslBrowserOpensOnlyValidatedLoopbackSetupURL(t *testing.T) {
+	address := "http://127.0.0.1:12345/setup/nonce/"
+	args := browserCommand("linux", "6.6.87.2-microsoft-standard-WSL2", address)
+	if len(args) != 5 || args[0] != "powershell.exe" || !strings.Contains(args[4], address) {
+		t.Fatal("WSL2 browser handoff is missing")
+	}
+	for _, bad := range []string{"https://attacker.invalid/", "http://user@127.0.0.1:12345/", "file:///tmp/file", "http://localhost:12345/"} {
+		if len(browserCommand("linux", "microsoft-standard-wsl2", bad)) != 0 {
+			t.Fatal("unsafe URL passed to the Windows browser")
+		}
+	}
+	for _, release := range []string{"4.4.0-Microsoft", "6.12.0-generic"} {
+		if len(browserCommand("linux", release, address)) != 0 {
+			t.Fatal("browser opened on unsupported Linux/WSL1")
+		}
+	}
+	if args := browserCommand("darwin", "", address); len(args) != 2 || args[0] != "/usr/bin/open" {
+		t.Fatal("macOS browser handoff regressed")
+	}
+}
