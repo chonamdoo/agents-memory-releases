@@ -1,14 +1,35 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.6",
   "compiler": "go version go1.27.3 linux/amd64",
   "cgo": false,
   "source": "../scripts/connector.go",
-  "source_sha256": "941575b0f387ddb177f8bde0e308a75ce216a65c79264b3de7538872244125b9",
-  "helper_sha256": "f2530e989a93d682974fd2d660ee3b158abd82ef136c2123c37423759927aa9a",
+  "source_sha256": "0674bdd06cdd05951b4300499d21bfa5bbf50f3e622f3b7f912d4944b35a37d9",
+  "helper_sha256": "df7df48fb564722a83bfcee66d82ff82f44491d63fee4277df2c0fc1d18e569d",
   "files": {
-    "connector-linux-x86_64": "b547489c5abd8b50defb471ffe160dc98f6e3a5bf199e522cdc14a636da8e795",
-    "connector-darwin-arm64": "12d086652913c03de837437248a205980f9d997ff489ba60681ce5177d532979"
+    "connector-linux-x86_64": "7391be74e512e0883b93764fcc4ca35b69ef2f4e8264b63f5d4f235b8541f7fe",
+    "connector-darwin-arm64": "208f7ae90ee0cac7938167864f068f70b1c9db649b7c6d2e99cb71c891de7077"
   },
-  "tool_contract_sha256": "cf82947a56e79c8d8f60ff79324d2280510c70bd132d77847b99bfd001ee869f",
+  "tool_contract_sha256": "4adc915b11478f7ea045d7c2571c2c9d39e92ab24bf4e34bba14cb3bb22fc96d",
+  "memory_instructions_sha256": "0df32e8945f743aa2f41f26e8502a5cfc0cc112596ca58c97c8108ef5627754d",
+  "native_extension_contracts": {
+    "Darwin": {
+      "platform": "Darwin",
+      "postgres_dlsuffix": ".dylib",
+      "module": "lib/vector.dylib",
+      "module_sha256": "1df94b3118d43915dc1194fcebc2b6fb51aff79550a388afe89e2b40998a5f2f",
+      "postgres_header_sha256": "4d368ab43a4ba40c7aededea7511ad953a30cbbf2e6dd1f880bd78caeecb2a5c",
+      "lookup_contract": "passed",
+      "native_execution": false
+    },
+    "Linux": {
+      "platform": "Linux",
+      "postgres_dlsuffix": ".so",
+      "module": "lib/vector.so",
+      "module_sha256": "f6af19f4566583b0987c73b13ae07b6b22825573abd04d0c3f6b738f142b4ff8",
+      "postgres_header_sha256": "414d01b4eed7dd0ab1ee9fd76b114203ed1ba156ea739dc15355f4d437ac8740",
+      "lookup_contract": "passed",
+      "native_execution": false
+    }
+  },
   "real_macos_execution": false
 }

@@ -1,4 +1,11 @@
-# Claude · Codex · OMP 자동 로컬 MCP 설치 (1.0.5)
+# Claude · Codex · OMP 자동 로컬 MCP 설치 (1.0.6)
+
+**1.0.6 macOS 수정:** PostgreSQL이 요구하는 `vector.dylib` 이름으로 배포합니다. 1.0.5에서 `could not access file "vector"`로 실패했다면 아래 명령으로 플러그인만 업데이트하고 OMP에서 `/mcp reload`를 실행하세요. 기존 키·모델·DB 데이터를 유지한 채 검증된 모듈 이름을 자동 복구합니다. 삭제나 재설치는 필요하지 않습니다.
+
+```sh
+omp plugin upgrade agents-memory-local@agents-memory
+```
+
 
 이 버전부터 플러그인의 MCP를 연결하면 실행 환경, E5 검색 임베딩, 앱 전용 PostgreSQL/pgvector와 API를 자동으로 준비합니다. Docker Desktop·Colima·별도 Python 설치는 필요하지 않습니다.
 
@@ -41,7 +48,7 @@ MCP 실행·프로젝트 신뢰를 앱에서 승인하면 자동 준비가 시�
 실제 프로젝트의 터미널에서 한 번 실행합니다.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.5/distribution/mcp-local/install.sh -o /tmp/agents-memory-mcp-install.sh
+curl -fsSL https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.6/distribution/mcp-local/install.sh -o /tmp/agents-memory-mcp-install.sh
 bash /tmp/agents-memory-mcp-install.sh --client codex --project "$PWD"
 ```
 
@@ -69,3 +76,9 @@ MCP 연결 준비 상태는 `setup_status`로 확인합니다. 자동 설정 진
 플러그인 업데이트는 앱의 마켓 업데이트 명령을 사용하고 새 MCP 연결을 불러오면 됩니다. provider·모델 변경은 `am-hindsight configure`로 명시합니다. 과거 이력 스캔·자동 프롬프트 수집·문맥 주입은 이 플러그인이 켜지 않습니다. 실제 기억 저장 때는 선택한 모델의 사용량이 발생할 수 있습니다.
 
 자동 연결기와 DB 배포물은 체크섬을 고정합니다. 메모리 코어는 검증된 컴파일 코어 1.0.2를 재사용합니다. macOS 바이너리는 ad hoc 서명이며 Developer ID 서명·공증은 아닙니다.
+
+## 새 세션에서 기억 사용
+
+연결 지침과 `recall` 도구 설명은 새 세션의 첫 본격적인 답변 전에 해당 프로젝트의 관련 장기 기억을 조회하도록 안내합니다. 빈 결과라면 관련 키워드로 `list_memories`를 추가 확인하도록 하며, PR 작업에서는 저장된 리뷰어·담당자 규칙과 실제 결과를 비교하도록 안내합니다. OMP 직접 등록에서는 이 서버의 지침 전달을 활성화합니다.
+
+이는 호스트 모델에 전달하는 조회 지침입니다. MCP 서버가 다른 앱의 모든 응답이나 PR 생성 도구 실행을 강제로 통제하는 것은 아니므로, 저장된 규칙이 반드시 적용됐다는 판단은 실제 조회·작업 결과를 확인해야 합니다. 다른 프로젝트로 세션을 열면 프로젝트별 기억 범위도 달라집니다. 이력 파일 스캔이나 대화 자동 저장을 켜지는 않습니다.

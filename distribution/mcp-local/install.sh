@@ -1,10 +1,10 @@
 #!/bin/bash
-# MCP installer 1.0.5. Memory core and E5 assets remain the verified binary release 1.0.2.
+# MCP installer 1.0.6. Memory core and E5 assets remain the verified binary release 1.0.2.
 set -euo pipefail
 umask 077
 base=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/eb80f6277f6d712a89e854f0f54b7067a9bfc9cc/files
-helper_url=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.5/distribution/mcp-local/setup.py
-helper_sha=f2530e989a93d682974fd2d660ee3b158abd82ef136c2123c37423759927aa9a
+helper_url=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.6/distribution/mcp-local/setup.py
+helper_sha=df7df48fb564722a83bfcee66d82ff82f44491d63fee4277df2c0fc1d18e569d
 archive_sha=3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34
 for argument in "$@"; do
   if [[ $argument == --help || $argument == -h ]]; then
@@ -35,8 +35,8 @@ for argument in "$@"; do
   [[ $argument != --virtual-linux ]] || virtual=true
 done
 case "$(uname -s):$(uname -m)" in
-  Darwin:arm64) target=darwin-arm64; connector_sha=12d086652913c03de837437248a205980f9d997ff489ba60681ce5177d532979 ;;
-  Linux:x86_64) [[ $virtual == true ]] || { echo 'Linux is for explicit validation only.' >&2; exit 2; }; target=linux-x86_64; connector_sha=b547489c5abd8b50defb471ffe160dc98f6e3a5bf199e522cdc14a636da8e795 ;;
+  Darwin:arm64) target=darwin-arm64; connector_sha=208f7ae90ee0cac7938167864f068f70b1c9db649b7c6d2e99cb71c891de7077 ;;
+  Linux:x86_64) [[ $virtual == true ]] || { echo 'Linux is for explicit validation only.' >&2; exit 2; }; target=linux-x86_64; connector_sha=7391be74e512e0883b93764fcc4ca35b69ef2f4e8264b63f5d4f235b8541f7fe ;;
   *) echo 'Requires Apple Silicon macOS 15 or newer.' >&2; exit 2 ;;
 esac
 work=$(mktemp -d "${TMPDIR:-/tmp}/agents-memory-mcp.XXXXXXXX")
@@ -49,7 +49,7 @@ check() {
 }
 fetch "$helper_url" "$work/setup.py"
 check "$work/setup.py" "$helper_sha"
-fetch "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.5/plugins/agents-memory-local/bin/connector-$target" "$work/connector-$target"
+fetch "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.6/plugins/agents-memory-local/bin/connector-$target" "$work/connector-$target"
 check "$work/connector-$target" "$connector_sha"
 selected_prefix="$HOME/.local/share/agents-memory-hindsight"
 next_prefix=false

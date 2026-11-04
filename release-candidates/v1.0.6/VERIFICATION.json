@@ -1,0 +1,105 @@
+{
+  "version": "1.0.6",
+  "core_version": "1.0.2",
+  "local_ci": {
+    "pytest_passed": 81,
+    "go_tests_passed": 8,
+    "go_race_detector": true,
+    "ruff": true,
+    "profile_and_legacy_contract": true,
+    "shell_syntax": true
+  },
+  "native_artifacts": {
+    "version": "1.0.6",
+    "compiler": "go version go1.27.3 linux/amd64",
+    "cgo": false,
+    "source": "../scripts/connector.go",
+    "source_sha256": "0674bdd06cdd05951b4300499d21bfa5bbf50f3e622f3b7f912d4944b35a37d9",
+    "helper_sha256": "df7df48fb564722a83bfcee66d82ff82f44491d63fee4277df2c0fc1d18e569d",
+    "files": {
+      "connector-linux-x86_64": "7391be74e512e0883b93764fcc4ca35b69ef2f4e8264b63f5d4f235b8541f7fe",
+      "connector-darwin-arm64": "208f7ae90ee0cac7938167864f068f70b1c9db649b7c6d2e99cb71c891de7077"
+    },
+    "tool_contract_sha256": "4adc915b11478f7ea045d7c2571c2c9d39e92ab24bf4e34bba14cb3bb22fc96d",
+    "memory_instructions_sha256": "0df32e8945f743aa2f41f26e8502a5cfc0cc112596ca58c97c8108ef5627754d",
+    "native_extension_contracts": {
+      "Darwin": {
+        "platform": "Darwin",
+        "postgres_dlsuffix": ".dylib",
+        "module": "lib/vector.dylib",
+        "module_sha256": "1df94b3118d43915dc1194fcebc2b6fb51aff79550a388afe89e2b40998a5f2f",
+        "postgres_header_sha256": "4d368ab43a4ba40c7aededea7511ad953a30cbbf2e6dd1f880bd78caeecb2a5c",
+        "lookup_contract": "passed",
+        "native_execution": false
+      },
+      "Linux": {
+        "platform": "Linux",
+        "postgres_dlsuffix": ".so",
+        "module": "lib/vector.so",
+        "module_sha256": "f6af19f4566583b0987c73b13ae07b6b22825573abd04d0c3f6b738f142b4ff8",
+        "postgres_header_sha256": "414d01b4eed7dd0ab1ee9fd76b114203ed1ba156ea739dc15355f4d437ac8740",
+        "lookup_contract": "passed",
+        "native_execution": false
+      }
+    },
+    "real_macos_execution": false
+  },
+  "darwin_packaging": {
+    "old_asset_rejected": true,
+    "new_asset": {
+      "platform": "Darwin",
+      "postgres_dlsuffix": ".dylib",
+      "module": "lib/vector.dylib",
+      "module_sha256": "1df94b3118d43915dc1194fcebc2b6fb51aff79550a388afe89e2b40998a5f2f",
+      "postgres_header_sha256": "4d368ab43a4ba40c7aededea7511ad953a30cbbf2e6dd1f880bd78caeecb2a5c",
+      "lookup_contract": "passed",
+      "native_execution": false
+    }
+  },
+  "darwin_existing_install_repair": {
+    "version": "1.0.6",
+    "fresh_actual_darwin_archives_installed": true,
+    "module": "lib/vector.dylib",
+    "header_dlsuffix": ".dylib",
+    "exact_1_0_5_layout_repaired": true,
+    "repair_network_calls": 0,
+    "repair_subprocess_calls": 0,
+    "repair_idempotent": true,
+    "db_and_credential_bytes_unchanged": true,
+    "physical_macos_execution": false
+  },
+  "linux_native_regression": {
+    "version": "1.0.6",
+    "linux_fresh_database_create_extension": true,
+    "vector_distance_result": 1,
+    "existing_database_system_identity_preserved": true,
+    "provider_model_and_database_receipt_preserved": true,
+    "existing_memory_recalled": true,
+    "instructions_delivered": true,
+    "recall_guidance_delivered": true,
+    "setup_ready": true,
+    "tools": 10,
+    "model_calls": 0
+  },
+  "new_session_recall": {
+    "client": "Codex 0.163.0",
+    "model": "gpt-6.1-terra",
+    "fresh_ephemeral_session": true,
+    "same_project": true,
+    "prompt_mentioned_memory": false,
+    "automatic_recall_before_answer": true,
+    "stored_preference_answered": true,
+    "memory_tool_calls": 1,
+    "no_pr_created_or_review_requested": true,
+    "recall_completed_before_final_answer": true
+  },
+  "github_actions": {
+    "dispatched": false,
+    "last_run_unchanged": 41388806223,
+    "blocked_through": "2026-12-01"
+  },
+  "limits": [
+    "Darwin filename, binary identity, actual archive installation and offline repair were checked on Linux; the fixed version has not yet been executed on a physical Mac.",
+    "Automatic recall was verified for one fresh Codex session on the same project. Other host/model combinations may differ; MCP instructions do not enforce other tools."
+  ]
+}

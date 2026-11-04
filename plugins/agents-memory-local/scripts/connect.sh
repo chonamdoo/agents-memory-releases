@@ -10,10 +10,10 @@ verify() {
   [[ ${actual%% *} == "$2" ]] || { echo 'agents-memory-local: connector integrity check failed; update this plugin.' >&2; exit 65; }
 }
 case "$(uname -s):$(uname -m)" in
-  Darwin:arm64) binary=connector-darwin-arm64; checksum=12d086652913c03de837437248a205980f9d997ff489ba60681ce5177d532979 ;;
-  Linux:x86_64) binary=connector-linux-x86_64; checksum=b547489c5abd8b50defb471ffe160dc98f6e3a5bf199e522cdc14a636da8e795 ;;
+  Darwin:arm64) binary=connector-darwin-arm64; checksum=208f7ae90ee0cac7938167864f068f70b1c9db649b7c6d2e99cb71c891de7077 ;;
+  Linux:x86_64) binary=connector-linux-x86_64; checksum=7391be74e512e0883b93764fcc4ca35b69ef2f4e8264b63f5d4f235b8541f7fe ;;
   *) echo 'agents-memory-local: Apple Silicon macOS 15+ is required; see the setup guide.' >&2; exit 64 ;;
 esac
 verify "$root/bin/$binary" "$checksum"
-verify "$root/scripts/setup.py" f2530e989a93d682974fd2d660ee3b158abd82ef136c2123c37423759927aa9a
+verify "$root/scripts/setup.py" df7df48fb564722a83bfcee66d82ff82f44491d63fee4277df2c0fc1d18e569d
 exec "$root/bin/$binary" --prefix "$prefix" --helper "$root/scripts/setup.py" --project "$project"

@@ -174,3 +174,12 @@ func TestStableToolsAreDiscoverableBeforeBackgroundSetupFinishes(t *testing.T) {
   if name=="sync_retain" {schema:=tool["inputSchema"].(map[string]any);props:=schema["properties"].(map[string]any);if _,ok:=props["document_id"];ok{t.Fatal("unsupported document route exposed")}}
  }
 }
+
+func TestPreviousVersionFailureDoesNotBlockRepairWorker(t *testing.T) {
+	fixture(t)
+	project = filepath.Join(cache,"project")
+	old := status{Version:"1.0.5",State:"setup_failed",Message:"Old setup failed"}
+	if e:=atomic(statePath(project),old);e!=nil {t.Fatal(e)}
+	if e:=atomic(filepath.Join(cache,"worker.json"),old);e!=nil {t.Fatal(e)}
+	if s:=current();s.State!="pending"||s.Version!=version {t.Fatal("stale failure prevents upgrade retry")}
+}

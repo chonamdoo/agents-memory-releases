@@ -28,17 +28,20 @@ import (
 	"time"
 )
 
-const version = "1.0.5"
+const version = "1.0.6"
 const coreHash = "3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34"
 const coreBase = "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/eb80f6277f6d712a89e854f0f54b7067a9bfc9cc/files/"
 
-var helperHash = "f2530e989a93d682974fd2d660ee3b158abd82ef136c2123c37423759927aa9a"
+var helperHash = "df7df48fb564722a83bfcee66d82ff82f44491d63fee4277df2c0fc1d18e569d"
 
 // Some clients cache the first tools/list result and ignore later refreshes.
 // Register the stable core contract immediately; calls stay gated on actual readiness.
 //
 //go:embed memory-tools.json
 var memoryTools []byte
+
+//go:embed memory-use.txt
+var memoryUseInstructions string
 var prefix, cache, project, helper string
 var worker bool
 var httpClient = &http.Client{Timeout: 10 * time.Minute}
@@ -140,10 +143,10 @@ func writeState(p string, s status) { s.Version = version; _ = atomic(statePath(
 func global(s status)               { s.Version = version; _ = atomic(filepath.Join(cache, "worker.json"), s) }
 func current() status {
 	var s status
-	if decode(statePath(project), &s) == nil && s.State != "pending" {
+	if decode(statePath(project), &s) == nil && s.Version == version && s.State != "pending" {
 		return s
 	}
-	if decode(filepath.Join(cache, "worker.json"), &s) == nil {
+	if decode(filepath.Join(cache, "worker.json"), &s) == nil && s.Version == version {
 		return s
 	}
 	return status{State: "pending", Message: "로컬 메모리를 준비하고 있습니다.", Version: version}
@@ -895,7 +898,7 @@ func serve() error {
 				if p.Protocol == "" {
 					p.Protocol = "2025-11-25"
 				}
-				result = map[string]any{"protocolVersion": p.Protocol, "capabilities": map[string]any{"tools": map[string]any{"listChanged": true}}, "serverInfo": map[string]any{"name": "agents-memory-local", "version": version}, "instructions": "Local memory installs automatically. Call setup_status while preparing. If configuration is required, use the local browser page; never ask for API keys in chat."}
+				result = map[string]any{"protocolVersion": p.Protocol, "capabilities": map[string]any{"tools": map[string]any{"listChanged": true}}, "serverInfo": map[string]any{"name": "agents-memory-local", "version": version}, "instructions": "Local memory installs automatically. Call setup_status while preparing. If configuration is required, use the local browser page; never ask for API keys in chat. " + memoryUseInstructions}
 			case "ping":
 				result = map[string]any{}
 			case "tools/list":

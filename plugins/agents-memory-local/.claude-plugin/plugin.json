@@ -1,6 +1,6 @@
 {
   "name": "agents-memory-local",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Automatic local memory MCP setup for Claude, Codex and OMP. E5 search included; one-time Jev or subscribed CLI choice.",
   "author": {
     "name": "chonamdoo"

@@ -3,11 +3,103 @@ import hashlib
 import json
 import os
 import subprocess
+import tarfile
 from pathlib import Path
 
 import pytest
 
 pytest_plugins = ["test_mcp_local_setup"]
+
+
+@pytest.fixture
+def legacy_mac_runtime(helper, installation, monkeypatch):
+    root = Path(__file__).resolve().parents[2]
+    with tarfile.open(root / "distribution/mcp-local/assets/pgvector-0.8.7-darwin-arm64.tar.gz") as source:
+        module = source.extractfile("lib/vector.so").read()
+    directory = installation / "database" / helper.NATIVE_VERSION
+    files = {}
+    for name in ("bin/postgres", "bin/initdb", "bin/pg_ctl", "bin/psql", "lib/vector.so",
+                 "share/extension/vector.control", "share/extension/vector--0.8.7.sql"):
+        data = module if name == "lib/vector.so" else ("unchanged-fixture:" + name).encode()
+        helper.write_private(directory / name, data)
+        files[name] = hashlib.sha256(data).hexdigest()
+    helper.write_json(directory / "RUNTIME.json", {"version": helper.NATIVE_VERSION,
+                     "product_id": "a" * 32, "files": files})
+    helper.write_private(installation / "database/data/PG_VERSION", b"18\n")
+    helper.write_private(installation / "database/data/sentinel", b"existing-database-content")
+    helper.write_json(installation / "settings/jev-credential.json", {"schema_version": 1, "api_key": "synthetic-kept-key"})
+    helper.write_json(installation / "settings/mcp-database.json", {"mode": "native", "runtime_version": helper.NATIVE_VERSION,
+                     "product_id": "a" * 32, "url": "postgresql://am_local:synthetic-secret@127.0.0.1:54321/am_hindsight_local"})
+    monkeypatch.setattr(helper.platform, "system", lambda: "Darwin")
+    monkeypatch.setattr(helper.platform, "machine", lambda: "arm64")
+    monkeypatch.setattr(helper.platform, "mac_ver", lambda: ("15.7", (), "arm64"))
+    monkeypatch.setattr(helper, "run", lambda *args, **kwargs: pytest.fail("Repair downloaded or executed another runtime"))
+    return directory, module
+
+
+@pytest.mark.parametrize("previous_action", ["none", "copied", "renamed"])
+def test_legacy_mac_repair_keeps_database_keys_and_profile(helper, installation, legacy_mac_runtime, previous_action):
+    directory, module = legacy_mac_runtime
+    if previous_action in {"copied", "renamed"}:
+        helper.write_private(directory / "lib/vector.dylib", module)
+    if previous_action == "renamed":
+        (directory / "lib/vector.so").unlink()
+    protected = [installation / "settings/profile.json", installation / "settings/jev-credential.json",
+                 installation / "settings/mcp-database.json", installation / "database/data/PG_VERSION",
+                 installation / "database/data/sentinel"]
+    before = {path: path.read_bytes() for path in protected}
+    assert helper.native_runtime(installation) == directory
+    assert (directory / "lib/vector.dylib").read_bytes() == module
+    receipt = helper.read_json(directory / "RUNTIME.json")
+    assert receipt["files"]["lib/vector.dylib"] == helper.LEGACY_DARWIN_VECTOR_SHA256
+    assert "lib/vector.so" not in receipt["files"]
+    saved = (directory / "RUNTIME.json").read_bytes()
+    helper.native_runtime(installation)
+    assert (directory / "RUNTIME.json").read_bytes() == saved
+    assert {path: path.read_bytes() for path in protected} == before
+
+
+@pytest.mark.parametrize("conflict", ["different_bytes", "symlink"])
+def test_mac_repair_preserves_unknown_destination(helper, installation, legacy_mac_runtime, conflict):
+    directory, _ = legacy_mac_runtime
+    destination = directory / "lib/vector.dylib"
+    if conflict == "symlink":
+        destination.symlink_to("vector.so")
+    else:
+        helper.write_private(destination, b"unrelated-module")
+    before = (directory / "RUNTIME.json").read_bytes()
+    with pytest.raises(helper.Refused, match="no file was replaced"):
+        helper.native_runtime(installation)
+    assert (directory / "RUNTIME.json").read_bytes() == before
+    assert destination.is_symlink() if conflict == "symlink" else destination.read_bytes() == b"unrelated-module"
+
+
+def test_mac_repair_recovers_after_receipt_write_interruption(helper, installation, legacy_mac_runtime, monkeypatch):
+    directory, module = legacy_mac_runtime
+    original = helper.write_json
+
+    def interrupt(path, data):
+        if path == directory / "RUNTIME.json":
+            raise OSError("synthetic interrupted write")
+        return original(path, data)
+
+    monkeypatch.setattr(helper, "write_json", interrupt)
+    with pytest.raises(OSError, match="interrupted"):
+        helper.native_runtime(installation)
+    assert (directory / "lib/vector.dylib").read_bytes() == module
+    monkeypatch.setattr(helper, "write_json", original)
+    helper.native_runtime(installation)
+    assert "lib/vector.dylib" in helper.read_json(directory / "RUNTIME.json")["files"]
+
+
+def test_mac_repair_does_not_run_after_other_runtime_tampering(helper, installation, legacy_mac_runtime):
+    directory, _ = legacy_mac_runtime
+    (directory / "bin/postgres").write_bytes(b"changed-postgres")
+    before = (directory / "RUNTIME.json").read_bytes()
+    with pytest.raises(helper.Refused, match="runtime changed"):
+        helper.native_runtime(installation)
+    assert not (directory / "lib/vector.dylib").exists()
+    assert (directory / "RUNTIME.json").read_bytes() == before
 
 
 def test_fresh_database_defaults_to_native_without_consulting_docker(helper, installation, monkeypatch):
@@ -119,6 +211,35 @@ def test_current_connector_has_stable_tools_and_honest_readiness_without_runtime
     responses = {r["id"]: r["result"] for r in map(json.loads, result.stdout.splitlines())}
     names = [tool["name"] for tool in responses[2]["tools"]]
     assert len(names) == len(set(names)) == 10
+    assert "Before your first substantive answer" in responses[1]["instructions"]
+    recall = next(tool for tool in responses[2]["tools"] if tool["name"] == "recall")
+    assert "without waiting" in recall["description"]
     assert responses[3]["structuredContent"]["ready"] is False
     assert responses[4]["isError"] is True
     assert not (home / ".local/share/agents-memory-hindsight").exists()
+
+
+def test_omp_existing_generated_instruction_disable_is_migrated(helper, installation, tmp_path):
+    project = tmp_path / "project"
+    project.mkdir()
+    helper.configure_client(project, installation, "omp")
+    path = project / ".omp/mcp.json"
+    data = json.loads(path.read_text())
+    data["mcpServers"][helper.NAME]["instructions"] = False
+    helper.write_json(path, data)
+    assert helper.configure_client(project, installation, "omp")["changed"]
+    assert json.loads(path.read_text())["mcpServers"][helper.NAME]["instructions"] is True
+    assert not helper.configure_client(project, installation, "omp")["changed"]
+
+
+def test_omp_custom_instruction_text_is_preserved(helper, installation, tmp_path):
+    project = tmp_path / "project"
+    project.mkdir()
+    helper.configure_client(project, installation, "omp")
+    path = project / ".omp/mcp.json"
+    data = json.loads(path.read_text())
+    data["mcpServers"][helper.NAME]["instructions"] = "Keep my custom instructions"
+    helper.write_json(path, data)
+    before = path.read_bytes()
+    assert not helper.configure_client(project, installation, "omp")["changed"]
+    assert path.read_bytes() == before
