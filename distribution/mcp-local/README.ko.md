@@ -84,7 +84,7 @@ bash /tmp/agents-memory-mcp-install.sh --client claude --client codex --client o
 
 설치와 업데이트는 같은 명령입니다. Claude·Codex·OMP도 같은 Ubuntu 안에서 실행하고 다시 연결하세요. DB와 API는 WSL 안에서 실행하며 localhost에만 연결합니다. WSL을 종료하면 서비스도 중지되고 다음 MCP 연결에서 다시 준비합니다. 초기 설정 브라우저 자동 열기는 WSL의 Windows interop가 필요하며, 열리지 않으면 `setup_status.setup_url`을 Windows 브라우저에 입력합니다.
 
-**검증 범위:** Linux의 실제 DB/API·MCP 실행과 PowerShell 파서/프로세스 경계 모의 검증을 수행합니다. 실제 Windows의 WSL 설치·브라우저 열기·CLI 실행은 아직 검증하지 않았습니다. WSL 없는 Windows 네이티브 설치는 현재 제공하지 않습니다. 목표 사양은 Windows 11 x64 우선, Windows 10 22H2 호환성 검증, ARM64 추후 검토입니다. 이는 현재 지원 완료를 뜻하지 않습니다.
+**검증 범위:** Linux의 실제 DB/API·MCP 실행을 확인했고, 실제 Windows 10 22H2 PowerShell 5.1에서 모의 wsl.exe로 경로 인자 보존을 검사했습니다. 실제 Windows의 WSL 설치·브라우저 열기·CLI 실행은 아직 검증하지 않았습니다. WSL 없는 Windows 네이티브 설치는 현재 제공하지 않습니다. 목표 사양은 Windows 11 x64 우선, Windows 10 22H2 호환성 검증, ARM64 추후 검토입니다. 이는 현재 지원 완료를 뜻하지 않습니다.
 
 ## 직접 등록과 설정 보존
 

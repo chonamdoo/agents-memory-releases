@@ -8,7 +8,7 @@
 
 MCP를 연결하면 로컬 코어, **검색용 E5 임베딩**, 전용 PostgreSQL/pgvector와 API를 준비합니다. Docker·Colima 설정은 필요하지 않습니다. 처음 한 번 Jev 또는 구독 Claude·Codex를 선택하며 키·모델·DB는 업데이트 후에도 유지합니다. OMP는 MCP 연결 대상입니다.
 
-현재 배포 대상은 **Apple Silicon macOS 15+**입니다. Windows x64는 **WSL2 안에서 세 CLI를 실행하는 설치 경로를 프리뷰로 추가**했습니다. WSL 없는 네이티브 Windows 실행은 아직 제공하지 않습니다. Windows 실기 실행 검증도 아직 하지 않았습니다.
+현재 배포 대상은 **Apple Silicon macOS 15+**입니다. Windows x64는 **WSL2 안에서 세 CLI를 실행하는 설치 경로를 프리뷰로 추가**했습니다. WSL 없는 네이티브 Windows 실행은 아직 제공하지 않습니다. 실제 Windows 10 VM에서 PowerShell 경로 전달을 확인했지만 Windows 제품·WSL 설치의 전체 검증은 아직 완료하지 않았습니다.
 
 ### Claude Code
 

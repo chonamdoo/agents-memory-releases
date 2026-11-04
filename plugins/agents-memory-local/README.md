@@ -4,7 +4,7 @@
 
 Local memory MCP for Claude Code, Codex and OMP. The selected MCP client is independent from the one-time Jev / subscribed Claude / subscribed Codex admission provider. E5 search embeddings, native PostgreSQL/pgvector and the compiled API core are included. Saved keys, model choices and DB data survive updates.
 
-Apple Silicon macOS 15+ is the current release target. Windows x64 adds a **WSL2/Ubuntu 24.04 preview path** with the CLI and all runtime components inside the same WSL distribution. Windows-native clients and ARM64 are not supported by that installer. Physical Windows/WSL execution is not yet verified.
+Apple Silicon macOS 15+ is the current release target. Windows x64 adds a **WSL2/Ubuntu 24.04 preview path** with the CLI and all runtime components inside the same WSL distribution. Windows-native clients and ARM64 are not supported by that installer. PowerShell argument transport was tested on a real Windows 10 22H2 VM; full product and actual WSL installation remain unverified.
 
 ## Claude Code
 
