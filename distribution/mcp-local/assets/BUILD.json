@@ -7,14 +7,19 @@
   "real_macos_execution": false,
   "assets": {
     "darwin-arm64": {
-      "file": "pgvector-0.8.7-darwin-arm64.tar.gz",
-      "sha256": "394a5b31a2847cfa3f85585fc8a154b6fb8b8a883259e250ed4d0aee7fb09f33",
-      "bytes": 97070
+      "file": "pgvector-0.8.7-darwin-arm64-r2.tar.gz",
+      "sha256": "cf3a202910a89e958ce1830ced05017eda121258bfee1bedeaa75da23b702082",
+      "bytes": 97069
     },
     "linux-x86_64": {
       "file": "pgvector-0.8.7-linux-x86_64.tar.gz",
       "sha256": "d6f9af78ab17d4db7ebc8564048bc7173a379fdf400ac2bb4393119426659a12",
       "bytes": 109558
     }
-  }
+  },
+  "module_suffix": {
+    "darwin-arm64": ".dylib",
+    "linux-x86_64": ".so"
+  },
+  "darwin_filename_fix": "Matches DLSUFFIX in the bundled PostgreSQL18 pg_config.h; binary bytes unchanged."
 }
