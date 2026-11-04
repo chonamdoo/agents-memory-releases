@@ -482,7 +482,6 @@ class Store:
         await self._active(actor)
         if self.memory_engine is None:
             raise Failure(503, "memory_engine_unconfigured")
-        vector = None
         # Tenant and project authorization are part of the SQL candidate set,
         # before ranking/limiting. Never fetch another user's private corpus.
         if team is None:
@@ -495,26 +494,33 @@ class Store:
                 JOIN am_collab.members reader ON reader.team_id=s.team_id AND reader.user_id=$1
                 JOIN am_collab.accounts account ON account.id=m.user_id
                 JOIN am_collab.projects p ON p.team_id=s.team_id AND p.id=s.project_id"""
-            scope = """s.team_id=$6 AND author.active AND author.role<>'viewer' AND reader.active AND account.active
+            scope = """s.team_id=$3 AND author.active AND author.role<>'viewer' AND reader.active AND account.active
                 AND (reader.role='owner' OR EXISTS(SELECT 1 FROM am_collab.grants g WHERE g.team_id=s.team_id AND g.user_id=$1 AND g.project_id=s.project_id))
                 AND (author.role='owner' OR EXISTS(SELECT 1 FROM am_collab.grants g WHERE g.team_id=s.team_id AND g.user_id=m.user_id AND g.project_id=s.project_id))"""
         project_clause = "m.project" if team is None else "s.project_id::text"
-        params = [actor.user_id, query, project, canonical(vector) if vector else None, 10000]
+        params = [actor.user_id, project]
         if team is not None:
             params.append(team)
-        rows = await self.pool.fetch(f"""SELECT m.id,m.text,m.kind,m.revision,m.updated_at,m.engine_bank,m.engine_document,
-            {project_clause} AS project,m.user_id AS author_id,a.name AS author,
-            (CASE WHEN $4::vector IS NOT NULL AND m.embedding IS NOT NULL THEN 1-(m.embedding <=> $4::vector) ELSE 0 END)
-            + ts_rank_cd(to_tsvector('simple',m.text),plainto_tsquery('simple',$2)) AS score
-            FROM am_collab.memories m JOIN am_collab.accounts a ON a.id=m.user_id {joins}
-            WHERE {scope} AND NOT m.deleted AND m.processing_state='ready' AND m.kind<>'prompt' AND ($3::text IS NULL OR {project_clause}=$3)
-            ORDER BY score DESC,m.updated_at DESC,m.id LIMIT $5""", *params)
+        candidates = f"""FROM am_collab.memories m JOIN am_collab.accounts a ON a.id=m.user_id {joins}
+            WHERE {scope} AND NOT m.deleted AND m.processing_state='ready' AND m.kind<>'prompt'
+            AND m.engine_bank IS NOT NULL AND ($2::text IS NULL OR {project_clause}=$2)"""
+        # Authorize banks first, then fetch only actual backend nominations.
+        # Never cut a current Hindsight hit out with an unrelated SQL row limit.
+        banks = await self.pool.fetch("SELECT DISTINCT m.engine_bank " + candidates, *params)
         hits = {}
-        for bank in sorted({row["engine_bank"] for row in rows if row["engine_bank"]}):
+        for bank in sorted(row["engine_bank"] for row in banks):
             for rank, hit in enumerate(await self.memory_engine.recall(bank, query)):
                 document = hit.get("document_id")
                 if isinstance(document, str):
                     hits[(bank, document)] = max(hits.get((bank, document), 0), 1 / (rank + 1))
+        await self._active(actor)
+        if not hits:
+            return {"memories": [], "semantic": True, "engine": "hindsight"}
+        document_parameter = len(params) + 1
+        rows = await self.pool.fetch(f"""SELECT m.id,m.text,m.kind,m.revision,m.updated_at,m.engine_bank,m.engine_document,
+            {project_clause} AS project,m.user_id AS author_id,a.name AS author {candidates}
+            AND m.engine_document=ANY(${document_parameter}::text[])""",
+            *params, sorted({document for _, document in hits}))
         result = []
         for row in rows:
             identity = (row["engine_bank"], row["engine_document"])

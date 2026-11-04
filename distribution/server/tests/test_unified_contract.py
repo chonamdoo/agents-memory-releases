@@ -283,6 +283,21 @@ async def test_optional_empty_hindsight_metadata_is_not_a_false_index_failure():
     assert await adapter.index(bank, "synthetic-empty-metadata", prepared) == "The synthetic metadata fixture uses PostgreSQL 18."
 
 
+async def test_backend_hit_is_not_lost_behind_unrelated_projection_rows(store):
+    _, actor = await account(store)
+    item = op()
+    await store.push(actor, [item])
+    bank = store.memory_engine.bank(actor.user_id, item.project)
+    # Fault fixture: stale projections do not correspond to Hindsight documents.
+    # They must never exclude a genuine current backend hit before ranking.
+    await store.pool.execute("""INSERT INTO am_collab.memories(user_id,id,project,kind,revision,deleted,text,device_id,
+        processing_state,engine_bank,engine_document)
+        SELECT $1,gen_random_uuid(),'synthetic-app','memory',1,false,'An unrelated synthetic projection row',$2,
+        'ready',$3,'missing-'||n FROM generate_series(1,10001) n""", actor.user_id, actor.device_id, bank)
+    result = await store.search(actor, "데이터베이스 저장 엔진 버전", project=item.project)
+    assert [row["id"] for row in result["memories"]] == [item.memory_id]
+
+
 async def test_actual_http_ack_loss_two_sqlite_clients_edit_delete_and_conflict():
     from fault_support import WireProxy
     async with server() as (store, url):
