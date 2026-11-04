@@ -1,0 +1,45 @@
+{
+  "tag": "v1.0.4",
+  "anonymous_download": true,
+  "exact_bytes_verified": true,
+  "files": [
+    {
+      "path": "plugins/agents-memory-local/.mcp.json",
+      "sha256": "532f7f087d1f57099dec9acf0cd5e2dc7d29ca1a85f72fee60ecae995d7ddc2e"
+    },
+    {
+      "path": "plugins/agents-memory-local/scripts/connect.sh",
+      "sha256": "34eef7e9af7d1075535e827be3e9539a288fd9d4babd2ea3e0c774762d380648"
+    },
+    {
+      "path": "plugins/agents-memory-local/scripts/setup.py",
+      "sha256": "08b55bf0c33dcc8d881084e5c9b18905820ed9d8e648f320594b72a69cb5c4b9"
+    },
+    {
+      "path": "plugins/agents-memory-local/bin/setup-status-darwin-arm64",
+      "sha256": "c3a43f670de31561b3ecb9cc5cfe71bde50dcdce7f1e066eaedfa418e7792624"
+    },
+    {
+      "path": "plugins/agents-memory-local/bin/setup-status-linux-x86_64",
+      "sha256": "7dadc3875b8f145e34e78b38e2261f81e2bfea6dc60a1c4374f3a44471dbefaa"
+    },
+    {
+      "path": "distribution/mcp-local/install.sh",
+      "sha256": "4c5cc4b70361da293c44878becfbde1c63b416d1912fd2cacf4a7c7e6e7b359e"
+    }
+  ],
+  "public_upgrade_result": {
+    "omp_version": "18.16.0",
+    "marketplace_version": "1.0.4",
+    "runtime_absent": true,
+    "mcp_connected": true,
+    "tools": [
+      "mcp__agents_memory_local_agents_memory_local_setup_status"
+    ],
+    "memory_ready": false,
+    "model_calls": 0,
+    "core_downloads_or_db_changes_on_connect": 0
+  },
+  "upgraded_from": "1.0.3",
+  "github_actions_executed": false
+}
