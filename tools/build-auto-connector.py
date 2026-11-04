@@ -76,13 +76,16 @@ def main():
     shutil.copyfile(bootstrap, PLUGIN / "scripts/install.sh")
     go_version = subprocess.check_output([str(args.go), "version"], text=True).strip()
     (PLUGIN / "bin/AUTO-BUILD.json").write_text(json.dumps({
-        "version": "1.0.7", "compiler": go_version, "cgo": False, "source": "../scripts/connector.go",
+        "version": modules["helper"].VERSION, "compiler": go_version, "cgo": False, "source": "../scripts/connector.go",
         "source_sha256": digest(source), "helper_sha256": digest(helper), "files": files,
         "tool_contract_sha256": digest(PLUGIN / "scripts/memory-tools.json"),
         "memory_instructions_sha256": digest(PLUGIN / "scripts/memory-use.txt"),
         "native_extension_contracts": contracts,
         "real_macos_execution": False,
     }, indent=2) + "\n")
+    windows = ROOT / "distribution/mcp-local/install-wsl.ps1"
+    windows.write_text(re.sub(r"\$amInstallerSha = '[^']+'",
+                             "$amInstallerSha = '" + digest(bootstrap) + "'", windows.read_text()))
     print(json.dumps(files))
 
 

@@ -28,11 +28,11 @@ import (
 	"time"
 )
 
-const version = "1.0.7"
+const version = "1.0.8"
 const coreHash = "3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34"
 const coreBase = "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/eb80f6277f6d712a89e854f0f54b7067a9bfc9cc/files/"
 
-var helperHash = "e692f9f4edc323c455e019223194b5bbbe3e32d563f071e743a91be084cd48d9"
+var helperHash = "92bdbada9691402748a607955c0242f00b44598536e153b5b6bc3c12982bf7cd"
 
 // Some clients cache the first tools/list result and ignore later refreshes.
 // Register the stable core contract immediately; calls stay gated on actual readiness.
@@ -407,8 +407,10 @@ func choose(saved route) (route, func(), error) {
 	go server.Serve(listener)
 	closeServer := func() { _ = server.Close() }
 	global(status{State: "needs_configuration", Message: "브라우저에서 사용할 LLM을 한 번 선택해 주세요. Jev를 선택하면 키를 입력합니다.", URL: address})
-	if runtime.GOOS == "darwin" {
-		_ = exec.Command("/usr/bin/open", address).Run()
+	if args := browserCommand(runtime.GOOS, kernelRelease(), address); len(args) > 0 {
+		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		_ = exec.CommandContext(ctx, args[0], args[1:]...).Run()
+		cancel()
 	}
 	select {
 	case r := <-chosen:
@@ -417,6 +419,30 @@ func choose(saved route) (route, func(), error) {
 		closeServer()
 		return route{}, nil, errors.New("setup form expired; reconnect MCP to retry")
 	}
+}
+
+func kernelRelease() string {
+	if runtime.GOOS != "linux" {
+		return ""
+	}
+	b, _ := os.ReadFile("/proc/sys/kernel/osrelease")
+	return strings.ToLower(strings.TrimSpace(string(b)))
+}
+
+func browserCommand(goos, release, address string) []string {
+	u, err := url.Parse(address)
+	if err != nil || u.Scheme != "http" || u.Hostname() != "127.0.0.1" || u.Port() == "" || u.User != nil {
+		return nil
+	}
+	if goos == "darwin" {
+		return []string{"/usr/bin/open", address}
+	}
+	if goos == "linux" && strings.Contains(strings.ToLower(release), "microsoft-standard-wsl2") {
+		// Only open the connector's loopback URL; never interpolate a model, key or project into PowerShell.
+		quoted := strings.ReplaceAll(address, "'", "''")
+		return []string{"powershell.exe", "-NoProfile", "-NonInteractive", "-Command", "Start-Process -FilePath '" + quoted + "'"}
+	}
+	return nil
 }
 
 func install(r route) error {
@@ -512,6 +538,9 @@ func runWorker() error {
 		return nil
 	}
 	defer f.Close()
+	if release := kernelRelease(); strings.Contains(release, "microsoft") && !strings.Contains(release, "microsoft-standard-wsl2") {
+		return errors.New("Windows에서는 WSL2 x64가 필요합니다. PowerShell에서 wsl --set-version 배포판이름 2로 전환하세요. 기존 DB와 키는 보존했습니다")
+	}
 	if runtime.GOOS == "darwin" {
 		v, err := exec.Command("/usr/bin/sw_vers", "-productVersion").Output()
 		major, parseErr := strconv.Atoi(strings.Split(strings.TrimSpace(string(v)), ".")[0])

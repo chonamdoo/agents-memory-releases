@@ -25,3 +25,4 @@ private/
 !tools/tests/test_mcp_native_database.py
 !tools/build-auto-connector.py
 !tools/check-native-extension.py
+!tools/tests/test_wsl_bootstrap.py

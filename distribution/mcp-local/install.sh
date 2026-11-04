@@ -1,17 +1,17 @@
 #!/bin/bash
-# MCP installer 1.0.7. Memory core and E5 assets remain the verified binary release 1.0.2.
+# MCP installer 1.0.8. Memory core and E5 assets remain the verified binary release 1.0.2.
 set -euo pipefail
 umask 077
 base=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/eb80f6277f6d712a89e854f0f54b7067a9bfc9cc/files
-helper_url=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.7/distribution/mcp-local/setup.py
-helper_sha=e692f9f4edc323c455e019223194b5bbbe3e32d563f071e743a91be084cd48d9
+helper_url=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.8/distribution/mcp-local/setup.py
+helper_sha=92bdbada9691402748a607955c0242f00b44598536e153b5b6bc3c12982bf7cd
 archive_sha=3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34
 for argument in "$@"; do
   if [[ $argument == --help || $argument == -h ]]; then
     echo 'Usage: bash install.sh --client claude|codex|omp --project /absolute/project'
     echo 'Repeat --client to connect multiple apps. Claude marketplace setup uses --client claude-plugin.'
     echo 'Optional: --provider jev|local-llm --judge-host claude|codex --model ID --executable PATH --prefix PATH'
-    echo 'Requires Apple Silicon macOS 15+. The native PostgreSQL database is prepared automatically; Docker is not needed.'
+    echo 'Requires Apple Silicon macOS 15+ or Windows x64 WSL2 (run the CLI inside Ubuntu 24.04). Native DB and E5 are automatic; Docker is not needed.'
     exit 0
   fi
 done
@@ -35,9 +35,9 @@ for argument in "$@"; do
   [[ $argument != --virtual-linux ]] || virtual=true
 done
 case "$(uname -s):$(uname -m)" in
-  Darwin:arm64) target=darwin-arm64; connector_sha=bb360af7bc456735059e3fc534760113075b6c2d97b075eedc68d5b8053a4762 ;;
-  Linux:x86_64) [[ $virtual == true ]] || { echo 'Linux is for explicit validation only.' >&2; exit 2; }; target=linux-x86_64; connector_sha=e423eeeb591b49445d8f86bf9539749b68f335d61899733d96ce53386b02e1db ;;
-  *) echo 'Requires Apple Silicon macOS 15 or newer.' >&2; exit 2 ;;
+  Darwin:arm64) target=darwin-arm64; connector_sha=a8f45bdfab3ea38a8671e295ce13bd08c084ae411ae0683954385bc96d87c2c2 ;;
+  Linux:x86_64) [[ $virtual == true || $(uname -r | tr '[:upper:]' '[:lower:]') == *microsoft-standard-wsl2* ]] || { echo 'Windows requires WSL2 x64. Other Linux is for explicit validation only.' >&2; exit 2; }; target=linux-x86_64; connector_sha=12f395e7f7bbde97a3f53fe974117eaecc27c137c3b45e7ab359df22e0b4abef ;;
+  *) echo 'Requires Apple Silicon macOS 15+ or Windows x64 WSL2.' >&2; exit 2 ;;
 esac
 work=$(mktemp -d "${TMPDIR:-/tmp}/agents-memory-mcp.XXXXXXXX")
 trap 'rm -rf -- "$work"' EXIT HUP INT TERM
@@ -49,7 +49,7 @@ check() {
 }
 fetch "$helper_url" "$work/setup.py"
 check "$work/setup.py" "$helper_sha"
-fetch "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.7/plugins/agents-memory-local/bin/connector-$target" "$work/connector-$target"
+fetch "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.8/plugins/agents-memory-local/bin/connector-$target" "$work/connector-$target"
 check "$work/connector-$target" "$connector_sha"
 selected_prefix="$HOME/.local/share/agents-memory-hindsight"
 next_prefix=false

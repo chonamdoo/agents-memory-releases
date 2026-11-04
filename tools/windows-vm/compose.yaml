@@ -1,0 +1,47 @@
+# Test-host infrastructure only. This is not the product's Windows installer.
+x-windows-base: &windows-base
+  # Linux amd64 VM wrapper, pinned from dockurr/windows:latest on 2026-11-04.
+  image: docker.io/dockurr/windows@sha256:59f8bed19cfd49cf1701debe34f9df6311e61a4e2ae68aa9f41206e2184e31cc
+  platform: linux/amd64
+  entrypoint: [/bin/bash, /am-vm-start-guard.sh]
+  devices:
+    - /dev/kvm
+    - /dev/net/tun
+  cap_add:
+    - NET_ADMIN
+  ports:
+    - 127.0.0.1:8006:8006
+    - 127.0.0.1:3389:3389/tcp
+    - 127.0.0.1:3389:3389/udp
+  stop_grace_period: 2m
+  restart: "no"
+
+services:
+  win11:
+    <<: *windows-base
+    profiles: [win11]
+    environment:
+      VERSION: "11"
+      RAM_SIZE: "8G"
+      CPU_CORES: "4"
+      DISK_SIZE: "64G"
+    volumes:
+      - win11-data:/storage
+      - ./oem:/oem:ro
+      - ./start-guard.sh:/am-vm-start-guard.sh:ro
+  win10:
+    <<: *windows-base
+    profiles: [win10]
+    environment:
+      VERSION: "10"
+      RAM_SIZE: "8G"
+      CPU_CORES: "4"
+      DISK_SIZE: "64G"
+    volumes:
+      - win10-data:/storage
+      - ./oem:/oem:ro
+      - ./start-guard.sh:/am-vm-start-guard.sh:ro
+
+volumes:
+  win11-data:
+  win10-data:

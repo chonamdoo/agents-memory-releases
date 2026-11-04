@@ -1,0 +1,40 @@
+{
+  "scope": "Real Windows VM compatibility probes; not native product or WSL end-to-end validation",
+  "actual_windows_vm": true,
+  "os_build": 19045,
+  "powershell": "5.1.19041.1682",
+  "argument_transport": {
+    "test_scope": "Windows native argument transport; no WSL or product installation",
+    "actual_windows_vm": true,
+    "actual_wsl_executed": false,
+    "product_windows_verified": false,
+    "os_version": "Microsoft Windows NT 10.0.19045.0",
+    "powershell": "5.1.19041.1682",
+    "syntax_passed": true,
+    "argument_count": 12,
+    "project_argument_preserved": true,
+    "client_arguments_preserved": true,
+    "raw_project_not_in_shell_source": true,
+    "temporary_script_cleaned": true
+  },
+  "native_postgres": {
+    "version_target": "18.6.1",
+    "vector_target": "0.8.7",
+    "zip_sha256": "d82142f3a9a49be8467f0e87f5a079f627515539f94a070fe1463208fa8eb3c6",
+    "runtime_exit": "0xc0000135",
+    "missing_packaged_dependencies": [
+      "VCRUNTIME140.dll",
+      "VCRUNTIME140_1.dll",
+      "MSVCP140.dll"
+    ],
+    "vector_loaded": false,
+    "sql_tests_passed": false
+  },
+  "evaluation_image_expired": true,
+  "latest_windows11_tested": false,
+  "vm_currently_stopped": true,
+  "ephemeral_disk_reset_by_wrapper": true,
+  "vm_guard_regression_test_added": true,
+  "paid_cloud_created": false,
+  "github_actions_dispatched": false
+}

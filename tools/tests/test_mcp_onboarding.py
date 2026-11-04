@@ -82,11 +82,16 @@ def test_shell_rejects_home_before_any_download(tmp_path):
     assert result.returncode == 2 and b'Downloading' not in result.stderr
 
 
-def test_sdk_proxy_stays_connected_when_explicitly_stopped(helper, installation, tmp_path):
+@pytest.mark.parametrize("stale_connector_launcher", [False, True])
+def test_sdk_proxy_stays_connected_when_explicitly_stopped(helper, installation, tmp_path, stale_connector_launcher):
     from mcp import ClientSession, StdioServerParameters
     from mcp.client.stdio import stdio_client
 
     helper.write_json(installation / "settings/mcp-service.json", {"enabled": False, "product_id": "a" * 32})
+    if stale_connector_launcher:
+        launcher = installation / "bin/am-connect"
+        helper.write_private(launcher, b"#!/bin/sh\nexit 87\n")
+        launcher.chmod(0o700)
 
     async def check():
         params = StdioServerParameters(command=helper.sys.executable,

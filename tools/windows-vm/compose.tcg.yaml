@@ -1,0 +1,32 @@
+# Slow software-emulation fallback: no KVM, TUN or NET_ADMIN required.
+# This prepares a real Windows test OS; it does not implement the product port.
+services:
+  windows:
+    image: ${AM_WINDOWS_VM_IMAGE:-docker.io/dockurr/windows@sha256:59f8bed19cfd49cf1701debe34f9df6311e61a4e2ae68aa9f41206e2184e31cc}
+    platform: linux/amd64
+    cpus: 4
+    mem_limit: 10g
+    entrypoint: [/bin/bash, /am-vm-start-guard.sh]
+    environment:
+      VERSION: ${AM_WINDOWS_VERSION:-10e}
+      KVM: "N"
+      NETWORK: user
+      RAM_SIZE: "6G"
+      CPU_CORES: "4"
+      DISK_SIZE: "64G"
+      DISK_FMT: qcow2
+      ALLOCATE: "N"
+      VERIFY: "Y"
+      REMOVE: "N"
+    ports:
+      - 127.0.0.1:18006:8006
+      - 127.0.0.1:13389:3389/tcp
+    volumes:
+      - tcg-data:/storage
+      - ./oem:/oem:ro
+      - ./start-guard.sh:/am-vm-start-guard.sh:ro
+    restart: "no"
+    stop_grace_period: 2m
+
+volumes:
+  tcg-data:
