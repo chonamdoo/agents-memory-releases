@@ -1,0 +1,80 @@
+from __future__ import annotations
+
+from typing import Annotated, Literal
+from uuid import UUID
+
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
+
+Label = Annotated[str, Field(min_length=1, max_length=128, pattern=r"^[^\x00-\x1f\x7f]+$")]
+Text = Annotated[str, Field(min_length=1, max_length=32_000, pattern=r"^[^\x00]*$")]
+
+
+class Model(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+
+
+class Operation(Model):
+    op_id: UUID
+    memory_id: UUID
+    project: Label
+    kind: Literal["memory", "summary", "prompt"] = "memory"
+    base_revision: Annotated[StrictInt, Field(ge=0)] = 0
+    deleted: StrictBool = False
+    text: Text | None = None
+    session_id: Label | None = None
+    source_id: Label | None = None
+
+
+class Checkpoint(Model):
+    epoch: UUID
+    cursor: Annotated[StrictInt, Field(ge=0)]
+    chain_hash: Annotated[str, Field(pattern=r"^[a-f0-9]{64}$")]
+
+
+class Push(Model):
+    operations: Annotated[list[Operation], Field(min_length=1, max_length=100)]
+    checkpoint: Checkpoint | None = None
+
+
+class Search(Model):
+    query: Annotated[str, Field(min_length=1, max_length=1000)]
+    project: Label | None = None
+    limit: Annotated[StrictInt, Field(ge=1, le=50)] = 10
+
+
+class Named(Model):
+    name: Label
+
+
+class Invite(Model):
+    role: Literal["member", "viewer"] = "member"
+    projects: Annotated[list[UUID], Field(min_length=1, max_length=100)]
+    expires_hours: Annotated[StrictInt, Field(ge=1, le=168)] = 24
+
+
+class AcceptInvite(Model):
+    invite: Annotated[str, Field(min_length=40, max_length=100)]
+
+
+class ShareMapping(Model):
+    source_project: Label
+    project_id: UUID
+
+
+class Sharing(Model):
+    mappings: Annotated[list[ShareMapping], Field(max_length=100)]
+
+
+class Preferences(Model):
+    upload_prompts: StrictBool
+
+
+class Device(Model):
+    name: Label
+    writable: StrictBool = True
+
+
+class Failure(Exception):
+    def __init__(self, status: int, code: str):
+        self.status, self.code = status, code
+        super().__init__(code)

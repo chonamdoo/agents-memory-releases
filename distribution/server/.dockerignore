@@ -1,0 +1,9 @@
+.env
+*.connection.json
+private/
+.venv/
+dist/
+.git/
+.pytest_cache/
+.hypothesis/
+**/__pycache__/

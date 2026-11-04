@@ -1,0 +1,45 @@
+name: agents-memory-cloud
+services:
+  db:
+    image: pgvector/pgvector@sha256:c29f30688a9ad961691bdf0ec1650717cc132a5814619d80f80463d6e4c42e47
+    environment:
+      POSTGRES_USER: am_collab
+      POSTGRES_DB: am_collab
+      POSTGRES_PASSWORD: ${AM_COLLAB_DB_PASSWORD:?Run bootstrap.sh first}
+    volumes: [database:/var/lib/postgresql]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U am_collab -d am_collab"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  server:
+    build: .
+    image: agents-memory-collaboration:0.2.1
+    environment:
+      AM_COLLAB_DATABASE_URL: postgresql://am_collab:${AM_COLLAB_DB_PASSWORD}@db:5432/am_collab
+      AM_COLLAB_PUBLIC_URL: ${AM_COLLAB_PUBLIC_URL:-http://127.0.0.1:18350}
+    command: [serve, --host, 0.0.0.0, --port, "18350", --public-url, "${AM_COLLAB_PUBLIC_URL:-http://127.0.0.1:18350}", --e5-dir, /models/e5, --e5-manifest, /app/e5-assets.sha256.json]
+    ports: ["127.0.0.1:18350:18350"]
+    volumes: [accounts:/data]
+    depends_on:
+      db: {condition: service_healthy}
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    restart: unless-stopped
+  https:
+    image: caddy:2.11.7-alpine
+    profiles: [https]
+    environment:
+      AM_COLLAB_HOST: ${AM_COLLAB_HOST:-localhost}
+    ports: ["80:80", "443:443", "443:443/udp"]
+    volumes: ["./Caddyfile:/etc/caddy/Caddyfile:ro", "tls:/data", "caddy-config:/config"]
+    depends_on: [server]
+    restart: unless-stopped
+volumes:
+  database:
+  accounts:
+  tls:
+  caddy-config:

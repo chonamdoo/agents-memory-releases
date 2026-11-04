@@ -1,0 +1,141 @@
+{
+  "version": "0.2.1",
+  "status": "personal_mcp_release",
+  "date_utc": "2026-11-04",
+  "base_commit": "8e0d088",
+  "runtime_sha256": {
+    "src/agents_memory_collab/__init__.py": "a221a42727299dc95b7fd4cc732d27bb911f14ad30aaf93a6df67dd3b253dd21",
+    "src/agents_memory_collab/cli.py": "3104526e548406e8787fea542b92b3742b5b8527d22f87f1b29fea4736f32a56",
+    "src/agents_memory_collab/client.py": "7c42fdba3a2e6fe4d97a851eaf829a44782ab7c6bc206938d412a5fc908d37eb",
+    "src/agents_memory_collab/embedding.py": "e1ba3d501829ef4ece988ad56728f5a9093287a58cc48d31140ff3bff7be4f09",
+    "src/agents_memory_collab/hindsight.py": "3fba887521a1cfe33fbe666b6579d13ae314c2436da9243e8007effeeb800e4a",
+    "src/agents_memory_collab/models.py": "43bcc66e4e8aed982c04236895413deccf12dbf6a2dd9c6c7bc7816410bd9423",
+    "src/agents_memory_collab/protocol.py": "760cd5ed67c43c7e9a8f9f9f419aee57a11f029d0b6084a8fae87388c09099e0",
+    "src/agents_memory_collab/schema.sql": "d30c5dc8f6f49d8ec7fe1b91dcb010718993e4b5cce149c4dd89cd41f40a8dc4",
+    "src/agents_memory_collab/setup.py": "9e1ecd4287eb78d14ca7e3ecdb010c0482f30dd2c5fa7855326897ac8b6fa8d0",
+    "src/agents_memory_collab/stdio.py": "fbfd6cf824193f22e862e6e6aee3e49081032c2d388aad20d039d16f63111cc7",
+    "src/agents_memory_collab/store.py": "5befb10d6e9f67a565e2a18e4cad6732c318aedad695bb02adb6684ab12a734a",
+    "src/agents_memory_collab/web.py": "7444379e733cffb7695d330d4c17e97cbce0777da3cc47207f5da460d11f1935"
+  },
+  "dependency_locks_sha256": {
+    "uv.lock": "fd9aaa2b4382f25fc983da38eb9d60d5c5065f3db30837693c1c3aca956b9f7f",
+    "requirements.lock": "e438586604e51931ad906d7316f51f394a94fe26ed5395720bcc8ab16a9d8d0e",
+    "client-requirements.lock": "15cfdd98d334152d8d326408cd60517f533dee7e9f090b3ff389871861cc51eb",
+    "qa-requirements.lock": "9ba5897fda77d868400a70dc6525372cf270259f9a9d8f6a94f47b6497e95bba"
+  },
+  "collaboration_tests": {
+    "passed": 64,
+    "failed": 0,
+    "skipped": 0,
+    "postgresql_pgvector": "real isolated native PostgreSQL",
+    "e5": "real pinned ONNX assets",
+    "seed": 20261104,
+    "stateful_examples": 20,
+    "generated_actions": 400,
+    "lost_ack_actions": 83,
+    "darwin_root_alias_simulations_and_permission_controls": 7
+  },
+  "stable_main_regressions": {
+    "passed": 136,
+    "subtests_passed": 62,
+    "includes_install_mode_selector_tests": 9
+  },
+  "docker": {
+    "health": {
+      "ready": true,
+      "semantic": true,
+      "version": "0.2.1"
+    },
+    "two_replicas_equal": true,
+    "session_preserved": true,
+    "semantic_query_executed": true,
+    "team_query_then_unshare": true,
+    "read_only_rootfs": true,
+    "image_id": "sha256:e0bb9c4a7f94f0ccd54615a1d276191c46d46c8d2980c200c698059550737219",
+    "tested_release": "0.2.1",
+    "new_0_2_1_image_tested": true
+  },
+  "wheel_sha256": "1fa76146e50471f411e031b670172022f888b30a140f7816d1bd33eae4c8521d",
+  "wheel_equals_tested_artifact": true,
+  "client_setup": {
+    "clients": [
+      "claude",
+      "codex",
+      "omp"
+    ],
+    "actual_installed_stdio_test": true,
+    "repeat_install_preserves_key": true,
+    "missing_uv_bootstrap": "Linux x64: checksum-pinned uv 0.12.23 and managed Python 3.12.15",
+    "tested_client_version": "0.2.1",
+    "cross_version_mac_upgrade_tested": false,
+    "cross_version_mac_upgrade_reported": true,
+    "cross_version_mac_upgrade_evidence": "user-provided Ego report; not independently run in this Linux environment"
+  },
+  "fable_review": {
+    "model": "claude-fable-5-1",
+    "channel": "authenticated Claude CLI subscription",
+    "kind": "static pre-fix review; no tests executed by reviewer",
+    "findings": 8,
+    "resolution": "REVIEW-RESOLUTION.md"
+  },
+  "github_actions_run": false,
+  "limitations": [
+    "Native Mac pilot results are user-reported; Claude first interactive workspace trust and Mac login/sleep/network-change recovery remain unverified. Native Windows unverified.",
+    "Full external transcript collection and arbitrary session-format conversion not implemented.",
+    "Direct HTTP MCP and legacy Go proxy are online paths without local outbox.",
+    "Account-scoped device keys; team/project grants enforced at query time, no per-device project whitelist.",
+    "Server operator can read uploaded data; logs/archives/backups retain history.",
+    "Restore requires operator epoch reset and key reissue to avoid resurrecting pre-backup credentials.",
+    "No semantic quality, external TLS, load, HA or managed-service claim."
+  ],
+  "profile_ci_local": "PASS: current profile and legacy installation integrity",
+  "mac_external_report": {
+    "source": "user-provided Ego reports",
+    "client_commit": "3ffe6f230876f44c495499ef2a2cf34cbb16d574",
+    "server_commit": "71c5f87eab4e624b77ceb86efc9d368194648aa0",
+    "actual_hosts": [
+      "Claude Code 2.1.318",
+      "Codex 0.166.0",
+      "OMP 18.16.0"
+    ],
+    "stdio_memory_roundtrip_pass": true,
+    "darwin_system_alias_native_pass": true,
+    "keys_and_data_preserved_on_upgrade": true,
+    "codex_interactive_status_pass": true,
+    "codex_recovery_tools_disabled_and_control_checked": true,
+    "omp_connection_pass": true,
+    "claude_noninteractive_pass": true,
+    "claude_interactive_workspace_trust_pending": true,
+    "tunnel_process_restart_pass": true,
+    "actual_gcp_vm_reboot_and_memory_persistence_pass": true,
+    "actual_mac_login_sleep_network_change_unverified": true,
+    "native_mac_hardlink_rejection_unverified": true,
+    "terminal_mac_in_scope": false
+  },
+  "release_local_date": "2026-11-05 Asia/Seoul",
+  "deployment_scope": "Release assets and source only; existing personal GCP VM is not modified by this release preparation.",
+  "install_selector": {
+    "choices": [
+      "local",
+      "personal-server"
+    ],
+    "local_installer_release": "v1.0.7",
+    "local_installer_sha256": "7e09e69e692dca8d910521d43aab613054afc1c45d689dfcfab0c225f3150177",
+    "cloud_resources_provisioned": false,
+    "local_judge_options": [
+      "local-llm",
+      "jev"
+    ],
+    "cloud_mcp_calls_jev": false,
+    "existing_hindsight_export": "explicit opt-in separate path; no automatic migration"
+  },
+  "release_tag": "v0.2.1",
+  "declared_support": {
+    "local": "Existing stable 1.0.7 installer: Apple Silicon macOS 15+",
+    "personal_server": "Linux x64 Docker; real isolated test plus user-provided GCP pilot",
+    "client": "Mac actual user reports; additional platforms not declared stable"
+  },
+  "paid_resources_created_by_release_job": false,
+  "user_vm_modified_by_release_job": false,
+  "release_notes": "../../release-candidates/v0.2.1/RELEASE-NOTES.ko.md"
+}
