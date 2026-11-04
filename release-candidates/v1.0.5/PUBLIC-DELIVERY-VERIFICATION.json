@@ -1,0 +1,23 @@
+{
+  "version": "1.0.5",
+  "tag_commit": "ae5a788934d4828f26decbd7e826db91a8a4dd1a",
+  "artifact_delivery": "marketplace and checksum-pinned immutable Git tag",
+  "public_bootstrap_downloaded_and_executed": true,
+  "existing_core_redownloaded": false,
+  "existing_service_reused": true,
+  "provider_settings_preserved": true,
+  "omp_marketplace_upgrade": "1.0.4 -> 1.0.5",
+  "public_plugin_hashes_match": true,
+  "public_plugin_executables_have_execute_permission": true,
+  "omp_cold_runtime_absent": true,
+  "omp_cold_tool_contract_count": 10,
+  "omp_cold_one_time_browser_form": true,
+  "omp_cold_key_input_hidden": true,
+  "omp_cold_models_displayed": [
+    "Sonnet 5.5",
+    "6.1 Terra"
+  ],
+  "model_calls": 0,
+  "github_actions_last_run_unchanged": 41388806223,
+  "physical_macos_execution": false
+}
