@@ -1,10 +1,8 @@
 {
   "hindsight_repository": "https://github.com/vectorize-io/hindsight",
-  "hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
   "hindsight_api_slim_version": "1.1.0",
   "extra": "local-onnx",
   "entrypoint": "hindsight-api",
-  "unmodified_installed_python_source_files_verified": 371,
   "upstream_license": "MIT",
   "embedding_model_id": "intfloat/multilingual-e5-small",
   "embedding_dimensions": 384,
@@ -46,5 +44,12 @@
       "sha256": "d05497f1da52c5e09554c0cd874037a083e1dc1b9cfd48034d1c717f1afc07a7"
     }
   ],
-  "model_variant": "model_qint8_avx512_vnni.onnx, tested Linux x86_64 only; no macOS/other CPU certification"
+  "model_variant": "model_qint8_avx512_vnni.onnx, tested Linux x86_64 only; no macOS/other CPU certification",
+  "historical_hindsight_commit": "14e7306e27cdbd03ad5f17cf46f22a5f6d6ec5a2",
+  "hindsight_commit": null,
+  "hindsight_commit_verified": false,
+  "hindsight_api_slim_wheel_sha256": "d19a323afb7f9820e738ac9372f7a59ded21c1329b379195e7933a7dcefd2481",
+  "hindsight_python_files_verified": 366,
+  "hindsight_python_tree_sha256": "5a147dfc212e2f2bf5d13b405413e0fc13e9d48654e46a097c0b6e9c895e3783",
+  "note": "Common runtime verifies the unchanged 1.1.0 wheel/source tree. Historical upstream commit is not asserted as the provenance of this installed distribution."
 }
