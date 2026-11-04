@@ -187,3 +187,7 @@ In Claude Code 2.1.310 or later:
 This is the maintainer’s own marketplace; it has not been submitted to Anthropic’s directory. Configure with `/plugin configure agents-memory@agents-memory` only after preparing your own authority.
 
 Company one-command installation entrypoint and separate home-Jev guidance: [INSTALL.md](INSTALL.md#one-command-to-start-a-company-installation-macos-arm64). The bootstrap installs the binary and asks for the supported local location/official subscription host; authority/DB/authentication prerequisites remain explicit.
+
+## Optional personal sync and team server preview
+
+[Collaboration 0.2 developer preview](distribution/server/README.ko.md) adds an optional PostgreSQL/pgvector server, personal multi-PC sync, project-scoped team sharing, and durable MCP clients for Claude, Codex and OMP. The local product remains the default. This preview has a [separate behavior contract](distribution/server/CONTRACT.md) and [local verification record](distribution/server/VERIFICATION.json); it does not replace the stable local release or claim native Windows/macOS host validation.

@@ -25,3 +25,7 @@ private/
 !tools/tests/test_mcp_native_database.py
 !tools/build-auto-connector.py
 !tools/check-native-extension.py
+
+!distribution/server/**/*.py
+distribution/server/.venv/
+distribution/server/dist/
