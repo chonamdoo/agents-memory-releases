@@ -1,6 +1,6 @@
 {
   "version": "0.2.1",
-  "status": "personal_server_prerelease_candidate",
+  "status": "personal_mcp_release",
   "date_utc": "2026-11-04",
   "base_commit": "8e0d088",
   "runtime_sha256": {
@@ -79,8 +79,6 @@
     "resolution": "REVIEW-RESOLUTION.md"
   },
   "github_actions_run": false,
-  "paid_resources_created": false,
-  "deployed": false,
   "limitations": [
     "Native Mac pilot results are user-reported; Claude first interactive workspace trust and Mac login/sleep/network-change recovery remain unverified. Native Windows unverified.",
     "Full external transcript collection and arbitrary session-format conversion not implemented.",
@@ -130,5 +128,14 @@
     ],
     "cloud_mcp_calls_jev": false,
     "existing_hindsight_export": "explicit opt-in separate path; no automatic migration"
-  }
+  },
+  "release_tag": "v0.2.1",
+  "declared_support": {
+    "local": "Existing stable 1.0.7 installer: Apple Silicon macOS 15+",
+    "personal_server": "Linux x64 Docker; real isolated test plus user-provided GCP pilot",
+    "client": "Mac actual user reports; additional platforms not declared stable"
+  },
+  "paid_resources_created_by_release_job": false,
+  "user_vm_modified_by_release_job": false,
+  "release_notes": "../../release-candidates/v0.2.1/RELEASE-NOTES.ko.md"
 }

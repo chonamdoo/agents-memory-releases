@@ -1,5 +1,8 @@
 # agents-memory releases
 
+> **개인형 MCP 설치:** [v0.2.1 정식 배포](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v0.2.1) · [Claude / Codex / OMP 설치 가이드](release-candidates/v0.2.1/MCP-INSTALL.ko.md). 개인 로컬은 기존 로컬 LLM/Jev, 본인 서버 연결은 서버 URL·기기 키를 사용합니다.
+
+
 ## MCP 자동 설치: Claude · Codex · OMP (1.0.7)
 
 [1.0.7 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.7) · [설치·운영 안내](distribution/mcp-local/README.ko.md)
@@ -188,8 +191,8 @@ This is the maintainer’s own marketplace; it has not been submitted to Anthrop
 
 Company one-command installation entrypoint and separate home-Jev guidance: [INSTALL.md](INSTALL.md#one-command-to-start-a-company-installation-macos-arm64). The bootstrap installs the binary and asks for the supported local location/official subscription host; authority/DB/authentication prerequisites remain explicit.
 
-## Optional personal sync and team server preview
+## Optional personal sync and team server
 
-[Collaboration 0.2 developer preview](distribution/server/README.ko.md) adds an optional PostgreSQL/pgvector server, personal multi-PC sync, project-scoped team sharing, and durable MCP clients for Claude, Codex and OMP. The local product remains the default. This preview has a [separate behavior contract](distribution/server/CONTRACT.md) and [local verification record](distribution/server/VERIFICATION.json); it does not replace the stable local release or claim native Windows/macOS host validation.
+[Personal server MCP 0.2.1](distribution/server/README.ko.md) adds an optional PostgreSQL/pgvector server, personal multi-PC sync, project-scoped team sharing, and durable MCP clients for Claude, Codex and OMP. The local product remains the default. This component has a [separate behavior contract](distribution/server/CONTRACT.md) and [local verification record](distribution/server/VERIFICATION.json); it does not replace the stable local release or claim native Windows support. Mac host results and remaining limits are recorded separately.
 
-Use [the personal install selector](distribution/install.sh) to choose stable local memory (existing local LLM/Jev) or connection to your own server. The selector does not provision cloud infrastructure; [preview release notes](release-candidates/cloud-v0.2.1-preview.1/RELEASE-NOTES.ko.md) describe the tested paths and limits.
+Use [the personal install selector](distribution/install.sh) to choose stable local memory (existing local LLM/Jev) or connection to your own server. The selector does not provision cloud infrastructure; [personal MCP release notes](release-candidates/v0.2.1/RELEASE-NOTES.ko.md) describe the tested paths and limits.
