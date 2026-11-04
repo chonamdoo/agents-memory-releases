@@ -1,6 +1,18 @@
 # agents-memory releases
 
-## 최신 릴리즈 1.0.2
+## MCP 설치: Claude · Codex · OMP (1.0.3)
+
+Claude Code에서는 자체 마켓으로 설치합니다:
+
+```text
+/plugin marketplace add chonamdoo/agents-memory-releases
+/plugin install agents-memory-local@agents-memory
+/agents-memory-local:setup
+```
+
+Codex·OMP는 [공통 MCP 설치 도우미](distribution/mcp-local/README.ko.md)를 사용하세요. 도우미가 로컬 DB·API 준비와 프로젝트 MCP 등록을 처리합니다. 판단 모델은 별도로 Jev / 구독 Claude / 구독 Codex를 선택하며 기존 설정을 유지합니다. Docker Desktop 또는 전용 로컬 PostgreSQL이 필요합니다. 기존 Native 프리뷰 `agents-memory`와 새 플러그인 `agents-memory-local`은 별개입니다. 공식 디렉터리 심사 등재를 뜻하지 않습니다.
+
+## 로컬 코어 릴리즈 1.0.2
 
 [로컬 설치 파일 받기](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.2) · [설치·업데이트 안내](distribution/hindsight-local/README.ko.md) · [선택형 기록·사용량 안내](distribution/hindsight-local/HISTORY.ko.md)
 

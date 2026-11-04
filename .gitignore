@@ -16,3 +16,6 @@ build/
 private/
 
 !tools/tests/test_local_provider_settings.py
+
+!distribution/mcp-local/setup.py
+!tools/tests/test_mcp_local_setup.py

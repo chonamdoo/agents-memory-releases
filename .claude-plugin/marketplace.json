@@ -11,6 +11,11 @@
       "name": "agents-memory",
       "source": "./plugins/agents-memory",
       "description": "macOS arm64 binary MCP transport; explicit onboarding and scoped credentials required."
+    },
+    {
+      "name": "agents-memory-local",
+      "source": "./plugins/agents-memory-local",
+      "description": "Current local Hindsight MCP integration with explicit Claude/Codex/OMP setup. E5 included; Jev or subscribed Claude/Codex admission."
     }
   ]
 }

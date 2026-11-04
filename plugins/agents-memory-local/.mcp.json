@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "agents-memory-local": {
+      "command": "/bin/bash",
+      "args": [
+        "-c",
+        "exec \"$HOME/.local/share/agents-memory-hindsight/bin/am-mcp\" proxy"
+      ]
+    }
+  }
+}
