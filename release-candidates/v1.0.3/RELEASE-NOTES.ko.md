@@ -32,3 +32,5 @@ Apple Silicon macOS 13+와 실행 중인 Docker Desktop, 또는 전용 기존 �
 검증: 로컬 배포 검사 **83개 + 하위 검사 62개 통과**, Claude 마켓 설치·연결, Codex 앱 서버와 OMP CLI의 실제 도구 9개 로드, OMP 마켓/직접 등록 중복 제거, 실제 Codex 판단을 거친 MCP 저장·E5 검색·문서 검증·삭제를 확인했습니다. bootstrap의 실제 압축·런타임 추출은 로컬 다운로드 대역으로 검사하고 고정 해시·변조 거부를 확인했습니다. 1.0.2의 전체 CI 5,059개 통과 기록은 기반 코어의 이전 검증이며 이번 변경에서 다시 실행한 점수가 아닙니다.
 
 자체 마켓 배포이며 공식 Anthropic/기타 디렉터리 심사 등재는 아닙니다. Linux에서 검증했으며 macOS 실기 실행은 수행하지 않았습니다. Mac 바이너리는 기존 ad hoc 서명 상태이고 Developer ID/공증을 주장하지 않습니다. 실제 사용자 이력·Jev API는 사용하지 않았습니다. 자동 이력 스캔·프롬프트 수집·문맥 주입·도구 삭제는 활성화하지 않습니다. GitHub Actions는 2026-12-01까지 실행하지 않습니다.
+
+공개 GitHub 주소에서도 Claude·OMP 마켓 설치에 성공했고, 설치 도우미·helper·MCP 정의를 로그인 없이 내려받아 검증한 해시와 일치함을 확인했습니다. [공개 설치 검증](https://github.com/chonamdoo/agents-memory-releases/blob/main/release-candidates/v1.0.3/PUBLIC-INSTALL-VERIFICATION.json).

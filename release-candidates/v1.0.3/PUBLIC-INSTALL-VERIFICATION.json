@@ -1,0 +1,34 @@
+{
+  "anonymous_https": true,
+  "tag": "v1.0.3",
+  "files": [
+    {
+      "path": "distribution/mcp-local/setup.py",
+      "sha256": "9da880a3c2ad70288ade26fe9413f06c2fa499535d87ec8979147b8cf0f30ab5"
+    },
+    {
+      "path": "distribution/mcp-local/install.sh",
+      "sha256": "aeeae52db5c6fb0a1fdb42211e64526e3bcc9834a65d1521e6c8930cb623da8b"
+    },
+    {
+      "path": ".claude-plugin/marketplace.json",
+      "sha256": "b6f07206855914c86d285a10bc47780a03a459384d081ed68fc29bd8fbd18c3f"
+    },
+    {
+      "path": "plugins/agents-memory-local/.mcp.json",
+      "sha256": "74bfd2674dac0182d3a004617220d615a2f0c48819ef1af81f002a38717a5e1f"
+    },
+    {
+      "path": "plugins/agents-memory-local/scripts/install.sh",
+      "sha256": "aeeae52db5c6fb0a1fdb42211e64526e3bcc9834a65d1521e6c8930cb623da8b"
+    }
+  ],
+  "exact_bytes_verified": true,
+  "github_auth_headers_added": false,
+  "public_claude_marketplace_install": true,
+  "public_omp_marketplace_install": true,
+  "version": "1.0.3",
+  "release_tag_commit": "0abbf31c0de66a5a3c1149b541988a4dbc269280",
+  "github_actions_executed": false,
+  "actions_latest_run_unchanged": 41388806223
+}

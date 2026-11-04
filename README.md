@@ -2,6 +2,8 @@
 
 ## MCP 설치: Claude · Codex · OMP (1.0.3)
 
+[1.0.3 정식 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.3)
+
 Claude Code에서는 자체 마켓으로 설치합니다:
 
 ```text
