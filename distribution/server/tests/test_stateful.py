@@ -1,6 +1,7 @@
 import asyncio
 import json
 import os
+import sys
 import tempfile
 import threading
 from pathlib import Path
@@ -98,7 +99,7 @@ class ReplicaMachine(RuleBasedStateMachine):
 
     def teardown(self):
         TRACES.append(self.trace)
-        record('stateful-traces', {'seed_command': '--hypothesis-seed=20261104', 'max_examples': 20,
+        record('stateful-traces', {'seed_command': next((arg for arg in sys.argv if arg.startswith('--hypothesis-seed=')), 'not specified'), 'max_examples': 20,
             'max_steps': 20, 'model_imports_product': False, 'semantic_embedding': False,
             'real_pgvector_database': True, 'traces': TRACES,
             'scope': 'serial write/delete, replay, lost ACK, two replicas, reopen; not all concurrent histories'})

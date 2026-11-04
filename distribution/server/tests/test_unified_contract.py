@@ -4,24 +4,24 @@ AM_UNIFIED_TEST_RECEIPT must name a runtime created by the accompanying harness.
 The private processor must be on PYTHONPATH; it is not redistributed here.
 """
 import asyncio
-from contextlib import asynccontextmanager
 import json
 import os
-from pathlib import Path
 import socket
+from contextlib import asynccontextmanager
+from pathlib import Path
 from uuid import UUID, uuid4
 
+import asyncpg
 import pytest
 import pytest_asyncio
 import uvicorn
-import asyncpg
-from hypothesis import given, settings, strategies as st
-
 from agents_memory_collab.client import Remote, Replica
 from agents_memory_collab.memory_engine import HindsightEngine
 from agents_memory_collab.models import Failure, Invite, Operation, ShareMapping
 from agents_memory_collab.store import Store
 from agents_memory_collab.web import create_app
+from hypothesis import given, settings
+from hypothesis import strategies as st
 
 pytestmark = pytest.mark.skipif(not os.environ.get("AM_UNIFIED_TEST_RECEIPT"), reason="Requires explicit isolated real-Hindsight runtime")
 
