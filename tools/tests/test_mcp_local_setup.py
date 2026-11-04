@@ -309,3 +309,26 @@ def test_published_bootstrap_pins_helper_and_matches_marketplace_copy():
     assert "3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34" in script
     assert "eb80f6277f6d712a89e854f0f54b7067a9bfc9cc" in script
     assert "HELPER_SHA256" not in script
+
+
+def test_stopped_proxy_never_connects_even_if_a_port_is_ready(helper, installation, tmp_path, monkeypatch):
+    import asyncio
+
+    helper.write_json(installation / "settings/mcp-service.json", {"enabled": False, "product_id": "a" * 32})
+    monkeypatch.setattr(helper, "ready", lambda *args: pytest.fail("Stopped proxy attempted HTTP"))
+    with pytest.raises(helper.Refused, match="explicitly stopped"):
+        asyncio.run(helper.proxy(installation, tmp_path))
+
+
+def test_existing_transport_environment_is_not_silently_adopted(helper, installation, tmp_path):
+    project = tmp_path / "project"
+    project.mkdir()
+    helper.configure_client(project, installation, "omp")
+    path = project / ".omp/mcp.json"
+    data = json.loads(path.read_text())
+    data["mcpServers"][helper.NAME]["env"] = {"HOME": "/another-account"}
+    path.write_text(json.dumps(data))
+    before = path.read_bytes()
+    with pytest.raises(helper.Refused, match="differs"):
+        helper.configure_client(project, installation, "omp")
+    assert path.read_bytes() == before

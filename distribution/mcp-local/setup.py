@@ -454,6 +454,8 @@ def configure_client(project, prefix, client, *, dry_run=False):
     existing = servers.get(NAME)
     if existing is not None:
         if (existing.get("command") != command or existing.get("args") != arguments
+                or existing.get("env") not in (None, {}) or existing.get("url")
+                or existing.get("cwd") not in (None, str(project))
                 or existing.get("enabled") is False or NAME in data.get("disabledServers", [])):
             raise Refused("Existing same-name MCP entry differs or is disabled; no overwrite performed")
         return {"client": client, "path": str(path), "changed": False}
@@ -589,7 +591,9 @@ def service_run(prefix):
 
 
 async def proxy(prefix, project):
-    owner(prefix)
+    identity = owner(prefix)["id"]
+    if read_json(prefix / "settings/mcp-service.json") != {"enabled": True, "product_id": identity}:
+        raise Refused("Service was explicitly stopped; run am-mcp start to enable it")
     item = project_record(prefix, project.resolve())
     if not ready(prefix):
         raise Refused("Local API is not ready; run am-mcp status or am-mcp start")

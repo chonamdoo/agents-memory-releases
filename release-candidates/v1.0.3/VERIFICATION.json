@@ -1,0 +1,99 @@
+{
+  "release": "1.0.3",
+  "scope": "public installation/lifecycle/MCP wrapper; unchanged 1.0.2 compiled memory core",
+  "core": {
+    "version": "1.0.2",
+    "archive_sha256": "3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34",
+    "parts": 19,
+    "pinned_assets_commit": "eb80f6277f6d712a89e854f0f54b7067a9bfc9cc",
+    "prior_full_local_tests": 5059,
+    "prior_test_receipt": "../v1.0.2/VERIFICATION.json",
+    "full_core_suite_not_rerun_for_wrapper_only_change": true
+  },
+  "current_local_tests": {
+    "passed": 83,
+    "failed": 0,
+    "subtests_passed": 62,
+    "new_distribution_tests": 35
+  },
+  "ruff": "passed for new wrapper and tests",
+  "bash_syntax": "passed",
+  "claude_plugin_strict_validation": true,
+  "marketplace_strict_validation": true,
+  "live_clients": {
+    "claude_code": {
+      "version": "2.1.317",
+      "marketplace_install": true,
+      "marketplace_health": "connected",
+      "native_connection_after_isolated_test_approval": "connected",
+      "user_global_config_modified": false
+    },
+    "codex": {
+      "version": "0.163.0",
+      "project_native_config_recognized": true,
+      "app_server_runtime_status": "connected",
+      "tools": 9,
+      "turns_or_inference_requests": 0
+    },
+    "omp": {
+      "version": "18.16.0",
+      "marketplace_install": true,
+      "marketplace_tools": 9,
+      "native_plus_marketplace_tools": 9,
+      "duplicate_connections_eliminated": true,
+      "provider_inference_calls": 0,
+      "user_model_settings_modified": false
+    }
+  },
+  "live_gateway": {
+    "version": "1.0.3",
+    "tools": 9,
+    "final_gateway_initialize": true,
+    "retained_memory_recalled": true,
+    "exact_document_verified_and_deleted": true,
+    "structured_content_preserved": true,
+    "owned_docker_database_receipt_verified": true,
+    "new_provider_calls": 0,
+    "synthetic_source_only": true
+  },
+  "live_admission": "one synthetic sync_retain through configured gpt-6.1-terra and E5 recall; memory subsequently verified and deleted",
+  "database": {
+    "managed_creation_and_owned_reuse": true,
+    "postgresql": "18.6",
+    "pgvector": "0.8.7",
+    "image": "pgvector/pgvector@sha256:c29f30688a9ad961691bdf0ec1650717cc132a5814619d80f80463d6e4c42e47",
+    "index_platforms": [
+      "linux/arm64",
+      "linux/amd64"
+    ],
+    "loopback_binding": true,
+    "persistent_volume_labels_verified": true,
+    "credential_files_mode": "0600",
+    "external_mode_and_foreign_resource_refusal": "synthetic unit tests"
+  },
+  "bootstrap": {
+    "source_sha256": "9da880a3c2ad70288ade26fe9413f06c2fa499535d87ec8979147b8cf0f30ab5",
+    "shell_sha256": "aeeae52db5c6fb0a1fdb42211e64526e3bcc9834a65d1521e6c8930cb623da8b",
+    "helper_sha_pin_verified": true,
+    "archive_sha_pin_verified": true,
+    "black_box_extraction_and_setup": "real pinned archive/runtime with local download transport fixture; no system Python used by installer",
+    "space_containing_temporary_paths": true,
+    "no_controlling_tty_with_explicit_options": true,
+    "tampered_archive_refused_before_setup": true,
+    "temporary_files_cleaned": true,
+    "provider_and_project_queue_bytes_preserved": true,
+    "existing_ready_service_reused": true
+  },
+  "macos": {
+    "launchagent_serialization_stable_paths_private_network_environment": true,
+    "explicit_stop_disables_login_restart": true,
+    "stopped_proxy_does_not_connect": true,
+    "actual_device_execution": false
+  },
+  "actual_user_history_read": false,
+  "jev_live_api_called": false,
+  "automatic_history_capture_or_context_injection": false,
+  "official_directory_listing": false,
+  "github_actions_executed": false,
+  "actions_held_through": "2026-12-01"
+}

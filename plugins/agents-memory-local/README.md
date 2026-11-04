@@ -12,6 +12,8 @@ Requires Apple Silicon macOS 13+, running Docker Desktop (or an explicitly provi
 
 This plugin uses the default `~/.local/share/agents-memory-hindsight` installation. Config, keys, queues, database receipts and the MCP gateway stay outside the plugin/cache. Updating or removing the plugin does not erase persistent state. For custom prefixes use the common helper with direct client registration instead. Explicit `am-mcp stop` is respected.
 
+OMP also accepts this marketplace with `omp plugin marketplace add chonamdoo/agents-memory-releases` and `omp plugin install agents-memory-local@agents-memory`; run the common setup helper with `--client omp` for initial runtime preparation.
+
 This is the maintainer's own marketplace, not an official Anthropic directory listing. The old `agents-memory` plugin remains the separate Native preview. Read the [full setup and operating guide](https://github.com/chonamdoo/agents-memory-releases/blob/v1.0.3/distribution/mcp-local/README.ko.md).
 
 Linux validates the same binary core, gateway and native client formats. macOS device execution is not claimed. The binary core is ad hoc signed, not Developer ID signed/notarized. Jev keys are stored privately (0600), not in an encrypted Keychain.

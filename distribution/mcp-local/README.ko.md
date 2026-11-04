@@ -27,6 +27,17 @@ Claude Code에서:
 
 이것은 운영자의 **자체 마켓 배포**입니다. Anthropic 공식 디렉터리 등재를 뜻하지 않습니다. 기존 `agents-memory` 플러그인은 이전 Native 프리뷰이며, 최신 로컬 버전은 `agents-memory-local`입니다. 두 제품을 같은 기억 연결로 중복 등록하지 마세요.
 
+## OMP 마켓 설치 (선택)
+
+OMP의 마켓에서도 같은 플러그인을 설치할 수 있습니다.
+
+```sh
+omp plugin marketplace add chonamdoo/agents-memory-releases
+omp plugin install agents-memory-local@agents-memory
+```
+
+첫 설치의 DB·provider 준비는 아래 공통 도우미를 `--client omp`로 실행합니다. 마켓 연결과 직접 등록을 함께 읽더라도 기본 경로에서는 동일 실행 명령이어서 OMP가 중복을 제거합니다. OMP는 MCP 연결 대상으로만 추가하며 판단 모델 선택에는 추가하지 않습니다.
+
 ## Codex / OMP / Claude 공통 설치 도우미
 
 설치하려는 프로젝트의 터미널에서 실행합니다. Codex 예시:
@@ -64,7 +75,7 @@ AM="$HOME/.local/share/agents-memory-hindsight/bin/am-mcp"
 "$AM" setup --client omp --project "$PWD"
 ```
 
-macOS 사용자 LaunchAgent가 API 실행과 재로그인 후 재시작을 관리합니다. DB는 설치 ID가 붙은 전용 Docker 컨테이너와 영구 볼륨을 사용하고 127.0.0.1에만 연결합니다. 다른 컨테이너·볼륨·서비스를 채택하거나 삭제하지 않습니다. Docker가 시작되지 않았다면 Docker Desktop을 시작한 뒤 `start`를 실행하세요. `stop`은 명시적 중지 상태를 남기며 MCP 연결이 임의로 재시작하지 않습니다.
+macOS 사용자 LaunchAgent가 API 실행과 재로그인 후 재시작을 관리합니다. DB는 설치 ID가 붙은 전용 Docker 컨테이너와 영구 볼륨을 사용하고 127.0.0.1에만 연결합니다. 다른 컨테이너·볼륨·서비스를 채택하거나 삭제하지 않습니다. Docker가 시작되지 않았다면 Docker Desktop을 시작한 뒤 `start`를 실행하세요. `stop`은 API의 명시적 중지 상태를 남기며 MCP 연결이 임의로 재시작하지 않습니다.
 
 이미 준비된 같은 프로젝트에 앱을 추가할 때는 실행 중인 API를 재사용합니다. 새 프로젝트 준비·도우미 업데이트가 서비스 재시작을 요구하면 연결 중인 MCP를 다시 연결해야 할 수 있습니다. DB 스키마는 애플리케이션 롤백으로 되돌리지 않습니다.
 

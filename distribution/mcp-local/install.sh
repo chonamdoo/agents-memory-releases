@@ -4,7 +4,7 @@ set -euo pipefail
 umask 077
 base=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/eb80f6277f6d712a89e854f0f54b7067a9bfc9cc/files
 helper_url=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.3/distribution/mcp-local/setup.py
-helper_sha=d9ae048274094997d1e4510d6a13a63e7b4c2013ab8d8996742faecfc5c77446
+helper_sha=9da880a3c2ad70288ade26fe9413f06c2fa499535d87ec8979147b8cf0f30ab5
 archive_sha=3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34
 for argument in "$@"; do
   if [[ $argument == --help || $argument == -h ]]; then
