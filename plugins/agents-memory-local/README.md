@@ -13,6 +13,22 @@ Claude Code:
 /plugin install agents-memory-local@agents-memory
 ```
 
+Claude update (then restart Claude):
+
+```sh
+claude plugin marketplace update agents-memory
+claude plugin update agents-memory-local@agents-memory
+```
+
+Codex installation and updates use the same project MCP installer (then restart Codex):
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.7/distribution/mcp-local/install.sh -o /tmp/agents-memory-mcp-install.sh
+bash /tmp/agents-memory-mcp-install.sh --client codex --project "$PWD"
+```
+
+Codex marketplace installation alone does not establish working project MCP routing. Use the direct installer above.
+
 OMP:
 
 ```sh

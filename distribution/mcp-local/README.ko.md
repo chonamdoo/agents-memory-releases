@@ -40,13 +40,20 @@ OMP에서 MCP를 연결하면 최초 설정 페이지가 열립니다. 이미 �
 /plugin install agents-memory-local@agents-memory
 ```
 
+터미널의 `claude plugin marketplace add ...`, `claude plugin install ...`로도 설치할 수 있습니다. 업데이트는 다음 두 명령을 실행한 뒤 Claude를 다시 시작합니다.
+
+```sh
+claude plugin marketplace update agents-memory
+claude plugin update agents-memory-local@agents-memory
+```
+
 MCP 실행·프로젝트 신뢰를 앱에서 승인하면 자동 준비가 시작됩니다. 신뢰 설정을 설치기가 강제로 승인하지 않습니다. `/agents-memory-local:setup`은 현재 상태를 확인하는 안내용이며 추가 설치 명령은 보통 필요하지 않습니다.
 
 이 마켓은 운영자의 자체 마켓이며 공식 디렉터리 등재를 뜻하지 않습니다. 예전 `agents-memory` Native 프리뷰와 현재 `agents-memory-local`은 별개입니다.
 
-## Codex 또는 직접 MCP 등록
+## Codex 설치·업데이트 또는 직접 MCP 등록
 
-실제 프로젝트의 터미널에서 한 번 실행합니다.
+실제 프로젝트의 터미널에서 실행합니다. **Codex는 설치·업데이트 모두 아래 같은 두 명령을 사용**합니다. 완료 후 Codex를 다시 시작하고 프로젝트 신뢰·MCP 사용을 승인하세요. `setup_status`에서 `version: 1.0.7`, `ready: true`를 확인합니다.
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.7/distribution/mcp-local/install.sh -o /tmp/agents-memory-mcp-install.sh
