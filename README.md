@@ -1,8 +1,10 @@
 # agents-memory releases
 
-## MCP 설치: Claude · Codex · OMP (1.0.3)
+## MCP 설치: Claude · Codex · OMP (1.0.4)
 
-[1.0.3 정식 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.3)
+[1.0.4 정식 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.4)
+
+1.0.4는 초기 설정 전에도 연결을 유지하고 `setup_status`로 안내합니다. 키 입력 후 Enter와 설치 진행 상태를 표시하며, 홈 폴더를 프로젝트로 지정하는 실수를 막습니다.
 
 Claude Code에서는 자체 마켓으로 설치합니다:
 

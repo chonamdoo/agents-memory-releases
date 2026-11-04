@@ -1,0 +1,62 @@
+{
+  "version": "1.0.4",
+  "scope": "cold-start MCP diagnostic and explicit install progress; base memory core unchanged 1.0.2",
+  "local_tests": {
+    "passed": 103,
+    "subtests_passed": 62
+  },
+  "omp_cold": {
+    "omp_version": "18.16.0",
+    "marketplace_version": "1.0.4",
+    "runtime_absent": true,
+    "mcp_connected": true,
+    "tools": [
+      "mcp__agents_memory_local_agents_memory_local_setup_status"
+    ],
+    "memory_ready": false,
+    "model_calls": 0,
+    "core_downloads_or_db_changes_on_connect": 0
+  },
+  "omp_configured": {
+    "omp_version": "18.16.0",
+    "marketplace_version": "1.0.4",
+    "runtime_absent": false,
+    "mcp_connected": true,
+    "tools": [
+      "mcp__agents_memory_local_delete_document",
+      "mcp__agents_memory_local_get_document",
+      "mcp__agents_memory_local_get_memory",
+      "mcp__agents_memory_local_get_operation",
+      "mcp__agents_memory_local_list_documents",
+      "mcp__agents_memory_local_list_memories",
+      "mcp__agents_memory_local_list_operations",
+      "mcp__agents_memory_local_recall",
+      "mcp__agents_memory_local_sync_retain"
+    ],
+    "memory_ready": true,
+    "model_calls": 0,
+    "core_downloads_or_db_changes_on_connect": 0
+  },
+  "key_progress_terminal": {
+    "actual_terminal_hidden_input": true,
+    "echo_disabled": true,
+    "key_not_in_output": true,
+    "enter_submitted": true,
+    "visible_progress_after_enter": true,
+    "synthetic_installer_only": true,
+    "jev_api_called": false
+  },
+  "macos_binary": {
+    "arm64": true,
+    "minimum_macos": "13.0",
+    "signature_pages_verified": 4,
+    "real_macos_execution": false
+  },
+  "home_and_root_rejected_before_install": true,
+  "stopped_service_not_started": true,
+  "schema_and_lint": "passed",
+  "helper_sha256": "08b55bf0c33dcc8d881084e5c9b18905820ed9d8e648f320594b72a69cb5c4b9",
+  "public_wrapper_copy_matches": true,
+  "no_real_user_history_or_jev_api_used": true,
+  "github_actions_executed": false
+}
