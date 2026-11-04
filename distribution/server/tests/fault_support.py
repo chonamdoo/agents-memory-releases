@@ -19,6 +19,7 @@ from agents_memory_collab.client import Remote, Replica
 from agents_memory_collab.embedding import E5
 from agents_memory_collab.store import Store
 from agents_memory_collab.web import create_app
+from engine_double import ProtocolEngine
 
 ROOT = Path(os.environ.get('AM_COLLAB_EVIDENCE', '/tmp/agents-memory-test-evidence'))
 ROOT.mkdir(parents=True, exist_ok=True)
@@ -116,7 +117,7 @@ class System:
         self.port = sock.getsockname()[1]
         sock.close()
         self.url = f'http://127.0.0.1:{self.port}'
-        self.store = Store(self.dsn, self.embedder)
+        self.store = Store(self.dsn, self.embedder, memory_engine=ProtocolEngine())
         self.server = uvicorn.Server(uvicorn.Config(create_app(self.store, self.url), host='127.0.0.1', port=self.port, log_level='error', access_log=False))
         self.task = asyncio.create_task(self.server.serve())
         for _ in range(200):

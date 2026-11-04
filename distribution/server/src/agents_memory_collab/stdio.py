@@ -32,6 +32,8 @@ class LocalMCP:
         return self.last_sync
 
     async def recall(self, args):
+        if self.replica.status()["memory_contract"] != "agents-memory-grounded-v1":
+            raise Failure(409, "server_memory_contract_upgrade_required")
         item = Search.model_validate_json(canonical(args))
         try:
             value = await asyncio.to_thread(self.replica.remote.request, "/v1/recall", item.model_dump(mode="json"))
@@ -104,8 +106,8 @@ class LocalMCP:
                 name = params.name
                 if name == "setup_status" and not args:
                     status = self.replica.status()
-                    value = {"version": __version__, "ready": bool(status["cache_identity_verified"] and self.last_sync["state"] not in {"blocked", "not_checked"}),
-                             "server_ready": self.last_sync["state"] in {"synced", "needs_review", "queued"},
+                    value = {"version": __version__, "ready": bool(status["memory_ready"] and status["cache_identity_verified"] and self.last_sync["state"] not in {"blocked", "not_checked"}),
+                             "server_ready": bool(status["memory_ready"] and self.last_sync["state"] in {"synced", "needs_review", "queued"}),
                              "sync": self.last_sync, "replica": status}
                 elif name == "sync_now" and not args:
                     value = await self.sync()

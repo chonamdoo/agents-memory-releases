@@ -3,7 +3,14 @@ from __future__ import annotations
 from typing import Annotated, Literal
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    StrictBool,
+    StrictInt,
+    field_validator,
+)
 
 Label = Annotated[str, Field(min_length=1, max_length=128, pattern=r"^[^\x00-\x1f\x7f]+$")]
 Text = Annotated[str, Field(min_length=1, max_length=32_000, pattern=r"^[^\x00]*$")]
@@ -23,6 +30,13 @@ class Operation(Model):
     text: Text | None = None
     session_id: Label | None = None
     source_id: Label | None = None
+
+    @field_validator("text")
+    @classmethod
+    def bounded_source(cls, value):
+        if value is not None and len(value.encode("utf-8")) > 32_000:
+            raise ValueError("Source exceeds the 32000-byte processing budget")
+        return value
 
 
 class Checkpoint(Model):

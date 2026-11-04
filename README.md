@@ -1,5 +1,7 @@
 # agents-memory releases
 
+> **현재 작업 트리: 0.3.0.dev1 공통 기억 엔진 수정안(미배포).** 로컬·개인·팀·회사 서버가 같은 Hindsight 처리 계약을 사용하는 [실행 안내](distribution/server/UNIFIED-RUNTIME.ko.md)와 [계약](distribution/server/MEMORY-CONTRACT.md)을 확인하세요. 기존 v0.2.1 서버는 Hindsight 판단·추출을 우회했으며, 이 요구를 충족한 버전으로 간주하지 않습니다. 아래 기존 릴리즈 안내와 새 개발 버전의 지원 범위를 구분합니다.
+
 > **개인형 MCP 설치:** [v0.2.1 정식 배포](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v0.2.1) · [Claude / Codex / OMP 설치 가이드](release-candidates/v0.2.1/MCP-INSTALL.ko.md). 개인 로컬은 기존 로컬 LLM/Jev, 본인 서버 연결은 서버 URL·기기 키를 사용합니다.
 
 

@@ -71,3 +71,15 @@ ALTER TABLE am_collab.credentials ADD COLUMN IF NOT EXISTS parent_id uuid REFERE
 ALTER TABLE am_collab.credentials ADD COLUMN IF NOT EXISTS created_at timestamptz NOT NULL DEFAULT now();
 ALTER TABLE am_collab.memories ADD COLUMN IF NOT EXISTS session_id text;
 ALTER TABLE am_collab.memories ADD COLUMN IF NOT EXISTS source_id text;
+
+-- Existing data is preserved, never silently relabeled as Hindsight-processed.
+ALTER TABLE am_collab.memories ADD COLUMN IF NOT EXISTS processing_state text NOT NULL DEFAULT 'legacy_pending';
+ALTER TABLE am_collab.memories ADD COLUMN IF NOT EXISTS engine_bank text;
+ALTER TABLE am_collab.memories ADD COLUMN IF NOT EXISTS engine_document text;
+CREATE TABLE IF NOT EXISTS am_collab.memory_jobs (
+    user_id uuid NOT NULL REFERENCES am_collab.accounts(id), op_id uuid NOT NULL,
+    fingerprint text NOT NULL, original jsonb NOT NULL,
+    stage text NOT NULL CHECK(stage IN ('received','extracted','indexed','ready','discarded','deleted')),
+    prepared jsonb, bank text, document text, created_at timestamptz NOT NULL DEFAULT now(),
+    PRIMARY KEY(user_id,op_id)
+);

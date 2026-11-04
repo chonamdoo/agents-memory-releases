@@ -19,6 +19,7 @@ from agents_memory_collab.client import Remote, Replica
 from agents_memory_collab.models import Failure, Invite, Operation, ShareMapping
 from agents_memory_collab.store import Store
 from agents_memory_collab.web import create_app
+from engine_double import ProtocolEngine
 
 DSN = os.environ.get("AM_COLLAB_TEST_DSN")
 pytestmark = pytest.mark.skipif(not DSN, reason="Requires isolated AM_COLLAB_TEST_DSN PostgreSQL/pgvector")
@@ -29,7 +30,7 @@ async def store():
     expected = os.environ.get("AM_COLLAB_TEST_DATA_DIR")
     if not expected:
         pytest.skip("Requires explicit AM_COLLAB_TEST_DATA_DIR")
-    db = Store(DSN)
+    db = Store(DSN, memory_engine=ProtocolEngine())
     await db.open()
     async with db.pool.acquire() as connection:
         assert Path(await connection.fetchval("SHOW data_directory")).resolve() == Path(expected).resolve()
@@ -151,7 +152,7 @@ async def running(embedder=None):
     port = listener.getsockname()[1]
     listener.close()
     url = f"http://127.0.0.1:{port}"
-    server = uvicorn.Server(uvicorn.Config(create_app(Store(DSN, embedder), url),
+    server = uvicorn.Server(uvicorn.Config(create_app(Store(DSN, embedder, memory_engine=ProtocolEngine()), url),
         host="127.0.0.1", port=port, log_level="critical", access_log=False))
     task = asyncio.create_task(server.serve())
     try:
@@ -248,6 +249,10 @@ async def test_real_e5_pgvector_semantic_search(store):
     manifest = os.environ.get("AM_COLLAB_TEST_E5_MANIFEST")
     if not directory or not manifest:
         pytest.skip("Set E5 assets for real ONNX test")
+    if not os.environ.get("AM_UNIFIED_TEST_RECEIPT"):
+        pytest.skip("Semantic retrieval requires the isolated real Hindsight runtime")
+    from test_unified_contract import engine
+    store.memory_engine = engine()
     from agents_memory_collab.embedding import E5
     embedder = E5(Path(directory), Path(manifest))
     store.embedder = embedder

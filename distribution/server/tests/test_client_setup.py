@@ -2,6 +2,7 @@ import asyncio
 import json
 import os
 import sys
+import time
 import tomllib
 from argparse import Namespace
 from pathlib import Path
@@ -12,6 +13,47 @@ from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
 from agents_memory_collab.setup import install, write_private
+from agents_memory_collab.automation import handle
+
+
+async def test_zombie_worker_is_reclaimed_before_lease_expiry(system, tmp_path):
+    if not sys.platform.startswith('linux'):
+        import pytest
+        pytest.skip('Linux procfs zombie regression')
+    a, _, _ = await system.pair(tmp_path)
+    pid=os.fork()
+    if pid==0:
+        os._exit(0)
+    try:
+        for _ in range(100):
+            if (Path('/proc')/str(pid)/'stat').read_text().rpartition(')')[2].split()[0]=='Z':
+                break
+            await asyncio.sleep(.01)
+        a.db.execute("UPDATE worker SET owner='synthetic-dead-worker',pid=?,expires=? WHERE id=1",(pid,time.time()+90))
+        owner=a._claim()
+        assert owner!='synthetic-dead-worker'
+        a._release(owner)
+    finally:
+        os.waitpid(pid,0)
+
+
+async def test_capture_preserves_new_turn_intents_and_deduplicates_vendor_retries(system, tmp_path):
+    a, _, _ = await system.pair(tmp_path)
+    connection = tmp_path/'capture-private.json'
+    write_private(connection,json.dumps({'url':a.remote.url,'token':a.remote.token,'automatic_memory':True}))
+    event={'hook_event_name':'UserPromptSubmit','session_id':'synthetic-session','turn_id':'turn-1',
+           'prompt':'The synthetic project uses PostgreSQL 18.'}
+    async def capture(current):
+        return await asyncio.to_thread(handle,current,connection=connection,state=a.path,project='app',host='codex')
+    await capture(event)
+    await capture(event)
+    assert len(a.status()['pending'])==1
+    await capture(dict(event,turn_id='turn-2'))
+    assert len(a.status()['pending'])==2
+    del event['turn_id']
+    await capture(event)
+    await capture(event)
+    assert len(a.status()['pending'])==4
 
 
 async def test_setup_all_clients_preserves_configuration_and_device_key_on_update(system, tmp_path):
@@ -67,7 +109,8 @@ async def test_actual_stdio_startup_recall_offline_queue_restart_and_other_pc_ap
         await system.stop_server()
         result = await session.call_tool('sync_retain', intent)
         assert not result.is_error
-        assert json.loads(result.content[0].text)['state'] == 'queued'
+        value = json.loads(result.content[0].text)
+        assert value['state'] == 'received' and value['memory_ready'] is False
         status = json.loads((await session.call_tool('setup_status', {})).content[0].text)
         assert status['replica']['pending'][0]['op_id'] == intent['op_id']
     await system.start()
@@ -114,7 +157,8 @@ async def test_actual_client_installer_and_repeat_install_keeps_settings(system,
     params = StdioServerParameters(command=config['command'], args=config['args'], env=env)
     async with stdio_client(params) as (read, write), ClientSession(read, write) as session:
         initialized = await session.initialize()
-        assert initialized.server_info.version == '0.2.1'
+        from agents_memory_collab import __version__
+        assert initialized.server_info.version == __version__
         status = await session.call_tool('setup_status', {})
         assert json.loads(status.content[0].text)['ready']
 

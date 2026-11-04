@@ -93,7 +93,7 @@ class Replica:
     A queue acknowledgement is not a server commit or a successful local apply.
     The outbox is removed only when the committed operation is pulled and verified.
     """
-    def __init__(self, path: Path, remote: Remote):
+    def __init__(self, path: Path, remote: Remote, *, busy_timeout=10):
         path = private_file(path)
         path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
         if not path.exists():
@@ -104,7 +104,7 @@ class Replica:
                 private_file(path)
         self.path, self.remote = path, remote
         self.lock = threading.RLock()
-        self.db = sqlite3.connect(path, timeout=10, check_same_thread=False, isolation_level=None)
+        self.db = sqlite3.connect(path, timeout=busy_timeout, check_same_thread=False, isolation_level=None)
         self.db.row_factory = sqlite3.Row
         self.db.execute("PRAGMA journal_mode=DELETE")
         self.db.execute("PRAGMA synchronous=FULL")
@@ -118,10 +118,11 @@ class Replica:
             CREATE TABLE IF NOT EXISTS recovery_archive(id TEXT PRIMARY KEY,created_at REAL NOT NULL,body TEXT NOT NULL);
         """)
         additions_by_table = {
-            "state": {"epoch": "TEXT", "chain_hash": "TEXT", "credential": "TEXT", "writable": "INTEGER NOT NULL DEFAULT 0"},
-            "memories": {"session_id": "TEXT", "source_id": "TEXT", "applied_sequence": "INTEGER NOT NULL DEFAULT 0"},
+            "state": {"epoch": "TEXT", "chain_hash": "TEXT", "credential": "TEXT", "writable": "INTEGER NOT NULL DEFAULT 0", "memory_ready": "INTEGER NOT NULL DEFAULT 0", "memory_contract": "TEXT"},
+            "memories": {"session_id": "TEXT", "source_id": "TEXT", "applied_sequence": "INTEGER NOT NULL DEFAULT 0", "processing_state": "TEXT NOT NULL DEFAULT 'legacy_pending'"},
             "outbox": {"status": "TEXT NOT NULL DEFAULT 'pending'", "error": "TEXT"},
             "worker": {"pid": "INTEGER"},
+            "receipts": {"outcome": "TEXT NOT NULL DEFAULT 'applied'"},
         }
         with self.transaction():
             for table, additions in additions_by_table.items():
@@ -174,6 +175,8 @@ class Replica:
                 raise Failure(409, "server_history_changed")
             else:
                 self.db.execute("UPDATE state SET credential=?,writable=? WHERE id=1", (digest(self.remote.token), identity["writable"]))
+            memory = identity.get("memory", {})
+            self.db.execute("UPDATE state SET memory_ready=?,memory_contract=? WHERE id=1", (bool(memory.get("ready")), memory.get("contract")))
         return identity
 
     def stage(self, project, text=None, *, memory_id=None, kind="memory", deleted=False,
@@ -203,11 +206,11 @@ class Replica:
                            project=project, kind=kind, base_revision=base_revision if base_revision is not None else old["revision"] if old else 0,
                            text=None if deleted else text, deleted=deleted, session_id=session_id, source_id=source_id)
             fingerprint = operation_digest(op.model_dump(mode="json"))
-            received = self.db.execute("SELECT digest FROM receipts WHERE op_id=?", (str(op.op_id),)).fetchone()
+            received = self.db.execute("SELECT digest,outcome FROM receipts WHERE op_id=?", (str(op.op_id),)).fetchone()
             if received:
                 if received[0] != fingerprint:
                     raise Failure(409, "operation_id_reused")
-                return {"memory_id": mid, "op_id": str(op.op_id), "queued": False, "state": "applied"}
+                return {"memory_id": mid, "op_id": str(op.op_id), "queued": False, "state": received["outcome"]}
             pending = self.db.execute("SELECT op_id,body FROM outbox WHERE memory_id=? OR op_id=?", (mid, str(op.op_id))).fetchone()
             if pending:
                 if pending["op_id"] != str(op.op_id):
@@ -216,7 +219,7 @@ class Replica:
                     raise Failure(409, "operation_id_reused")
             else:
                 self.db.execute("INSERT INTO outbox(op_id,memory_id,body) VALUES(?,?,?)", (str(op.op_id), mid, op.model_dump_json()))
-        return {"memory_id": mid, "op_id": str(op.op_id), "queued": True, "state": "queued"}
+        return {"memory_id": mid, "op_id": str(op.op_id), "queued": True, "state": "received", "memory_ready": False}
 
     def _claim(self):
         owner = str(uuid4())
@@ -226,6 +229,17 @@ class Replica:
             if previous["pid"] and os.name == "posix":
                 try:
                     os.kill(previous["pid"], 0)
+                    # A container's PID 1 may not reap exited host/MCP children.
+                    # kill(pid, 0) also succeeds for zombies; they cannot renew a
+                    # lease. Do not make every other client wait for expiry.
+                    if sys.platform.startswith("linux"):
+                        try:
+                            process = (Path("/proc") / str(previous["pid"]) / "stat").read_text()
+                            abandoned = process.rpartition(")")[2].split()[0] in {"Z", "X"}
+                        except FileNotFoundError:
+                            abandoned = True
+                        except (PermissionError, IndexError):
+                            pass
                 except ProcessLookupError:
                     abandoned = True
                 except PermissionError:
@@ -259,6 +273,8 @@ class Replica:
         owner = self._claim()
         try:
             self.connect()
+            if self._state()["memory_contract"] != "agents-memory-grounded-v1":
+                raise Failure(409, "server_memory_contract_upgrade_required")
             # Detect restored or replaced histories before any pending upload.
             pulled = self._pull(owner)
             pushed = 0
@@ -277,6 +293,15 @@ class Replica:
                         continue
                     raise
                 ack = result.get("acked", [])
+                discarded = result.get("discarded", [])
+                if discarded:
+                    if (result.get("epoch") != self._state()["epoch"] or ack or len(discarded) != 1
+                            or discarded[0] != {"op_id": row["op_id"], "digest": operation_digest(body), "state": "discarded"}):
+                        raise Failure(502, "invalid_discard_receipt")
+                    with self.transaction():
+                        self.db.execute("INSERT OR REPLACE INTO receipts(op_id,digest,outcome) VALUES(?,?,'discarded')", (row["op_id"], operation_digest(body)))
+                        self.db.execute("DELETE FROM outbox WHERE op_id=?", (row["op_id"],))
+                    continue
                 if (result.get("epoch") != self._state()["epoch"] or len(ack) != 1
                         or ack[0].get("op_id") != row["op_id"]
                         or ack[0].get("digest") != operation_digest(body)
@@ -317,7 +342,8 @@ class Replica:
                         session_id=excluded.session_id,source_id=excluded.source_id,applied_sequence=excluded.applied_sequence""",
                         (change["memory_id"], change["project"], change["kind"], change["text"], change["deleted"],
                          change["revision"], change.get("session_id"), change.get("source_id"), last))
-                    self.db.execute("INSERT OR REPLACE INTO receipts VALUES(?,?)", (change["op_id"], change["digest"]))
+                    self.db.execute("INSERT OR REPLACE INTO receipts(op_id,digest) VALUES(?,?)", (change["op_id"], change["digest"]))
+                    self.db.execute("UPDATE memories SET processing_state=? WHERE id=?", (change.get("processing_state", "legacy_pending"), change["memory_id"]))
                     pending = self.db.execute("SELECT body FROM outbox WHERE op_id=?", (change["op_id"],)).fetchone()
                     if pending:
                         if operation_digest(json.loads(pending[0])) != change["digest"]:
@@ -366,11 +392,14 @@ class Replica:
                            "outbox": [dict(r) for r in self.db.execute("SELECT * FROM outbox")]}
                 self.db.execute("INSERT INTO recovery_archive VALUES(?,?,?)", (archive_id, time.time(), canonical(archive)))
                 self.db.execute("DELETE FROM memories")
-                self.db.executemany("INSERT INTO memories VALUES(?,?,?,?,?,?,?,?,?)", [tuple(r) for r in shadow.db.execute("SELECT * FROM memories")])
+                fields = [row[1] for row in self.db.execute("PRAGMA table_info(memories)")]
+                self.db.executemany("INSERT INTO memories(" + ",".join(fields) + ") VALUES(" + ",".join("?" for _ in fields) + ")",
+                                    [tuple(row[field] for field in fields) for row in shadow.db.execute("SELECT * FROM memories")])
                 self.db.execute("DELETE FROM receipts")
-                self.db.executemany("INSERT INTO receipts VALUES(?,?)", [tuple(r) for r in shadow.db.execute("SELECT * FROM receipts")])
+                self.db.executemany("INSERT INTO receipts(op_id,digest,outcome) VALUES(?,?,?)", [tuple(r) for r in shadow.db.execute("SELECT op_id,digest,outcome FROM receipts")])
                 self.db.execute("UPDATE state SET epoch=?,cursor=?,chain_hash=?,credential=?,writable=? WHERE id=1",
                                 (target["epoch"], target["cursor"], target["chain_hash"], target["credential"], target["writable"]))
+                self.db.execute("UPDATE state SET memory_ready=?,memory_contract=? WHERE id=1", (target["memory_ready"], target["memory_contract"]))
                 self.db.execute("UPDATE outbox SET status='needs_review',error='history_recovered_review_required'")
                 for row in self.db.execute("SELECT op_id,body FROM outbox").fetchall():
                     receipt = self.db.execute("SELECT digest FROM receipts WHERE op_id=?", (row["op_id"],)).fetchone()
@@ -415,10 +444,11 @@ class Replica:
             saved = self._state()
         bound = bool(saved and saved["epoch"])
         return {"bound": bound, "pending": pending,
+                "memory_ready": bool(saved and saved["memory_ready"]), "memory_contract": saved["memory_contract"] if saved else None,
                 "cache_identity_verified": bool(bound and saved["server"] == self.remote.url and saved["credential"] == digest(self.remote.token)),
                 "state": "setup_required" if not bound else "needs_review" if any(r["status"] == "needs_review" for r in pending) else "queued" if pending else "synced"}
 
     def list_memories(self, project=None):
         with self.lock:
             return [dict(row) for row in self.db.execute(
-                "SELECT * FROM memories WHERE NOT deleted AND (? IS NULL OR project=?) ORDER BY applied_sequence DESC,id", (project, project))]
+                "SELECT * FROM memories WHERE NOT deleted AND processing_state='ready' AND (? IS NULL OR project=?) ORDER BY applied_sequence DESC,id", (project, project))]

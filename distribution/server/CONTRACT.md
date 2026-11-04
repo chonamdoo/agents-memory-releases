@@ -1,5 +1,9 @@
 # Collaboration 0.2 contract and release boundary
 
+Historical transport/ACL contract. Memory processing in the current development
+tree is governed by [MEMORY-CONTRACT.md](MEMORY-CONTRACT.md). Raw 0.2 text storage
+is not equivalent to the common Hindsight processing contract.
+
 This is the implementation contract for the accepted minimal-change plan. Independent audit counterexamples are preserved in the earlier audit directories; their failing evidence is not rewritten as passing evidence. Regression tests now assert the desired behavior explicitly.
 
 ## Data and identity

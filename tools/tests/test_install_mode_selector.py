@@ -1,4 +1,4 @@
-"""Mode selection must never run the other installer or rewrite its arguments."""
+"""Every deployment location must select the common client, never the legacy core."""
 import json
 import os
 import subprocess
@@ -27,11 +27,12 @@ def run(root, *args):
     return result, json.loads(output.read_text()) if output.exists() else None
 
 
-@pytest.mark.parametrize('mode,entry', [('local', 'mcp-local'), ('personal-server', 'server')])
-def test_selects_only_requested_path_with_exact_arguments(package, mode, entry):
+@pytest.mark.parametrize('mode,defaults', [('local', ['--url','http://127.0.0.1:18350','--profile','local']),
+    ('personal-server', []),('team-server',['--profile','team-server']),('company-server',['--profile','company-server'])])
+def test_selects_common_path_and_preserves_explicit_arguments(package, mode, defaults):
     args = ['--client', 'omp', '--project', '/tmp/한글 project', '--url', 'https://memory.example']
     result, saved = run(package, '--mode', mode, *args)
-    assert result.returncode == 0 and saved == [entry, *args]
+    assert result.returncode == 0 and saved == ['server', *defaults, *args]
 
 
 @pytest.mark.parametrize('args', [[], ['--mode'], ['--mode', 'invalid'], ['--mode='],
@@ -44,7 +45,7 @@ def test_invalid_or_noninteractive_missing_mode_never_installs(package, args):
 def test_help_does_not_install(package):
     result, saved = run(package, '--help')
     assert result.returncode == 0 and saved is None
-    assert 'local LLM or Jev' in result.stdout
+    assert 'same common Hindsight engine contract' in result.stdout
 
 
 def test_missing_package_does_not_download_or_fall_back(package):

@@ -102,6 +102,8 @@ def install(args):
     project_name = args.project_name or project.name
     # Validate every host destination before issuing or writing a credential.
     plans = [host_config(c, project, connection, state, project_name) for c in clients]
+    from .automation_setup import plan
+    automation_plans = [plan(c, project, connection, state, project_name) for c in clients]
     connection = private_file(connection)
     replacing = connection.exists() and getattr(args, "replace_credential", False)
     previous = None
@@ -120,6 +122,11 @@ def install(args):
             raise Failure(409, "destination_changed_choose_new_profile")
         remote = Remote(saved["url"], saved["token"])
         identity = remote.request("/v1/me")
+        if identity.get("memory", {}).get("contract") != "agents-memory-grounded-v1":
+            raise Failure(409, "server_memory_contract_upgrade_required")
+        if "automatic_memory" not in saved:
+            saved["automatic_memory"] = not getattr(args, "no_automatic_memory", False)
+            write_private(connection, canonical(saved) + "\n")
     else:
         if args.credential_file:
             credential_file = private_file(args.credential_file)
@@ -133,12 +140,15 @@ def install(args):
         print("서버와 계정을 확인하고 있습니다…", file=sys.stderr, flush=True)
         remote = Remote(url, token)
         identity = remote.request("/v1/me")
+        if identity.get("memory", {}).get("contract") != "agents-memory-grounded-v1":
+            raise Failure(409, "server_memory_contract_upgrade_required")
         if previous and (previous["server"], previous["user"], previous["installation"]) != (remote.url, identity["user_id"], identity["installation_id"]):
             raise Failure(409, "destination_changed_choose_new_profile")
         if identity["manage_keys"]:
             device = remote.request("/v1/devices", {"name": args.device_name or socket.gethostname(), "writable": True})
             remote = Remote(remote.url, device["token"])
-        write_private(connection, canonical({"url": remote.url, "token": remote.token}) + "\n", exclusive=not replacing)
+        write_private(connection, canonical({"url": remote.url, "token": remote.token,
+            "automatic_memory": not getattr(args, "no_automatic_memory", False)}) + "\n", exclusive=not replacing)
     replica = Replica(state, remote)
     try:
         if getattr(args, "recover", False) and replica._state():
@@ -153,7 +163,7 @@ def install(args):
                   "next": "Run this setup command again with --recover. An unbound legacy queue must first be saved with sync export-pending."}
     finally:
         replica.close()
-    for path, raw, output in plans:
+    for path, raw, output in [*plans, *automation_plans]:
         if output is None:
             continue
         if (path.read_text() if path.exists() else "") != raw:
@@ -164,6 +174,8 @@ def install(args):
         if path.exists():
             path.chmod(0o600)
         write_private(path, output)
-    return {"ready": result["state"] == "synced", "profile": args.profile, "clients": clients,
+    return {"ready": result["state"] == "synced" and result.get("memory_ready", False), "profile": args.profile, "clients": clients,
             "project": project_name, "config_files": [str(p[0]) for p in plans],
+            "automation_files": [str(p[0]) for p in automation_plans],
+            "automation": "Host trust and enabled hooks/extensions are required. Existing capture preferences are preserved.",
             "next": "Reload MCP or restart the selected app. Settings persist across upgrades.", "sync": result}

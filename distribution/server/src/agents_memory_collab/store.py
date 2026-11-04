@@ -3,9 +3,10 @@ from __future__ import annotations
 import asyncio
 import json
 import secrets
+from contextlib import asynccontextmanager
 from dataclasses import dataclass
 from pathlib import Path
-from uuid import UUID, uuid4
+from uuid import NAMESPACE_URL, UUID, uuid4, uuid5
 
 import asyncpg
 
@@ -31,8 +32,12 @@ class Actor:
 
 
 class Store:
-    def __init__(self, dsn: str, embedder=None):
+    def __init__(self, dsn: str, embedder=None, *, memory_engine=None, deployment_mode="personal-server"):
+        if deployment_mode not in {"local", "personal-server", "team-server", "company-server"}:
+            raise ValueError("Unsupported deployment location")
         self.dsn, self.embedder = dsn, embedder
+        self.memory_engine = memory_engine
+        self.deployment_mode = deployment_mode
         self.pool = None
         self.installation_id = None
 
@@ -141,16 +146,160 @@ class Store:
         installation = await self.pool.fetchrow("SELECT id,sync_epoch FROM am_collab.installation")
         return {"installation_id": str(installation["id"]), "epoch": str(installation["sync_epoch"]), "user_id": str(actor.user_id),
                 "device_id": str(actor.device_id), "name": row["name"],
-                "upload_prompts": row["upload_prompts"], "writable": actor.writable, "manage_keys": actor.manage_keys}
+                "upload_prompts": row["upload_prompts"], "writable": actor.writable, "manage_keys": actor.manage_keys,
+                "memory": await self.memory_status(actor)}
+
+    async def memory_status(self, actor=None):
+        pending = await self.pool.fetchval("SELECT count(*) FROM am_collab.memories WHERE processing_state='legacy_pending' AND user_id=$1", actor.user_id) if actor else None
+        if self.memory_engine is None:
+            return {"ready": False, "state": "memory_engine_unconfigured", "legacy_pending": pending}
+        try:
+            return {"ready": True, "state": "ready", "deployment_mode": self.deployment_mode,
+                    "legacy_pending": pending, **await self.memory_engine.health()}
+        except Failure as error:
+            return {"ready": False, "state": error.code, "legacy_pending": pending}
+
+    async def legacy_plan(self, actor):
+        await self._active(actor)
+        rows = await self.pool.fetch("""SELECT id,project,kind,revision,session_id,source_id,text
+            FROM am_collab.memories WHERE user_id=$1 AND NOT deleted AND processing_state='legacy_pending'
+            ORDER BY id""", actor.user_id)
+        return {"apply_performed": False, "requires_explicit_reprocessing": True,
+                "items": [{k:v for k,v in dict(row).items() if k != "text"} | {"source_sha256": digest(row["text"] or "")}
+                          for row in rows],
+                "effect": "Keep memory ID and provenance; add a processed revision only if admitted. Old SQL history/backups are preserved."}
+
+    async def reprocess_legacy(self, actor, memory_id):
+        actor.write()
+        await self._active(actor)
+        row = await self.pool.fetchrow("SELECT * FROM am_collab.memories WHERE user_id=$1 AND id=$2", actor.user_id, memory_id)
+        if row is None:
+            raise Failure(404, "not_found")
+        if row["processing_state"] != "legacy_pending" or row["deleted"]:
+            return {"reprocessed": False, "state": row["processing_state"]}
+        identity = str(actor.user_id) + ":" + str(memory_id) + ":" + str(row["revision"]) + ":" + digest(row["text"])
+        operation = Operation(op_id=uuid5(NAMESPACE_URL, "legacy-reprocess:" + identity), memory_id=memory_id,
+            project=row["project"], kind=row["kind"], base_revision=row["revision"], text=row["text"],
+            session_id=row["session_id"], source_id=row["source_id"])
+        result = await self.push(actor, [operation])
+        if result.get("discarded"):
+            await self.pool.execute("""UPDATE am_collab.memories SET processing_state='legacy_rejected'
+                WHERE user_id=$1 AND id=$2 AND revision=$3 AND processing_state='legacy_pending'""",
+                actor.user_id, memory_id, row["revision"])
+        return result
+
+    @asynccontextmanager
+    async def _transaction(self, connection=None):
+        if connection is not None:
+            async with connection.transaction():
+                yield connection
+        else:
+            async with self.pool.acquire() as db, db.transaction():
+                yield db
+
+    async def _active(self, actor, connection=None):
+        if not await (connection if connection is not None else self.pool).fetchval("""SELECT 1 FROM am_collab.credentials c
+            JOIN am_collab.accounts a ON a.id=c.user_id
+            WHERE c.id=$1 AND c.user_id=$2 AND NOT c.revoked AND a.active""", actor.credential_id, actor.user_id):
+            raise Failure(401, "unauthorized")
 
     async def push(self, actor: Actor, operations: list[Operation], checkpoint=None):
+        actor.write()
+        await self._active(actor)
+        if self.memory_engine is None:
+            raise Failure(503, "memory_engine_unconfigured")
+        # Keep batch conflict detection ahead of all provider calls. Each device
+        # normally sends one operation, so an unrelated conflict cannot stall it.
+        for op in operations:
+            prior = await self.pool.fetchrow("SELECT fingerprint FROM am_collab.memory_jobs WHERE user_id=$1 AND op_id=$2", actor.user_id, op.op_id)
+            if prior:
+                if prior["fingerprint"] != operation_digest(op.model_dump(mode="json")):
+                    raise Failure(409, "operation_id_reused")
+                continue
+            old = await self.pool.fetchrow("SELECT revision,project,kind FROM am_collab.memories WHERE user_id=$1 AND id=$2", actor.user_id, op.memory_id)
+            if op.base_revision != (old["revision"] if old else 0):
+                raise Failure(409, "revision_conflict")
+            if old and (old["project"], old["kind"]) != (op.project, op.kind):
+                raise Failure(409, "memory_scope_is_immutable")
+        acked, discarded = [], []
+        for op in operations:
+            result = await self._process(actor, op, checkpoint)
+            acked.extend(result.get("acked", []))
+            discarded.extend(result.get("discarded", []))
+        head = await self.pool.fetchval("SELECT sequence FROM am_collab.accounts WHERE id=$1", actor.user_id)
+        epoch = await self.pool.fetchval("SELECT sync_epoch FROM am_collab.installation")
+        return {"acked": acked, "discarded": discarded, "head": head, "epoch": str(epoch)}
+
+    async def _process(self, actor, op, checkpoint):
+        fingerprint = operation_digest(op.model_dump(mode="json"))
+        # Session advisory lock serializes one memory across API processes without
+        # holding a database transaction open while a model is running.
+        async with self.pool.acquire() as lock:
+            key = str(actor.user_id) + ":" + str(op.memory_id)
+            await lock.execute("SELECT pg_advisory_lock(hashtextextended($1,0))", key)
+            try:
+                await self._active(actor, lock)
+                prior = await lock.fetchrow("SELECT * FROM am_collab.memory_jobs WHERE user_id=$1 AND op_id=$2", actor.user_id, op.op_id)
+                if prior and prior["fingerprint"] != fingerprint:
+                    raise Failure(409, "operation_id_reused")
+                if prior and prior["stage"] == "discarded":
+                    return {"discarded": [{"op_id": str(op.op_id), "digest": fingerprint, "state": "discarded"}]}
+                if prior and prior["stage"] in {"ready", "deleted"}:
+                    return await self._commit(actor, [op], checkpoint, originals={str(op.op_id): fingerprint}, connection=lock)
+                old = await lock.fetchrow("SELECT * FROM am_collab.memories WHERE user_id=$1 AND id=$2", actor.user_id, op.memory_id)
+                if op.base_revision != (old["revision"] if old else 0):
+                    raise Failure(409, "revision_conflict")
+                if op.kind == "prompt" and not op.deleted and not await lock.fetchval("SELECT upload_prompts FROM am_collab.accounts WHERE id=$1", actor.user_id):
+                    raise Failure(403, "prompt_upload_requires_explicit_opt_in")
+                if not op.deleted and (op.text is None or not op.text.strip()):
+                    raise Failure(400, "memory_text_required")
+                bank, document = self.memory_engine.bank(actor.user_id, op.project), self.memory_engine.document(op)
+                await lock.execute("""INSERT INTO am_collab.memory_jobs(user_id,op_id,fingerprint,original,stage,bank,document)
+                    VALUES($1,$2,$3,$4::jsonb,'received',$5,$6) ON CONFLICT DO NOTHING""",
+                    actor.user_id, op.op_id, fingerprint, canonical(op.model_dump(mode="json")), bank, document)
+                recorded = await lock.fetchval("SELECT fingerprint FROM am_collab.memory_jobs WHERE user_id=$1 AND op_id=$2", actor.user_id, op.op_id)
+                if recorded != fingerprint:
+                    raise Failure(409, "operation_id_reused")
+                if op.deleted:
+                    docs = await lock.fetch("""SELECT bank,document FROM am_collab.memory_jobs
+                        WHERE user_id=$1 AND original->>'memory_id'=$2 AND stage IN ('indexed','ready')""", actor.user_id, str(op.memory_id))
+                    for doc in docs:
+                        await self.memory_engine.delete(doc["bank"], doc["document"])
+                    processed = op
+                else:
+                    prepared = json.loads(prior["prepared"]) if prior and prior["prepared"] else await self.memory_engine.prepare(op.text)
+                    prepared["metadata"] = {"account_id": str(actor.user_id), "project": op.project,
+                        "kind": op.kind, "memory_id": str(op.memory_id), "operation_id": str(op.op_id),
+                        "revision": str(op.base_revision + 1), "source_sha256": digest(op.text)}
+                    for field in ("session_id", "source_id"):
+                        value = old[field] if old and field not in op.model_fields_set else getattr(op, field)
+                        if value is not None:
+                            prepared["metadata"][field] = value
+                    await lock.execute("UPDATE am_collab.memory_jobs SET prepared=$3::jsonb,stage='extracted' WHERE user_id=$1 AND op_id=$2", actor.user_id, op.op_id, canonical(prepared))
+                    if prepared["decision"] == "discard":
+                        await lock.execute("UPDATE am_collab.memory_jobs SET stage='discarded' WHERE user_id=$1 AND op_id=$2", actor.user_id, op.op_id)
+                        return {"discarded": [{"op_id": str(op.op_id), "digest": fingerprint, "state": "discarded"}]}
+                    text = await self.memory_engine.index(bank, document, prepared)
+                    await lock.execute("UPDATE am_collab.memory_jobs SET stage='indexed' WHERE user_id=$1 AND op_id=$2", actor.user_id, op.op_id)
+                    processed = op.model_copy(update={"text": text})
+                await self._active(actor, lock)
+                result = await self._commit(actor, [processed], checkpoint, originals={str(op.op_id): fingerprint},
+                    engine_metadata={str(op.op_id): (bank, document)}, connection=lock)
+                # Publication and job completion share the _commit transaction.
+                # Old documents are not authoritative after the current revision
+                # changes. Cleanup is retriable separately and never a read bypass.
+                return result
+            finally:
+                await lock.execute("SELECT pg_advisory_unlock(hashtextextended($1,0))", key)
+
+    async def _commit(self, actor: Actor, operations: list[Operation], checkpoint=None, *, originals=None, engine_metadata=None, connection=None):
         actor.write()
         vectors = {}
         if self.embedder:
             for op in operations:
                 if not op.deleted and op.kind != "prompt" and op.text:
                     vectors[str(op.op_id)] = await asyncio.to_thread(self.embedder.encode, op.text)
-        async with self.pool.acquire() as db, db.transaction():
+        async with self._transaction(connection) as db:
             epoch = await db.fetchval("SELECT sync_epoch FROM am_collab.installation FOR SHARE")
             # Per-user serialization makes sequence order equal commit order.
             account = await db.fetchrow("SELECT sequence,upload_prompts,log_hash FROM am_collab.accounts WHERE id=$1 FOR UPDATE", actor.user_id)
@@ -163,7 +312,7 @@ class Store:
             seq, ack = account["sequence"], []
             for op in operations:
                 body = op.model_dump(mode="json")
-                fingerprint = operation_digest(body)
+                fingerprint = originals[str(op.op_id)] if originals else operation_digest(body)
                 prior = await db.fetchrow("SELECT sequence,digest,body,chain_hash FROM am_collab.changes WHERE user_id=$1 AND op_id=$2", actor.user_id, op.op_id)
                 if prior:
                     if prior["digest"] != fingerprint:
@@ -195,6 +344,11 @@ class Store:
                     None if op.deleted else op.text, actor.device_id, canonical(vector) if vector else None,
                     body["session_id"], body["source_id"])
                 body.update(revision=revision, device_id=str(actor.device_id))
+                body["processing_state"] = "deleted" if op.deleted else "ready"
+                bank, document = (engine_metadata or {}).get(str(op.op_id), (None, None))
+                await db.execute("""UPDATE am_collab.memories SET processing_state=$3,engine_bank=$4,engine_document=$5
+                    WHERE user_id=$1 AND id=$2""", actor.user_id, op.memory_id, body["processing_state"], bank, document)
+                await db.execute("UPDATE am_collab.memory_jobs SET stage=$3 WHERE user_id=$1 AND op_id=$2", actor.user_id, op.op_id, body["processing_state"])
                 if op.deleted:
                     body["text"] = None
                 previous = chain_hash(previous, seq, body, fingerprint)
@@ -325,7 +479,10 @@ class Store:
         return {"removed": True}
 
     async def search(self, actor, query, project=None, limit=10, team=None):
-        vector = await asyncio.to_thread(self.embedder.encode, query, query=True) if self.embedder else None
+        await self._active(actor)
+        if self.memory_engine is None:
+            raise Failure(503, "memory_engine_unconfigured")
+        vector = None
         # Tenant and project authorization are part of the SQL candidate set,
         # before ranking/limiting. Never fetch another user's private corpus.
         if team is None:
@@ -342,34 +499,60 @@ class Store:
                 AND (reader.role='owner' OR EXISTS(SELECT 1 FROM am_collab.grants g WHERE g.team_id=s.team_id AND g.user_id=$1 AND g.project_id=s.project_id))
                 AND (author.role='owner' OR EXISTS(SELECT 1 FROM am_collab.grants g WHERE g.team_id=s.team_id AND g.user_id=m.user_id AND g.project_id=s.project_id))"""
         project_clause = "m.project" if team is None else "s.project_id::text"
-        params = [actor.user_id, query, project, canonical(vector) if vector else None, limit]
+        params = [actor.user_id, query, project, canonical(vector) if vector else None, 10000]
         if team is not None:
             params.append(team)
-        rows = await self.pool.fetch(f"""SELECT m.id,m.text,m.kind,m.revision,m.updated_at,
+        rows = await self.pool.fetch(f"""SELECT m.id,m.text,m.kind,m.revision,m.updated_at,m.engine_bank,m.engine_document,
             {project_clause} AS project,m.user_id AS author_id,a.name AS author,
             (CASE WHEN $4::vector IS NOT NULL AND m.embedding IS NOT NULL THEN 1-(m.embedding <=> $4::vector) ELSE 0 END)
             + ts_rank_cd(to_tsvector('simple',m.text),plainto_tsquery('simple',$2)) AS score
             FROM am_collab.memories m JOIN am_collab.accounts a ON a.id=m.user_id {joins}
-            WHERE {scope} AND NOT m.deleted AND m.kind<>'prompt' AND ($3::text IS NULL OR {project_clause}=$3)
-            AND ($4::vector IS NOT NULL OR to_tsvector('simple',m.text) @@ plainto_tsquery('simple',$2) OR m.text ILIKE '%'||$2||'%')
+            WHERE {scope} AND NOT m.deleted AND m.processing_state='ready' AND m.kind<>'prompt' AND ($3::text IS NULL OR {project_clause}=$3)
             ORDER BY score DESC,m.updated_at DESC,m.id LIMIT $5""", *params)
-        return {"memories": [dict(row) for row in rows], "semantic": self.embedder is not None}
+        hits = {}
+        for bank in sorted({row["engine_bank"] for row in rows if row["engine_bank"]}):
+            for rank, hit in enumerate(await self.memory_engine.recall(bank, query)):
+                document = hit.get("document_id")
+                if isinstance(document, str):
+                    hits[(bank, document)] = max(hits.get((bank, document), 0), 1 / (rank + 1))
+        result = []
+        for row in rows:
+            identity = (row["engine_bank"], row["engine_document"])
+            if identity not in hits:
+                continue
+            # A backend hit never authorizes an obsolete or deleted revision.
+            current = await self.pool.fetchval("""SELECT 1 FROM am_collab.memories WHERE user_id=$1 AND id=$2
+                AND revision=$3 AND NOT deleted AND processing_state='ready' AND engine_document=$4""",
+                row["author_id"], row["id"], row["revision"], row["engine_document"])
+            if current:
+                item = dict(row)
+                item.pop("engine_bank")
+                item.pop("engine_document")
+                item["score"] = hits[identity]
+                result.append(item)
+        result.sort(key=lambda item: (-item["score"], str(item["id"])))
+        return {"memories": result[:limit], "semantic": True, "engine": "hindsight"}
 
     async def brief(self, actor, team, project):
+        await self._active(actor)
+        if self.memory_engine is None:
+            raise Failure(503, "memory_engine_unconfigured")
         # Recent shared memory is useful even if the user's query has no matching keyword.
         await self.membership(self.pool, actor, team)
-        rows = await self.pool.fetch("""SELECT m.text,a.name AS author,m.updated_at FROM am_collab.memories m
+        rows = await self.pool.fetch("""SELECT m.text,m.engine_bank,m.engine_document,a.name AS author,m.updated_at FROM am_collab.memories m
             JOIN am_collab.sharing s ON s.user_id=m.user_id AND s.source_project=m.project
             JOIN am_collab.members author ON author.team_id=s.team_id AND author.user_id=m.user_id
             JOIN am_collab.members reader ON reader.team_id=s.team_id AND reader.user_id=$1
             JOIN am_collab.accounts a ON a.id=m.user_id
-            WHERE s.team_id=$2 AND s.project_id=$3 AND NOT m.deleted AND m.kind<>'prompt'
+            WHERE s.team_id=$2 AND s.project_id=$3 AND NOT m.deleted AND m.processing_state='ready' AND m.kind<>'prompt'
             AND author.active AND author.role<>'viewer' AND reader.active AND a.active
             AND (reader.role='owner' OR EXISTS(SELECT 1 FROM am_collab.grants g WHERE g.team_id=$2 AND g.user_id=$1 AND g.project_id=$3))
             AND (author.role='owner' OR EXISTS(SELECT 1 FROM am_collab.grants g WHERE g.team_id=$2 AND g.user_id=m.user_id AND g.project_id=$3))
             ORDER BY m.updated_at DESC,m.id LIMIT 20""", actor.user_id, team, project)
         result, used = [], 0
         for row in rows:
+            if await self.memory_engine.read(row["engine_bank"], row["engine_document"]) != row["text"]:
+                continue
             text = row["text"][:500]
             if used + len(text) > 2500:
                 break

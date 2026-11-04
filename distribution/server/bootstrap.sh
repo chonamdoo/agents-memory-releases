@@ -1,14 +1,8 @@
 #!/bin/bash
-# Run on the team's server. Never installs a local database on client PCs.
+# The old image contains no common Hindsight processor. Do not deploy a raw store.
 set -euo pipefail
-cd -- "$(dirname -- "$0")"
-umask 077
-if [[ ! -e .env ]]; then
-  am_password=$(openssl rand -hex 32)
-  printf 'AM_COLLAB_DB_PASSWORD=%s\nAM_COLLAB_PUBLIC_URL=http://127.0.0.1:18350\n' "$am_password" > .env
-fi
-[[ ! -L .env ]] || { echo 'Refusing a symlinked server environment file' >&2; exit 1; }
-chmod 600 .env
-docker compose up -d --build db server
-echo 'Server starting at http://127.0.0.1:18350; existing volumes and keys are preserved.'
-echo 'Create a private account connection file with the account command in README.ko.md.'
+printf '%s\n' \
+  '0.3.0.dev1: the legacy Docker bootstrap is retired.' \
+  'Use the reviewed common runtime described in UNIFIED-RUNTIME.ko.md.' \
+  'A new packaged core and cold-install verification are required before release.' >&2
+exit 2

@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agents-memory-collaboration"
-version = "0.2.1"
-description = "Optional personal sync, project-scoped team memory, and self-hosted MCP"
+version = "0.3.0.dev1"
+description = "Common Hindsight memory processing, durable sync and project-scoped MCP"
 requires-python = ">=3.12"
 license = "MIT"
 dependencies = ["asyncpg==0.31.0", "mcp==2.3.0", "starlette>=0.47,<2", "uvicorn>=0.35,<1"]

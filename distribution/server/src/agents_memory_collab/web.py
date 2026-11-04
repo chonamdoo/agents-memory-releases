@@ -121,13 +121,18 @@ def create_app(store, public_url="http://127.0.0.1:18350"):
         try:
             if request.url.path == "/healthz":
                 await store.pool.fetchval("SELECT 1")
-                return response({"ready": True, "version": __version__,
-                                 "semantic": store.embedder is not None})
+                memory = await store.memory_status()
+                return response({"ready": memory["ready"], "version": __version__, "memory": memory,
+                                 "semantic": store.memory_engine is not None})
             actor = request.scope["am_actor"]
             method, path = request.method, request.url.path
             value = await request.json() if method in {"POST", "PUT"} else {}
             if path == "/v1/me" and method == "GET":
                 result = await store.me(actor)
+            elif path == "/v1/memory/legacy" and method == "GET":
+                result = await store.legacy_plan(actor)
+            elif path == "/v1/memory/reprocess" and method == "POST" and set(value) == {"memory_id"}:
+                result = await store.reprocess_legacy(actor, UUID(value["memory_id"]))
             elif path == "/v1/preferences" and method == "PUT":
                 result = await store.preferences(actor, parse(Preferences, value).upload_prompts)
             elif path == "/v1/devices" and method == "POST":
@@ -219,7 +224,8 @@ def create_app(store, public_url="http://127.0.0.1:18350"):
             actor = await store.authenticate(token)
             args = dict(params.arguments or {})
             if params.name == "setup_status" and not args:
-                value = {"ready": True, "version": __version__, "semantic": store.embedder is not None,
+                memory = await store.memory_status(actor)
+                value = {"ready": memory["ready"], "version": __version__, "memory": memory, "semantic": store.memory_engine is not None,
                          "account": await store.me(actor)}
             elif params.name == "sync_retain":
                 value = await store.push(actor, [parse(Operation, args)])

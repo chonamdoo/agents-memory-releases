@@ -35,6 +35,7 @@ def parser():
     serve.add_argument("--public-url", required=True)
     serve.add_argument("--e5-dir", type=Path)
     serve.add_argument("--e5-manifest", type=Path)
+    serve.add_argument("--deployment-mode", choices=["local", "personal-server", "team-server", "company-server"], default="personal-server")
     account = sub.add_parser("account", help="Server administrator: create account and private first credential")
     account.add_argument("--name", required=True)
     account.add_argument("--output", type=Path, required=True)
@@ -51,6 +52,7 @@ def parser():
     setup.add_argument("--profile", default="personal")
     setup.add_argument("--root", type=Path)
     setup.add_argument("--device-name")
+    setup.add_argument("--no-automatic-memory", action="store_true", help="Disable prompt candidate capture on a new profile; existing preference is preserved")
     setup.add_argument("--replace-credential", action="store_true", help="Verify and replace a revoked/lost key for the same account")
     setup.add_argument("--recover", action="store_true", help="Explicitly archive/rebuild a restored or legacy replica")
     mcp = sub.add_parser("mcp", help="Durable stdio MCP with background sync")
@@ -75,6 +77,10 @@ def parser():
     commands.add_parser("once")
     commands.add_parser("connect")
     commands.add_parser("status")
+    commands.add_parser("legacy-plan", help="Read-only inventory of this account's unprocessed legacy records; no source text printed")
+    migrate = commands.add_parser("reprocess-legacy", help="Explicitly process one preserved legacy record through the common engine")
+    migrate.add_argument("--memory-id", type=UUID, required=True)
+    migrate.add_argument("--apply", action="store_true", required=True)
     commands.add_parser("recover")
     export = commands.add_parser("export-pending", help="Preserve an old unbound queue for explicit selection; never uploads it")
     export.add_argument("--output", type=Path, required=True)
@@ -116,7 +122,10 @@ def main():
                 if not args.e5_manifest:
                     raise ValueError("An E5 checksum manifest is required")
                 embedder = E5(args.e5_dir, args.e5_manifest)
-            store = Store(dsn, embedder)
+            from .memory_engine import from_environment
+            engine = from_environment() if args.command == "serve" else None
+            store = Store(dsn, embedder, memory_engine=engine,
+                          deployment_mode=getattr(args, "deployment_mode", "personal-server"))
             if args.command == "serve":
                 import uvicorn
                 # Access logs may include invite/query identifiers; disable them.
@@ -184,6 +193,10 @@ def main():
                     result = replica.connect()
                 elif args.action == "status":
                     result = replica.status()
+                elif args.action == "legacy-plan":
+                    result = replica.remote.request("/v1/memory/legacy")
+                elif args.action == "reprocess-legacy":
+                    result = replica.remote.request("/v1/memory/reprocess", {"memory_id": str(args.memory_id)})
                 elif args.action == "recover":
                     result = replica.recover()
                 elif args.action == "export-pending":
