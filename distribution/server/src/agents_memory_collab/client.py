@@ -5,6 +5,7 @@ import json
 import os
 import sqlite3
 import stat
+import sys
 import threading
 import time
 import urllib.error
@@ -19,6 +20,17 @@ from .protocol import GENESIS, canonical, chain_hash, digest, operation_digest
 
 
 def private_file(path: Path):
+    path = path.absolute()
+    # macOS exposes these OS-owned roots as aliases. Normalize only those
+    # verified roots, then retain the leaf/parent symlink and ownership checks.
+    # Resolving the whole path would also follow user-controlled symlinks.
+    if sys.platform == "darwin":
+        for alias in ("/var", "/tmp", "/etc"):
+            target = "/private" + alias
+            if (path.is_relative_to(alias) and Path(alias).is_symlink()
+                    and os.lstat(alias).st_uid == 0 and os.path.realpath(alias) == target):
+                path = Path(target) / path.relative_to(alias)
+                break
     if path.is_symlink():
         raise ValueError("Private files must not be symbolic links")
     if path.exists():
@@ -30,6 +42,7 @@ def private_file(path: Path):
     for parent in path.parents:
         if parent.is_symlink():
             raise ValueError("Private paths must not contain symbolic links")
+    return path
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -81,8 +94,7 @@ class Replica:
     The outbox is removed only when the committed operation is pulled and verified.
     """
     def __init__(self, path: Path, remote: Remote):
-        path = path.absolute()
-        private_file(path)
+        path = private_file(path)
         path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
         if not path.exists():
             try:

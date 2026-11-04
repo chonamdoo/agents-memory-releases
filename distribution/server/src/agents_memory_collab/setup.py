@@ -27,8 +27,7 @@ def default_root():
 
 
 def write_private(path, text, *, exclusive=False):
-    path = path.absolute()
-    private_file(path)
+    path = private_file(path)
     path.parent.mkdir(parents=True, mode=0o700, exist_ok=True)
     if exclusive and path.exists():
         raise Failure(409, "output_already_exists")
@@ -103,7 +102,7 @@ def install(args):
     project_name = args.project_name or project.name
     # Validate every host destination before issuing or writing a credential.
     plans = [host_config(c, project, connection, state, project_name) for c in clients]
-    private_file(connection)
+    connection = private_file(connection)
     replacing = connection.exists() and getattr(args, "replace_credential", False)
     previous = None
     if replacing:
@@ -123,8 +122,8 @@ def install(args):
         identity = remote.request("/v1/me")
     else:
         if args.credential_file:
-            private_file(args.credential_file)
-            value = json.loads(args.credential_file.read_text())
+            credential_file = private_file(args.credential_file)
+            value = json.loads(credential_file.read_text())
             url, token = args.url or value["url"], value["token"]
         else:
             url = args.url or (previous["server"] if previous else input("서버 HTTPS 주소: ").strip())

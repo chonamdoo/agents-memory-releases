@@ -15,7 +15,7 @@ services:
     restart: unless-stopped
   server:
     build: .
-    image: agents-memory-collaboration:0.2.0
+    image: agents-memory-collaboration:0.2.1
     environment:
       AM_COLLAB_DATABASE_URL: postgresql://am_collab:${AM_COLLAB_DB_PASSWORD}@db:5432/am_collab
       AM_COLLAB_PUBLIC_URL: ${AM_COLLAB_PUBLIC_URL:-http://127.0.0.1:18350}

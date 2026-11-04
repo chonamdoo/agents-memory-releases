@@ -19,7 +19,7 @@ from .web import create_app
 
 
 def write_secret(path, value):
-    private_file(path)
+    path = private_file(path)
     path.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
     fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
     with os.fdopen(fd, "w") as file:
@@ -99,7 +99,7 @@ def parser():
 
 
 def remote(path):
-    private_file(path)
+    path = private_file(path)
     value = json.loads(path.read_text())
     return Remote(value["url"], value["token"])
 
@@ -126,7 +126,7 @@ def main():
 
             async def account():
                 if args.command != "restore-epoch":
-                    private_file(args.output)
+                    args.output = private_file(args.output)
                     if args.output.exists():
                         raise Failure(409, "output_already_exists")
                 await store.open()

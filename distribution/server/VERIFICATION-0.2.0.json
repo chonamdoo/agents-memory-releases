@@ -1,0 +1,86 @@
+{
+  "version": "0.2.0",
+  "status": "developer_preview",
+  "date_utc": "2026-11-04",
+  "base_commit": "8e0d088",
+  "runtime_sha256": {
+    "src/agents_memory_collab/__init__.py": "96e5425ea9c93a9addb3da62a0f5ba47e9df01cc4dce4006b309cb0143d5961a",
+    "src/agents_memory_collab/cli.py": "f8dd539e80ef25df4438a1f282d51c2a59b20ffd23c3e252d688ada74f181366",
+    "src/agents_memory_collab/client.py": "efcafac7d62c9af544dfebe9926369ebeac3769fae5310bf5754675f4c662b21",
+    "src/agents_memory_collab/embedding.py": "e1ba3d501829ef4ece988ad56728f5a9093287a58cc48d31140ff3bff7be4f09",
+    "src/agents_memory_collab/hindsight.py": "3fba887521a1cfe33fbe666b6579d13ae314c2436da9243e8007effeeb800e4a",
+    "src/agents_memory_collab/models.py": "43bcc66e4e8aed982c04236895413deccf12dbf6a2dd9c6c7bc7816410bd9423",
+    "src/agents_memory_collab/protocol.py": "760cd5ed67c43c7e9a8f9f9f419aee57a11f029d0b6084a8fae87388c09099e0",
+    "src/agents_memory_collab/schema.sql": "d30c5dc8f6f49d8ec7fe1b91dcb010718993e4b5cce149c4dd89cd41f40a8dc4",
+    "src/agents_memory_collab/setup.py": "5daa300fa2b688905bf1481c01f8afde4041ae7cc8a3af80d9aa9521d8052cff",
+    "src/agents_memory_collab/stdio.py": "fbfd6cf824193f22e862e6e6aee3e49081032c2d388aad20d039d16f63111cc7",
+    "src/agents_memory_collab/store.py": "5befb10d6e9f67a565e2a18e4cad6732c318aedad695bb02adb6684ab12a734a",
+    "src/agents_memory_collab/web.py": "7444379e733cffb7695d330d4c17e97cbce0777da3cc47207f5da460d11f1935"
+  },
+  "dependency_locks_sha256": {
+    "uv.lock": "1898212aa5a856e47bf29602beca55e30defdc53210580defc55454592f2839f",
+    "requirements.lock": "e438586604e51931ad906d7316f51f394a94fe26ed5395720bcc8ab16a9d8d0e",
+    "client-requirements.lock": "15cfdd98d334152d8d326408cd60517f533dee7e9f090b3ff389871861cc51eb",
+    "qa-requirements.lock": "9ba5897fda77d868400a70dc6525372cf270259f9a9d8f6a94f47b6497e95bba"
+  },
+  "collaboration_tests": {
+    "passed": 57,
+    "failed": 0,
+    "skipped": 0,
+    "postgresql_pgvector": "real isolated native PostgreSQL",
+    "e5": "real pinned ONNX assets",
+    "seed": 20261104,
+    "stateful_examples": 20,
+    "generated_actions": 400,
+    "lost_ack_actions": 83
+  },
+  "stable_main_regressions": {
+    "passed": 127,
+    "subtests_passed": 62
+  },
+  "docker": {
+    "health": {
+      "ready": true,
+      "semantic": true,
+      "version": "0.2.0"
+    },
+    "two_replicas_equal": true,
+    "session_preserved": true,
+    "semantic_query_executed": true,
+    "team_query_then_unshare": true,
+    "read_only_rootfs": true,
+    "image_id": "sha256:e5a39ac669cbf11df1eab287e01885bde99c6473211806eb2814fb94c3b39097"
+  },
+  "wheel_sha256": "4979c216cd3ea4c79057f825e40c09fa494213199168bbdcf06a100f5ef0672d",
+  "wheel_equals_tested_artifact": true,
+  "client_setup": {
+    "clients": [
+      "claude",
+      "codex",
+      "omp"
+    ],
+    "actual_installed_stdio_test": true,
+    "repeat_install_preserves_key": true,
+    "missing_uv_bootstrap": "Linux x64: checksum-pinned uv 0.12.23 and managed Python 3.12.15"
+  },
+  "fable_review": {
+    "model": "claude-fable-5-1",
+    "channel": "authenticated Claude CLI subscription",
+    "kind": "static pre-fix review; no tests executed by reviewer",
+    "findings": 8,
+    "resolution": "REVIEW-RESOLUTION.md"
+  },
+  "github_actions_run": false,
+  "paid_resources_created": false,
+  "deployed": false,
+  "limitations": [
+    "Native macOS/Windows and actual Claude/Codex/OMP host consumption unverified; Linux MCP protocol and configuration paths tested.",
+    "Full external transcript collection and arbitrary session-format conversion not implemented.",
+    "Direct HTTP MCP and legacy Go proxy are online paths without local outbox.",
+    "Account-scoped device keys; team/project grants enforced at query time, no per-device project whitelist.",
+    "Server operator can read uploaded data; logs/archives/backups retain history.",
+    "Restore requires operator epoch reset and key reissue to avoid resurrecting pre-backup credentials.",
+    "No semantic quality, external TLS, load, HA or managed-service claim."
+  ],
+  "profile_ci_local": "PASS: current profile and legacy installation integrity"
+}

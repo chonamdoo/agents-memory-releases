@@ -114,7 +114,7 @@ async def test_actual_client_installer_and_repeat_install_keeps_settings(system,
     params = StdioServerParameters(command=config['command'], args=config['args'], env=env)
     async with stdio_client(params) as (read, write), ClientSession(read, write) as session:
         initialized = await session.initialize()
-        assert initialized.server_info.version == '0.2.0'
+        assert initialized.server_info.version == '0.2.1'
         status = await session.call_tool('setup_status', {})
         assert json.loads(status.content[0].text)['ready']
 
