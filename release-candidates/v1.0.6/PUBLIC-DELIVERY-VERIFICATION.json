@@ -1,0 +1,17 @@
+{
+  "public_marketplace_upgrade": "1.0.5 -> 1.0.6",
+  "artifact_hashes_match": true,
+  "plugin_version": "1.0.6",
+  "memory_instructions_delivered": true,
+  "recall_description_delivered": true,
+  "tools": 10,
+  "readiness_honest": true,
+  "model_calls": 0,
+  "tag_commit": "8fc00ad1c814782edc78a591692718ab09004ae7",
+  "public_tag_files_match": true,
+  "public_installer_service_reused": true,
+  "provider_settings_preserved": true,
+  "omp_direct_instruction_migration_verified": true,
+  "physical_macos_execution": false,
+  "github_actions_last_run_unchanged": 41388806223
+}
