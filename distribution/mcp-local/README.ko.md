@@ -1,6 +1,6 @@
-# Claude · Codex · OMP 자동 로컬 MCP 설치 (1.0.6)
+# Claude · Codex · OMP 자동 로컬 MCP 설치 (1.0.7)
 
-**1.0.6 macOS 수정:** PostgreSQL이 요구하는 `vector.dylib` 이름으로 배포합니다. 1.0.5에서 `could not access file "vector"`로 실패했다면 아래 두 명령을 순서대로 실행해 마켓 정보를 갱신하고 플러그인을 업데이트하세요. 업그레이드 출력이 1.0.6인지 확인한 뒤 OMP를 다시 시작하세요. 기존 키·모델·DB 데이터를 유지한 채 검증된 모듈 이름을 자동 복구합니다. 삭제나 재설치는 필요하지 않습니다. `plugin upgrade`만 실행하면 오래된 마켓 캐시의 버전을 다시 설치할 수 있습니다.
+**1.0.7 macOS 수정:** `vector.dylib → vector.so`로 수동 복구했던 링크도 검증 후 실제 파일로 자동 교체합니다. PostgreSQL이 요구하는 `.dylib` 이름과 기존 키·DB를 유지합니다. 1.0.5에서 `could not access file "vector"`로 실패했다면 아래 두 명령을 순서대로 실행해 마켓 정보를 갱신하고 플러그인을 업데이트하세요. 업그레이드 출력이 1.0.7인지 확인한 뒤 OMP를 다시 시작하세요. 기존 키·모델·DB 데이터를 유지한 채 검증된 모듈 이름을 자동 복구합니다. 삭제나 재설치는 필요하지 않습니다. `plugin upgrade`만 실행하면 오래된 마켓 캐시의 버전을 다시 설치할 수 있습니다.
 
 ```sh
 omp plugin marketplace update agents-memory
@@ -49,7 +49,7 @@ MCP 실행·프로젝트 신뢰를 앱에서 승인하면 자동 준비가 시�
 실제 프로젝트의 터미널에서 한 번 실행합니다.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.6/distribution/mcp-local/install.sh -o /tmp/agents-memory-mcp-install.sh
+curl -fsSL https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.7/distribution/mcp-local/install.sh -o /tmp/agents-memory-mcp-install.sh
 bash /tmp/agents-memory-mcp-install.sh --client codex --project "$PWD"
 ```
 
@@ -83,3 +83,9 @@ MCP 연결 준비 상태는 `setup_status`로 확인합니다. 자동 설정 진
 연결 지침과 `recall` 도구 설명은 새 세션의 첫 본격적인 답변 전에 해당 프로젝트의 관련 장기 기억을 조회하도록 안내합니다. 빈 결과라면 관련 키워드로 `list_memories`를 추가 확인하도록 하며, PR 작업에서는 저장된 리뷰어·담당자 규칙과 실제 결과를 비교하도록 안내합니다. OMP 직접 등록에서는 이 서버의 지침 전달을 활성화합니다.
 
 이는 호스트 모델에 전달하는 조회 지침입니다. MCP 서버가 다른 앱의 모든 응답이나 PR 생성 도구 실행을 강제로 통제하는 것은 아니므로, 저장된 규칙이 반드시 적용됐다는 판단은 실제 조회·작업 결과를 확인해야 합니다. 다른 프로젝트로 세션을 열면 프로젝트별 기억 범위도 달라집니다. 이력 파일 스캔이나 대화 자동 저장을 켜지는 않습니다.
+
+## 별도 Native 기억 서버가 남아 있는 경우
+
+예전 `~/.agents-memory/<namespace>`의 Native 서버와 현재 `~/.local/share/agents-memory-hindsight`의 Hindsight 서버는 별도 저장소입니다. 한쪽에 저장된 기억이 다른 쪽에 자동으로 합쳐지지는 않습니다. 이번 복구는 현재 Hindsight 런타임만 대상으로 하며, 예전 Docker DB·API·기억 데이터는 변경하지 않습니다. 새 세션에서 과거 규칙이 안 보이면 조회한 서버와 프로젝트 범위를 먼저 확인해야 합니다.
+
+1.0.7의 `setup_status.logs`는 설정·키 파일을 열지 않고 확인할 수 있는 setup / operations / postgres / service 로그의 정확한 경로를 제공합니다.

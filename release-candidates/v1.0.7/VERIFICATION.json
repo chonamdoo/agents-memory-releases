@@ -1,0 +1,89 @@
+{
+  "version": "1.0.7",
+  "core_version": "1.0.2",
+  "tests": {
+    "pytest_passed": 87,
+    "go_tests_passed": 8,
+    "go_race_detector": true,
+    "ruff": true,
+    "profile_and_legacy_contract": true,
+    "shell_syntax": true
+  },
+  "build": {
+    "version": "1.0.7",
+    "compiler": "go version go1.27.3 linux/amd64",
+    "cgo": false,
+    "source": "../scripts/connector.go",
+    "source_sha256": "c5336958e2046f7c53904ac26a439fc8e194163c7d1487df026a92ed6362572d",
+    "helper_sha256": "e692f9f4edc323c455e019223194b5bbbe3e32d563f071e743a91be084cd48d9",
+    "files": {
+      "connector-linux-x86_64": "e423eeeb591b49445d8f86bf9539749b68f335d61899733d96ce53386b02e1db",
+      "connector-darwin-arm64": "bb360af7bc456735059e3fc534760113075b6c2d97b075eedc68d5b8053a4762"
+    },
+    "tool_contract_sha256": "4adc915b11478f7ea045d7c2571c2c9d39e92ab24bf4e34bba14cb3bb22fc96d",
+    "memory_instructions_sha256": "a01401a0e8cd374f58a9d5071b0368074e498f0334758f74d1ffd4ebdacfd54f",
+    "native_extension_contracts": {
+      "Darwin": {
+        "platform": "Darwin",
+        "postgres_dlsuffix": ".dylib",
+        "module": "lib/vector.dylib",
+        "module_sha256": "1df94b3118d43915dc1194fcebc2b6fb51aff79550a388afe89e2b40998a5f2f",
+        "postgres_header_sha256": "4d368ab43a4ba40c7aededea7511ad953a30cbbf2e6dd1f880bd78caeecb2a5c",
+        "lookup_contract": "passed",
+        "native_execution": false
+      },
+      "Linux": {
+        "platform": "Linux",
+        "postgres_dlsuffix": ".so",
+        "module": "lib/vector.so",
+        "module_sha256": "f6af19f4566583b0987c73b13ae07b6b22825573abd04d0c3f6b738f142b4ff8",
+        "postgres_header_sha256": "414d01b4eed7dd0ab1ee9fd76b114203ed1ba156ea739dc15355f4d437ac8740",
+        "lookup_contract": "passed",
+        "native_execution": false
+      }
+    },
+    "real_macos_execution": false
+  },
+  "macos_link_repair": {
+    "version": "1.0.7",
+    "fresh_actual_darwin_archives_installed": true,
+    "module": "lib/vector.dylib",
+    "header_dlsuffix": ".dylib",
+    "exact_1_0_5_layout_with_manual_symlink_repaired": true,
+    "repair_network_calls": 0,
+    "repair_subprocess_calls": 0,
+    "repair_idempotent": true,
+    "db_and_credential_bytes_unchanged": true,
+    "physical_macos_execution": false
+  },
+  "linux_native_regression": {
+    "version": "1.0.7",
+    "linux_fresh_database_create_extension": true,
+    "vector_distance_result": 1,
+    "existing_database_system_identity_preserved": true,
+    "provider_model_and_database_receipt_preserved": true,
+    "existing_memory_recalled": true,
+    "instructions_delivered": true,
+    "recall_guidance_delivered": true,
+    "setup_ready": true,
+    "tools": 10,
+    "model_calls": 0
+  },
+  "repair_cases": [
+    "relative local link",
+    "absolute local link",
+    "receipt already tracks dylib",
+    "atomic replacement without unlink",
+    "interrupted receipt update retry",
+    "unknown/outside/dangling link preserved"
+  ],
+  "other_memory_authorities_modified": false,
+  "github_actions": {
+    "dispatched": false,
+    "last_run_unchanged": 41388806223
+  },
+  "limits": [
+    "Physical macOS execution has not been performed. Archive layout and repair were tested on Linux.",
+    "Old Native and current Hindsight memories remain separate; no memory data was migrated or merged."
+  ]
+}

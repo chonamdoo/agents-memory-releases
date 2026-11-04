@@ -37,19 +37,28 @@ def legacy_mac_runtime(helper, installation, monkeypatch):
     return directory, module
 
 
-@pytest.mark.parametrize("previous_action", ["none", "copied", "renamed"])
+@pytest.mark.parametrize("previous_action", ["none", "copied", "renamed", "relative_link", "absolute_link", "recorded_link"])
 def test_legacy_mac_repair_keeps_database_keys_and_profile(helper, installation, legacy_mac_runtime, previous_action):
     directory, module = legacy_mac_runtime
     if previous_action in {"copied", "renamed"}:
         helper.write_private(directory / "lib/vector.dylib", module)
     if previous_action == "renamed":
         (directory / "lib/vector.so").unlink()
+    if previous_action in {"relative_link", "recorded_link"}:
+        (directory / "lib/vector.dylib").symlink_to("vector.so")
+    if previous_action == "absolute_link":
+        (directory / "lib/vector.dylib").symlink_to(directory / "lib/vector.so")
+    if previous_action == "recorded_link":
+        receipt = helper.read_json(directory / "RUNTIME.json")
+        receipt["files"]["lib/vector.dylib"] = receipt["files"].pop("lib/vector.so")
+        helper.write_json(directory / "RUNTIME.json", receipt)
     protected = [installation / "settings/profile.json", installation / "settings/jev-credential.json",
                  installation / "settings/mcp-database.json", installation / "database/data/PG_VERSION",
                  installation / "database/data/sentinel"]
     before = {path: path.read_bytes() for path in protected}
     assert helper.native_runtime(installation) == directory
     assert (directory / "lib/vector.dylib").read_bytes() == module
+    assert not (directory / "lib/vector.dylib").is_symlink()
     receipt = helper.read_json(directory / "RUNTIME.json")
     assert receipt["files"]["lib/vector.dylib"] == helper.LEGACY_DARWIN_VECTOR_SHA256
     assert "lib/vector.so" not in receipt["files"]
@@ -59,19 +68,66 @@ def test_legacy_mac_repair_keeps_database_keys_and_profile(helper, installation,
     assert {path: path.read_bytes() for path in protected} == before
 
 
-@pytest.mark.parametrize("conflict", ["different_bytes", "symlink"])
+@pytest.mark.parametrize("conflict", ["different_bytes", "outside_link", "dangling_link"])
 def test_mac_repair_preserves_unknown_destination(helper, installation, legacy_mac_runtime, conflict):
     directory, _ = legacy_mac_runtime
     destination = directory / "lib/vector.dylib"
-    if conflict == "symlink":
-        destination.symlink_to("vector.so")
+    if conflict == "outside_link":
+        outside = installation.parent / "outside-vector.so"
+        outside.write_bytes((directory / "lib/vector.so").read_bytes())
+        destination.symlink_to(outside)
+    elif conflict == "dangling_link":
+        destination.symlink_to("missing-vector.so")
     else:
         helper.write_private(destination, b"unrelated-module")
     before = (directory / "RUNTIME.json").read_bytes()
     with pytest.raises(helper.Refused, match="no file was replaced"):
         helper.native_runtime(installation)
     assert (directory / "RUNTIME.json").read_bytes() == before
-    assert destination.is_symlink() if conflict == "symlink" else destination.read_bytes() == b"unrelated-module"
+    assert destination.is_symlink() if conflict.endswith("link") else destination.read_bytes() == b"unrelated-module"
+
+
+def test_verified_vector_link_is_replaced_atomically(helper, installation, legacy_mac_runtime, monkeypatch):
+    directory, module = legacy_mac_runtime
+    destination = directory / "lib/vector.dylib"
+    destination.symlink_to("vector.so")
+    source = directory / "lib/vector.so"
+    before = source.stat()
+    original = helper.os.replace
+    replacements = []
+
+    def observe(source_path, destination_path):
+        if Path(destination_path) == destination:
+            assert destination.is_symlink()
+            assert Path(source_path).read_bytes() == module
+            replacements.append(True)
+        return original(source_path, destination_path)
+
+    monkeypatch.setattr(helper.os, "replace", observe)
+    helper.native_runtime(installation)
+    assert replacements == [True]
+    assert not destination.is_symlink() and destination.read_bytes() == module
+    assert source.stat().st_ino == before.st_ino and source.read_bytes() == module
+
+
+def test_link_repair_recovers_after_receipt_write_interruption(helper, installation, legacy_mac_runtime, monkeypatch):
+    directory, module = legacy_mac_runtime
+    destination = directory / "lib/vector.dylib"
+    destination.symlink_to("vector.so")
+    original = helper.write_json
+
+    def interrupt(path, data):
+        if path == directory / "RUNTIME.json":
+            raise OSError("synthetic interrupted receipt")
+        return original(path, data)
+
+    monkeypatch.setattr(helper, "write_json", interrupt)
+    with pytest.raises(OSError, match="interrupted"):
+        helper.native_runtime(installation)
+    assert not destination.is_symlink() and destination.read_bytes() == module
+    monkeypatch.setattr(helper, "write_json", original)
+    helper.native_runtime(installation)
+    assert "lib/vector.dylib" in helper.read_json(directory / "RUNTIME.json")["files"]
 
 
 def test_mac_repair_recovers_after_receipt_write_interruption(helper, installation, legacy_mac_runtime, monkeypatch):
@@ -215,6 +271,11 @@ def test_current_connector_has_stable_tools_and_honest_readiness_without_runtime
     recall = next(tool for tool in responses[2]["tools"] if tool["name"] == "recall")
     assert "without waiting" in recall["description"]
     assert responses[3]["structuredContent"]["ready"] is False
+    logs = responses[3]["structuredContent"]["logs"]
+    assert set(logs) == {"setup", "operations", "postgres", "service"}
+    assert all("credential" not in path for path in logs.values())
+    scope = responses[3]["structuredContent"]["memory_scope"]
+    assert scope["authority"] == "agents-memory-hindsight-local" and scope["project"] == str(home)
     assert responses[4]["isError"] is True
     assert not (home / ".local/share/agents-memory-hindsight").exists()
 

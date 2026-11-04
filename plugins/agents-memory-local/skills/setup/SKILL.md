@@ -4,7 +4,7 @@ description: Check automatic local memory setup progress for Claude, Codex or OM
 disable-model-invocation: true
 ---
 
-Use the user's language. Call this plugin's `setup_status` and report its actual state. Version 1.0.6 automatically prepares the native database, runtime, E5 search embeddings and local API on MCP connection. Docker/Colima and a manual setup command are not required for a fresh installation. Apple Silicon macOS 15+ is required. Host trust remains the user's app-level choice.
+Use the user's language. Call this plugin's `setup_status` and report its actual state. Version 1.0.7 automatically prepares the native database, runtime, E5 search embeddings and local API on MCP connection. Docker/Colima and a manual setup command are not required for a fresh installation. Apple Silicon macOS 15+ is required. Host trust remains the user's app-level choice.
 
 If a one-time choice is missing, direct the user to the local browser address returned by `setup_status`. It offers Jev or the user's subscribed Claude/Codex CLI. Jev's key is entered in that local page only. Never request credentials in chat, copy subscription auth, change the provider, or silently fall back to another model. OMP is a connection target only. Existing settings and keys survive upgrades. Setup and connection do not call the judgment model or scan history.
 

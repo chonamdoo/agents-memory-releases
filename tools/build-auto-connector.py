@@ -76,7 +76,7 @@ def main():
     shutil.copyfile(bootstrap, PLUGIN / "scripts/install.sh")
     go_version = subprocess.check_output([str(args.go), "version"], text=True).strip()
     (PLUGIN / "bin/AUTO-BUILD.json").write_text(json.dumps({
-        "version": "1.0.6", "compiler": go_version, "cgo": False, "source": "../scripts/connector.go",
+        "version": "1.0.7", "compiler": go_version, "cgo": False, "source": "../scripts/connector.go",
         "source_sha256": digest(source), "helper_sha256": digest(helper), "files": files,
         "tool_contract_sha256": digest(PLUGIN / "scripts/memory-tools.json"),
         "memory_instructions_sha256": digest(PLUGIN / "scripts/memory-use.txt"),

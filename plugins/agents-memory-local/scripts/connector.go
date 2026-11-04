@@ -28,11 +28,11 @@ import (
 	"time"
 )
 
-const version = "1.0.6"
+const version = "1.0.7"
 const coreHash = "3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34"
 const coreBase = "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/eb80f6277f6d712a89e854f0f54b7067a9bfc9cc/files/"
 
-var helperHash = "df7df48fb564722a83bfcee66d82ff82f44491d63fee4277df2c0fc1d18e569d"
+var helperHash = "e692f9f4edc323c455e019223194b5bbbe3e32d563f071e743a91be084cd48d9"
 
 // Some clients cache the first tools/list result and ignore later refreshes.
 // Register the stable core contract immediately; calls stay gated on actual readiness.
@@ -47,11 +47,13 @@ var worker bool
 var httpClient = &http.Client{Timeout: 10 * time.Minute}
 
 type status struct {
-	Ready   bool   `json:"ready"`
-	State   string `json:"state"`
-	Message string `json:"message"`
-	URL     string `json:"setup_url,omitempty"`
-	Version string `json:"version"`
+	Ready   bool              `json:"ready"`
+	State   string            `json:"state"`
+	Message string            `json:"message"`
+	URL     string            `json:"setup_url,omitempty"`
+	Version string            `json:"version"`
+	Logs    map[string]string `json:"logs,omitempty"`
+	Scope   map[string]string `json:"memory_scope,omitempty"`
 }
 type route struct{ Provider, Host, Model, Key string }
 type request struct {
@@ -926,6 +928,8 @@ func serve() error {
 				_ = json.Unmarshal(r.Params, &p)
 				if p.Name == "setup_status" {
 					s := current()
+					s.Logs = map[string]string{"setup": filepath.Join(cache, "setup.log"), "operations": filepath.Join(prefix, "integration/logs/operations.log"), "postgres": filepath.Join(prefix, "database/postgres.log"), "service": filepath.Join(prefix, "integration/logs/service.log")}
+					s.Scope = map[string]string{"authority": "agents-memory-hindsight-local", "project": project, "runtime_directory": prefix}
 					mu.RLock()
 					s.Ready = bridge != nil
 					mu.RUnlock()
