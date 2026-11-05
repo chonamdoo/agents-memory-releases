@@ -1,7 +1,7 @@
 {
   "name": "agents-memory-local",
-  "version": "1.0.7",
-  "description": "Automatic local memory MCP setup for Claude, Codex and OMP. E5 search included; one-time Jev or subscribed CLI choice.",
+  "version": "1.0.8",
+  "description": "Common Hindsight MCP: Claude CLI, Codex CLI or Jev. Claude/Codex/OMP clients. Native DB and E5 included.",
   "author": {
     "name": "chonamdoo"
   },

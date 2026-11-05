@@ -1,10 +1,10 @@
 #!/bin/bash
-# Common Hindsight release candidate. Never executes the legacy memory binary.
+# Common Hindsight release 1.0.8. Never executes the legacy memory binary.
 set -euo pipefail
 umask 077
-am_version=v0.3.0-rc.1
-am_asset=agents-memory-unified-0.3.0rc1.tar.gz
-am_bundle_sha=82ea4927c311120cdeddf35aee736ecb19ff38055384f97f64ade66eab30b0cf
+am_version=v1.0.8
+am_asset=agents-memory-unified-1.0.8.tar.gz
+am_bundle_sha=056d7c5628d6183afc8c21e7538fd2e5439443799bb2b745be993c9577d51d70
 am_bootstrap_sha=3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34
 am_bootstrap_base=https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/eb80f6277f6d712a89e854f0f54b7067a9bfc9cc/files
 am_remote=false
@@ -41,7 +41,7 @@ am_check() {
   [[ ${am_actual%% *} == "$2" ]] || { echo 'Release integrity check failed; nothing was executed.' >&2; exit 2; }
 }
 echo 'Preparing the verified common memory package...' >&2
-am_fetch "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/8423de67191bbf664e0d4efd777f8537f8e77930/release-candidates/v0.3.0-rc.1/assets/$am_asset" "$am_work/unified.tar.gz"
+am_fetch "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/4661c5173de6abf61c9dbe94cb2cc8a43ccb3c42/release-candidates/v1.0.8/assets/$am_asset" "$am_work/unified.tar.gz"
 am_check "$am_work/unified.tar.gz" "$am_bundle_sha"
 mkdir "$am_work/unified"
 tar -xzf "$am_work/unified.tar.gz" -C "$am_work/unified"

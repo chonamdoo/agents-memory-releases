@@ -1,12 +1,11 @@
 {
-  "version": "1.0.4",
-  "purpose": "dependency-free MCP setup status; no installation/network/model/history operations",
-  "source": "../scripts/setup-status.c",
-  "source_sha256": "4fbfa54cbe3435441462289a380af319581faa2348f4673600620a4a2e235496",
-  "files": {
-    "setup-status-linux-x86_64": "7dadc3875b8f145e34e78b38e2261f81e2bfea6dc60a1c4374f3a44471dbefaa",
-    "setup-status-darwin-arm64": "c3a43f670de31561b3ecb9cc5cfe71bde50dcdce7f1e066eaedfa418e7792624"
+  "version": "1.0.8",
+  "source": "plugins/agents-memory-unified/scripts/connector.go",
+  "source_sha256": "d7245b7f4281679533769d10514e0b95676bf7c38f13e406f1518f491b0ed4a5",
+  "binaries": {
+    "connector-darwin-arm64": "9837e2acddedfb2dfea0fa36813d00b375badbe8d1b450042d4050da4c5f6b81",
+    "connector-linux-x86_64": "a1aff43c492abc8d58ac983bc07d95ecf9caf55844e74c9a474322f929730a15"
   },
-  "compiler": "Linux cc; macOS Zig 0.17.0 target arm64 macOS13",
-  "real_macos_execution": false
+  "darwin_binary_execution": "not tested; cross-compiled",
+  "linux_protocol": "tested separately"
 }

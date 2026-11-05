@@ -1,41 +1,5 @@
-# agents-memory-local 1.0.7
+# agents-memory-local 1.0.8
 
-macOS hotfix: matches PostgreSQL's `vector.dylib` filename, atomically converts a verified local `vector.dylib -> vector.so` workaround link, and automatically repairs verified 1.0.5 installations without changing keys, model settings or database data. Existing OMP users: `omp plugin marketplace update agents-memory`, then `omp plugin upgrade agents-memory-local@agents-memory`. Confirm version 1.0.7 and restart OMP. Upgrading without refreshing the marketplace may reinstall the cached old version.
+기존 플러그인 이름으로 공통 Hindsight 엔진에 연결합니다. 기억 공급자는 Claude CLI·Codex CLI·Jev이며 OMP는 연결 앱입니다. 새 `agents-memory-unified`와 같은 프로젝트에 함께 설치하지 마세요.
 
-Automatic local memory MCP for Claude Code, Codex and OMP. On first MCP connection, the connector immediately answers `setup_status`, opens a local browser form for your one-time Jev / subscribed Claude / subscribed Codex choice, then installs the pinned binary core, E5 search embeddings, native PostgreSQL/pgvector and API. No Docker, Colima or system Python is required. Existing choices and saved keys are reused on updates.
-
-Requires Apple Silicon **macOS 15+** and the selected subscription CLI's existing installation/login. Jev's key is entered only in the local form and stored in a user-private file. OMP is a connection target, not a judgment provider. Setup makes no paid model calls and scans no histories. Session and recall guidance now requests project memory before the first substantive answer, with a keyword fallback and saved PR-rule checks. These are host-model instructions, not enforcement over other tools.
-
-Claude Code:
-
-```text
-/plugin marketplace add chonamdoo/agents-memory-releases
-/plugin install agents-memory-local@agents-memory
-```
-
-Claude update (then restart Claude):
-
-```sh
-claude plugin marketplace update agents-memory
-claude plugin update agents-memory-local@agents-memory
-```
-
-Codex installation and updates use the same project MCP installer (then restart Codex):
-
-```sh
-curl -fsSL https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.7/distribution/mcp-local/install.sh -o /tmp/agents-memory-mcp-install.sh
-bash /tmp/agents-memory-mcp-install.sh --client codex --project "$PWD"
-```
-
-Codex marketplace installation alone does not establish working project MCP routing. Use the direct installer above.
-
-OMP:
-
-```sh
-omp plugin marketplace add chonamdoo/agents-memory-releases
-omp plugin install agents-memory-local@agents-memory
-```
-
-Connect MCP in your project. If the browser does not open, call `setup_status` for its local address. The stable tool list is available immediately for clients that cache it; memory calls remain gated on actual readiness and work on the same connection after setup finishes. Host trust/approval still applies. The default runtime is `~/.local/share/agents-memory-hindsight`; it stays outside the plugin cache. Explicit `am-mcp stop` is respected. Existing Docker/external database receipts are preserved rather than silently migrated.
-
-[Codex setup and full Korean guide](https://github.com/chonamdoo/agents-memory-releases/blob/v1.0.7/distribution/mcp-local/README.ko.md). This is the maintainer's own marketplace, not an official directory listing. The older `agents-memory` plugin remains a separate Native preview. Linux end-to-end verification does not establish physical macOS execution; release evidence states that limit. Binaries use ad hoc signing without Developer ID/notarization.
+[정식 1.0.8 설치·업데이트·세 앱 가이드](../../distribution/server/README.ko.md). 기존 1.0.7 DB·키를 삭제하지 않으며 과거 데이터는 자동 재처리하지 않습니다. 기존 standalone 런타임을 새 공통 엔진으로 처음 바꿀 때는 한 번 설정이 필요합니다. Mac 실기기 검증은 사용자 진행 사항입니다.

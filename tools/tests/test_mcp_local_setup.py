@@ -308,11 +308,18 @@ def test_stop_persists_disabled_launchagent_across_logins(helper, installation, 
 def test_published_bootstrap_pins_helper_and_matches_marketplace_copy():
     root = SOURCE.parents[2]
     script = (SOURCE.parent / "install.sh").read_text()
-    assert "helper_sha=" + hashlib.sha256(SOURCE.read_bytes()).hexdigest() in script
     assert (root / "plugins/agents-memory-local/scripts/install.sh").read_text() == script
-    assert "3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34" in script
-    assert "eb80f6277f6d712a89e854f0f54b7067a9bfc9cc" in script
-    assert "HELPER_SHA256" not in script
+    assert "/v1.0.8/distribution/server/install-unified.sh" in script
+    canonical = (root / "distribution/server/install-unified.sh").read_text()
+    assert "3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34" in canonical
+    assert "eb80f6277f6d712a89e854f0f54b7067a9bfc9cc" in canonical
+    import tarfile
+    bundle = Path(os.environ.get("AM_TEST_RELEASE_BUNDLE", root / "release-candidates/v1.0.8/assets/agents-memory-unified-1.0.8.tar.gz"))
+    with tarfile.open(bundle) as archive:
+        manifest = json.load(archive.extractfile("ASSETS.json"))
+        body = archive.extractfile("runtime-helper.py").read()
+    assert hashlib.sha256(body).hexdigest() == hashlib.sha256(SOURCE.read_bytes()).hexdigest()
+    assert manifest["files"]["runtime-helper.py"] == hashlib.sha256(body).hexdigest()
 
 
 def test_stopped_proxy_never_connects_even_if_a_port_is_ready(helper, installation, tmp_path, monkeypatch):

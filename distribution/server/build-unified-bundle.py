@@ -10,7 +10,7 @@ import tarfile
 import zipfile
 from pathlib import Path
 
-VERSION = "0.3.0rc1"
+VERSION = "1.0.8"
 
 
 def main():

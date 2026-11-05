@@ -1,9 +1,9 @@
-# agents-memory 공통 MCP — 0.3.0rc1
+# agents-memory 공통 MCP — 1.0.8
 
 로컬·개인 서버·팀 서버·회사 서버에서 같은 Hindsight 엔진과 처리 단계를 사용합니다.
-이번 배포는 **릴리즈 후보**입니다. Linux x64에서 실제 설치·업데이트·공급자 실호출을
+이번 배포는 **정식 v1.0.8**입니다. Linux x64에서 실제 설치·업데이트·공급자 실호출을
 검증하며, Apple Silicon Mac 설치는 공개 패키지로 사용자 확인이 남아 있습니다.
-기존 stable 1.0.7 / 서버 0.2.1을 자동 교체하지 않습니다.
+Mac 실기기 검증은 사용자가 진행합니다. 기존 사용자 DB의 자동 이전·재처리는 하지 않습니다.
 
 ## 로컬 설치: Claude·Codex·OMP
 
@@ -11,7 +11,7 @@
 고정 Python·Hindsight·E5 검색 임베딩과 공통 코어를 준비합니다. 별도 생성 모델 가중치는 받지 않습니다.
 
 ```bash
-curl -fLSs https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v0.3.0-rc.1/distribution/server/install-unified.sh -o /tmp/agents-memory-install.sh
+curl -fLSs https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.8/distribution/server/install-unified.sh -o /tmp/agents-memory-install.sh
 bash /tmp/agents-memory-install.sh --mode local --client all --project "$PWD"
 ```
 
@@ -40,16 +40,16 @@ MCP 연결 시 다시 시작됩니다. OS 로그인 서비스는 임의로 등�
 
 ## Claude·OMP 마켓플레이스
 
-이 후보는 기존 `agents-memory-local`과 다른 이름입니다. 기존 플러그인과 같은 프로젝트에
-중복 등록하지 마세요. 연결 전에 공급자 선택이 필요하면 `setup_status`에서 안내합니다.
+기존 `agents-memory-local`을 1.0.8로 업데이트하면 공통 엔진에 연결합니다.
+`agents-memory-unified`는 같은 엔진의 별도 이름이므로 둘을 같은 프로젝트에 중복 등록하지 마세요. 연결 전에 공급자 선택이 필요하면 `setup_status`에서 안내합니다.
 
 ```bash
 claude plugin marketplace add chonamdoo/agents-memory-releases
-claude plugin install agents-memory-unified@agents-memory
+claude plugin install agents-memory-local@agents-memory
 # 같은 설치 명령에서 --client claude-plugin을 사용: 직접 MCP 중복 등록 없이 훅 연결
 
 omp plugin marketplace add chonamdoo/agents-memory-releases
-omp plugin install agents-memory-unified@agents-memory
+omp plugin install agents-memory-local@agents-memory
 # 같은 설치 명령에서 --client omp-plugin을 사용
 ```
 

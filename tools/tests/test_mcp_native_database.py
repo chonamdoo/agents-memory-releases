@@ -261,23 +261,17 @@ def test_current_connector_has_stable_tools_and_honest_readiness_without_runtime
         {"jsonrpc": "2.0", "id": 4, "method": "tools/call", "params": {"name": "recall", "arguments": {"query": "synthetic"}}},
     ]
     result = subprocess.run([str(root / "plugins/agents-memory-local/bin/connector-linux-x86_64"),
-        "--project", str(home), "--helper", str(root / "distribution/mcp-local/setup.py")],
+        "--project", str(home), "--prefix", str(home / ".local/share/agents-memory-unified")],
         env=dict(os.environ, HOME=str(home), XDG_CACHE_HOME=str(home / "cache")),
         input="\n".join(json.dumps(r) for r in requests) + "\n", text=True, capture_output=True, timeout=5, check=True)
     responses = {r["id"]: r["result"] for r in map(json.loads, result.stdout.splitlines())}
-    names = [tool["name"] for tool in responses[2]["tools"]]
-    assert len(names) == len(set(names)) == 10
-    assert "Before your first substantive answer" in responses[1]["instructions"]
-    recall = next(tool for tool in responses[2]["tools"] if tool["name"] == "recall")
-    assert "without waiting" in recall["description"]
-    assert responses[3]["structuredContent"]["ready"] is False
-    logs = responses[3]["structuredContent"]["logs"]
-    assert set(logs) == {"setup", "operations", "postgres", "service"}
-    assert all("credential" not in path for path in logs.values())
-    scope = responses[3]["structuredContent"]["memory_scope"]
-    assert scope["authority"] == "agents-memory-hindsight-local" and scope["project"] == str(home)
+    assert [tool["name"] for tool in responses[2]["tools"]] == ["setup_status"]
+    assert "never request keys in chat" in responses[1]["instructions"]
+    status = json.loads(responses[3]["content"][0]["text"])
+    assert status["ready"] is False and status["state"] == "setup_required"
+    assert status["version"] == "1.0.8" and "/v1.0.8/" in status["install_url"]
     assert responses[4]["isError"] is True
-    assert not (home / ".local/share/agents-memory-hindsight").exists()
+    assert not (home / ".local/share/agents-memory-unified").exists()
 
 
 def test_omp_existing_generated_instruction_disable_is_migrated(helper, installation, tmp_path):

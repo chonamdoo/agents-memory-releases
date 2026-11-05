@@ -12,8 +12,8 @@ import (
 	"syscall"
 )
 
-const version = "0.3.0rc1"
-const install = "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v0.3.0-rc.1/distribution/server/install-unified.sh"
+const version = "1.0.8"
+const install = "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.8/distribution/server/install-unified.sh"
 
 type rpc struct {
 	ID     json.RawMessage `json:"id"`
@@ -24,7 +24,7 @@ type rpc struct {
 func status() map[string]any {
 	return map[string]any{"ready": false, "server_ready": false, "state": "setup_required", "version": version,
 		"message":     "설치 위치와 Claude CLI·Codex CLI·Jev 중 하나를 한 번 선택하세요. Jev 키는 터미널에서 숨김 입력하며 채팅에 보내지 마세요.",
-		"install_url": install, "guide": "https://github.com/chonamdoo/agents-memory-releases/blob/v0.3.0-rc.1/distribution/server/README.ko.md"}
+		"install_url": install, "guide": "https://github.com/chonamdoo/agents-memory-releases/blob/v1.0.8/distribution/server/README.ko.md"}
 }
 
 func serve(in *os.File, out *os.File) {
