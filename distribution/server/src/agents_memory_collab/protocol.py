@@ -17,7 +17,7 @@ def digest(value):
 def operation_digest(body):
     # Omitted optional provenance fields retain the 0.1 operation identity.
     value = dict(body)
-    for key in ("session_id", "source_id"):
+    for key in ("session_id", "source_id", "origin"):
         if value.get(key) is None:
             value.pop(key, None)
     return digest(canonical(value))

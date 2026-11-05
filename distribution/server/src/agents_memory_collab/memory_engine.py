@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import hashlib
+import inspect
 import json
 import os
 import urllib.error
@@ -103,11 +104,14 @@ class HindsightEngine:
             else "not_required_no_generated_observations",
             "integration_enabled": self.generative,
             "generation_enabled": self.free_generation,
+            # Clients attach a user-prompt origin only when the processor can use it.
+            "origin_aware": "origin" in inspect.signature(self.processor.process).parameters,
         }
 
-    async def prepare(self, source):
+    async def prepare(self, source, origin=None):
         try:
-            value = await self.processor.process(source)
+            value = await (self.processor.process(source) if origin is None
+                           else self.processor.process(source, origin=origin))
         except Exception as error:  # noqa: BLE001 - never expose provider payloads or credentials
             terminal = {
                 "review_required": "memory_requires_review",

@@ -221,14 +221,16 @@ class Store:
                 raise Failure(409, "revision_conflict")
             if old and (old["project"], old["kind"]) != (op.project, op.kind):
                 raise Failure(409, "memory_scope_is_immutable")
-        acked, discarded = [], []
+        acked, discarded, reasons = [], [], {}
         for op in operations:
             result = await self._process(actor, op, checkpoint)
             acked.extend(result.get("acked", []))
             discarded.extend(result.get("discarded", []))
+            reasons.update(result.get("reasons", {}))
         head = await self.pool.fetchval("SELECT sequence FROM am_collab.accounts WHERE id=$1", actor.user_id)
         epoch = await self.pool.fetchval("SELECT sync_epoch FROM am_collab.installation")
-        return {"acked": acked, "discarded": discarded, "head": head, "epoch": str(epoch)}
+        # Reasons are a separate key: 1.0.8 clients compare discard entries exactly.
+        return {"acked": acked, "discarded": discarded, "reasons": reasons, "head": head, "epoch": str(epoch)}
 
     async def _process(self, actor, op, checkpoint):
         fingerprint = operation_digest(op.model_dump(mode="json"))
@@ -247,7 +249,8 @@ class Store:
                 if prior and prior["fingerprint"] != fingerprint:
                     raise Failure(409, "operation_id_reused")
                 if prior and prior["stage"] == "discarded":
-                    return {"discarded": [{"op_id": str(op.op_id), "digest": fingerprint, "state": "discarded"}]}
+                    return {"discarded": [{"op_id": str(op.op_id), "digest": fingerprint, "state": "discarded"}],
+                            "reasons": {str(op.op_id): self._discard_reason(prior["prepared"])}}
                 if prior and prior["stage"] in {"ready", "deleted"}:
                     if getattr(self.memory_engine,"generative",False) and prior["stage"] == "ready":
                         await self._cleanup_old_documents(lock, actor, op)
@@ -277,10 +280,14 @@ class Store:
                         await self.memory_engine.integrate(bank)
                     processed = op
                 else:
-                    prepared = json.loads(prior["prepared"]) if prior and prior["prepared"] else await self.memory_engine.prepare(op.text)
+                    prepared = (json.loads(prior["prepared"]) if prior and prior["prepared"]
+                                else await self.memory_engine.prepare(op.text) if op.origin is None
+                                else await self.memory_engine.prepare(op.text, op.origin))
                     prepared["metadata"] = {"account_id": str(actor.user_id), "project": op.project,
                         "kind": op.kind, "memory_id": str(op.memory_id), "operation_id": str(op.op_id),
                         "revision": str(op.base_revision + 1), "source_sha256": digest(op.text)}
+                    if op.origin is not None:
+                        prepared["metadata"]["origin"] = op.origin
                     for field in ("session_id", "source_id"):
                         value = old[field] if old and field not in op.model_fields_set else getattr(op, field)
                         if value is not None:
@@ -288,7 +295,8 @@ class Store:
                     await lock.execute("UPDATE am_collab.memory_jobs SET prepared=$3::jsonb,stage='extracted' WHERE user_id=$1 AND op_id=$2", actor.user_id, op.op_id, canonical(prepared))
                     if prepared["decision"] == "discard":
                         await lock.execute("UPDATE am_collab.memory_jobs SET stage='discarded' WHERE user_id=$1 AND op_id=$2", actor.user_id, op.op_id)
-                        return {"discarded": [{"op_id": str(op.op_id), "digest": fingerprint, "state": "discarded"}]}
+                        return {"discarded": [{"op_id": str(op.op_id), "digest": fingerprint, "state": "discarded"}],
+                                "reasons": {str(op.op_id): self._discard_reason(prepared)}}
                     text = await self.memory_engine.index(bank, document, prepared)
                     await lock.execute("UPDATE am_collab.memory_jobs SET stage='indexed' WHERE user_id=$1 AND op_id=$2", actor.user_id, op.op_id)
                     processed = op.model_copy(update={"text": text})
@@ -305,6 +313,13 @@ class Store:
                 if bank_lock is not None:
                     await lock.execute("SELECT pg_advisory_unlock(hashtextextended($1,0))", bank_lock)
                 await lock.execute("SELECT pg_advisory_unlock(hashtextextended($1,0))", key)
+
+    @staticmethod
+    def _discard_reason(prepared):
+        # Jobs judged before the audit record existed cannot be explained after the fact.
+        if isinstance(prepared, str):
+            prepared = json.loads(prepared)
+        return "judge_not_durable" if isinstance(prepared, dict) and prepared.get("audit") else "reason_not_recorded"
 
     async def _cleanup_old_documents(self, db, actor, op, *, keep=None):
         current = keep or await db.fetchval("SELECT engine_document FROM am_collab.memories WHERE user_id=$1 AND id=$2",actor.user_id,op.memory_id)
@@ -340,6 +355,8 @@ class Store:
             seq, ack = account["sequence"], []
             for op in operations:
                 body = op.model_dump(mode="json")
+                if body.get("origin") is None:
+                    body.pop("origin", None)  # Keep 1.0.8 change bodies for ordinary operations.
                 fingerprint = originals[str(op.op_id)] if originals else operation_digest(body)
                 prior = await db.fetchrow("SELECT sequence,digest,body,chain_hash FROM am_collab.changes WHERE user_id=$1 AND op_id=$2", actor.user_id, op.op_id)
                 if prior:

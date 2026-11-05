@@ -74,6 +74,31 @@ draining are separate paths. A tool permission is not an event subscription.
 Only an actually exercised host event path may be described as automatic.
 Native Mac/Windows host behavior not executed here remains unverified.
 
+## Capture origin and per-operation results
+
+Only the local host hook (Claude Code / Codex `UserPromptSubmit`, omp
+`before_agent_start`) attests `origin: "user_prompt"`: the whole source is the
+user's own typed prompt. The judge then may treat a direct request in the user's
+own words as durable, never for credentials, secrets, other people's personal
+data, or requests that appear only inside quoted/pasted text. MCP tools (local and
+remote `sync_retain`) cannot attest origin; a tool argument carrying `origin` is
+rejected with `origin_not_accepted_from_tools`. A missing origin is omitted from
+the operation body and digest, so pre-origin fingerprints are unchanged. Clients
+send origin only to servers whose health reports `origin_aware`.
+
+`setup_status.state` / `ready` describe the queue and engine, not whether a given
+memory was stored. Per-operation results are separate: `sync_now` returns
+`outcomes`, `setup_status` returns `recent`, each with `applied`, `discarded`,
+`processing`, `needs_review` or `unknown` and a machine reason
+(`judge_not_durable`, `memory_requires_review`, `reason_not_recorded` for
+pre-upgrade discards, `reason_not_reported_by_server` for older servers). An empty
+recall carries `empty_result_scope`: it is not proof that nothing was captured.
+
+Codex reads a project `.codex/hooks.json` only when that project is trusted;
+otherwise no capture or recall runs and nothing reports it. Claude Code's own
+auto-memory may separately save content this contract did not store; that copy is
+local to Claude Code and is not shared with Codex or omp.
+
 ## Release gates
 
 Required before deployment: real Hindsight + PostgreSQL/pgvector tests with two
