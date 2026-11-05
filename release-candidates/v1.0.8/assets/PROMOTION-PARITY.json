@@ -1,0 +1,14 @@
+{
+  "312": {
+    "non_version_core_payload_identical_to_verified_rc": true,
+    "file_count": 13
+  },
+  "313": {
+    "non_version_core_payload_identical_to_verified_rc": true,
+    "file_count": 13
+  },
+  "sdk": {
+    "non_version_payload_identical_to_verified_rc": true,
+    "file_count": 16
+  }
+}
