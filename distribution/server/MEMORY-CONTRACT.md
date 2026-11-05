@@ -86,6 +86,14 @@ rejected with `origin_not_accepted_from_tools`. A missing origin is omitted from
 the operation body and digest, so pre-origin fingerprints are unchanged. Clients
 send origin only to servers whose health reports `origin_aware`.
 
+For a multi-passage user-prompt origin, admission v5 also judges whether each
+passage is only a bare retention request. Such a passage can be omitted from an
+otherwise admitted operation only when another passage already meets the keep
+threshold, its request-only probability is at least 0.8, and its injection score
+is below 0.5. Other uncertain content and suspected injection still block the
+whole operation. `audit.items[].request_only` records this signal (null when not
+asked). Origin-less and single-passage requests keep their existing judgment path.
+
 `setup_status.state` / `ready` describe the queue and engine, not whether a given
 memory was stored. Per-operation results are separate: `sync_now` returns
 `outcomes`, `setup_status` returns `recent`, each with `applied`, `discarded`,
