@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "agents-memory-unified": {
+      "command": "/bin/bash",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/connect.sh"]
+    }
+  }
+}

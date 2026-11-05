@@ -16,7 +16,8 @@ def _read(path):
     return path.read_text() if path.exists() else ""
 
 
-def plan(host, project, connection, state, project_name):
+def plan(host, project, connection, state, project_name, *, python_launcher=None):
+    python = str(python_launcher) if python_launcher else sys.executable
     args = ["-m", "agents_memory_collab.automation", "--connection", str(connection),
             "--state", str(state), "--project", project_name, "--host", host]
     if host in {"claude", "codex"}:
@@ -25,7 +26,7 @@ def plan(host, project, connection, state, project_name):
         document = json.loads(raw or "{}")
         hooks = document.setdefault("hooks", {})
         for event in ("SessionStart", "UserPromptSubmit"):
-            command = {"type": "command", "command": shlex.join([sys.executable, *args]), "timeout": 3}
+            command = {"type": "command", "command": shlex.join([python, *args]), "timeout": 3}
             group = {"hooks": [command]}
             entries = hooks.setdefault(event, [])
             if not isinstance(entries, list):
@@ -37,7 +38,7 @@ def plan(host, project, connection, state, project_name):
     path = project / ".omp/extensions/agents-memory-cloud.ts"
     raw = _read(path)
     template = Path(__file__).with_name("omp_memory.ts").read_text()
-    output = template.replace("__PYTHON__", json.dumps(sys.executable)).replace("__ARGS__", json.dumps(args))
+    output = template.replace("__PYTHON__", json.dumps(python)).replace("__ARGS__", json.dumps(args))
     if raw and raw != output:
         raise Failure(409, "existing_omp_automation_differs")
     return path, raw, None if output == raw else output

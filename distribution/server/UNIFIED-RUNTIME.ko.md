@@ -1,4 +1,4 @@
-# 공통 Hindsight 런타임 — 0.3.0.dev1, 미배포
+# 공통 Hindsight 런타임 — 0.3.0rc1 릴리즈 후보
 
 로컬·개인 서버·팀 서버·회사 서버는 같은 `agents_memory.unified_runtime`과
 `HindsightEngine`을 사용한다. `--mode`는 설치 위치·표시와 로컬 바인딩 제약을
@@ -8,13 +8,10 @@
 공통 엔진은 수정하지 않은 `hindsight-api-slim==1.1.0` 휠
 (`sha256:d19a323afb7f9820e738ac9372f7a59ded21c1329b379195e7933a7dcefd2481`)로
 고정한다. 시작할 때 실제 Python 소스 366개의 트리 해시를 확인하고, 다른 빌드나
-기존 실험 포크가 섞이면 DB나 API를 시작하지 않는다. 과거 `14e7306` 실험 포크와
+기존 실험 포크가 섞이면 서비스를 준비 완료로 표시하지 않고 자식 프로세스를 종료한다. 과거 `14e7306` 실험 포크와
 이번 공통 경로의 실행 증거를 혼용하지 않는다.
 
-이 문서는 소스 실행·검증 안내다. **기존 1.0.7 코어와 v0.2.1 Docker 이미지는
-새 공통 런타임을 포함하지 않는다. 다음 코어의 플랫폼별 패키징·새 설치 시험이
-끝나기 전에는 이 개발 버전을 정식 배포하지 않는다.** 기존 릴리즈와 사용자
-설치는 이번 작업에서 변경하지 않았다.
+이 문서는 공통 런타임과 데이터 계약 안내다. 새 설치는 [릴리즈 후보 설치기](README.ko.md)를 사용한다. 기존 1.0.7 코어와 0.2.1 Docker/bootstrap은 새 런타임이 아니다.
 
 ## 공통 처리
 
@@ -22,7 +19,7 @@
 Claude / Codex / OMP 사용자 입력 훅 → 비공개 SQLite 전송함
   → 인증된 공통 게이트웨이 → 영속 received 작업
   → 선택 공급자의 저장 판단·근거 구간 선택 → extracted
-  → Hindsight 동기 저장·본문/메타데이터 재조회 → indexed
+  → Hindsight 저장·본문/메타데이터 재조회·선택 공급자의 통합 완료 → indexed
   → 현재 revision과 변경 로그 공개 → ready → 다른 PC 적용·회상
 ```
 
@@ -33,8 +30,8 @@ Claude / Codex / OMP 사용자 입력 훅 → 비공개 SQLite 전송함
 
 추출은 원문의 정확한 구간을 선택하는 방식이다. 부정·조건·출처를 임의로
 다시 쓰지 않는다. Hindsight는 선택된 기억의 저장·색인·회상을 맡는다.
-생성형 재서술·문서 간 자동 관찰 통합은 이 계약에서 구현·완료로 주장하지
-않는다. 입력은 UTF-8 32,000바이트, 현재 구간 후보 최대 16개다. 초과 입력을
+Claude/Codex 선택은 이후 Hindsight 생성형 추출·관찰 통합까지 실행하며,
+완료를 확인한 뒤 공개한다. Jev는 typed API로 호환되는 사실을 판정하고 원문 인용을 유지해 관찰을 통합한다. 자유 생성형 재서술은 하지 않는다. [공급자별 처리 계약](GENERATION-CONTRACT.ko.md)을 따른다. 입력은 UTF-8 32,000바이트, 현재 구간 후보 최대 16개다. 초과 입력을
 잘라 저장하지 않으며 명시적인 입력 오류로 보존·분리한다.
 
 ## 엔진 실행 위치와 공급자
@@ -44,7 +41,7 @@ Claude / Codex / OMP 사용자 입력 훅 → 비공개 SQLite 전송함
 | Jev | 엔진 호스트에서 HTTPS 호출 | 판단 대상 원문·선택 후보 | 호스트의 비공개 키 파일 또는 명시적 환경변수 |
 | Claude 구독 CLI | 엔진 호스트의 설치된 CLI | 해당 구독 서비스에 판단 입력 전송 가능 | 그 호스트·서비스 사용자로 직접 로그인 |
 | Codex 구독 CLI | 엔진 호스트의 설치된 CLI | 해당 구독 서비스에 판단 입력 전송 가능 | 그 호스트·서비스 사용자로 직접 로그인 |
-| 실제 로컬 가중치 모델 | 새 공통 어댑터 미구현 | 미정 | 자동 호환·대체를 주장하지 않음 |
+| 별도 로컬 가중치 모델 | 제품 범위에서 제외 | 해당 없음 | 설치·다운로드하지 않음 |
 
 서버 모드를 택해도 Jev/CLI 판단이 필요하다. Mac의 OAuth 파일을 서버에
 복사하지 않는다. 서버 운영자는 DB의 후보 원문·처리된 기억과 서버 키를
@@ -142,10 +139,31 @@ agents-memory-cloud sync --connection /private/device.json --state /private/repl
 Hindsight 스키마를 함께 복원하고 epoch를 교체·기존 키를 폐기한다. 이미 받은
 사본과 진행 중 요청을 원격 회수한다고 주장하지 않는다.
 
-## 배포 전 남은 경계
+## 서버 재시작과 지원 경계
 
-새 코어의 플랫폼별 바이너리/의존성 잠금과 실제 새 설치·업데이트 패키지를
-만들어야 한다. 기존 Docker/bootstrap은 0.2.1 자료이며 새 런타임을 담지
-않으므로 아래 과거 안내로 공통 계약을 충족했다고 주장할 수 없다.
-개인 서버·팀 서버·회사 서버는 배치 형태이며, 회사용 SSO·SCIM·세밀한 관리형
-과금·사용자별 LLM 키 선택 기능을 추가로 제공한다는 뜻이 아니다.
+MCP 연결 시 자동 시작은 같은 호스트의 로컬 엔진에 적용한다. 원격 서버의 OS 재시작은
+서버 운영자가 서비스 사용자로 설정한다. Linux user systemd 예시(경로를 자신의 설치 경로로 변경):
+
+```ini
+[Unit]
+Description=agents-memory unified Hindsight
+After=network-online.target
+[Service]
+Type=simple
+ExecStart=/home/USER/.local/share/agents-memory-unified/current/venv/bin/python -I /home/USER/.local/share/agents-memory-unified/unified-current/bundle/unified_setup.py service --prefix /home/USER/.local/share/agents-memory-unified
+Restart=on-failure
+RestartSec=5
+UMask=0077
+[Install]
+WantedBy=default.target
+```
+
+`~/.config/systemd/user/agents-memory-unified.service`에 저장한 뒤
+`systemctl --user enable --now agents-memory-unified`를 사용한다. 처음 등록하기 전
+동일 설치의 수동 서비스는 설치기의 `stop`으로 종료한다. 로그아웃 후 실행은 운영자가
+`loginctl enable-linger USER` 권한과 정책을 확인한다. 설치기는 sudo·방화벽·GCP 리소스를
+자동 변경하지 않는다. 이 user unit과 Mac 로그인·절전 복귀는 이번 컨테이너 실험의 검증 범위 밖이다.
+
+개인·팀·회사 서버는 배치와 기존 권한 기능을 뜻하며 SSO·SCIM·관리형 과금·사용자별
+LLM 키 자동 분배를 추가 제공한다는 뜻이 아니다. 바이트코드 코어는 Python minor별로
+고정하며 원본 소스를 제외하지만 역공학 방지를 보장하지 않는다.

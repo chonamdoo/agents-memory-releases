@@ -16,6 +16,11 @@
       "name": "agents-memory-local",
       "source": "./plugins/agents-memory-local",
       "description": "Auto-installing local Hindsight MCP for Claude/Codex/OMP. Native DB and E5 included; Jev or subscribed Claude/Codex admission."
+    },
+    {
+      "name": "agents-memory-unified",
+      "source": "./plugins/agents-memory-unified",
+      "description": "0.3.0rc1 common Hindsight memory: Claude CLI, Codex CLI or Jev; Claude/Codex/OMP clients. One-time secure setup; Mac validation pending."
     }
   ]
 }

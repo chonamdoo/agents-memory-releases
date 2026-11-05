@@ -46,5 +46,9 @@ fi
 printf '%s\n' '클라우드 MCP 클라이언트를 준비합니다. 기존 연결 설정과 기억은 유지합니다.' >&2
 "$am_uv" venv --python 3.12 --allow-existing "$am_prefix/venv"
 "$am_uv" pip sync --python "$am_prefix/venv/bin/python" --require-hashes "$am_source/client-requirements.lock"
-"$am_uv" pip install --python "$am_prefix/venv/bin/python" --no-deps "$am_source"
+am_package="$am_source"
+if [ -f "$am_source/ASSETS.json" ]; then
+  am_package="$am_source/$("$am_prefix/venv/bin/python" -I -c 'import json,sys; print(json.load(open(sys.argv[1]))["sdk"])' "$am_source/ASSETS.json")"
+fi
+"$am_uv" pip install --python "$am_prefix/venv/bin/python" --no-deps "$am_package"
 exec "$am_prefix/venv/bin/python" -m agents_memory_collab.cli setup --root "$am_prefix" "$@"

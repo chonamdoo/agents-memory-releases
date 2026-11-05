@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agents-memory-collaboration"
-version = "0.3.0.dev1"
+version = "0.3.0rc1"
 description = "Common Hindsight memory processing, durable sync and project-scoped MCP"
 requires-python = ">=3.12"
 license = "MIT"

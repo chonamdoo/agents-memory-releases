@@ -46,9 +46,10 @@ def parser():
     setup = sub.add_parser("setup", help="Verify server/device, sync and register selected MCP apps")
     setup.add_argument("--url")
     setup.add_argument("--credential-file", type=Path)
-    setup.add_argument("--client", action="append", choices=["claude", "codex", "omp", "all"])
+    setup.add_argument("--client", action="append", choices=["claude", "codex", "omp", "all", "claude-plugin", "omp-plugin"])
     setup.add_argument("--project", type=Path, default=Path.cwd())
     setup.add_argument("--project-name")
+    setup.add_argument("--python-launcher",type=Path,help="Owned launcher that prepares the local service before MCP starts")
     setup.add_argument("--profile", default="personal")
     setup.add_argument("--root", type=Path)
     setup.add_argument("--device-name")
@@ -128,8 +129,12 @@ def main():
                           deployment_mode=getattr(args, "deployment_mode", "personal-server"))
             if args.command == "serve":
                 import uvicorn
+
                 # Access logs may include invite/query identifiers; disable them.
-                uvicorn.run(create_app(store, args.public_url), host=args.host, port=args.port,
+                from .generation_transport import (
+                    from_environment as generation_transport,
+                )
+                uvicorn.run(generation_transport(create_app(store, args.public_url)), host=args.host, port=args.port,
                             access_log=False, proxy_headers=False, log_level="warning")
                 return
 

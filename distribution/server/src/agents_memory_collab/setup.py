@@ -47,7 +47,7 @@ def write_private(path, text, *, exclusive=False):
             temp.unlink()
 
 
-def host_config(client, project, connection, state, project_name):
+def host_config(client, project, connection, state, project_name, *, python_launcher=None):
     paths = {"claude": project / ".mcp.json", "codex": project / ".codex/config.toml", "omp": project / ".omp/mcp.json"}
     path = paths[client]
     # Host config is allowed to be publicly readable, but never a symlink or a
@@ -62,14 +62,17 @@ def host_config(client, project, connection, state, project_name):
     data = tomllib.loads(raw) if client == "codex" else json.loads(raw or "{}")
     key = "mcp_servers" if client == "codex" else "mcpServers"
     args = ["-m", "agents_memory_collab.cli", "mcp", "--connection", str(connection), "--state", str(state), "--project", project_name]
-    desired = {"command": sys.executable, "args": args}
+    command = str(python_launcher) if python_launcher else sys.executable
+    if python_launcher and (not python_launcher.is_absolute() or not python_launcher.is_file() or not os.access(python_launcher,os.X_OK)):
+        raise Failure(400,"invalid_python_launcher")
+    desired = {"command": command, "args": args}
     existing = data.get(key, {}).get(NAME)
     if existing is not None:
         if any(existing.get(k) != v for k, v in desired.items()) or existing.get("enabled") is False:
             raise Failure(409, "existing_mcp_config_differs")
         return path, raw, None
     if client == "codex":
-        output = raw + f"\n[mcp_servers.{NAME}]\ncommand = {json.dumps(sys.executable)}\nargs = {json.dumps(args)}\nstartup_timeout_sec = 120\ntool_timeout_sec = 120\n"
+        output = raw + f"\n[mcp_servers.{NAME}]\ncommand = {json.dumps(command)}\nargs = {json.dumps(args)}\nstartup_timeout_sec = 120\ntool_timeout_sec = 120\n"
         tomllib.loads(output)
     else:
         data.setdefault(key, {})[NAME] = {"type": "stdio", **desired}
@@ -91,7 +94,8 @@ def install(args):
         if not sys.stdin.isatty():
             raise Failure(400, "choose_client_claude_codex_omp_or_all")
         clients = [input("MCP 연결 앱 [claude / codex / omp / all]: ").strip()]
-    clients = ["claude", "codex", "omp"] if "all" in clients else list(dict.fromkeys(clients))
+    plugin_hosts = {c.removesuffix("-plugin") for c in clients if c in {"claude-plugin","omp-plugin"}}
+    clients = ["claude", "codex", "omp"] if "all" in clients else list(dict.fromkeys(c.removesuffix("-plugin") for c in clients))
     if any(c not in {"claude", "codex", "omp"} for c in clients):
         raise Failure(400, "invalid_client")
     root = (args.root or default_root()).absolute() / args.profile
@@ -101,9 +105,9 @@ def install(args):
         raise Failure(400, "project_directory_required")
     project_name = args.project_name or project.name
     # Validate every host destination before issuing or writing a credential.
-    plans = [host_config(c, project, connection, state, project_name) for c in clients]
+    plans = [host_config(c, project, connection, state, project_name,python_launcher=getattr(args,"python_launcher",None)) for c in clients if c not in plugin_hosts]
     from .automation_setup import plan
-    automation_plans = [plan(c, project, connection, state, project_name) for c in clients]
+    automation_plans = [plan(c, project, connection, state, project_name,python_launcher=getattr(args,"python_launcher",None)) for c in clients]
     connection = private_file(connection)
     replacing = connection.exists() and getattr(args, "replace_credential", False)
     previous = None
