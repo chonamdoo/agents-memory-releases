@@ -1,0 +1,25 @@
+{
+  "wheel": "agents_memory_core-0.3.0rc1-cp312-none-any.whl",
+  "sha256": "6b6cbba87eebe945b5395697a1c532fc769d6503243f7774a7d7d57c6ce4869e",
+  "python_minor": [
+    3,
+    12
+  ],
+  "private_python_sources_in_wheel": false,
+  "bytecode_is_not_encryption": true,
+  "runtime_platform": "POSIX; native OS validation reported separately",
+  "modules": {
+    "admission_provider": "2d338d8228a98af68dad2ea4740ef4c946ce61300b17ce3073926f34f2299bdb",
+    "capture_guard": "870f053719daebff77205273fae4c97c30e789dbdeb8f9bb66dfdebf41ef47bc",
+    "errors": "bc321442dfc49f3b442246a61debbe9d294e74d0db8bf004e43715aae0812741",
+    "generation_provider": "acec31cba1da019b8e84f8725214a2f8b5e6b8b56fb3d2495a76748041ac95a6",
+    "hindsight_admission_limits": "9a6c196cd378d5d499d82cb0f31e4a679e8bff2a673564b1e45c2fec7beb8760",
+    "hindsight_admission_policy": "f8b80ed08d1db49db439665a1f3bfbb05f80575fcac6e12976f82d9282066166",
+    "jev": "54b6a66f684ae458a7af014c4cd9498d969c632761e4cffeafa0c0fce4caa10a",
+    "jev_integration": "a75118471bd4ed4fa6da312dd14c24e6e800e9ee75505bac4d973ef5457c6114",
+    "memory_categories": "6b9eed614c73482ab8db025bc6eeb53f4ea7c4be7995faaad8b7706ca0870a7f",
+    "memory_processor": "ab0b3b5863c970188c5ed84f90e077e2997df80020e13a8414660718d724ec7f",
+    "subscription": "0563370e7bce7f5699110077f6fc59d8c118fa06d2c82e5b856c5ca627a0c9b1",
+    "unified_runtime": "c8c6db62d2bea7d91b3f6c8341291d03df03867f65e0850b50959633b43be0a4"
+  }
+}
