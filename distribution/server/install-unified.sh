@@ -41,7 +41,7 @@ am_check() {
   [[ ${am_actual%% *} == "$2" ]] || { echo 'Release integrity check failed; nothing was executed.' >&2; exit 2; }
 }
 echo 'Preparing the verified common memory package...' >&2
-am_fetch "https://github.com/chonamdoo/agents-memory-releases/releases/download/$am_version/$am_asset" "$am_work/unified.tar.gz"
+am_fetch "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/8423de67191bbf664e0d4efd777f8537f8e77930/release-candidates/v0.3.0-rc.1/assets/$am_asset" "$am_work/unified.tar.gz"
 am_check "$am_work/unified.tar.gz" "$am_bundle_sha"
 mkdir "$am_work/unified"
 tar -xzf "$am_work/unified.tar.gz" -C "$am_work/unified"
