@@ -1,0 +1,15 @@
+{
+  "model_id": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+  "model_revision": "1427fd652930e4ba29e8149678df786c240d8825",
+  "official_model_card_url": "https://huggingface.co/cross-encoder/mmarco-mMiniLMv2-L12-H384-v1/raw/1427fd652930e4ba29e8149678df786c240d8825/README.md",
+  "attribution": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1, published by the cross-encoder organization on Hugging Face; based on nreimers/mMiniLMv2-L12-H384-distilled-from-XLMR-Large and trained on unicamp-dl/mmarco, as stated in the pinned official model card.",
+  "license": "Apache-2.0",
+  "license_source_url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+  "official_model_card_license": "apache-2.0",
+  "upstream_onnx_sha256": "3e9a03ed1e966f7c5288dd4230e3d6a9bf5e3a170a06f1f4241c5bca12c6487c",
+  "distributed_onnx_sha256": "838c5f31e2cc50385c55693d2960edbae41f9f8bf8257e93bce80bc15ae919ea",
+  "modification_notice": "The distributed model.onnx is modified from the author's ONNX graph by adding a final Sigmoid. It is not the unmodified upstream file. This companion builder does not convert the model; it only verifies and packages the approved prepared files.",
+  "asset_manifest": "reranker-assets.sha256.json",
+  "model_directory": "model",
+  "quality_notice": "Hash verification establishes artifact identity, not retrieval quality. Numerical parity is not retrieval-quality proof. No universal relevance probability or production-quality certification is asserted. The old independent v22 release gates failed auto precision, legitimate explicit storage, and recall/noise; the independent 2.0.0 release gate remains pending."
+}

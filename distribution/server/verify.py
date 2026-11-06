@@ -22,9 +22,14 @@ def main():
     parser.add_argument('--e5', type=Path, required=True)
     parser.add_argument('--work', type=Path, required=True, help='New empty directory for synthetic DB, snapshot and evidence')
     parser.add_argument('--python', type=Path, help='Use an existing locked QA environment, read-only')
+    parser.add_argument('--client-bundle', type=Path, required=True,
+                        help='Reviewed unified client bundle containing ASSETS.json and matching core/SDK wheels')
     parser.add_argument('--go', default='go')
     args = parser.parse_args()
     source = Path(__file__).resolve().parent
+    bundle = args.client_bundle.resolve(strict=True)
+    if not (bundle/'ASSETS.json').is_file():
+        raise SystemExit('Client verification requires a reviewed unified bundle')
     root = args.work.absolute()
     if root.exists() and any(root.iterdir()):
         raise SystemExit('Verification work directory must be empty; no existing files were changed')
@@ -73,6 +78,7 @@ print(json.dumps(actual,sort_keys=True))
         AM_COLLAB_TEST_E5=str(args.e5), AM_COLLAB_TEST_E5_MANIFEST=str(snapshot/'e5-assets.sha256.json'),
         AM_COLLAB_EVIDENCE=str(root/'evidence'), AM_COLLAB_TEST_PROXY=str(proxy), AM_COLLAB_TEST_WHEEL=str(wheel),
         AUDIT_PG_BIN=str(args.pg_bin))
+    env['AM_COLLAB_TEST_CLIENT_BUNDLE'] = str(bundle)
     command = [str(python), '-m', 'pytest', 'tests', '-q', '--tb=short', '--hypothesis-seed=20261104', '--junitxml='+str(root/'evidence/results.xml')]
     try:
         with (root/'evidence/results.log').open('w') as out:

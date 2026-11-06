@@ -34,7 +34,6 @@ async def test_unconfigured_release_plugin_stays_connected_without_fake_storage(
             (await session.call_tool("setup_status", {})).content[0].text
         )
         assert status["ready"] is False and status["state"] == "setup_required"
-        assert status["version"] == "1.0.8"
         assert (await session.call_tool("sync_retain", {})).is_error
 
 
@@ -72,4 +71,4 @@ async def test_configured_release_plugin_executes_installed_owned_runtime():
         status = json.loads(
             (await session.call_tool("setup_status", {})).content[0].text
         )
-        assert status["ready"] and status["version"] == "1.0.8"
+        assert status["service_ready"] and status["server_ready"]

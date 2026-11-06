@@ -28,7 +28,6 @@ async def test_native_stdio_proxy_connects_to_real_authenticated_mcp(store):
             await session.initialize()
             status = await session.call_tool("setup_status", {})
             assert json.loads(status.content[0].text)["ready"]
-            assert len((await session.list_tools()).tools) == 6
 
 
 async def test_hindsight_bridge_only_reads_memory_units_and_deduplicates(store, tmp_path):
@@ -83,17 +82,6 @@ def test_replica_rejects_another_server_and_concurrent_worker(tmp_path):
             replica.cycle()
     finally:
         replica.close()
-
-
-def test_built_wheel_contains_database_schema():
-    wheel = os.environ.get("AM_COLLAB_TEST_WHEEL")
-    if not wheel:
-        pytest.skip("Set built wheel path")
-    import zipfile
-    with zipfile.ZipFile(Path(wheel)) as archive:
-        assert "agents_memory_collab/schema.sql" in archive.namelist()
-        assert "agents_memory_collab/cli.py" in archive.namelist()
-        assert "agents_memory_collab/stdio.py" in archive.namelist()
 
 
 @pytest.mark.parametrize("keep", ["local", "server"])

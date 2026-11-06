@@ -20,6 +20,18 @@ from .models import Failure, Operation
 from .protocol import GENESIS, canonical, chain_hash, digest, operation_digest
 
 
+def _reject_source_secrets(text):
+    try:
+        from agents_memory.capture_guard import contains_source_secret
+        rejected = contains_source_secret(text)
+        if type(rejected) is not bool:
+            raise TypeError("Invalid source guard result")
+    except Exception:
+        raise Failure(503, "memory_source_guard_unavailable") from None
+    if rejected:
+        raise Failure(400, "memory_source_contains_credentials")
+
+
 def private_file(path: Path):
     path = path.absolute()
     # macOS exposes these OS-owned roots as aliases. Normalize only those
@@ -117,6 +129,8 @@ class Replica:
             INSERT OR IGNORE INTO worker(id) VALUES(1);
             CREATE TABLE IF NOT EXISTS receipts(op_id TEXT PRIMARY KEY,digest TEXT NOT NULL);
             CREATE TABLE IF NOT EXISTS recovery_archive(id TEXT PRIMARY KEY,created_at REAL NOT NULL,body TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS operation_intents(op_id TEXT PRIMARY KEY,intent TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS host_events(scope TEXT NOT NULL,project TEXT NOT NULL,host TEXT NOT NULL,event TEXT NOT NULL,source TEXT NOT NULL,capture_enabled INTEGER NOT NULL,context_prepared INTEGER NOT NULL,captured INTEGER NOT NULL,observed_at REAL NOT NULL,PRIMARY KEY(scope,project,host,event,source));
         """)
         additions_by_table = {
             "state": {"epoch": "TEXT", "chain_hash": "TEXT", "credential": "TEXT", "writable": "INTEGER NOT NULL DEFAULT 0", "memory_ready": "INTEGER NOT NULL DEFAULT 0", "memory_contract": "TEXT", "origin_aware": "INTEGER NOT NULL DEFAULT 0"},
@@ -124,6 +138,7 @@ class Replica:
             "outbox": {"status": "TEXT NOT NULL DEFAULT 'pending'", "error": "TEXT"},
             "worker": {"pid": "INTEGER"},
             "receipts": {"outcome": "TEXT NOT NULL DEFAULT 'applied'", "reason": "TEXT"},
+            "operation_intents": {"memory_id": "TEXT", "digest": "TEXT"},
         }
         with self.transaction():
             for table, additions in additions_by_table.items():
@@ -192,8 +207,46 @@ class Replica:
                 raise Failure(409, "verify_destination_before_queueing")
             if not saved["writable"]:
                 raise Failure(403, "read_only_credential")
-            mid = str(UUID(str(memory_id))) if memory_id else str(uuid4())
-            old = self.db.execute("SELECT * FROM memories WHERE id=?", (mid,)).fetchone()
+            identifier = UUID(str(op_id)) if op_id else uuid4()
+            known = self.db.execute("SELECT intent,memory_id,digest FROM operation_intents WHERE op_id=?", (str(identifier),)).fetchone()
+            frozen = self.db.execute("SELECT body FROM outbox WHERE op_id=?", (str(identifier),)).fetchone()
+            frozen = json.loads(frozen["body"]) if frozen else None
+            if memory_id:
+                mid = str(UUID(str(memory_id)))
+            elif known and known["memory_id"]:
+                mid = known["memory_id"]
+            elif frozen:
+                mid = frozen["memory_id"]
+            else:
+                mid = str(uuid4())
+            intent = digest(canonical({"memory_id": mid, "project": project, "kind": kind,
+                                       "text": text, "deleted": deleted, "base_revision": base_revision,
+                                       "session_id": session_id, "source_id": source_id, "origin": origin}))
+            if known:
+                if known["intent"] != intent:
+                    raise Failure(409, "operation_id_reused")
+                if known["digest"]:
+                    received = self.db.execute("SELECT digest FROM receipts WHERE op_id=?", (str(identifier),)).fetchone()
+                    if received and received["digest"] != known["digest"]:
+                        raise Failure(409, "operation_id_reused")
+                    result = self.outcome(identifier)
+                    if result["state"] == "unknown":
+                        raise Failure(409, "operation_history_requires_review")
+                    return {"memory_id": mid, "op_id": str(identifier),
+                            "queued": result["state"] in {"processing", "needs_review"},
+                            "state": result["state"], "reason": result["reason"]}
+                if not frozen:
+                    raise Failure(409, "operation_history_requires_review")
+            if frozen:
+                if base_revision is None:
+                    base_revision = frozen["base_revision"]
+                if session_id is None:
+                    session_id = frozen.get("session_id")
+                if source_id is None:
+                    source_id = frozen.get("source_id")
+                if deleted:
+                    kind, project = frozen["kind"], frozen["project"]
+            old = None if frozen else self.db.execute("SELECT * FROM memories WHERE id=?", (mid,)).fetchone()
             if old:
                 if deleted:
                     kind, project = old["kind"], old["project"]
@@ -207,11 +260,16 @@ class Replica:
                 raise Failure(400, "memory_text_required")
             # An older server rejects unknown fields; never queue an operation it cannot accept.
             conveyed = origin is not None and not deleted and bool(saved["origin_aware"])
-            op = Operation(op_id=UUID(str(op_id)) if op_id else uuid4(), memory_id=UUID(mid),
+            if frozen and frozen.get("origin") is None:
+                conveyed = False
+            op = Operation(op_id=identifier, memory_id=UUID(mid),
                            project=project, kind=kind, base_revision=base_revision if base_revision is not None else old["revision"] if old else 0,
                            text=None if deleted else text, deleted=deleted, session_id=session_id, source_id=source_id,
                            origin=origin if conveyed else None)
             fingerprint = operation_digest(op.model_dump(mode="json"))
+            self.db.execute("""INSERT INTO operation_intents(op_id,intent,memory_id,digest) VALUES(?,?,?,?)
+                ON CONFLICT(op_id) DO UPDATE SET memory_id=excluded.memory_id,digest=excluded.digest""",
+                (str(identifier), intent, mid, fingerprint))
             received = self.db.execute("SELECT digest,outcome,reason FROM receipts WHERE op_id=?", (str(op.op_id),)).fetchone()
             if received:
                 if received[0] != fingerprint:
@@ -225,6 +283,7 @@ class Replica:
                 if operation_digest(json.loads(pending["body"])) != fingerprint:
                     raise Failure(409, "operation_id_reused")
             else:
+                _reject_source_secrets(canonical(op.model_dump(mode="json")))
                 self.db.execute("INSERT INTO outbox(op_id,memory_id,body) VALUES(?,?,?)",
                                 (str(op.op_id), mid, op.model_dump_json(exclude=None if op.origin else {"origin"})))
         result = {"memory_id": mid, "op_id": str(op.op_id), "queued": True, "state": "received", "memory_ready": False}
@@ -460,8 +519,10 @@ class Replica:
     def outcome(self, op_id):
         """One operation's result. `applied` means committed on the server and in this replica."""
         with self.lock:
-            receipt = self.db.execute("SELECT outcome,reason FROM receipts WHERE op_id=?", (str(op_id),)).fetchone()
-            pending = self.db.execute("SELECT status,error FROM outbox WHERE op_id=?", (str(op_id),)).fetchone()
+            receipt = self.db.execute("SELECT digest,outcome,reason FROM receipts WHERE op_id=?", (str(op_id),)).fetchone()
+            pending = self.db.execute("SELECT body,status,error FROM outbox WHERE op_id=?", (str(op_id),)).fetchone()
+        if receipt and pending and receipt["digest"] != operation_digest(json.loads(pending["body"])):
+            return {"op_id": str(op_id), "state": "needs_review", "reason": "operation_id_reused"}
         if receipt:
             return {"op_id": str(op_id), "state": receipt["outcome"], "reason": receipt["reason"]}
         if pending:
@@ -469,6 +530,66 @@ class Replica:
             return {"op_id": str(op_id), "state": "needs_review" if pending["status"] == "needs_review" else "processing",
                     "reason": pending["error"]}
         return {"op_id": str(op_id), "state": "unknown", "reason": None}
+
+    def _host_event_scope(self):
+        saved = self._state() or {}
+        return digest(canonical({"server": self.remote.url, "credential": digest(self.remote.token),
+                                 "epoch": saved.get("epoch"), "installation": saved.get("installation")}))
+
+    def reset_host_events(self, project, hosts):
+        from .automation_setup import host_capabilities
+        hosts = list(dict.fromkeys(hosts))
+        for host in hosts:
+            host_capabilities(host)
+        with self.transaction():
+            self.db.executemany("DELETE FROM host_events WHERE scope=? AND project=? AND host=?",
+                                [(self._host_event_scope(), project, host) for host in hosts])
+
+    def record_host_event(self, project, host, event, *, capture_enabled, context_delivered, captured, source=None):
+        from .automation_setup import host_capabilities
+        if event not in host_capabilities(host)["events"]:
+            raise ValueError("Unsupported host event")
+        source = source or ""
+        if source not in {"", "startup", "resume", "clear", "compact", "fork", "new", "manual", "auto"}:
+            raise ValueError("Unsupported event source")
+        if any(type(value) is not bool for value in (capture_enabled, context_delivered, captured)):
+            raise ValueError("Invalid host event receipt")
+        if captured and (not capture_enabled or event not in {"UserPromptSubmit", "before_agent_start"}):
+            raise ValueError("Lifecycle events cannot capture")
+        with self.transaction():
+            self.db.execute(
+                "INSERT INTO host_events VALUES(?,?,?,?,?,?,?,?,?) "
+                "ON CONFLICT(scope,project,host,event,source) DO UPDATE SET "
+                "capture_enabled=excluded.capture_enabled,context_prepared=excluded.context_prepared,"
+                "captured=excluded.captured,observed_at=excluded.observed_at",
+                (self._host_event_scope(), project, host, event, source, int(capture_enabled),
+                 int(context_delivered), int(captured), time.time()))
+
+    def host_automation_status(self, project, hosts=None, *, capture_enabled=True):
+        from .automation_setup import host_capabilities
+        hosts = list(dict.fromkeys(hosts or []))
+        with self.lock:
+            rows = [dict(row) for row in self.db.execute(
+                "SELECT host,event,source,capture_enabled,context_prepared,captured,observed_at "
+                "FROM host_events WHERE scope=? AND project=? ORDER BY observed_at",
+                (self._host_event_scope(), project))]
+        result = {}
+        for host in hosts:
+            capabilities = host_capabilities(host)
+            events = [row for row in rows if row["host"] == host]
+            observed = bool(events)
+            captured = any(row["captured"] for row in events)
+            prepared = any(row["context_prepared"] for row in events)
+            result[host] = {"execution": "observed" if observed else "unverified",
+                            "capture": "disabled" if not capture_enabled else "observed" if captured else "unverified",
+                            "context": "prepared" if prepared else "unverified",
+                            "capabilities": capabilities, "observed_events": events}
+        return {"hosts": result, "capture_enabled": capture_enabled,
+                "automation_ready": bool(result) and all(
+                    row["execution"] == "observed" and row["context"] == "prepared"
+                    and row["capture"] in {"disabled", "observed"} for row in result.values()),
+                "evidence_scope": "adapter_execution_and_context_preparation_only",
+                "native_trust": "unverified", "model_compliance": "unverified"}
 
     def status(self):
         with self.lock:

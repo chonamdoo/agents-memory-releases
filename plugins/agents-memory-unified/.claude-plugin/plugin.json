@@ -1,7 +1,7 @@
 {
   "name": "agents-memory-unified",
-  "version": "1.0.8",
-  "description": "Common Hindsight memory for Claude, Codex and OMP; explicitly select Claude CLI, Codex CLI or Jev once.",
+  "version": "2.0.0",
+  "description": "Jev-backed memory for Claude, Codex and OMP frontends; install from the privately supplied 2.0.0 bundle.",
   "author": {"name": "chonamdoo"},
   "homepage": "https://github.com/chonamdoo/agents-memory-releases",
   "repository": "https://github.com/chonamdoo/agents-memory-releases",

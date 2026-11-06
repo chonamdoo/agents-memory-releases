@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import os
 import re
 from contextlib import asynccontextmanager
 from urllib.parse import urlsplit
@@ -26,6 +27,7 @@ from .models import (
     Preferences,
     Push,
     Search,
+    SessionContext,
     Sharing,
     tool_operation,
     tool_operation_schema,
@@ -119,13 +121,17 @@ class Boundary:
 
 
 def create_app(store, public_url="http://127.0.0.1:18350"):
+    service_instance = os.environ.get("AM_MEMORY_SERVICE_INSTANCE")
     async def rest(request: Request):
         try:
             if request.url.path == "/healthz":
                 await store.pool.fetchval("SELECT 1")
                 memory = await store.memory_status()
-                return response({"ready": memory["ready"], "version": __version__, "memory": memory,
-                                 "semantic": store.memory_engine is not None})
+                value = {"ready": memory["ready"], "version": __version__, "memory": memory,
+                         "semantic": store.memory_engine is not None}
+                if service_instance:
+                    value["service_instance"] = service_instance
+                return response(value)
             actor = request.scope["am_actor"]
             method, path = request.method, request.url.path
             value = await request.json() if method in {"POST", "PUT"} else {}
@@ -156,6 +162,9 @@ def create_app(store, public_url="http://127.0.0.1:18350"):
             elif path == "/v1/recall" and method == "POST":
                 item = parse(Search, value)
                 result = await store.search(actor, item.query, item.project, item.limit)
+            elif path == "/v1/session/context" and method == "POST":
+                item = parse(SessionContext, value)
+                result = await store.session_context(actor, item.project, item.limit)
             elif path == "/v1/teams" and method == "GET":
                 result = {"teams": await store.teams(actor)}
             elif path == "/v1/teams" and method == "POST":

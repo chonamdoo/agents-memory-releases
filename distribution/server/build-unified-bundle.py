@@ -10,7 +10,7 @@ import tarfile
 import zipfile
 from pathlib import Path
 
-VERSION = "1.0.8"
+VERSION = "2.0.0"
 
 
 def main():
@@ -25,8 +25,10 @@ def main():
     target.mkdir(mode=0o700, parents=True)
     for name in (
         "unified_setup.py",
+        "install-unified.sh",
         "client-requirements.lock",
         "e5-assets.sha256.json",
+        "reranker-assets.sha256.json",
         "install-client.sh",
         "README.ko.md",
         "GENERATION-CONTRACT.ko.md",
@@ -51,6 +53,9 @@ def main():
             ):
                 raise ValueError("Wheel version does not match release")
             if label.startswith("core"):
+                python_tag = "cp312" if label == "core_312" else "cp313"
+                if wheel.name.split("-")[-3] != python_tag:
+                    raise ValueError(f"{label} requires a {python_tag} wheel")
                 for name in archive.namelist():
                     if name.endswith((".c", ".h")) or (
                         name.endswith(".py")
@@ -66,9 +71,8 @@ def main():
         manifest[label] = destination
     for path in sorted(target.rglob("*")):
         if path.is_file():
-            manifest["files"][path.relative_to(target).as_posix()] = hashlib.sha256(
-                path.read_bytes()
-            ).hexdigest()
+            with path.open("rb") as stream:
+                manifest["files"][path.relative_to(target).as_posix()] = hashlib.file_digest(stream, "sha256").hexdigest()
     (target / "ASSETS.json").write_text(json.dumps(manifest, indent=2) + "\n")
     archive_path = target.parent / (target.name + ".tar.gz")
     with tarfile.open(archive_path, "w:gz") as archive:
@@ -77,7 +81,8 @@ def main():
                 archive.add(
                     path, arcname=path.relative_to(target).as_posix(), recursive=False
                 )
-    digest = hashlib.sha256(archive_path.read_bytes()).hexdigest()
+    with archive_path.open("rb") as stream:
+        digest = hashlib.file_digest(stream, "sha256").hexdigest()
     archive_path.with_suffix(archive_path.suffix + ".sha256").write_text(
         digest + "  " + archive_path.name + "\n"
     )

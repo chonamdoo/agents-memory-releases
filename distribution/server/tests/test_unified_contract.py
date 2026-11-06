@@ -38,11 +38,16 @@ class TypedJudge:
         if self.fail:
             raise ProviderFailure("transport")
         answers = {}
-        for name in questions:
+        for name, question in questions.items():
             i = int(name.rsplit("_", 1)[1])
             text = state["items"][i]["text"]
             keep = not text.startswith(("Thanks", "discard"))
-            answers[name] = {"type": "noul", "noul": float(keep) if name.startswith("remember") else 0.0}
+            if question["type"] == "choice":
+                selected = "project_fact" if keep else "transient"
+                answers[name] = {"type": "choice", "choice": selected,
+                                 "probabilities": {label: float(label == selected) for label in question["criteria"]}}
+            else:
+                answers[name] = {"type": "noul", "noul": float(keep) if name.startswith("remember") else 0.0}
         return ProviderResult("synthetic-typed-judge", answers, 0)
 
 
@@ -52,9 +57,11 @@ def runtime():
     return receipt
 
 
-def engine(judge=None):
+def engine(judge=None, *, integrated=None):
     from agents_memory.memory_processor import GroundedProcessor
-    return HindsightEngine(runtime()["hindsight_url"], GroundedProcessor(judge or TypedJudge()))
+    if integrated is None:
+        integrated = runtime()["processing"] == "integrated"
+    return HindsightEngine(runtime()["hindsight_url"], GroundedProcessor(judge or TypedJudge()), integrated=integrated)
 
 
 @pytest_asyncio.fixture
@@ -210,7 +217,8 @@ async def test_backend_configuration_drift_blocks_publication(store):
     item = op()
     bank = store.memory_engine.bank(actor.user_id, item.project)
     await store.memory_engine.request("/v1/default/banks/" + bank, {}, "PUT")
-    await store.memory_engine.request("/v1/default/banks/" + bank + "/config", {"updates":{"enable_observations":True}}, "PATCH")
+    await store.memory_engine.request("/v1/default/banks/" + bank + "/config",
+        {"updates": {"enable_observations": not store.memory_engine.integrated}}, "PATCH")
     with pytest.raises(Failure, match="memory_backend_contract_mismatch"):
         await store.push(actor, [item])
     assert (await store.search(actor, "PostgreSQL"))["memories"] == []
@@ -271,7 +279,9 @@ async def test_processing_does_not_deadlock_when_every_pool_connection_is_occupi
     store.memory_engine.prepare = barrier
     # Both operations own one connection before either can publish. Publication
     # must reuse its owned connection, not wait for a third one from the pool.
-    await asyncio.wait_for(asyncio.gather(store.push(actor, [op()]), store.push(actor, [op()])), timeout=5)
+    left, right = op(), op()
+    right.project = "independent-bank"
+    await asyncio.wait_for(asyncio.gather(store.push(actor, [left]), store.push(actor, [right])), timeout=5)
     assert (await store.changes(actor, 0))["head"] == 2
 
 
@@ -296,6 +306,66 @@ async def test_backend_hit_is_not_lost_behind_unrelated_projection_rows(store):
         'ready',$3,'missing-'||n FROM generate_series(1,10001) n""", actor.user_id, actor.device_id, bank)
     result = await store.search(actor, "데이터베이스 저장 엔진 버전", project=item.project)
     assert [row["id"] for row in result["memories"]] == [item.memory_id]
+
+
+async def test_unrelated_question_does_not_return_a_stored_project_fact(store):
+    _, actor = await account(store)
+    item = op()
+    await store.push(actor, [item])
+    result = await store.search(actor, "Why do ocean tides rise and fall?", project=item.project)
+    assert result["memories"] == []
+
+
+async def test_native_mode_mismatch_does_not_index_a_document():
+    adapter = engine(integrated=runtime()["processing"] != "integrated")
+    prepared = await adapter.prepare("The synthetic mode fixture uses PostgreSQL 18.")
+    bank, document = "mode-mismatch-" + uuid4().hex, "synthetic-mode-boundary"
+    with pytest.raises(Failure, match="memory_backend_contract_mismatch"):
+        await adapter.index(bank, document, prepared)
+    assert await adapter.document_record(bank, document) is None
+
+
+async def test_integrated_revision_replaces_native_source_and_derived_provenance(store):
+    if runtime()["processing"] != "integrated":
+        pytest.skip("Exercised with the separate integrated native profile")
+    store.memory_engine = engine(integrated=True)
+    _, actor = await account(store)
+    item = op("The synthetic cache TTL is 13 seconds.")
+    await store.push(actor, [item])
+    old = await store.pool.fetchrow(
+        "SELECT engine_bank,engine_document FROM am_collab.memories WHERE user_id=$1 AND id=$2",
+        actor.user_id, item.memory_id)
+    changed = item.model_copy(update={
+        "op_id": uuid4(), "base_revision": 1, "text": "The synthetic cache TTL is 29 seconds."})
+    await store.push(actor, [changed])
+    assert await store.memory_engine.document_record(old["engine_bank"], old["engine_document"]) is None
+    found = await store.search(actor, "What is the synthetic cache TTL?", project=item.project)
+    assert found["integration_enabled"] and not found["generation_enabled"]
+    assert {source["id"] for memory in found["memories"] for source in memory["sources"]} == {str(item.memory_id)}
+    assert all(source["revision"] == 2 for memory in found["memories"] for source in memory["sources"])
+    text = "\n".join(memory["text"] for memory in found["memories"])
+    assert "29 seconds" in text and "13 seconds" not in text
+    current = await store.pool.fetchrow(
+        "SELECT engine_bank,engine_document FROM am_collab.memories WHERE user_id=$1 AND id=$2",
+        actor.user_id, item.memory_id)
+    removed = changed.model_copy(update={"op_id": uuid4(), "base_revision": 2, "deleted": True, "text": None})
+    await store.push(actor, [removed])
+    assert await store.memory_engine.document_record(current["engine_bank"], current["engine_document"]) is None
+    assert (await store.search(actor, "synthetic cache TTL", project=item.project))["memories"] == []
+
+
+async def test_integrated_same_bank_parallel_sources_remain_recallable(store):
+    if runtime()["processing"] != "integrated":
+        pytest.skip("Exercised with the separate integrated native profile")
+    store.memory_engine = engine(integrated=True)
+    _, actor = await account(store)
+    left = op("The synthetic cache TTL is 37 seconds.")
+    right = op("The synthetic cache namespace is cache-v7.")
+    await asyncio.gather(store.push(actor, [left]), store.push(actor, [right]))
+    found = await store.search(actor, "What are the cache TTL and cache namespace?", project=left.project)
+    assert {source["id"] for memory in found["memories"] for source in memory["sources"]} == {
+        str(left.memory_id), str(right.memory_id)}
+    assert all(source["revision"] == 1 for memory in found["memories"] for source in memory["sources"])
 
 
 async def test_actual_http_ack_loss_two_sqlite_clients_edit_delete_and_conflict():
@@ -417,3 +487,50 @@ async def test_reference_model_over_generated_operation_sequences(actions):
             inspect_state(expected, actual, visible)
     finally:
         await db.close()
+
+
+@pytest.mark.parametrize("deleted", [False, True])
+async def test_revocation_at_publication_cannot_replace_the_current_memory(store, monkeypatch, deleted):
+    _, manager = await account(store)
+    original = op()
+    await store.push(manager, [original])
+    previous = await store.pool.fetchrow(
+        "SELECT engine_bank,engine_document FROM am_collab.memories WHERE user_id=$1 AND id=$2",
+        manager.user_id, original.memory_id)
+    key = await store.create_device(manager, "Synthetic concurrent writer", True)
+    writer = await store.authenticate(key["token"])
+    replacement = original.model_copy(update={
+        "op_id": uuid4(), "base_revision": 1, "deleted": deleted,
+        "text": None if deleted else "The synthetic backend uses PostgreSQL 19."})
+    original_commit = store._commit
+
+    async def revoke_before_commit(current_actor, operations, checkpoint=None, **kwargs):
+        if any(item.op_id == replacement.op_id for item in operations):
+            await store.revoke_device(manager, writer.credential_id)
+        return await original_commit(current_actor, operations, checkpoint, **kwargs)
+
+    monkeypatch.setattr(store, "_commit", revoke_before_commit)
+    with pytest.raises(Failure, match="unauthorized"):
+        await store.push(writer, [replacement])
+    current = await store.pool.fetchrow(
+        "SELECT text,revision,deleted FROM am_collab.memories WHERE user_id=$1 AND id=$2",
+        manager.user_id, original.memory_id)
+    assert current["revision"] == 1 and current["text"] == original.text and not current["deleted"]
+    assert await store.pool.fetchval(
+        "SELECT count(*) FROM am_collab.changes WHERE user_id=$1 AND op_id=$2",
+        manager.user_id, replacement.op_id) == 0
+    assert await store.memory_engine.read(previous["engine_bank"], previous["engine_document"]) == original.text
+
+
+async def test_brief_keeps_a_long_fact_with_its_final_exception_intact(store):
+    _, owner = await account(store)
+    team = UUID((await store.create_team(owner, "Synthetic briefing team"))["id"])
+    project = UUID((await store.create_project(owner, team, "Synthetic briefing project"))["id"])
+    fact = ("The synthetic archive deletion rule applies to partitions "
+            + ", ".join(str(number) for number in range(200))
+            + ", except records under legal hold must never be deleted.")
+    assert 500 < len(fact) < 2500
+    await store.push(owner, [op(fact)])
+    await store.sharing(owner, team, [ShareMapping(source_project="synthetic-app", project_id=project)])
+    result = await store.brief(owner, team, project)
+    assert [item["text"] for item in result["items"]] == [fact]

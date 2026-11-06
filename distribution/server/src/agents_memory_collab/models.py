@@ -31,7 +31,7 @@ class Operation(Model):
     text: Text | None = None
     session_id: Label | None = None
     source_id: Label | None = None
-    # Set only by the local hook path for the user's own typed prompt; MCP tools reject it.
+    # Only local host prompt hooks set this channel marker; it does not verify human authorship.
     origin: Literal["user_prompt"] | None = None
 
     @field_validator("text")
@@ -73,6 +73,11 @@ class Search(Model):
     limit: Annotated[StrictInt, Field(ge=1, le=50)] = 10
 
 
+class SessionContext(Model):
+    project: Label
+    limit: Annotated[StrictInt, Field(ge=1, le=10)] = 5
+
+
 class Named(Model):
     name: Label
 
@@ -106,6 +111,7 @@ class Device(Model):
 
 
 class Failure(Exception):
-    def __init__(self, status: int, code: str):
+    def __init__(self, status: int, code: str, *, details: dict | None = None):
         self.status, self.code = status, code
+        self.details = details or {}
         super().__init__(code)

@@ -17,7 +17,7 @@ from agents_memory_collab.memory_engine import HindsightEngine
 from agents_memory_collab.stdio import LocalMCP
 from hypothesis import given, settings
 from hypothesis import strategies as st
-from test_unified_contract import account, runtime, server
+from test_unified_contract import account, engine, runtime, server
 
 pytestmark = pytest.mark.skipif(not os.environ.get("AM_UNIFIED_TEST_RECEIPT"), reason="Requires explicit isolated real-Hindsight runtime")
 
@@ -36,14 +36,19 @@ class OriginJudge:
         if self.fail:
             raise ProviderFailure("transport")
         keep = state.get("source_origin") == "user_prompt"
-        return ProviderResult("synthetic-origin-judge", {
-            name: {"type": "noul", "noul": float(keep) if name.startswith("remember") else 0.0}
-            for name in questions}, 0)
+        answers = {}
+        for name, question in questions.items():
+            if question["type"] == "choice":
+                selected = "project_fact" if keep else "transient"
+                answers[name] = {"type": "choice", "choice": selected,
+                                 "probabilities": {label: float(label == selected) for label in question["criteria"]}}
+            else:
+                answers[name] = {"type": "noul", "noul": float(keep) if name.startswith("remember") else 0.0}
+        return ProviderResult("synthetic-origin-judge", answers, 0)
 
 
 def install(store, judge):
-    from agents_memory.memory_processor import GroundedProcessor
-    store.memory_engine = HindsightEngine(runtime()["hindsight_url"], GroundedProcessor(judge))
+    store.memory_engine = engine(judge)
 
 
 def connection_file(folder, url, token):
@@ -191,7 +196,8 @@ async def test_server_without_origin_support_never_receives_the_field():
                     "consolidation": "not_required_no_generated_observations",
                     "passages": [{"start": 0, "end": len(source), "text": source}]}
     async with server() as (store, url):
-        store.memory_engine = HindsightEngine(runtime()["hindsight_url"], LegacyProcessor())
+        store.memory_engine = HindsightEngine(
+            runtime()["hindsight_url"], LegacyProcessor(), integrated=store.memory_engine.integrated)
         key, _ = await account(store)
         with tempfile.TemporaryDirectory(prefix="am-origin-") as folder:
             replica = Replica(Path(folder) / "a.sqlite", Remote(url, key["token"]))

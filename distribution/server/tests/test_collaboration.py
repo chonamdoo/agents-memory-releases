@@ -244,7 +244,7 @@ async def test_lost_acknowledgement_replays_without_duplicates(store, tmp_path):
             replica.close()
 
 
-async def test_real_e5_pgvector_semantic_search(store):
+async def test_real_e5_pgvector_semantic_search(store, shared_e5):
     directory = os.environ.get("AM_COLLAB_TEST_E5")
     manifest = os.environ.get("AM_COLLAB_TEST_E5_MANIFEST")
     if not directory or not manifest:
@@ -253,11 +253,12 @@ async def test_real_e5_pgvector_semantic_search(store):
         pytest.skip("Semantic retrieval requires the isolated real Hindsight runtime")
     from test_unified_contract import engine
     store.memory_engine = engine()
-    from agents_memory_collab.embedding import E5
-    embedder = E5(Path(directory), Path(manifest))
-    store.embedder = embedder
+    store.embedder = shared_e5
     _, actor = await account(store)
-    await store.push(actor, [operation("Pull requests require four reviewers and Jenny as assignee.")])
+    op = operation("Pull requests require four reviewers and Jenny as assignee.")
+    await store.push(actor, [op])
     found = await store.search(actor, "PR 리뷰 담당자 규칙", project="app")
-    assert found["semantic"] and len(found["memories"]) == 1
-    assert await store.pool.fetchval("SELECT vector_dims(embedding) FROM am_collab.memories") == 384
+    assert found["semantic"]
+    assert [(str(memory["id"]), memory["text"]) for memory in found["memories"]] == [
+        (str(op.memory_id), op.text)
+    ]

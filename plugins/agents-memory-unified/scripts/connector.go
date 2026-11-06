@@ -1,4 +1,4 @@
-// A setup-status MCP remains connected before the user selects a provider.
+// A setup-status MCP remains connected until the Jev-backed installation is ready.
 // Once configured, exec the owned stable launcher. Never read or print keys.
 package main
 
@@ -12,8 +12,7 @@ import (
 	"syscall"
 )
 
-const version = "1.0.8"
-const install = "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/v1.0.8/distribution/server/install-unified.sh"
+const version = "2.0.0"
 
 type rpc struct {
 	ID     json.RawMessage `json:"id"`
@@ -23,8 +22,9 @@ type rpc struct {
 
 func status() map[string]any {
 	return map[string]any{"ready": false, "server_ready": false, "state": "setup_required", "version": version,
-		"message":     "설치 위치와 Claude CLI·Codex CLI·Jev 중 하나를 한 번 선택하세요. Jev 키는 터미널에서 숨김 입력하며 채팅에 보내지 마세요.",
-		"install_url": install, "guide": "https://github.com/chonamdoo/agents-memory-releases/blob/v1.0.8/distribution/server/README.ko.md"}
+		"message": "제공받은 2.0.0 번들을 풀고 install-unified.sh를 실행하세요. Claude·Codex·omp는 프런트엔드이며 판단 백엔드는 Jev만 사용합니다. 첫 로컬 설치에는 검증된 모델 폴더가 필요합니다. Jev 키는 터미널에서 숨김 입력하며 채팅에 보내지 마세요.",
+		"install_command": "bash /path/to/extracted-bundle/install-unified.sh --bundle /path/to/extracted-bundle --reranker-dir /path/to/companion/model --provider jev --client all --project /absolute/project",
+		"guide": "제공받은 번들의 README.ko.md와 UNIFIED-RUNTIME.ko.md를 확인하세요. 2.0.0은 비공개 QA용이며 공개 다운로드 URL은 없습니다."}
 }
 
 func serve(in *os.File, out *os.File) {
@@ -51,7 +51,7 @@ func serve(in *os.File, out *os.File) {
 			}
 			result = map[string]any{"protocolVersion": params.ProtocolVersion, "capabilities": map[string]any{"tools": map[string]any{}},
 				"serverInfo":   map[string]any{"name": "agents-memory-unified", "version": version},
-				"instructions": "Call setup_status. Memory is not ready until the selected provider and installation are configured; never request keys in chat."}
+				"instructions": "Call setup_status. Memory is not ready until the Jev-backed installation is configured; never request keys in chat."}
 		case "tools/list":
 			result = map[string]any{"tools": []any{map[string]any{"name": "setup_status", "description": "Installation readiness and secure one-time setup instructions.",
 				"inputSchema": map[string]any{"type": "object", "properties": map[string]any{}, "additionalProperties": false},
