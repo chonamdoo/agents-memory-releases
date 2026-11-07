@@ -98,7 +98,11 @@
     "CP313-RUNTIME.json": "21aa4063cee1a79fe2e30eb39021fb6ceba1522d2f296c54b83850552dfee9c1",
     "CONNECTOR-BUILD.json": "9f95070014be72f2a396d8b14c536937e0fe61ed6567dea0e6c88b29f58008e1",
     "CONNECTOR-VALIDATION.json": "5af0dbe6b743d26758c80e9ca4a44a119ed71d18d3ab692def539d64bb64c39e",
-    "verify-installed-runtime.py": "fba1c3c850f6db446dc8c7f44fd8e84a178e93479ff6b25cc8d22c538dfbcb4d"
+    "verify-installed-runtime.py": "fba1c3c850f6db446dc8c7f44fd8e84a178e93479ff6b25cc8d22c538dfbcb4d",
+    "PUBLIC-CONNECTOR-DELIVERY.json": "0d111dd59e19b5a58899ccdeaa1dfa6f401c01b81ae59c6aff3c478a31b663ed",
+    "CLAUDE-PUBLIC-CONNECTOR.xml": "f584a611e06bcea7612c899051be37adef2ccf309d250b300a1ecf0fc2177b79",
+    "CODEX-PUBLIC-CONNECTOR.xml": "0d1e1423429abf82082a4a9589694c40d3df8609ccc896e06a5f8b95a8dd3c28",
+    "OMP-PUBLIC-CONNECTOR.xml": "b18dbca5f2ff508587a140c23d29f5210c4bba91ac7961171373a954d166c90e"
   },
   "previous_local_archive": {
     "name": "agents-memory-unified-2.0.0-source-search.tar.gz",
@@ -122,7 +126,10 @@
     "channel": "prerelease_candidate_in_repository",
     "release_asset_upload": "blocked_http_401",
     "source_search_pr": 23,
-    "product_merge_commit": "851ba78b9e5e4d55a9acc32d16dd021e5ba07caf"
+    "product_merge_commit": "851ba78b9e5e4d55a9acc32d16dd021e5ba07caf",
+    "latest_product_merge_commit": "9727340ce404f3ff261394d69624091f04e8934a",
+    "marketplace_package_version": "2.0.2",
+    "marketplace_delivery_report": "PUBLIC-CONNECTOR-DELIVERY.json"
   },
   "superseded_repository_candidates": [
     {

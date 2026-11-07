@@ -135,6 +135,12 @@ python .github/ci/publish-source-search-assets.py --publish
 [검증 범위·지문](CONNECTOR-VALIDATION.json)을 확인한다.
 전체 native 설치 검사는 별도로 남아 있고 추가 Jev 호출은 0회다.
 
+머지 후 공개 main에서 Claude·Codex·OMP의 2.0.1 → 2.0.2 업데이트를 실행했다.
+설치된 플러그인 전체 파일의 일치와 세 패키지의 실제 미설정 connector 응답 검증을
+확인했다. 공개 주소의 최신 번들 재다운로드도 검증했다.
+[공개 전달 기록](PUBLIC-CONNECTOR-DELIVERY.json)을 보라. Codex의 마켓 항목은
+setup skill이며 이 검사로 native 프로젝트 MCP가 자동 등록됐다고 주장하지 않는다.
+
 아래 검사는 해당 Python의 새 환경에 검증된 SDK와 일치하는 Core wheel을 설치한 뒤
 소스 트리를 가져오지 않고 실행한다. 최초 client installer는 CP312를 선택하며,
 native CP313 검사는 CP313 wheel을 명시적으로 설치한다.

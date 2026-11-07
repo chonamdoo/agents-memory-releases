@@ -1,0 +1,56 @@
+{
+  "schema": "agents-memory-public-connector-delivery-v1",
+  "date": "2026-11-07",
+  "repository": "chonamdoo/agents-memory-releases",
+  "main_commit": "9727340ce404f3ff261394d69624091f04e8934a",
+  "pr": 28,
+  "marketplace_package_version": "2.0.2",
+  "runtime_sdk_version": "2.0.0",
+  "runtime_prerelease": true,
+  "public_marketplace_upgrades": {
+    "claude": {
+      "from": "2.0.1",
+      "to": "2.0.2",
+      "all_plugin_files_match": true,
+      "unconfigured_connector_protocol": "1 passed",
+      "report": "CLAUDE-PUBLIC-CONNECTOR.xml"
+    },
+    "codex": {
+      "from": "2.0.1",
+      "to": "2.0.2",
+      "all_plugin_files_match": true,
+      "unconfigured_connector_protocol": "1 passed",
+      "report": "CODEX-PUBLIC-CONNECTOR.xml"
+    },
+    "omp": {
+      "from": "2.0.1",
+      "to": "2.0.2",
+      "all_plugin_files_match": true,
+      "unconfigured_connector_protocol": "1 passed",
+      "report": "OMP-PUBLIC-CONNECTOR.xml"
+    }
+  },
+  "plugin_files_sha256": {
+    ".mcp.json": "33310b08308d4d4d5480de38af4e9fceaab28932ecd2c3874678af1b5031100a",
+    "README.md": "170dec5622b13103e9a1d079f1af1c2487d9b84b66546e77e50ee935a12bd853",
+    "LICENSE": "c376d0ce79774497521856cc667e3405abd86202b4b7aa2854424f7f6cd01435",
+    "bin/connector-darwin-arm64": "3de0905a1dcd06d76807a498f1ca4eec40cad423a2730b1f87a9f5be0cdc7518",
+    "bin/SHA256SUMS": "4dffdcf404d587807586bcdab384ed1d9df8a571679370901a58f7e30e6e527a",
+    "bin/connector-linux-x86_64": "8270d715ec9de7b9e57df75bbf746643c706ebb5aab724c1a676868106709caf",
+    "assets/icon.png": "aa84d583e18adc3371520cec1ac2d66302ccde8ebb1ae61116696343a830a97b",
+    "scripts/connect.sh": "fc324e3fdab2b19c9a93afc67db3d48ef9e7161603df3e2eb3207b4295769bd4",
+    "scripts/connector.go": "4333c19b52d65704fb6fa39354aee70d03b2ffc704a5206a12e2bf6852e35799",
+    ".codex-plugin/plugin.json": "e7539f118f23cd1f3d67275400ab58f9c5a9e98d42fe3f26329e53d1a960a471",
+    ".claude-plugin/plugin.json": "bb1fa41b9df630279bffd3fdb1985027f879af2bdcc8ba4366c2d79eaacdcbb3",
+    "skills/setup/SKILL.md": "5fe955dceb29d1e54a813d40bb8411be60696735e2d7e0fd0858b1352d7d6407",
+    "codex-skills/setup/SKILL.md": "df04d98093fdf41d032dd94ef82aad684efbf78a3b3d85d428d8ceb4a6835f30"
+  },
+  "codex_scope": "Dedicated setup skill installed; bundled connector protocol manually checked. No automatic native project MCP registration claim.",
+  "public_repository_archive_download": {
+    "url": "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/main/release-candidates/v2.0.0-source-search/agents-memory-unified-2.0.0-source-search.tar.gz",
+    "sha256": "a8e08c63ac809f22f5cc76f56cbdc8431253f1e616bdac319fcb4c922ad6fafc",
+    "verified": true
+  },
+  "release_assets": "Still missing source-search assets; last upload attempts failed authentication. Repository download is a separate channel.",
+  "external_jev_calls": 0
+}
