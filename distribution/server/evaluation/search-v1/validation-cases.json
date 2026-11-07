@@ -1,0 +1,822 @@
+[
+  {
+    "id": "validation-01-en",
+    "cluster": "build",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-01-a",
+      "validation-01-b"
+    ],
+    "required": [
+      "validation-01-a",
+      "validation-01-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-01-ko",
+    "cluster": "build",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-01-a",
+      "validation-01-b"
+    ],
+    "required": [
+      "validation-01-a",
+      "validation-01-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-02-en",
+    "cluster": "cookie",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-02-b"
+    ],
+    "required": [
+      "validation-02-a",
+      "validation-02-b"
+    ],
+    "any_hit": true,
+    "all_evidence": false,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-02-ko",
+    "cluster": "cookie",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-02-a",
+      "validation-02-b"
+    ],
+    "required": [
+      "validation-02-a",
+      "validation-02-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-03-en",
+    "cluster": "upload",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-03-a",
+      "validation-03-b"
+    ],
+    "required": [
+      "validation-03-a",
+      "validation-03-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-03-ko",
+    "cluster": "upload",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-03-a",
+      "validation-03-b"
+    ],
+    "required": [
+      "validation-03-a",
+      "validation-03-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-04-en",
+    "cluster": "pagination",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-04-b"
+    ],
+    "required": [
+      "validation-04-a",
+      "validation-04-b"
+    ],
+    "any_hit": true,
+    "all_evidence": false,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-04-ko",
+    "cluster": "pagination",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-04-a",
+      "validation-04-b"
+    ],
+    "required": [
+      "validation-04-a",
+      "validation-04-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-05-en",
+    "cluster": "currency",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-05-a",
+      "validation-05-b"
+    ],
+    "required": [
+      "validation-05-a",
+      "validation-05-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-05-ko",
+    "cluster": "currency",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-05-a",
+      "validation-05-b"
+    ],
+    "required": [
+      "validation-05-a",
+      "validation-05-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-06-en",
+    "cluster": "quiet",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-06-a",
+      "validation-06-b"
+    ],
+    "required": [
+      "validation-06-a",
+      "validation-06-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-06-ko",
+    "cluster": "quiet",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-06-a",
+      "validation-06-b",
+      "validation-14-b"
+    ],
+    "required": [
+      "validation-06-a",
+      "validation-06-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 1,
+    "partial": false
+  },
+  {
+    "id": "validation-07-en",
+    "cluster": "mail",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-07-a",
+      "validation-07-b"
+    ],
+    "required": [
+      "validation-07-a",
+      "validation-07-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-07-ko",
+    "cluster": "mail",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-07-a",
+      "validation-07-b",
+      "validation-08-a"
+    ],
+    "required": [
+      "validation-07-a",
+      "validation-07-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 1,
+    "partial": false
+  },
+  {
+    "id": "validation-08-en",
+    "cluster": "region",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-08-a",
+      "validation-08-b"
+    ],
+    "required": [
+      "validation-08-a",
+      "validation-08-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-08-ko",
+    "cluster": "region",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-08-a",
+      "validation-08-b"
+    ],
+    "required": [
+      "validation-08-a",
+      "validation-08-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-09-en",
+    "cluster": "index",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-09-a",
+      "validation-09-b"
+    ],
+    "required": [
+      "validation-09-a",
+      "validation-09-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-09-ko",
+    "cluster": "index",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-09-a",
+      "validation-09-b",
+      "validation-09-d"
+    ],
+    "required": [
+      "validation-09-a",
+      "validation-09-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 1,
+    "partial": false
+  },
+  {
+    "id": "validation-10-en",
+    "cluster": "csv",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-10-a",
+      "validation-10-b"
+    ],
+    "required": [
+      "validation-10-a",
+      "validation-10-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-10-ko",
+    "cluster": "csv",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-10-a",
+      "validation-10-b",
+      "validation-10-d"
+    ],
+    "required": [
+      "validation-10-a",
+      "validation-10-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 1,
+    "partial": false
+  },
+  {
+    "id": "validation-11-en",
+    "cluster": "reset",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-11-a",
+      "validation-11-b"
+    ],
+    "required": [
+      "validation-11-a",
+      "validation-11-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-11-ko",
+    "cluster": "reset",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-11-a",
+      "validation-11-b"
+    ],
+    "required": [
+      "validation-11-a",
+      "validation-11-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-12-en",
+    "cluster": "billing",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-12-a",
+      "validation-12-b"
+    ],
+    "required": [
+      "validation-12-a",
+      "validation-12-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-12-ko",
+    "cluster": "billing",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-12-a",
+      "validation-12-b"
+    ],
+    "required": [
+      "validation-12-a",
+      "validation-12-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-13-en",
+    "cluster": "webhook",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-13-a",
+      "validation-13-b",
+      "validation-13-d"
+    ],
+    "required": [
+      "validation-13-a",
+      "validation-13-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 1,
+    "partial": false
+  },
+  {
+    "id": "validation-13-ko",
+    "cluster": "webhook",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-12-a",
+      "validation-13-a",
+      "validation-13-b"
+    ],
+    "required": [
+      "validation-13-a",
+      "validation-13-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 1,
+    "partial": false
+  },
+  {
+    "id": "validation-14-en",
+    "cluster": "sla",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-14-a",
+      "validation-14-b"
+    ],
+    "required": [
+      "validation-14-a",
+      "validation-14-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-14-ko",
+    "cluster": "sla",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-06-b",
+      "validation-14-a",
+      "validation-14-b",
+      "validation-14-d"
+    ],
+    "required": [
+      "validation-14-a",
+      "validation-14-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 2,
+    "partial": false
+  },
+  {
+    "id": "validation-15-en",
+    "cluster": "shipment",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-15-a",
+      "validation-15-b"
+    ],
+    "required": [
+      "validation-15-a",
+      "validation-15-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-15-ko",
+    "cluster": "shipment",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-15-a",
+      "validation-15-b"
+    ],
+    "required": [
+      "validation-15-a",
+      "validation-15-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-16-en",
+    "cluster": "calibration",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-16-a",
+      "validation-16-b"
+    ],
+    "required": [
+      "validation-16-a",
+      "validation-16-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-16-ko",
+    "cluster": "calibration",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-08-b",
+      "validation-16-a",
+      "validation-16-b"
+    ],
+    "required": [
+      "validation-16-a",
+      "validation-16-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 1,
+    "partial": false
+  },
+  {
+    "id": "validation-17-en",
+    "cluster": "notebook",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-17-a",
+      "validation-17-b"
+    ],
+    "required": [
+      "validation-17-a",
+      "validation-17-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-17-ko",
+    "cluster": "notebook",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-17-a",
+      "validation-17-b",
+      "validation-17-d"
+    ],
+    "required": [
+      "validation-17-a",
+      "validation-17-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 1,
+    "partial": false
+  },
+  {
+    "id": "validation-18-en",
+    "cluster": "inventory",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-18-a",
+      "validation-18-b"
+    ],
+    "required": [
+      "validation-18-a",
+      "validation-18-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-18-ko",
+    "cluster": "inventory",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-18-a",
+      "validation-18-b"
+    ],
+    "required": [
+      "validation-18-a",
+      "validation-18-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-19-en",
+    "cluster": "audio",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-19-a",
+      "validation-19-b"
+    ],
+    "required": [
+      "validation-19-a",
+      "validation-19-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-19-ko",
+    "cluster": "audio",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-19-a",
+      "validation-19-b"
+    ],
+    "required": [
+      "validation-19-a",
+      "validation-19-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-20-en",
+    "cluster": "format",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-20-a",
+      "validation-20-b"
+    ],
+    "required": [
+      "validation-20-a",
+      "validation-20-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-20-ko",
+    "cluster": "format",
+    "kind": "answerable",
+    "retrieved": [
+      "validation-20-a",
+      "validation-20-b"
+    ],
+    "required": [
+      "validation-20-a",
+      "validation-20-b"
+    ],
+    "any_hit": true,
+    "all_evidence": true,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-control-01",
+    "cluster": "control-01",
+    "kind": "unrelated",
+    "retrieved": [],
+    "required": [],
+    "any_hit": false,
+    "all_evidence": false,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-control-02",
+    "cluster": "control-02",
+    "kind": "unrelated",
+    "retrieved": [],
+    "required": [],
+    "any_hit": false,
+    "all_evidence": false,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-control-03",
+    "cluster": "control-03",
+    "kind": "unrelated",
+    "retrieved": [],
+    "required": [],
+    "any_hit": false,
+    "all_evidence": false,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-control-04",
+    "cluster": "control-04",
+    "kind": "unrelated",
+    "retrieved": [],
+    "required": [],
+    "any_hit": false,
+    "all_evidence": false,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-control-05",
+    "cluster": "control-05",
+    "kind": "unrelated",
+    "retrieved": [],
+    "required": [],
+    "any_hit": false,
+    "all_evidence": false,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-control-06",
+    "cluster": "control-06",
+    "kind": "unrelated",
+    "retrieved": [],
+    "required": [],
+    "any_hit": false,
+    "all_evidence": false,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-control-07",
+    "cluster": "control-07",
+    "kind": "unrelated",
+    "retrieved": [],
+    "required": [],
+    "any_hit": false,
+    "all_evidence": false,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-control-08",
+    "cluster": "control-08",
+    "kind": "unrelated",
+    "retrieved": [],
+    "required": [],
+    "any_hit": false,
+    "all_evidence": false,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-control-09",
+    "cluster": "control-09",
+    "kind": "unrelated",
+    "retrieved": [],
+    "required": [],
+    "any_hit": false,
+    "all_evidence": false,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-control-10",
+    "cluster": "control-10",
+    "kind": "unrelated",
+    "retrieved": [],
+    "required": [],
+    "any_hit": false,
+    "all_evidence": false,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-control-11",
+    "cluster": "control-11",
+    "kind": "unrelated",
+    "retrieved": [],
+    "required": [],
+    "any_hit": false,
+    "all_evidence": false,
+    "noise": 0,
+    "partial": false
+  },
+  {
+    "id": "validation-control-12",
+    "cluster": "control-12",
+    "kind": "unrelated",
+    "retrieved": [],
+    "required": [],
+    "any_hit": false,
+    "all_evidence": false,
+    "noise": 0,
+    "partial": false
+  }
+]

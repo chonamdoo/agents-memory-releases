@@ -14,6 +14,7 @@ from urllib.parse import quote, urlsplit
 from .models import Failure
 
 CONTRACT = "agents-memory-grounded-v1"
+MIN_RECALL_RERANKER_SCORE = 0.003
 
 
 class _NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -262,7 +263,7 @@ class HindsightEngine:
         # Native neural filtering precedes limits; SQL rank is not relevance confidence.
         options = {
             "query": query, "budget": "high", "max_tokens": 8192,
-            "min_scores": {"reranker": 0.03},
+            "min_scores": {"reranker": MIN_RECALL_RERANKER_SCORE},
         }
         if self.integrated:
             options.update(
