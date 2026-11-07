@@ -13,7 +13,11 @@ SHA-256을 반환하며, 원문은 미검증 자료로 표시한다. 팀 공유�
 수집하지 않은 대화를 복원하지 않는다. 상세 계약은
 [CONTRACT.md](../../distribution/server/CONTRACT.md)를 따른다.
 
-## 로컬 검증
+2026-11-08 추가 검증: [현재 후보의 실제 CLI 수명주기 기록](../v2.0.0-native-lifecycle/README.ko.md).
+세 앱 각각 원래 36건의 native 시작·재개·압축과 압축 후 재주입을 확인했다.
+공급자 응답·메모리 반환은 고정 fixture이며 실제 Jev 품질 통과가 아니다.
+
+## 초기 원문 검색 로컬 검증
 
 - 최종 전체 SDK: **293 passed, 0 failed, 1 skipped**, 194.29초.
   [전체 실행 기록](LOCAL-CI.xml). Skip 1개는 별도 소유 설치물을 지정해야 하는

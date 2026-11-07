@@ -1,0 +1,364 @@
+{
+  "schema": "agents-memory-offline-native-lifecycle-v1",
+  "date": "2026-11-08",
+  "timezone": "Asia/Seoul",
+  "scope": "offline_native_lifecycle_only",
+  "candidate": {
+    "runtime_version": "2.0.0",
+    "marketplace_package_version": "2.0.2",
+    "archive_sha256": "a8e08c63ac809f22f5cc76f56cbdc8431253f1e616bdac319fcb4c922ad6fafc",
+    "sdk_wheel_sha256": "f36a21182189983ba934ce105719c6e32af675b11f3048878d84b9e1f5cec6b6",
+    "core_cp312_wheel_sha256": "48406a54f4bc78b0276d0550369e140013cc270b5ef9fe13576fb3f22bdb4d14",
+    "installed_runtime_identity_reference": "../v2.0.0-source-search/CP312-RUNTIME.json",
+    "host_execution": "copied shipping CP312 wheel installation, isolated Python -I; no editable imports or source bootstrap"
+  },
+  "core_pr": 65,
+  "core_pr_head": "d88cf32d05ca10b8a4072a2a0348e5150884b0db",
+  "core_merge": "7451641a114586fff231e15c15db7ebf352b3460",
+  "driver_path": "research/2026-11-05-hindsight-explicit-retain-cycle56/harness/native_host_smoke.py",
+  "driver_sha256": "178025871658ba7a4381a2dba243c20f14fafa9e012f88c8d97ab2acee8662bb",
+  "cases_sha256": "bc4cd0594284cb30b9a8405d88e270c16c9faa9d2e0580d02d63c022d68378a2",
+  "case_ids": [
+    "nc01-tide-ledger",
+    "nc02-maple-review",
+    "nc03-kite-colours",
+    "nc04-orbit-units",
+    "nc05-moss-retention",
+    "nc06-harbour-owner",
+    "nc07-cafe-label",
+    "nc08-slate-order",
+    "nc09-birch-freeze",
+    "nc10-pebble-null",
+    "nc11-lantern-retry",
+    "nc12-seoul-heading",
+    "nc13-atlas-window",
+    "nc14-reed-negative",
+    "nc15-polar-path",
+    "nc16-cedar-rounding",
+    "nc17-river-script",
+    "nc18-acorn-limits",
+    "nc19-comet-scope",
+    "nc20-fern-identity",
+    "nc21-delta-offset",
+    "nc22-cobalt-approval",
+    "nc23-lime-threshold",
+    "nc24-north-sequence",
+    "nc25-quartz-filter",
+    "nc26-meadow-format",
+    "nc27-saffron-direction",
+    "nc28-willow-exception",
+    "nc29-opal-precision",
+    "nc30-heron-dedup",
+    "nc31-ember-override",
+    "nc32-spruce-boundary",
+    "nc33-iris-fallback",
+    "nc34-summit-columns",
+    "nc35-azalea-literal",
+    "nc36-brook-archive"
+  ],
+  "synthetic_components": [
+    "provider_responses",
+    "memory_recall_records"
+  ],
+  "fixture_authorship": "single-author synthetic; no new independent human quality cohort",
+  "hosts": {
+    "claude": {
+      "successes": 36,
+      "denominator": 36,
+      "wilson95_lower": 0.9035813714055363,
+      "case_ids": [
+        "nc01-tide-ledger",
+        "nc02-maple-review",
+        "nc03-kite-colours",
+        "nc04-orbit-units",
+        "nc05-moss-retention",
+        "nc06-harbour-owner",
+        "nc07-cafe-label",
+        "nc08-slate-order",
+        "nc09-birch-freeze",
+        "nc10-pebble-null",
+        "nc11-lantern-retry",
+        "nc12-seoul-heading",
+        "nc13-atlas-window",
+        "nc14-reed-negative",
+        "nc15-polar-path",
+        "nc16-cedar-rounding",
+        "nc17-river-script",
+        "nc18-acorn-limits",
+        "nc19-comet-scope",
+        "nc20-fern-identity",
+        "nc21-delta-offset",
+        "nc22-cobalt-approval",
+        "nc23-lime-threshold",
+        "nc24-north-sequence",
+        "nc25-quartz-filter",
+        "nc26-meadow-format",
+        "nc27-saffron-direction",
+        "nc28-willow-exception",
+        "nc29-opal-precision",
+        "nc30-heron-dedup",
+        "nc31-ember-override",
+        "nc32-spruce-boundary",
+        "nc33-iris-fallback",
+        "nc34-summit-columns",
+        "nc35-azalea-literal",
+        "nc36-brook-archive"
+      ],
+      "receipts": [
+        {
+          "path": "claude-batch0.json",
+          "sha256": "8219ae2c60c63bb10f7baf4c1f8113b158dfe6efe559b9ac0e345c9d3ccfd238"
+        },
+        {
+          "path": "claude-batch1.json",
+          "sha256": "4277ec867c199022b17bbcf9c63bd31f6fcc76f697f835a7bfe5deeab3d5517e"
+        },
+        {
+          "path": "claude-batch2.json",
+          "sha256": "0f108ec0febf80e4cc66c64577b2631ffe76e31932932099e9ae65e39b7babcc"
+        },
+        {
+          "path": "claude-batch3.json",
+          "sha256": "b503a70f7f12619b1d14edc5c577b335b8f67902262e8ef9d625d3da7e03c761"
+        },
+        {
+          "path": "claude-batch4.json",
+          "sha256": "b813ae36de3824fba161b3433655bdd52337be2875f0b22a47a5e363cb7f5828"
+        },
+        {
+          "path": "claude-batch5.json",
+          "sha256": "4d7466b411974f606e2afff529a4a553f8f4410d0ba24a74de6dd674b4387abc"
+        }
+      ],
+      "loopback_requests_total_across_batches": 468,
+      "batch_wall_seconds_sum": 157.81,
+      "version_output": [
+        "2.1.319"
+      ]
+    },
+    "codex": {
+      "successes": 36,
+      "denominator": 36,
+      "wilson95_lower": 0.9035813714055363,
+      "case_ids": [
+        "nc01-tide-ledger",
+        "nc02-maple-review",
+        "nc03-kite-colours",
+        "nc04-orbit-units",
+        "nc05-moss-retention",
+        "nc06-harbour-owner",
+        "nc07-cafe-label",
+        "nc08-slate-order",
+        "nc09-birch-freeze",
+        "nc10-pebble-null",
+        "nc11-lantern-retry",
+        "nc12-seoul-heading",
+        "nc13-atlas-window",
+        "nc14-reed-negative",
+        "nc15-polar-path",
+        "nc16-cedar-rounding",
+        "nc17-river-script",
+        "nc18-acorn-limits",
+        "nc19-comet-scope",
+        "nc20-fern-identity",
+        "nc21-delta-offset",
+        "nc22-cobalt-approval",
+        "nc23-lime-threshold",
+        "nc24-north-sequence",
+        "nc25-quartz-filter",
+        "nc26-meadow-format",
+        "nc27-saffron-direction",
+        "nc28-willow-exception",
+        "nc29-opal-precision",
+        "nc30-heron-dedup",
+        "nc31-ember-override",
+        "nc32-spruce-boundary",
+        "nc33-iris-fallback",
+        "nc34-summit-columns",
+        "nc35-azalea-literal",
+        "nc36-brook-archive"
+      ],
+      "receipts": [
+        {
+          "path": "codex-batch0.json",
+          "sha256": "05c85f2b44748a176c45602a17696c8e8ca4b82260dcc00c172356a95f895197"
+        },
+        {
+          "path": "codex-batch1.json",
+          "sha256": "6759d44eebcc5daac961e179e22f6ca6765a6251f3103a83b25ff88917bf9880"
+        },
+        {
+          "path": "codex-batch2.json",
+          "sha256": "b84ebdcc50054c5188b38b6798ad782ea09d53770ef74105a673ca054d2a8ac8"
+        },
+        {
+          "path": "codex-batch3.json",
+          "sha256": "75fc7079d817ec5fe441eabcecd871385f5033aa8e9f5fd9a8d928dac347f4a2"
+        },
+        {
+          "path": "codex-batch4.json",
+          "sha256": "376e8a13d7693859dce2f6fdcd6a2df302a5e6057b3851e6049f1cfc52ec07b3"
+        },
+        {
+          "path": "codex-batch5.json",
+          "sha256": "f91e48af6a0000f2ea70a4dbae16a375b7cf97739b3999552d47309f5d9f3ca4"
+        }
+      ],
+      "loopback_requests_total_across_batches": 360,
+      "batch_wall_seconds_sum": 105.8,
+      "version_output": [
+        "0.167.0"
+      ]
+    },
+    "omp": {
+      "successes": 36,
+      "denominator": 36,
+      "wilson95_lower": 0.9035813714055363,
+      "case_ids": [
+        "nc01-tide-ledger",
+        "nc02-maple-review",
+        "nc03-kite-colours",
+        "nc04-orbit-units",
+        "nc05-moss-retention",
+        "nc06-harbour-owner",
+        "nc07-cafe-label",
+        "nc08-slate-order",
+        "nc09-birch-freeze",
+        "nc10-pebble-null",
+        "nc11-lantern-retry",
+        "nc12-seoul-heading",
+        "nc13-atlas-window",
+        "nc14-reed-negative",
+        "nc15-polar-path",
+        "nc16-cedar-rounding",
+        "nc17-river-script",
+        "nc18-acorn-limits",
+        "nc19-comet-scope",
+        "nc20-fern-identity",
+        "nc21-delta-offset",
+        "nc22-cobalt-approval",
+        "nc23-lime-threshold",
+        "nc24-north-sequence",
+        "nc25-quartz-filter",
+        "nc26-meadow-format",
+        "nc27-saffron-direction",
+        "nc28-willow-exception",
+        "nc29-opal-precision",
+        "nc30-heron-dedup",
+        "nc31-ember-override",
+        "nc32-spruce-boundary",
+        "nc33-iris-fallback",
+        "nc34-summit-columns",
+        "nc35-azalea-literal",
+        "nc36-brook-archive"
+      ],
+      "receipts": [
+        {
+          "path": "omp-batch0.json",
+          "sha256": "e1303e8740fed957bd22c1d74d0cd11ef13d52a24ce7819adbdb7da1cdda9b0d"
+        },
+        {
+          "path": "omp-batch1.json",
+          "sha256": "4c9542773dd45be42ff995d9f34d1c30a433ac420d8f80cd1df65ccae38d6962"
+        },
+        {
+          "path": "omp-batch2.json",
+          "sha256": "60a5b82e0a44e45bf1651315a04f8548384bf221ef450b587c9fc05c0f6dfa33"
+        },
+        {
+          "path": "omp-batch3.json",
+          "sha256": "dbe877bd6c64b89e3b75d973481d27821cfa4bd0e6d19bf229e9c5bb55668ca2"
+        },
+        {
+          "path": "omp-batch4.json",
+          "sha256": "f4243f061731a186b72ba63fbfb4809b03828748a16e64b1655ed13616495097"
+        },
+        {
+          "path": "omp-batch5.json",
+          "sha256": "ecc97d914bcc719d21a253431192a049b6b9c6bcc75bd0791484fa5cfb0c989b"
+        },
+        {
+          "path": "omp-batch6.json",
+          "sha256": "23088e336b09cac02fa1d8a818897c285cdd0dbb041728264dc4aa14491d0199"
+        },
+        {
+          "path": "omp-batch7.json",
+          "sha256": "984ff2e5dcb60b53bfaee1edf302dbe949e6c03dd75ef8cb487de14afae08d66"
+        },
+        {
+          "path": "omp-batch8.json",
+          "sha256": "32e831b0cc903f7fcd8a66aea238db9fe32fd6b4c381868f0bb3ee97d1dabbb8"
+        },
+        {
+          "path": "omp-batch9.json",
+          "sha256": "82852e69065cd2e64752c6d66a8fae1e356f9679eb613c6aaaa4849029f20e9c"
+        },
+        {
+          "path": "omp-batch10.json",
+          "sha256": "5fb28b0741193db8542037ad8ead85fc891ab5fe1af87d069f3f1dafc6096814"
+        },
+        {
+          "path": "omp-batch11.json",
+          "sha256": "da0f27a83cf3276c9c642d9413f0789a01405dd97c4884913139b720fcde56ab"
+        }
+      ],
+      "loopback_requests_total_across_batches": 828,
+      "batch_wall_seconds_sum": 240.39,
+      "version_output": [
+        "18.18.0"
+      ]
+    }
+  },
+  "toolchain": {
+    "claude": {
+      "version": "2.1.319",
+      "binary_sha256": "dabafec82ca1319fa43d8be36a10fc61b1d11821cb98ad5df04ad95e199b8eed"
+    },
+    "codex": {
+      "version": "0.167.0",
+      "binary_sha256": "cdcb45aaa01d0f14e298985e09465aebccd47f64ecd298aea44814af7b62bbda",
+      "npm": "@openai/codex@0.167.0-linux-x64",
+      "npm_integrity": "sha512-FNc7danfUng9Sp6w+Fh7kofNHHZpA6VMyNKWsWrS3OwHly69gywTWeiuwrUPXpJSho8Df4xqRsHfHRPzj7zYQg=="
+    },
+    "omp": {
+      "version": "18.18.0",
+      "launcher_sha256": "f244125770a89b01ae959be42037b893aa6265abf4ecd5bbfcb846acf0280b25",
+      "bun_version": "1.4.4",
+      "bun_sha256": "10702245766b225e70bbf6235fd6b47214fd94b4760d00ffaed8ab0df57ac235",
+      "native_addons": {
+        "node_modules/@oh-my-pi/pi-natives-linux-x64/pi_natives.linux-x64-modern.node": "02781df2a519fd9504e555a5b53ff731b049dd32be39d0edb1d2f09046014e14",
+        "node_modules/@oh-my-pi/pi-natives-linux-x64/pi_natives.linux-x64-baseline.node": "22674b30f0caa60292f130c3678f75bb4d6a1fcb8b2bf5f0cb86f052bef2e977"
+      }
+    },
+    "container_image_id": "sha256:55141572004e92a39edfdc2d16e821c214b64ca4fba50c1f7e408a09a3d04aff",
+    "execution_uid": 31057
+  },
+  "local_unit_tests": {
+    "tests_passed": 29,
+    "subtests_passed": 19,
+    "failures": 0,
+    "report": "NATIVE-GATE-UNIT.xml"
+  },
+  "negative_preflight": {
+    "noexec_rejected": true,
+    "reason": "scratch_tmpfs_must_allow_reviewed_hook_launchers"
+  },
+  "extra_jev_attempts": {
+    "authorized": 197,
+    "dispatched_here": 0
+  },
+  "unverified": [
+    "live Jev decisions and latency",
+    "independent gold/raw labels/author signoffs",
+    "integrated storage/retrieval compaction quality",
+    "selected real provider compliance",
+    "first-run interactive trust",
+    "macOS native lifecycle for this candidate",
+    "full unified ensure/bootstrap/autostart"
+  ],
+  "failed_attempts_policy": "Earlier failures and interruptions are retained in FAILED-ATTEMPTS.json. Final census uses every fixed ID once per host after correcting fixture execution; offline engineering reruns are not independent holdout trials.",
+  "evidence_limits": "Self-exported bounded metadata and hashes allow consistency checks; neither this manifest nor its checker independently authenticates the execution, proves private Core contents, or authorizes stable promotion.",
+  "validation_ready": false,
+  "ready_to_promote": false,
+  "stable_published": false
+}

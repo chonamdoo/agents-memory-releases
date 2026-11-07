@@ -1,0 +1,218 @@
+{
+  "scope": "offline engineering fixture failures; never live Jev quality trials",
+  "attempts": [
+    {
+      "label": "claude-batch0",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "94da881607eff757cc9ff5733b68221b5845b4e7ffba323649650a2d98f27141",
+      "status": "preflight_failed_or_interrupted_no_completed_receipt",
+      "preflight_rejection": "blocked: container isolation gate: writable_mount_outside_scratch_/dev/mqueue"
+    },
+    {
+      "label": "claude-batch0r2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "b8f26cccb961682c7eef6f782528fd2c510d320272af27a4c56bcdf2297dc77e",
+      "status": "preflight_failed_or_interrupted_no_completed_receipt",
+      "preflight_rejection": "blocked: container isolation gate: writable_mount_outside_scratch_/var/lib/postgresql"
+    },
+    {
+      "label": "claude-batch0r3",
+      "stdout_sha256": "a471cca8c4bc91a74af5befe6dfbae82d5a81ecb717352e702ea350a85a6934a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": false,
+      "blockers": [
+        {
+          "case": "nc01-tide-ledger",
+          "evidence": "native-claude-nc01-tide-ledger/events.jsonl",
+          "host": "claude",
+          "phase": "startup",
+          "prerequisite": "The installed native host must complete the named API or emit the expected native lifecycle event using the isolated offline transport; no synthetic event fallback is permitted.",
+          "process_index": "processes.jsonl",
+          "reason": "native_hook_invocation_census_mismatch"
+        },
+        {
+          "case": "nc02-maple-review",
+          "evidence": "native-claude-nc02-maple-review/events.jsonl",
+          "host": "claude",
+          "phase": "startup",
+          "prerequisite": "The installed native host must complete the named API or emit the expected native lifecycle event using the isolated offline transport; no synthetic event fallback is permitted.",
+          "process_index": "processes.jsonl",
+          "reason": "native_hook_invocation_census_mismatch"
+        },
+        {
+          "case": "nc03-kite-colours",
+          "evidence": "native-claude-nc03-kite-colours/events.jsonl",
+          "host": "claude",
+          "phase": "startup",
+          "prerequisite": "The installed native host must complete the named API or emit the expected native lifecycle event using the isolated offline transport; no synthetic event fallback is permitted.",
+          "process_index": "processes.jsonl",
+          "reason": "native_hook_invocation_census_mismatch"
+        },
+        {
+          "case": "nc04-orbit-units",
+          "evidence": "native-claude-nc04-orbit-units/events.jsonl",
+          "host": "claude",
+          "phase": "startup",
+          "prerequisite": "The installed native host must complete the named API or emit the expected native lifecycle event using the isolated offline transport; no synthetic event fallback is permitted.",
+          "process_index": "processes.jsonl",
+          "reason": "native_hook_invocation_census_mismatch"
+        },
+        {
+          "case": "nc05-moss-retention",
+          "evidence": "native-claude-nc05-moss-retention/events.jsonl",
+          "host": "claude",
+          "phase": "startup",
+          "prerequisite": "The installed native host must complete the named API or emit the expected native lifecycle event using the isolated offline transport; no synthetic event fallback is permitted.",
+          "process_index": "processes.jsonl",
+          "reason": "native_hook_invocation_census_mismatch"
+        },
+        {
+          "case": "nc06-harbour-owner",
+          "evidence": "native-claude-nc06-harbour-owner/events.jsonl",
+          "host": "claude",
+          "phase": "startup",
+          "prerequisite": "The installed native host must complete the named API or emit the expected native lifecycle event using the isolated offline transport; no synthetic event fallback is permitted.",
+          "process_index": "processes.jsonl",
+          "reason": "native_hook_invocation_census_mismatch"
+        }
+      ],
+      "sanitized_receipt": "failed-claude-batch0r3.json"
+    },
+    {
+      "label": "claude-final-batch0",
+      "stdout_sha256": "787f027c764d41a11f856c6ea869a5dbe6a67b8c2602f9ffc8abf714ce6fc2e5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": false,
+      "blockers": [
+        {
+          "case": "nc01-tide-ledger",
+          "evidence": "native-claude-nc01-tide-ledger/events.jsonl",
+          "host": "claude",
+          "phase": "startup",
+          "prerequisite": "The installed native host must complete the named API or emit the expected native lifecycle event using the isolated offline transport; no synthetic event fallback is permitted.",
+          "process_index": "processes.jsonl",
+          "reason": "sdk_hook_execution_or_context_invariant"
+        },
+        {
+          "case": "nc02-maple-review",
+          "evidence": "native-claude-nc02-maple-review/events.jsonl",
+          "host": "claude",
+          "phase": "startup",
+          "prerequisite": "The installed native host must complete the named API or emit the expected native lifecycle event using the isolated offline transport; no synthetic event fallback is permitted.",
+          "process_index": "processes.jsonl",
+          "reason": "sdk_hook_execution_or_context_invariant"
+        },
+        {
+          "case": "nc03-kite-colours",
+          "evidence": "native-claude-nc03-kite-colours/events.jsonl",
+          "host": "claude",
+          "phase": "startup",
+          "prerequisite": "The installed native host must complete the named API or emit the expected native lifecycle event using the isolated offline transport; no synthetic event fallback is permitted.",
+          "process_index": "processes.jsonl",
+          "reason": "sdk_hook_execution_or_context_invariant"
+        },
+        {
+          "case": "nc04-orbit-units",
+          "evidence": "native-claude-nc04-orbit-units/events.jsonl",
+          "host": "claude",
+          "phase": "startup",
+          "prerequisite": "The installed native host must complete the named API or emit the expected native lifecycle event using the isolated offline transport; no synthetic event fallback is permitted.",
+          "process_index": "processes.jsonl",
+          "reason": "sdk_hook_execution_or_context_invariant"
+        },
+        {
+          "case": "nc05-moss-retention",
+          "evidence": "native-claude-nc05-moss-retention/events.jsonl",
+          "host": "claude",
+          "phase": "startup",
+          "prerequisite": "The installed native host must complete the named API or emit the expected native lifecycle event using the isolated offline transport; no synthetic event fallback is permitted.",
+          "process_index": "processes.jsonl",
+          "reason": "sdk_hook_execution_or_context_invariant"
+        },
+        {
+          "case": "nc06-harbour-owner",
+          "evidence": "native-claude-nc06-harbour-owner/events.jsonl",
+          "host": "claude",
+          "phase": "startup",
+          "prerequisite": "The installed native host must complete the named API or emit the expected native lifecycle event using the isolated offline transport; no synthetic event fallback is permitted.",
+          "process_index": "processes.jsonl",
+          "reason": "sdk_hook_execution_or_context_invariant"
+        }
+      ],
+      "sanitized_receipt": "failed-claude-final-batch0.json"
+    },
+    {
+      "label": "claude-errno",
+      "stdout_sha256": "28682b49c78d6ca3854412b48a80d4f5a0f945f9bbeabdc6d20bcc5a0de7e075",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": false,
+      "blockers": [
+        {
+          "case": "nc01-tide-ledger",
+          "evidence": "native-claude-nc01-tide-ledger/events.jsonl",
+          "host": "claude",
+          "phase": "startup",
+          "prerequisite": "The installed native host must complete the named API or emit the expected native lifecycle event using the isolated offline transport; no synthetic event fallback is permitted.",
+          "process_index": "processes.jsonl",
+          "reason": "native_process_exited_-6"
+        }
+      ],
+      "sanitized_receipt": "failed-claude-errno.json"
+    },
+    {
+      "label": "codex-uid31057-pilot",
+      "stdout_sha256": "79e9189781469c5f646a2ef260a57498c45bb407ffec0cacffaff42d50f8bee5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": false,
+      "blockers": [
+        {
+          "case": "nc01-tide-ledger",
+          "evidence": "native-codex-nc01-tide-ledger/events.jsonl",
+          "host": "codex",
+          "phase": null,
+          "prerequisite": "The installed native host must complete the named API or emit the expected native lifecycle event using the isolated offline transport; no synthetic event fallback is permitted.",
+          "process_index": "processes.jsonl",
+          "reason": "codex_hook_declaration_not_exact_reviewed_handler"
+        }
+      ],
+      "sanitized_receipt": "failed-codex-uid31057-pilot.json"
+    },
+    {
+      "label": "omp-uid31057-batch0",
+      "stdout_sha256": "69f4057d80c87676cded2e0e965f08d7e8054706c38ce75a9a29f77dbc8a5353",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": false,
+      "blockers": [
+        {
+          "case": "nc06-harbour-owner",
+          "evidence": "native-omp-nc06-harbour-owner/events.jsonl",
+          "host": "omp",
+          "phase": "compact",
+          "prerequisite": "The installed native host must complete the named API or emit the expected native lifecycle event using the isolated offline transport; no synthetic event fallback is permitted.",
+          "process_index": "processes.jsonl",
+          "reason": "native_stage_timeout"
+        }
+      ],
+      "sanitized_receipt": "failed-omp-uid31057-batch0.json",
+      "cause": "6 x 23 loopback requests exceeds unchanged 128 request ceiling; 148 attempted including rejected requests, 5/6 passed before timeout; rerun all 36 in three-case batches"
+    },
+    {
+      "label": "omp-uid31057-batch1",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "1f41c03f022338b2c4070b4ff01c8f8a9d224cdc5678a3226a59927da0aabdee",
+      "status": "deliberately_stopped_obsolete_six_case_batch_after_budget_cause_found"
+    },
+    {
+      "label": "omp-uid31057-batch2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "79c315d3ec0271692b503719762ca6ec3270571f3b6e757a3ffb47c62c87c71b",
+      "status": "deliberately_stopped_obsolete_six_case_batch_after_budget_cause_found"
+    }
+  ],
+  "uid_nproc_probe": {
+    "exit_code": 0,
+    "stdout": "{\"spawned\": 13, \"errno\": 11, \"cgroup_pids_current\": \"15\", \"rlimit_nproc\": [256, 256]}\n",
+    "stderr": ""
+  },
+  "noexec_negative_stderr": "blocked: container isolation gate: scratch_tmpfs_must_allow_reviewed_hook_launchers\n"
+}
