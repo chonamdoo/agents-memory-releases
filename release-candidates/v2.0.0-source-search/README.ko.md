@@ -88,7 +88,9 @@ python release-candidates/v2.0.0-source-search/verify.py \
 
 Claude·OMP의 setup skill과 Codex 전용 setup skill도 이 후보를 선택하도록
 수정했다. 세 앱의 실제 격리 로컬 마켓 설치본에서 안내 파일의 일치를 확인했다.
-런타임·SDK·connector·플러그인 manifest는 바꾸지 않았다.
+공개 마켓 업데이트에서 Claude는 같은 2.0.0 버전의 예전 안내를 유지하는 문제가
+재현됐다. 새 안내가 전달되도록 **마켓 패키지만 2.0.1**로 올렸다. 엔진·SDK와
+connector는 2.0.0 그대로이며 이 변경은 엔진의 정식 승격을 뜻하지 않는다.
 [설치·게시 검증 기록](MARKETPLACE-UPDATE.json)에 범위를 구분한다.
 
 이 저장소의 v2.0.0에 자산을 추가하는 로컬 명령은 아래와 같다. 기본 실행은

@@ -1,4 +1,6 @@
-# Agents Memory 2.0.0 MCP integration
+# Agents Memory MCP marketplace package 2.0.1
+
+Package 2.0.1 updates marketplace setup instructions for the 2.0.0 prerelease runtime; it does not promote that runtime or change its storage-quality status. A distinct package version is required because Claude keeps the cached instructions when the package version is unchanged.
 
 Install `agents-memory-unified@agents-memory` from the maintainer's public marketplace, `chonamdoo/agents-memory-releases`.
 

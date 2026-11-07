@@ -4,7 +4,7 @@
   "repository": "chonamdoo/agents-memory-releases",
   "base_commit": "14e9853797fd3fdf5bdeba3ee54619ffa44d6e16",
   "changes": "Select the source-search runtime in Claude/OMP and Codex marketplace setup skills",
-  "runtime_sdk_core_connector_manifests_unchanged": true,
+  "runtime_sdk_core_connector_manifests_unchanged": false,
   "plugin_guide_sha256": {
     "README.md": "b57c9afc957d8f2e25853fdca328bf91a63aa16185755c2477e095d96d93eb6e",
     "skills/setup/SKILL.md": "5fe955dceb29d1e54a813d40bb8411be60696735e2d7e0fd0858b1352d7d6407",
@@ -41,5 +41,26 @@
   "external_jev_calls": 0,
   "release_asset_upload_status": "blocked HTTP 401 until uploads.github.com authentication is connected",
   "live_v43_quality_revalidation": "not run; evaluation key and original private corpus/gold/ledger not connected",
-  "approved_additional_jev_calls": 197
+  "approved_additional_jev_calls": 197,
+  "cache_version_fix": {
+    "previous_public_update": {
+      "claude": "Reported up_to_date at 2.0.0 and kept stale cached guide",
+      "codex": "Updated setup skill from public GitHub",
+      "omp": "Updated setup skill from public GitHub"
+    },
+    "package_version": "2.0.1",
+    "runtime_and_sdk_version": "2.0.0",
+    "premerge_actual_upgrade": {
+      "claude": "2.0.0 -> 2.0.1; updated; installed guide/manifest bytes match",
+      "codex": "2.0.1 installed; guide/manifest bytes match",
+      "omp": "2.0.0 -> 2.0.1; installed guide/manifest bytes match"
+    },
+    "current_files_sha256": {
+      ".claude-plugin/marketplace.json": "5c73c5d2afcaf4e040d09270f385eb250c74a01a2291682c5266d87d26d13d4d",
+      "plugins/agents-memory-unified/.claude-plugin/plugin.json": "a43c6a7391ae7cf4625a184816769f4e136834ef17b27732f3c9e03e99fead95",
+      "plugins/agents-memory-unified/.codex-plugin/plugin.json": "bec880e3a9576b96b359fb0c38e52218ff3dbda8a979dc5d9e3b2333b282e0cc",
+      "plugins/agents-memory-unified/README.md": "b6463c277a924e9c0df729346968f8dc2506d42c63b8c8854d9d4fed8e6af8d6"
+    }
+  },
+  "runtime_sdk_core_connector_unchanged": true
 }
