@@ -1,6 +1,6 @@
 {
   "name": "agents-memory-unified",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Install and configure Agents Memory 2.0.0 using the verified public runtime and native project MCP registration.",
   "author": {
     "name": "chonamdoo"
