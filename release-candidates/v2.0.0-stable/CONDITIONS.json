@@ -1,0 +1,211 @@
+{
+  "schema": "agents-memory-stable-release-conditions-v1",
+  "target": {
+    "repository": "chonamdoo/agents-memory-releases",
+    "release_tag": "v2.0.0",
+    "runtime_version": "2.0.0",
+    "marketplace_package_version": "2.0.1",
+    "previous_stable": "v1.0.8"
+  },
+  "established": "2026-11-07",
+  "timezone": "Asia/Seoul",
+  "authority": {
+    "original_contract": {
+      "repository": "chonamdoo/agents-memory",
+      "commit": "056f0342e9c5f28535cb2561d5091f5b42e601a1",
+      "path": "research/2026-11-05-hindsight-explicit-retain-cycle56/CONTRACT.ko.md",
+      "sha256": "5e050199ff19cf5e5607cec9b7e769e5c786f48f8838b368ebb42972286870ab"
+    },
+    "original_v43_report": {
+      "repository": "chonamdoo/agents-memory",
+      "commit": "056f0342e9c5f28535cb2561d5091f5b42e601a1",
+      "path": "docs/verification.ko.md",
+      "section": "현재 v43 독립 실측 — 정식 출시 실패"
+    },
+    "user_authorized_local_ci": {
+      "through": "2026-12-01",
+      "date_inclusive": true,
+      "timezone": "Asia/Seoul",
+      "never_auto_dispatch_actions": true
+    },
+    "approved_additional_jev_attempts": 197
+  },
+  "evidence_contract": {
+    "candidate_pinned_before_run": true,
+    "dataset_gold_questions_labels_harness_hashes_required": true,
+    "independent_cases": 196,
+    "continuation_questions": 40,
+    "class_kappa_minimum": 0.6,
+    "relevance_kappa_minimum": 0.6,
+    "actual_author_signoffs_required": true,
+    "consumed_cohorts": "diagnosis only; preserve v22/v27/v43 originals, failures and ledgers",
+    "question_change_limit": 1,
+    "question_changes_require_originals_and_preinference_author_signoffs": true,
+    "quality_runtime": "integrated real Hindsight with pinned E5/BGE and live Jev judgment",
+    "scripted_provider_results": "functional evidence only",
+    "replay_results": "not new independent, live network or latency evidence",
+    "missing_or_unreliable_evidence": "unverified; never pass"
+  },
+  "metrics": [
+    {
+      "id": "explicit_processed",
+      "comparison": "exact_census_equal",
+      "threshold": 1.0,
+      "meaning": "Each explicit request has a correct stored outcome or an audited reason for rejection"
+    },
+    {
+      "id": "legitimate_explicit_stored",
+      "comparison": "wilson95_lower_at_least",
+      "threshold": 0.95,
+      "denominator": 80,
+      "minimum_successes_at_fixed_denominator": 80,
+      "meaning": "Server commit, local applied receipt and confirmed Native document; admission keep alone is insufficient"
+    },
+    {
+      "id": "auto_precision",
+      "comparison": "wilson95_lower_at_least",
+      "threshold": 0.8,
+      "denominator": "Actually stored automatic candidates"
+    },
+    {
+      "id": "auto_recall",
+      "comparison": "wilson95_lower_at_least",
+      "threshold": 0.6,
+      "denominator": "Gold positive automatic candidates"
+    },
+    {
+      "id": "continuation_hit_at_5",
+      "comparison": "wilson95_lower_at_least",
+      "threshold": 0.75,
+      "denominator": 40,
+      "minimum_successes_at_fixed_denominator": 36,
+      "meaning": "Original recall path and gold evidence/answer sufficiency definition; do not substitute source_search results"
+    },
+    {
+      "id": "top5_noise",
+      "comparison": "wilson95_upper_at_most",
+      "threshold": 0.3,
+      "denominator": "Actually returned source occurrences, not a padded 5 x question count"
+    },
+    {
+      "id": "compaction_survival",
+      "comparison": "wilson95_lower_at_least",
+      "threshold": 0.9,
+      "meaning": "Actual host compact completion and subsequent evidence recall; report each host separately"
+    },
+    {
+      "id": "decision_audit_coverage_all",
+      "comparison": "exact_census_equal",
+      "threshold": 1.0,
+      "denominator": 196
+    },
+    {
+      "id": "raw_audit_coverage_decisions_including_review",
+      "comparison": "exact_census_equal",
+      "threshold": 1.0,
+      "denominator": "All provider decisions including review; pre-provider guards need separate guard audit"
+    },
+    {
+      "id": "background_judgment_p95",
+      "comparison": "at_most_seconds",
+      "threshold": 30,
+      "meaning": "Complete original wall intervals of actual attempted Jev cases; nearest-rank p95"
+    },
+    {
+      "id": "calls_per_session",
+      "comparison": "at_most_user_turns_plus_one",
+      "cohort_attempt_maximum": 197,
+      "meaning": "Reserve durably before dispatch; failed, aborted and authentication attempts consume slots; no automatic retries"
+    },
+    {
+      "id": "host_lifecycle",
+      "comparison": "wilson95_lower_at_least",
+      "threshold": 0.9,
+      "denominator_per_host": 36,
+      "minimum_successes_at_fixed_denominator": 36,
+      "hosts": [
+        "claude",
+        "codex",
+        "omp"
+      ],
+      "meaning": "Original fixed per-host 36 cases, actual startup/resume/compact and next recall receipts"
+    }
+  ],
+  "wilson": {
+    "confidence": 0.95,
+    "sides": 2,
+    "z": 1.959963984540054,
+    "compare_unrounded": true
+  },
+  "hard_gates_zero_violations": [
+    "false_success",
+    "silent_explicit_request_discard",
+    "quoted_or_tool_instruction_promoted_to_user_request",
+    "retry_restart_duplicate_or_changed_result",
+    "wrong_account_project_source_or_revision_attribution",
+    "source_secret_sent_to_provider_or_persisted",
+    "provider_failure_reported_as_discarded_or_stored",
+    "empty_search_reported_as_no_memory_exists",
+    "undetected_fault_injection_of_the_original_four_types"
+  ],
+  "additional_functional_requirements": {
+    "original_source_search": [
+      "omitted_fact_discoverable_independently_of_recall",
+      "explicit_personal_project_and_owner_scope_before_limit",
+      "current_revision_and_deletion_fences",
+      "pending_review_prompt_exclusion",
+      "original_fingerprint_and_body_sha256",
+      "untrusted_source_label_no_automatic_startup_injection",
+      "no_provider_calls_or_offline_fallback"
+    ],
+    "installation": [
+      "final_source_matches_shipped_wheels_and_schema",
+      "source_free_private_core_no_credentials_or_private_corpus",
+      "clean_install_upgrade_and_rollback_preserve_credentials_models_database_and_pending_work",
+      "configured_release_connector_consumes_installed_runtime",
+      "test_or_limit_each_advertised_platform",
+      "cp312_and_cp313_shipped_core_execution"
+    ],
+    "regression": [
+      "zero_failures_in_required_core_and_sdk_checks",
+      "no_missing_required_configuration_tests",
+      "platform_inapplicable_cases_need_explicit_reason_and_matching_platform_evidence"
+    ],
+    "resource": [
+      "existing_2_cpu_4_gib_limits_preserved",
+      "actual_isolated_runtime_resource_receipts",
+      "original_durable_call_ledger_and_separate_197_attempt_authorization"
+    ]
+  },
+  "report_only": [
+    "joint_required_evidence_at_5 numerator and denominator",
+    "Generated reader answers remain ungraded unless separately preregistered and evaluated; no answer-quality claim",
+    "central Anthropic/OpenAI directory approval is a separate publication claim"
+  ],
+  "decision_phases": {
+    "validation_ready": [
+      "candidate_identity",
+      "regression",
+      "evaluation_inputs",
+      "live_admission",
+      "live_retrieval",
+      "safety",
+      "source_search",
+      "compaction",
+      "host_lifecycle",
+      "installation",
+      "resources_and_budget"
+    ],
+    "ready_to_promote": [
+      "validation_ready",
+      "marketplace_delivery",
+      "release_asset_delivery"
+    ],
+    "stable_published": [
+      "ready_to_promote",
+      "stable_release_readback"
+    ]
+  },
+  "decision_rule": "All required conditions must be met on the pinned candidate. Partial, blocked, unverified and stale evidence never count as met. No points or averaging.",
+  "execution_safety": "This is a documented contract and status snapshot, not a publisher or an independent evidence verifier."
+}

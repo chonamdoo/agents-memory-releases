@@ -1,0 +1,189 @@
+{
+  "schema": "agents-memory-stable-release-status-v1",
+  "as_of": "2026-11-07",
+  "timezone": "Asia/Seoul",
+  "policy_sha256": "d02109603e9e5c2181f8953c59bba8f837012967b6bc0563829bcc29162c14dd",
+  "candidate": {
+    "product_tree_commit": "8a9863f759f8ce6e736855aa4846451458dc07c8",
+    "runtime_version": "2.0.0",
+    "marketplace_package_version": "2.0.1",
+    "archive_sha256": "db6f6d8f4bd4f524f2d70668dfe77980302e681829e35bc2473ada150457c175",
+    "sdk_wheel_sha256": "f36a21182189983ba934ce105719c6e32af675b11f3048878d84b9e1f5cec6b6",
+    "core_wheels": {
+      "agents_memory_core-2.0.0-cp313-none-any.whl": "1c5de9e8be3446acf12b08a41e18b2f2ab451058ae8302a8ef4cc2690c812bf9",
+      "agents_memory_core-2.0.0-cp312-none-any.whl": "48406a54f4bc78b0276d0550369e140013cc270b5ef9fe13576fb3f22bdb4d14"
+    }
+  },
+  "conditions": [
+    {
+      "id": "candidate_identity",
+      "status": "met",
+      "reason": "Current source-search archive verifies against 15 SDK Python files, SQL and unchanged source-free Core wheels.",
+      "references": [
+        {
+          "path": "release-candidates/v2.0.0-source-search/VERIFICATION.json",
+          "sha256": "5905b34a633569e49915e85934eb7754d0f0414183a694db52235e585a73affd"
+        },
+        {
+          "path": "release-candidates/v2.0.0-source-search/SOURCE-SEARCH-SHA256SUMS",
+          "sha256": "4cc61a07bb5fe4c1b425a3c948647c0ab10625288315411ac462facc4f152801"
+        }
+      ]
+    },
+    {
+      "id": "regression",
+      "status": "partial",
+      "reason": "SDK 293 passed / 1 required configured-plugin skip. Core local regression and installed-wheel evidence are recorded in Core PR64; platform-only exclusions remain explicit.",
+      "references": [
+        {
+          "path": "release-candidates/v2.0.0-source-search/LOCAL-CI.xml",
+          "sha256": "7e307de9eca8e4136ebb02be3705f27b9dc9d8ed7e1981b01133b51a91c057d8"
+        },
+        {
+          "path": "release-candidates/v2.0.0-source-search/INSTALLED-WHEEL.xml",
+          "sha256": "62e4e017be24e22cf256b8a97cf94e1dadb2a00f2b7fa91ec77d514364133ca8"
+        }
+      ]
+    },
+    {
+      "id": "evaluation_inputs",
+      "status": "blocked",
+      "reason": "New independent corpus, gold, original labels, author signoffs and actual ledger are not connected. Consumed v43 cannot be relabeled as a fresh holdout.",
+      "references": []
+    },
+    {
+      "id": "live_admission",
+      "status": "blocked",
+      "reason": "Fresh live run absent. Historical v43 legitimate storage is 70/80 and fails the unchanged lower-bound criterion.",
+      "references": []
+    },
+    {
+      "id": "live_retrieval",
+      "status": "blocked",
+      "reason": "Fresh independent 40-query run absent. Historical v43 Hit@5 is 30/40; public search-v1 synthetic engineering data is a different cohort.",
+      "references": [
+        {
+          "path": "release-candidates/2.0.0-search-calibration-verification.json",
+          "sha256": "5cf45632c97781b828e40e09933267ff9c92311c369e6806609fe90951328bba"
+        }
+      ]
+    },
+    {
+      "id": "safety",
+      "status": "partial",
+      "reason": "ACL/revision/deletion and source guard regressions exist; full original hard-gate census and mutation evidence are not bound to a new live candidate run.",
+      "references": [
+        {
+          "path": "release-candidates/v2.0.0-source-search/LOCAL-CI.xml",
+          "sha256": "7e307de9eca8e4136ebb02be3705f27b9dc9d8ed7e1981b01133b51a91c057d8"
+        }
+      ]
+    },
+    {
+      "id": "source_search",
+      "status": "met",
+      "reason": "25 original-search cases and six real local Hindsight mechanism checks pass; processor probabilities are scripted and are not Jev quality evidence.",
+      "references": [
+        {
+          "path": "release-candidates/v2.0.0-source-search/INSTALLED-WHEEL.xml",
+          "sha256": "62e4e017be24e22cf256b8a97cf94e1dadb2a00f2b7fa91ec77d514364133ca8"
+        },
+        {
+          "path": "release-candidates/v2.0.0-source-search/MECHANISM.json",
+          "sha256": "853175e878c68a4872bfdd48bfcb12fe6023536b808696590bbca717c9687d85"
+        }
+      ]
+    },
+    {
+      "id": "compaction",
+      "status": "unverified",
+      "reason": "Previous per-host scripted lifecycle results are historical. Current candidate native compaction evidence is not supplied here.",
+      "references": []
+    },
+    {
+      "id": "host_lifecycle",
+      "status": "partial",
+      "reason": "Actual public marketplace updates reach package 2.0.1 on all three apps. This is not the full 36-case startup/resume/compact census.",
+      "references": [
+        {
+          "path": "release-candidates/v2.0.0-source-search/MARKETPLACE-UPDATE.json",
+          "sha256": "59530c8ba4a94c5b6e099b4925dfbb822e2ed740327a83c35da385ec196571c5"
+        }
+      ]
+    },
+    {
+      "id": "installation",
+      "status": "partial",
+      "reason": "Final Linux cloud-client install/reinstall passes. Configured owned release-runtime consumption and current supported-platform installation evidence remain incomplete.",
+      "references": [
+        {
+          "path": "release-candidates/v2.0.0-source-search/FINAL-BUNDLE-INSTALL.xml",
+          "sha256": "3faa3678379c400af7128c25c69f702e9d7a34b35f3c8b5eab94712b1047d9fa"
+        }
+      ]
+    },
+    {
+      "id": "resources_and_budget",
+      "status": "blocked",
+      "reason": "Additional 197 attempts approved; 0 extra calls dispatched here. Actual original budget ledger, fresh live latency and hard resource-limit evidence are not connected.",
+      "references": []
+    },
+    {
+      "id": "marketplace_delivery",
+      "status": "met",
+      "reason": "Public own-marketplace package 2.0.1 upgrades verified in Claude, Codex and OMP; actual guide and manifest bytes match. Central directory approval is separate.",
+      "references": [
+        {
+          "path": "release-candidates/v2.0.0-source-search/MARKETPLACE-UPDATE.json",
+          "sha256": "59530c8ba4a94c5b6e099b4925dfbb822e2ed740327a83c35da385ec196571c5"
+        }
+      ]
+    },
+    {
+      "id": "release_asset_delivery",
+      "status": "blocked",
+      "reason": "New candidate is downloadable from repository files. Upload to this repository release asset list returned HTTP 401. No valid asset/readback receipt for this candidate.",
+      "references": []
+    },
+    {
+      "id": "stable_release_readback",
+      "status": "not_run",
+      "reason": "Release remains prerelease and stable latest remains v1.0.8; promotion can occur only after the earlier conditions are met.",
+      "references": []
+    }
+  ],
+  "historical_v43": {
+    "role": "Consumed historical failure; not evidence for a new passing candidate",
+    "legitimate_explicit_stored": {
+      "successes": 70,
+      "total": 80,
+      "wilson95_lower": 0.7849719790084033,
+      "status": "fail"
+    },
+    "continuation_hit_at_5": {
+      "successes": 30,
+      "total": 40,
+      "wilson95_lower": 0.5980603857923198,
+      "status": "fail"
+    },
+    "joint_required_evidence_at_5": {
+      "successes": 2,
+      "total": 40,
+      "status": "report_only"
+    },
+    "generated_reader_answers": "not evaluated"
+  },
+  "current_extra_jev_attempts": {
+    "authorized": 197,
+    "dispatched_in_this_environment": 0,
+    "original_shared_ledger": "not connected; historical 844/1000 is a snapshot, not a new ledger"
+  },
+  "validation_ready": false,
+  "ready_to_promote": false,
+  "stable_published": false,
+  "separate_track": {
+    "central_official_directories": "unverified; not a prerequisite for publishing GitHub stable, but required before claiming central listing",
+    "reader_answer_quality": "not evaluated; no new quality claim"
+  },
+  "limitations": "Manually reviewed status snapshot. Referenced hashes preserve file identity; they do not independently prove original experiments, author identity or remote publication."
+}
