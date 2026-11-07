@@ -48,6 +48,11 @@ quality require separate evidence and are not implied by contract tests.
   accepted revision. Other memory operations must continue past a conflict.
 - Derived Hindsight IDs are nominations. Current account/project membership,
   sharing, current revision and deletion status determine publication authority.
+- Integrated search expands authorized nominations to the complete approved
+  source text in the current application projection. A matching native chunk
+  must not silently drop a condition or exception elsewhere in that source.
+  Identical source bodies are emitted once while retaining all source IDs and
+  revisions. This does not imply that all relevant documents were retrieved.
 - New requests after revocation completion are denied. Previously delivered
   copies and in-flight requests cannot be recalled; no remote-wipe claim.
 - Raw prompts remain explicit opt-in and never enter automatic/team context.

@@ -100,9 +100,18 @@ async def test_claude_codex_and_omp_hooks_produce_the_same_operation_result_and_
             assert state == "applied"
             assert context.startswith("Untrusted personal memory reference")
         assert judge.origins == ["user_prompt"] * 3
-        # Three distinct turns, three memories; each recallable through the same server path.
+        # Identical search text is deduplicated; all three turn identities remain stored and cited.
+        expected = {body["memory_id"] for body, _, _ in results.values()}
+        stored = await store.pool.fetch(
+            "SELECT id,text FROM am_collab.memories WHERE user_id=$1 AND NOT deleted", actor.user_id)
+        assert {str(row["id"]) for row in stored} == expected
+        assert all(row["text"] == RESOLUTION for row in stored)
         recalled = await store.search(actor, "synthetic course study", "synthetic-app", 10)
-        assert len(recalled["memories"]) == 3
+        if store.memory_engine.integrated:
+            assert len(recalled["memories"]) == 1
+            assert {source["id"] for memory in recalled["memories"] for source in memory["sources"]} == expected
+        else:
+            assert {str(memory["id"]) for memory in recalled["memories"]} == expected
 
 
 

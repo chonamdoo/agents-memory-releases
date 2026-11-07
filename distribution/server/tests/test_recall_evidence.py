@@ -138,3 +138,25 @@ async def test_similar_text_is_not_deduplicated_as_identical_evidence(store, sec
         [{"id": str(row["id"]), "revision": row["revision"], "project": "app"}]
         for row in (first, second)
     ]
+
+
+@pytest.mark.asyncio
+async def test_matching_fragment_cannot_drop_the_sources_final_exception(store):
+    _, actor = await account(store)
+    text = (
+        "Atlas backup retention is 29 days.\n"
+        + "Audit details apply to regular backups.\n" * 100
+        + "Records under legal hold must never be deleted, regardless of age."
+    )
+    source = await retained(store, actor, text)
+    store.memory_engine = RecallEngine({source["engine_bank"]: [
+        hit("Atlas backup retention is 29 days.", source),
+    ]})
+
+    result = await store.search(actor, "Atlas backup retention", project="app")
+
+    assert len(result["memories"]) == 1
+    assert result["memories"][0]["text"] == text
+    assert result["memories"][0]["sources"] == [{
+        "id": str(source["id"]), "revision": source["revision"], "project": "app",
+    }]

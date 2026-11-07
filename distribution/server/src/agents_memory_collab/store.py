@@ -615,7 +615,7 @@ class Store:
                     evidence[key] = {"documents": set(), "score": score}
                 evidence[key]["documents"].update(documents)
                 evidence[key]["score"] = max(evidence[key]["score"], score)
-            grouped, texts = {}, {}
+            grouped, texts, contexts = {}, {}, {}
             for (bank,text),entry in evidence.items():
                 sources = [authorized[(bank,d)] for d in sorted(entry["documents"])]
                 score = entry["score"]
@@ -627,15 +627,23 @@ class Store:
                     item.update(text="",score=score,derived=True,sources=[])
                     grouped[identity] = item
                     texts[identity] = []
+                    contexts[identity] = {}
                 item = grouped[identity]
                 texts[identity].append(text)
                 item["score"] = max(item["score"],score)
                 for row in sources:
+                    contexts[identity][str(row["id"])] = row
                     source = {"id":str(row["id"]),"revision":row["revision"],"project":row["project"]}
                     if source not in item["sources"]:
                         item["sources"].append(source)
             for identity,item in grouped.items():
-                item["text"] = "\n".join(texts[identity])
+                # A matching native chunk can omit a condition elsewhere in its source.
+                # Publish complete approved source text, as the grounded search path does.
+                fragments = texts[identity]
+                ordered = sorted(contexts[identity].values(), key=lambda row: (
+                    next((rank for rank, fragment in enumerate(fragments)
+                          if fragment in row["text"]), len(fragments)), str(row["id"])))
+                item["text"] = "\n".join(dict.fromkeys(row["text"] for row in ordered))
             result = sorted(grouped.values(),key=lambda r:(-r["score"],str(r["id"])))
             return {"memories":result[:limit],"semantic":True,"engine":"hindsight",
                     "integration_enabled":True,"generation_enabled":False}
