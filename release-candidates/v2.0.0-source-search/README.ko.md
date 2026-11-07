@@ -105,3 +105,41 @@ python .github/ci/publish-source-search-assets.py --publish
 
 업로드에는 `uploads.github.com`에서 유효한 GitHub 인증이 필요하다.
 현재 조회·머지는 가능하지만 해당 업로드 인증은 HTTP 401을 반환한다.
+
+## 연결 패키지 2.0.2와 설치본 소비 검증
+
+미설정 connector의 실제 `setup_status`가 여전히 이전 자산·체크섬과
+`--client all`을 안내하는 문제를 재현했다. 바이너리 응답도 source-search 후보와
+별도 모델 companion의 체크섬을 구분하고, Claude·OMP·Codex 각각의 등록 명령을
+제공하도록 수정했다. 기존 플러그인 MCP와 직접 MCP의 중복 등록을 피한다.
+새 바이너리가 기존 캐시에 가려지지 않도록 마켓 패키지는 **2.0.2**로 올렸다.
+엔진·SDK는 **2.0.0 시험판**을 유지한다.
+
+- 전체 SDK: [294 passed, 0 failed, 1 skipped](CONNECTOR-LOCAL-CI.xml), 197.02초.
+  별도 완성 설치물을 요구하는 기존 검사는 계속 skip이며 통과로 바꾸지 않았다.
+- 새 connector 검사: [2 passed](CONNECTOR-TARGETED.xml), 5.95초.
+  실제 Go binary → 설치된 source-free Core/SDK wheel → 인증 HTTP → 실제 Hindsight에서
+  선별 메모에 없는 namespace를 원문으로 회수했다. 원문이 startup·replica memory에
+  들어가지 않고, 기기 키 철회 뒤 같은 MCP 연결에서 거부되는지도 확인했다.
+- cp312·cp313의 새 설치 환경 각각에서 **private Core 13개·SDK 15개 모듈·SQL**이
+  배포 wheel 바이트와 일치하고 실제 import되는지 확인했다. import 검사 중 소켓
+  연결은 금지했다. [CP312](CP312-RUNTIME.json), [CP313](CP313-RUNTIME.json).
+  원문 검색도 각각 [25 passed](CP312-SOURCE-SEARCH.xml), [25 passed](CP313-SOURCE-SEARCH.xml)다.
+- Go 1.27.3에서 Linux x86_64·Darwin arm64를 재빌드해 배포 binary와 바이트가
+  같음을 확인했다. [빌드 기록](CONNECTOR-BUILD.json). Darwin은 교차 컴파일이며
+  새 Mac 실기 실행 증거는 아니다.
+
+새 configured 검사는 이미 실행 중인 격리 서비스와 **테스트용 launcher**를 쓴다.
+실제 Jev 판단, 전체 unified bootstrap, production ensure/autostart를 검증했다고
+하지 않는다. scripted 판단·로컬 원문 보존 integration과 실제 Native를 구분한
+[검증 범위·지문](CONNECTOR-VALIDATION.json)을 확인한다.
+전체 native 설치 검사는 별도로 남아 있고 추가 Jev 호출은 0회다.
+
+아래 검사는 해당 Python의 새 환경에 검증된 SDK와 일치하는 Core wheel을 설치한 뒤
+소스 트리를 가져오지 않고 실행한다. 최초 client installer는 CP312를 선택하며,
+native CP313 검사는 CP313 wheel을 명시적으로 설치한다.
+
+```sh
+/absolute/venv/bin/python -I release-candidates/v2.0.0-source-search/verify-installed-runtime.py \
+  --bundle /absolute/extracted-bundle --output /absolute/import-receipt.json
+```

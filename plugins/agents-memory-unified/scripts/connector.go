@@ -13,6 +13,7 @@ import (
 )
 
 const version = "2.0.0"
+const marketplaceVersion = "2.0.2"
 
 type rpc struct {
 	ID     json.RawMessage `json:"id"`
@@ -21,10 +22,21 @@ type rpc struct {
 }
 
 func status() map[string]any {
+	base := "bash /path/to/extracted-bundle/install-unified.sh --bundle /path/to/extracted-bundle --reranker-dir /path/to/companion/model --provider jev --client "
 	return map[string]any{"ready": false, "server_ready": false, "state": "setup_required", "version": version,
-		"message": "제공받은 2.0.0 번들을 풀고 install-unified.sh를 실행하세요. Claude·Codex·omp는 프런트엔드이며 판단 백엔드는 Jev만 사용합니다. 첫 로컬 설치에는 검증된 모델 폴더가 필요합니다. Jev 키는 터미널에서 숨김 입력하며 채팅에 보내지 마세요.",
-		"install_command": "bash /path/to/extracted-bundle/install-unified.sh --bundle /path/to/extracted-bundle --reranker-dir /path/to/companion/model --provider jev --client all --project /absolute/project",
-		"guide": "공개 2.0.0 릴리스 https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0 에서 설치 자산과 SHA256SUMS를 확인하세요. 압축을 푼 번들의 README.ko.md와 UNIFIED-RUNTIME.ko.md를 따르세요."}
+		"marketplace_version": marketplaceVersion, "release_channel": "prerelease",
+		"candidate_archive":   "agents-memory-unified-2.0.0-source-search.tar.gz",
+		"candidate_checksums": "SOURCE-SEARCH-SHA256SUMS",
+		"candidate_url":       "https://github.com/chonamdoo/agents-memory-releases/tree/main/release-candidates/v2.0.0-source-search",
+		"model_archive":       "agents-memory-reranker-2.0.0.tar.gz", "model_checksums": "SHA256SUMS",
+		"model_url": "https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0",
+		"message":   "2.0.0은 시험판입니다. 후보 폴더의 source-search 번들을 SOURCE-SEARCH-SHA256SUMS로, 릴리즈의 모델 companion을 기존 SHA256SUMS로 각각 검증하세요. 압축을 푼 뒤 현재 앱의 install_commands 명령으로 설치하세요. Claude·OMP 플러그인과 직접 MCP를 중복 등록하지 마세요. Jev 키는 비공개 파일 또는 터미널 숨김 입력을 사용하고 채팅에 보내지 마세요.",
+		"install_commands": map[string]string{
+			"claude": base + "claude-plugin --project /absolute/project",
+			"omp":    base + "omp-plugin --project /absolute/project",
+			"codex":  base + "codex --project /absolute/project",
+		},
+		"guide": "https://github.com/chonamdoo/agents-memory-releases/blob/main/distribution/server/README.ko.md"}
 }
 
 func serve(in *os.File, out *os.File) {
