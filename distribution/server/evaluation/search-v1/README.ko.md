@@ -14,6 +14,8 @@ Jev 키나 외부 판단 API를 사용하지 않는다. 사전에 고정한 합�
 ```sh
 python run.py --receipt /absolute/synthetic-runtime/receipt.json \
   --split development --output /absolute/new-development-output
+python freeze.py --report /absolute/new-development-output/report.json \
+  --output /absolute/frozen-candidate.json
 python run.py --receipt /absolute/synthetic-runtime/receipt.json \
   --split validation --candidate /absolute/frozen-candidate.json \
   --output /absolute/new-validation-output
@@ -24,3 +26,10 @@ python run.py --receipt /absolute/synthetic-runtime/receipt.json \
 증거가 아니다. 양쪽 언어 질문이 같은 주제에 묶이므로 Wilson 수치를 독립 사용자
 질문 40건의 신뢰구간으로 일반화하지 않는다. 이번 검색 자료는 저장 판단·실제
 회사 모델·세 앱 native 소비·전체 배포 검증의 통과를 대신하지 않는다.
+
+`freeze.py`는 개발에서 선택된 값을 제품에 반영했는지 실제 요청 옵션으로 확인한다.
+Gold source ID·topic·질문 정답은 Native에 인덱싱하지 않는다. 평가기에만 매핑하고,
+모델에는 문서 원문과 실제 질문만 보낸다. `candidate.json`의 출력 미열람 표시는
+후보를 고정한 시점의 기록이다. 이후 검증은 `consumption.json`에 소비 완료로 남긴다.
+
+최종 실측과 한계는 [결과](RESULTS.ko.md)를 따른다.

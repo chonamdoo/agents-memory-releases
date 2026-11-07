@@ -1,0 +1,36 @@
+{
+  "schema": "agents-memory-search-calibration-verification-v1",
+  "date": "2026-11-07",
+  "release": "2.0.0",
+  "search_engineering_gate_status": "pass",
+  "full_release_quality_status": "not_established_by_search_only_evidence",
+  "product_code_commit": "41c044f066c1f3290038de6a307e37695e0735aa",
+  "minimum_reranker_score": 0.003,
+  "fixture_sha256": "861adb11cf8d7beac0cd8c7ae03ae00239d15964a406e9aeba17cc79f42f73a3",
+  "frozen_candidate_sha256": "66d2388bb8a574cf62baa09b472fa78bea0520a17c2b0c6041b766431c60afe1",
+  "development_report_sha256": "32dd8748f7c86aa817265393842a48bd9c4ee8583d3ffed105bed1304faaafbf",
+  "validation_report_sha256": "c9686fa65c8b10bd405a3ecbb4dbfd5a6ad38b9c6e9f60057f87e39548a35776",
+  "validation_consumption_sha256": "8c6836c94d3b066b19b5c54b1b5c3a7f376e7b78e17c124cfc7b69a3c0d78327",
+  "full_suite": {
+    "passed": 278,
+    "failed": 0,
+    "skipped": 1,
+    "seconds": 189.42,
+    "skipped_tests": [
+      "test_configured_release_plugin_executes_installed_owned_runtime"
+    ],
+    "junit_sha256": "daf6ebc851babf7467c70448c99215fd2d4c80e5ca86168f7ac4ea1fe18d7866"
+  },
+  "sdk_wheel_sha256": "e4920ef9cc122ccb53cf96dcee26c9a770206e8786d79ab7acb450300437210f",
+  "sdk_python_files": 15,
+  "sdk_source_bytes_match": true,
+  "candidate_bundle_sha256": "4630b1ebbb98617f2a1d2b268e0e5ac42e47cef58da21ff8d2f09f8040bc095d",
+  "external_jev_api_calls": 0,
+  "unchanged": "Jev admission policy, models, ACL/revision/deletion guards, existing stored data",
+  "not_established": [
+    "Independent human annotation agreement",
+    "New live Jev storage judgment quality",
+    "Configured owned local installation consumption"
+  ],
+  "release_assets_modified": false
+}
