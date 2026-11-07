@@ -36,5 +36,5 @@
   },
   "asset_manifest": "reranker-assets.sha256.json",
   "model_directory": "model",
-  "quality_notice": "Hash verification establishes artifact identity, not retrieval quality. Numerical comparison is not retrieval-quality proof, and same-precision and original-FP32 results are reported separately without changing tolerances. No universal relevance probability or production-quality certification is asserted. Consumed independent v22 and v27 failures are preserved; the next unused independent release evaluation has not run."
+  "quality_notice": "Hash verification establishes artifact identity, not retrieval quality. Same-precision and original-FP32 numerical comparisons are reported separately without changing tolerances. Consumed v22, v27 and v43 failures are preserved. The latest complete 196-case/40-query v43 evaluation passed automatic-admission precision/recall and returned-source noise, but failed legitimate explicit storage and continuation Hit@5; joint required evidence was sufficient for only 2/40 queries. No production-quality certification or universal relevance probability is asserted."
 }
