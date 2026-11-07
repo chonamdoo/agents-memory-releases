@@ -1,5 +1,6 @@
 import importlib.util
 import json
+from argparse import Namespace
 from pathlib import Path
 
 import pytest
@@ -77,3 +78,56 @@ async def test_fixture_admission_never_accepts_unregistered_source():
     processor = evaluation.ApprovedFixture([{"text": "The cache TTL is 37 seconds."}])
     with pytest.raises(ValueError, match="preregistered"):
         await processor.process("An unregistered source must not enter this corpus.")
+
+
+def validation_arguments(tmp_path):
+    receipt, candidate = tmp_path / "receipt.json", tmp_path / "candidate.json"
+    receipt.write_text(json.dumps({"synthetic_only": True, "processing": "integrated",
+                                   "dsn": "postgresql://synthetic@127.0.0.1:1/postgres",
+                                   "pg_data": str(tmp_path / "pgdata"),
+                                   "hindsight_url": "http://127.0.0.1:1"}))
+    value = {
+        "fixture_sha256": evaluation.digest(ROOT / "fixture.json"),
+        "product_source_sha256": {name: evaluation.digest(evaluation.PACKAGE / name)
+                                  for name in ("memory_engine.py", "store.py", "stdio.py")},
+        "all_sdk_python_sha256": {path.name: evaluation.digest(path)
+                                  for path in evaluation.PACKAGE.glob("*.py")},
+        "evaluator_sha256": evaluation.digest(ROOT / "run.py"),
+        "minimum_reranker_score": .003,
+    }
+    candidate.write_text(json.dumps(value))
+    return Namespace(receipt=receipt, candidate=candidate, split="validation",
+                     ledger=tmp_path / "ledger", output=tmp_path / "output"), value
+
+
+async def test_changed_sdk_is_rejected_before_reserving_or_opening_the_runtime(tmp_path):
+    args, value = validation_arguments(tmp_path)
+    value["all_sdk_python_sha256"]["memory_engine.py"] = "0" * 64
+    args.candidate.write_text(json.dumps(value))
+    with pytest.raises(ValueError, match="frozen SDK"):
+        await evaluation.main(args)
+    assert not args.ledger.exists() and not args.output.exists()
+
+
+async def test_a_reserved_failed_validation_cannot_be_restarted_as_a_new_attempt(tmp_path, monkeypatch):
+    args, _ = validation_arguments(tmp_path)
+    opened = []
+
+    class UnavailableStore:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        async def open(self):
+            opened.append(True)
+            raise RuntimeError("Synthetic runtime unavailable")
+
+    monkeypatch.setattr(evaluation, "Store", UnavailableStore)
+    with pytest.raises(RuntimeError, match="Synthetic runtime"):
+        await evaluation.main(args)
+    marker = args.ledger / (evaluation.digest(ROOT / "fixture.json") + "-validation-used.json")
+    original = marker.read_bytes()
+    args.output = tmp_path / "different-output"
+    with pytest.raises(FileExistsError):
+        await evaluation.main(args)
+    assert marker.read_bytes() == original
+    assert opened == [True]
