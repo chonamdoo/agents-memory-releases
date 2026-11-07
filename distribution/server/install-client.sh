@@ -68,7 +68,8 @@ namespace = {"__file__": str(script), "__name__": "unified_client_asset_review"}
 exec(compile(source, str(script), "exec"), namespace)
 sys.stdout.write(namespace["client_requirements"](bundle))
 PY
-"$am_uv" pip sync --python "$am_prefix/venv/bin/python" --require-hashes "$am_source/client-requirements.lock" "$am_wheels"
+"$am_uv" pip sync --python "$am_prefix/venv/bin/python" --link-mode copy \
+  --reinstall-package agents-memory-collaboration --require-hashes "$am_source/client-requirements.lock" "$am_wheels"
 rm -f -- "$am_wheels"
 trap - EXIT
 exec "$am_prefix/venv/bin/python" -I -m agents_memory_collab.cli setup --root "$am_prefix" "$@"

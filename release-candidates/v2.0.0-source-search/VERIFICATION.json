@@ -1,0 +1,93 @@
+{
+  "schema": "agents-memory-source-search-candidate-v1",
+  "date": "2026-11-07",
+  "source_base_commit": "a801cf45b6369d4dd2642c8767621c1a415d0af7",
+  "release": "v2.0.0",
+  "prerelease": true,
+  "stable_quality_passed": false,
+  "actions_policy": {
+    "replacement": "local_ci",
+    "authorized_until": "2026-12-01",
+    "authorized_by": "user"
+  },
+  "local_ci": {
+    "passed": 293,
+    "failed": 0,
+    "skipped": 1,
+    "skip": "configured release plugin requires an explicit owned synthetic installation; none configured",
+    "seconds": 194.29,
+    "report": "LOCAL-CI.xml"
+  },
+  "installed_wheel": {
+    "passed": 26,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 7.5,
+    "report": "INSTALLED-WHEEL.xml",
+    "source_tree_imports": false,
+    "same_version_reinstall_replaces_stale_module": true
+  },
+  "mechanism_probe": {
+    "report": "MECHANISM.json",
+    "checks_passed": 6,
+    "runtime": "Hindsight 1.1.0 + PostgreSQL 18.6.1/pgvector 0.8.7 + fixed E5/BGE",
+    "judgment": "fixed probability responses through production GroundedProcessor; not live Jev",
+    "generation": "local exact-source integration adapter; not external Jev",
+    "source_query_provider_calls": 0
+  },
+  "initial_full_run": {
+    "passed": 280,
+    "failed": 1,
+    "skipped": 10,
+    "reason": "missing client bundle/proxy/Bun/plugin configuration; corrected for final local run"
+  },
+  "sdk_wheel": {
+    "name": "agents_memory_collaboration-2.0.0-py3-none-any.whl",
+    "sha256": "f36a21182189983ba934ce105719c6e32af675b11f3048878d84b9e1f5cec6b6",
+    "python_files": 15,
+    "files": {
+      "agents_memory_collab/__init__.py": "f730edaf4cec2e8203922e21befe02571ff68fe7c4a6d5fcc10ff329c8540328",
+      "agents_memory_collab/automation.py": "7bd27f9dff8e6989790b056c4ab6792fcd658f2b74314a8c191804375c38c80c",
+      "agents_memory_collab/automation_setup.py": "11fa4ac1f61a6c5b7f164a5cf38a8dd2926cf14dab0ce41fe57342b24721063a",
+      "agents_memory_collab/cli.py": "899d7e3bef64fbd11a2f13f5916ba094fb082eb45814c35005f284257384b0a6",
+      "agents_memory_collab/client.py": "7b85fd70b8c240a13948f9ebb227cc99f29535588eeb02c0851b9eedf7716e9d",
+      "agents_memory_collab/embedding.py": "e1ba3d501829ef4ece988ad56728f5a9093287a58cc48d31140ff3bff7be4f09",
+      "agents_memory_collab/generation_transport.py": "a05a8dc6f0b8b76cb97ee13e288543982df6c7133dc6fca2c618aea083bf1e22",
+      "agents_memory_collab/hindsight.py": "3fba887521a1cfe33fbe666b6579d13ae314c2436da9243e8007effeeb800e4a",
+      "agents_memory_collab/memory_engine.py": "4694d30fb8a38f3225b7dba61a5d2961426b284c76b2a056419032548a2c0cb5",
+      "agents_memory_collab/models.py": "7ab7cfdc7a65a51bf4639346b9328adc4753c641e435223bc3db3a0573f11e0f",
+      "agents_memory_collab/protocol.py": "98a11408abdeede91fcd2a9a8c7c12153b3708cef2ab2ea0ff34bc2c7f651e4c",
+      "agents_memory_collab/schema.sql": "8c15194b2552c79139868fd1cb2baa642418405c812b3324a87a4d50f84cd6b7",
+      "agents_memory_collab/setup.py": "74c919b25d30e9395ccc5b0c4cc1218377ed921f52fe1a440a193587bdfb8db1",
+      "agents_memory_collab/stdio.py": "994ff406784678988cd13ecf890d6fe0606c4929d795e94dbf11b4cd62ca7711",
+      "agents_memory_collab/store.py": "15f247d6c5913d6c50f26d59c19ed67d77274cb794403d8d99b750ba70aff15e",
+      "agents_memory_collab/web.py": "2f852a903c7d9f1c8922ad39b1ab80b540148c4c6cb5929122479224f685684c"
+    }
+  },
+  "archive": {
+    "name": "agents-memory-unified-2.0.0-source-search.tar.gz",
+    "sha256": "e7a632077ce7cc23bdb3bf173e8fc958c8ad649b97827745f455bc269347ffcf",
+    "bytes": 234873
+  },
+  "unchanged_core_wheels": {
+    "agents_memory_core-2.0.0-cp313-none-any.whl": "1c5de9e8be3446acf12b08a41e18b2f2ab451058ae8302a8ef4cc2690c812bf9",
+    "agents_memory_core-2.0.0-cp312-none-any.whl": "48406a54f4bc78b0276d0550369e140013cc270b5ef9fe13576fb3f22bdb4d14"
+  },
+  "external_jev_calls": {
+    "approved_additional": 197,
+    "used_additional": 0
+  },
+  "remaining_release_requirements": [
+    "Live Jev revalidation needs connected key and original private v43 corpus/gold/ledger",
+    "Original v43 legitimate explicit retention gate remains failed (70/80); not rescored",
+    "Actual configured unified plugin test was not run",
+    "macOS device and central marketplace directory approval are not established by this Linux run"
+  ],
+  "evidence_sha256": {
+    "MECHANISM.json": "853175e878c68a4872bfdd48bfcb12fe6023536b808696590bbca717c9687d85",
+    "probe.py": "1a78cbc42cf885e01edfc24a3d2e1cf2a7b24ed2c53158948f1f9504fac264e1",
+    "LOCAL-CI.xml": "7e307de9eca8e4136ebb02be3705f27b9dc9d8ed7e1981b01133b51a91c057d8",
+    "INSTALLED-WHEEL.xml": "62e4e017be24e22cf256b8a97cf94e1dadb2a00f2b7fa91ec77d514364133ca8",
+    "SOURCE-SEARCH-SHA256SUMS": "f89ee487811ba349b6a95f19281651086f5d00cb0e7508fdd73ce90990c16672"
+  }
+}

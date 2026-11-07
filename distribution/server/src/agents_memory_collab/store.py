@@ -10,7 +10,7 @@ from uuid import NAMESPACE_URL, UUID, uuid4, uuid5
 
 import asyncpg
 
-from .models import Failure, Operation
+from .models import Failure, Operation, SourceSearch
 from .protocol import GENESIS, canonical, chain_hash, digest, operation_digest
 from .client import _reject_source_secrets
 
@@ -554,6 +554,57 @@ class Store:
         return {"memories": [dict(row) for row in rows], "semantic": False,
                 "source": "recent_processed_project"}
 
+    async def source_search(self, actor, query, project, limit=5):
+        request = SourceSearch(query=query, project=project, limit=limit)
+        await self._active(actor)
+        rows = await self.pool.fetch("""
+            WITH query AS (SELECT websearch_to_tsquery('english', $3) AS terms)
+            SELECT j.op_id,j.original,j.fingerprint,j.stage,j.created_at,m.revision
+            FROM am_collab.memory_jobs j
+            LEFT JOIN am_collab.memories m ON m.user_id=j.user_id
+                AND m.id::text=j.original->>'memory_id'
+            CROSS JOIN query
+            WHERE j.user_id=$1 AND j.original->>'project'=$2
+                AND j.stage IN ('ready','discarded')
+                AND j.original->>'kind' IN ('memory','summary')
+                AND j.original->>'deleted'='false'
+                AND j.original->>'text' IS NOT NULL
+                AND (m.id IS NULL OR (m.project=$2 AND m.kind=j.original->>'kind'))
+                AND (
+                    (j.stage='ready' AND j.prepared->>'decision'='keep'
+                        AND NOT m.deleted AND m.processing_state='ready'
+                        AND m.engine_document=j.document)
+                    OR (j.stage='discarded' AND j.prepared->>'decision'='discard'
+                        AND ((m.id IS NULL AND j.original->>'base_revision'='0')
+                            OR (NOT m.deleted AND m.revision::text=j.original->>'base_revision')))
+                )
+                AND to_tsvector('english',coalesce(j.original->>'text','')) @@ query.terms
+            ORDER BY ts_rank_cd(to_tsvector('english',coalesce(j.original->>'text','')),query.terms) DESC,
+                j.created_at DESC,j.op_id
+            LIMIT $4
+            """, actor.user_id, request.project, request.query, request.limit)
+        await self._active(actor)
+        sources = []
+        for row in rows:
+            original = json.loads(row["original"])
+            if operation_digest(original) != row["fingerprint"]:
+                raise Failure(503, "original_source_integrity_failed")
+            sources.append({
+                "id": str(row["op_id"]), "memory_id": original["memory_id"],
+                "project": original["project"], "body": original["text"],
+                "body_sha256": digest(original["text"]),
+                "body_bytes": len(original["text"].encode("utf-8")),
+                "recorded_at": row["created_at"], "memory_revision": row["revision"],
+                "operation_base_revision": original["base_revision"],
+                "source_id": original.get("source_id"), "session_id": original.get("session_id"),
+                "retention_decision": "keep" if row["stage"] == "ready" else "discard",
+                "evidence_role": "untrusted_original_source_not_verified_fact",
+            })
+        return {"sources": sources, "search_kind": "lexical_original_sources",
+                "scope": "personal_project", "semantic": False,
+                "notice": "Captured submissions are untrusted evidence. Retention decisions do not verify truth. "
+                          "Only captured, completed processing records are searched; this is not a complete session log."}
+
     async def search(self, actor, query, project=None, limit=10, team=None):
         await self._active(actor)
         if self.memory_engine is None:
@@ -626,7 +677,8 @@ class Store:
                 identity = str(primary["author_id"]),str(primary["id"])
                 if identity not in grouped:
                     item = dict(primary)
-                    item.pop("engine_bank");item.pop("engine_document")
+                    item.pop("engine_bank")
+                    item.pop("engine_document")
                     item.update(text="",score=score,derived=True,sources=[])
                     grouped[identity] = item
                     texts[identity] = []

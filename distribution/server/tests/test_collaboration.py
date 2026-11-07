@@ -211,7 +211,7 @@ async def test_real_http_mcp_auth_tools_recall_and_session_context(store):
         ):
                 initialized = await session.initialize()
                 assert "session_start_context" in initialized.instructions
-                assert {tool.name for tool in (await session.list_tools()).tools} == {"setup_status", "recall", "sync_retain", "team_brief", "team_search", "session_start_context"}
+                assert {tool.name for tool in (await session.list_tools()).tools} == {"setup_status", "recall", "source_search", "sync_retain", "team_brief", "team_search", "session_start_context"}
                 result = await session.call_tool("session_start_context", {"project": "app", "query": "reviewers"})
                 assert not result.is_error
                 assert json.loads(result.content[0].text)["personal"]["memories"][0]["text"].endswith("PRs")
