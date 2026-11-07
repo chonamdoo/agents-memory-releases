@@ -32,7 +32,7 @@
       "references": [
         {
           "path": "release-candidates/v2.0.0-source-search/VERIFICATION.json",
-          "sha256": "6e5828369b358f278be6c9b70a857be6544ab2428b893ae618b4f85255853d53"
+          "sha256": "3af3b1448c3f60b39df45b5b9a06b1bab897874959fd1ea076bab4604b270ae3"
         },
         {
           "path": "release-candidates/v2.0.0-source-search/SOURCE-SEARCH-SHA256SUMS",
@@ -148,12 +148,16 @@
     },
     {
       "id": "marketplace_delivery",
-      "status": "partial",
-      "reason": "Prior package 2.0.1 public upgrades passed. New 2.0.2 local three-host upgrades pass; public main delivery needs post-merge verification.",
+      "status": "met",
+      "reason": "Public main upgrades 2.0.1 -> 2.0.2 verified on Claude, Codex and OMP; every installed plugin file matches and each bundled unconfigured connector protocol passes.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-source-search/MARKETPLACE-UPDATE.json",
           "sha256": "59530c8ba4a94c5b6e099b4925dfbb822e2ed740327a83c35da385ec196571c5"
+        },
+        {
+          "path": "release-candidates/v2.0.0-source-search/PUBLIC-CONNECTOR-DELIVERY.json",
+          "sha256": "0d111dd59e19b5a58899ccdeaa1dfa6f401c01b81ae59c6aff3c478a31b663ed"
         }
       ]
     },
