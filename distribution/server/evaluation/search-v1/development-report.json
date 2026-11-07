@@ -1,0 +1,197 @@
+{
+  "fixture_sha256": "861adb11cf8d7beac0cd8c7ae03ae00239d15964a406e9aeba17cc79f42f73a3",
+  "split": "development",
+  "product_source_sha256": {
+    "memory_engine.py": "b8455f1bcbb1e58b0c12908d63b1de9e2c0b6eec4ba5ca0d8af157b2675c02bd",
+    "store.py": "fe64dec6f3c751aa4fdb52251cdb5a48e19e2b1e94cdde1c3867fce039b697d7",
+    "stdio.py": "d6036270c345a63f3a62801bd9433ea687debe48e533a7b8bf86d5b3da61e50c"
+  },
+  "external_jev_api_calls": 0,
+  "annotation": "single_author_before_product_outputs; source-ID gold; no independent human agreement claim",
+  "scope": "synthetic_engineering_only",
+  "metrics": {
+    "0.1": {
+      "answerable_questions": 40,
+      "any_hit_at_5": 38,
+      "any_hit_wilson_95": [
+        0.8349612263085903,
+        0.9861793326138516
+      ],
+      "all_required_evidence_at_5": 20,
+      "noise_sources": 0,
+      "returned_sources": 58,
+      "noise_wilson_95": [
+        0,
+        0.062117855787202914
+      ],
+      "unrelated_abstained": 12,
+      "unrelated_questions": 12,
+      "engineering_gate_pass": true
+    },
+    "0.05": {
+      "answerable_questions": 40,
+      "any_hit_at_5": 39,
+      "any_hit_wilson_95": [
+        0.8711863103652591,
+        0.9955731684973186
+      ],
+      "all_required_evidence_at_5": 23,
+      "noise_sources": 1,
+      "returned_sources": 63,
+      "noise_wilson_95": [
+        0.002807494213869277,
+        0.08458525459438397
+      ],
+      "unrelated_abstained": 12,
+      "unrelated_questions": 12,
+      "engineering_gate_pass": true
+    },
+    "0.03": {
+      "answerable_questions": 40,
+      "any_hit_at_5": 40,
+      "any_hit_wilson_95": [
+        0.9123783988027135,
+        1
+      ],
+      "all_required_evidence_at_5": 27,
+      "noise_sources": 1,
+      "returned_sources": 68,
+      "noise_wilson_95": [
+        0.0026006835761068076,
+        0.07870973128160871
+      ],
+      "unrelated_abstained": 12,
+      "unrelated_questions": 12,
+      "engineering_gate_pass": true
+    },
+    "0.02": {
+      "answerable_questions": 40,
+      "any_hit_at_5": 40,
+      "any_hit_wilson_95": [
+        0.9123783988027135,
+        1
+      ],
+      "all_required_evidence_at_5": 27,
+      "noise_sources": 2,
+      "returned_sources": 69,
+      "noise_wilson_95": [
+        0.007985202692364197,
+        0.09966583763065553
+      ],
+      "unrelated_abstained": 12,
+      "unrelated_questions": 12,
+      "engineering_gate_pass": true
+    },
+    "0.01": {
+      "answerable_questions": 40,
+      "any_hit_at_5": 40,
+      "any_hit_wilson_95": [
+        0.9123783988027135,
+        1
+      ],
+      "all_required_evidence_at_5": 27,
+      "noise_sources": 4,
+      "returned_sources": 71,
+      "noise_wilson_95": [
+        0.022124519301696642,
+        0.13609605799976943
+      ],
+      "unrelated_abstained": 12,
+      "unrelated_questions": 12,
+      "engineering_gate_pass": true
+    },
+    "0.003": {
+      "answerable_questions": 40,
+      "any_hit_at_5": 40,
+      "any_hit_wilson_95": [
+        0.9123783988027135,
+        1
+      ],
+      "all_required_evidence_at_5": 33,
+      "noise_sources": 10,
+      "returned_sources": 83,
+      "noise_wilson_95": [
+        0.066776902980842,
+        0.2077631513257165
+      ],
+      "unrelated_abstained": 12,
+      "unrelated_questions": 12,
+      "engineering_gate_pass": true
+    },
+    "0.001": {
+      "answerable_questions": 40,
+      "any_hit_at_5": 40,
+      "any_hit_wilson_95": [
+        0.9123783988027135,
+        1
+      ],
+      "all_required_evidence_at_5": 38,
+      "noise_sources": 32,
+      "returned_sources": 110,
+      "noise_wilson_95": [
+        0.21423583339556446,
+        0.38169344863821325
+      ],
+      "unrelated_abstained": 12,
+      "unrelated_questions": 12,
+      "engineering_gate_pass": false
+    },
+    "0.0003": {
+      "answerable_questions": 40,
+      "any_hit_at_5": 40,
+      "any_hit_wilson_95": [
+        0.9123783988027135,
+        1
+      ],
+      "all_required_evidence_at_5": 40,
+      "noise_sources": 78,
+      "returned_sources": 158,
+      "noise_wilson_95": [
+        0.41679477879084703,
+        0.5708474482715289
+      ],
+      "unrelated_abstained": 12,
+      "unrelated_questions": 12,
+      "engineering_gate_pass": false
+    },
+    "0.0001": {
+      "answerable_questions": 40,
+      "any_hit_at_5": 40,
+      "any_hit_wilson_95": [
+        0.9123783988027135,
+        1
+      ],
+      "all_required_evidence_at_5": 40,
+      "noise_sources": 104,
+      "returned_sources": 184,
+      "noise_wilson_95": [
+        0.4929792826899992,
+        0.6347880384896634
+      ],
+      "unrelated_abstained": 9,
+      "unrelated_questions": 12,
+      "engineering_gate_pass": false
+    },
+    "3e-05": {
+      "answerable_questions": 40,
+      "any_hit_at_5": 40,
+      "any_hit_wilson_95": [
+        0.9123783988027135,
+        1
+      ],
+      "all_required_evidence_at_5": 40,
+      "noise_sources": 123,
+      "returned_sources": 203,
+      "noise_wilson_95": [
+        0.5373219605392886,
+        0.6705667298865302
+      ],
+      "unrelated_abstained": 7,
+      "unrelated_questions": 12,
+      "engineering_gate_pass": false
+    }
+  },
+  "recommended_floor": 0.003,
+  "release_gate_status": "unknown_not_independent_release_evidence",
+  "uncertainty": "Wilson intervals describe this fixture only; bilingual queries share topic clusters"
+}

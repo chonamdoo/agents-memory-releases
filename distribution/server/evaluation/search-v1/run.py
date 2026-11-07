@@ -82,11 +82,15 @@ class ValidationEngine(HindsightEngine):
     def __init__(self, *args, floor, **kwargs):
         super().__init__(*args, **kwargs)
         self.floor = floor
+        self.captured = {}
 
     async def request(self, path, value=None, method=None):
         if path.endswith("/memories/recall") and value.get("min_scores") != {"reranker": self.floor}:
             raise ValueError("The production recall floor differs from the frozen candidate")
-        return await super().request(path, value, method)
+        result = await super().request(path, value, method)
+        if path.endswith("/memories/recall"):
+            self.captured[path, value["query"]] = result
+        return result
 
 
 def metrics(rows):
@@ -110,6 +114,8 @@ def metrics(rows):
 
 
 async def main(args):
+    if args.output.exists():
+        raise ValueError("Select a new output directory; existing evidence is preserved")
     fixture_path = ROOT / "fixture.json"
     fixture = json.loads(fixture_path.read_text())
     manifest = json.loads((ROOT / "registration.json").read_text())
@@ -131,6 +137,10 @@ async def main(args):
         candidate = json.loads(args.candidate.read_text())
         if candidate["fixture_sha256"] != digest(fixture_path) or candidate["product_source_sha256"] != sources:
             raise ValueError("Candidate identity differs from the frozen source and fixture")
+        all_sources = {path.name: digest(path) for path in sorted(PACKAGE.glob("*.py"))}
+        if (candidate["all_sdk_python_sha256"] != all_sources
+                or candidate["evaluator_sha256"] != digest(Path(__file__))):
+            raise ValueError("The frozen SDK or evaluation harness changed")
         args.ledger.mkdir(mode=0o700, parents=True, exist_ok=True)
         save(args.ledger / (digest(fixture_path) + "-validation-used.json"),
              {**registration, "candidate_sha256": digest(args.candidate), "status": "reserved"})
@@ -181,6 +191,9 @@ async def main(args):
                 by_floor[str(floor)].append(row)
             save(args.output / f"query-{index:03d}.json",
                  {floor: rows[-1] for floor, rows in by_floor.items()})
+            save(args.output / f"native-{index:03d}.json", next(
+                response for (path, query), response in engine.captured.items()
+                if query == question["query"]))
             print(json.dumps({"queried": index, "total": len(cohort["queries"])}), flush=True)
         summary = {floor: metrics(rows) for floor, rows in by_floor.items()}
         eligible = [(float(floor), row) for floor, row in summary.items() if row["engineering_gate_pass"]]

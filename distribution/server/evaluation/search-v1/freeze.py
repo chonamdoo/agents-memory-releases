@@ -38,6 +38,7 @@ async def main(args):
         "product_source_sha256": {name: digest(PACKAGE / name) for name in (
             "memory_engine.py", "store.py", "stdio.py")},
         "all_sdk_python_sha256": {path.name: digest(path) for path in sorted(PACKAGE.glob("*.py"))},
+        "evaluator_sha256": digest(ROOT / "run.py"),
         "development_report_sha256": digest(args.report),
         "development_query_sha256": {path.name: digest(path) for path in artifacts},
         "annotation": report["annotation"],
