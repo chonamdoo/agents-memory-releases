@@ -31,9 +31,11 @@ Claude·Codex·omp는 MCP·훅·압축 문맥 연결 앱이고, 저장 판단 �
 
 ## 로컬 설치: Claude·Codex·omp
 
-[v2.0.0 공개 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0)에서
-원문 검색 후보 `agents-memory-unified-2.0.0-source-search.tar.gz`와
-`SOURCE-SEARCH-SHA256SUMS`를 내려받아 해당 파일의 SHA-256을 확인하세요.
+[검증된 원문 검색 후보 파일](https://github.com/chonamdoo/agents-memory-releases/tree/main/release-candidates/v2.0.0-source-search)에서
+`agents-memory-unified-2.0.0-source-search.tar.gz`와 `SOURCE-SEARCH-SHA256SUMS`를
+내려받아 해당 파일의 SHA-256을 확인하세요. 현재 새 후보는 저장소 파일로 공개하며,
+[v2.0.0 릴리즈 자산](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0)에
+추가하는 요청은 업로드 서버의 401 인증 오류로 대기 중입니다.
 모델 companion `agents-memory-reranker-2.0.0.tar.gz`는 기존 `SHA256SUMS`로 검증합니다.
 기존 `agents-memory-unified-2.0.0.tar.gz`는 수정 전 시험판이며 새 검색 SDK가 아닙니다.
 검증을 마친 파일을 압축 해제하세요.

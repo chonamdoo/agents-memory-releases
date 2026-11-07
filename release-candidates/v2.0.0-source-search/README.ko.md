@@ -27,6 +27,10 @@ SHA-256을 반환하며, 원문은 미검증 자료로 표시한다. 팀 공유�
 - GitHub Actions 대신 로컬 CI를 사용한다는 사용자 지시는 **2026-12-01까지**
   적용한다. 이를 실제 Jev 품질 통과로 해석하지 않는다.
 
+업로드 인증 오류에 대응해 다운로드 안내만 바꿔 최종 번들을 다시 조립했다.
+SDK·Core 코드는 같으며 최종 번들의 실제 설치·반복 설치도
+[1 passed](FINAL-BUNDLE-INSTALL.xml)로 재확인했다.
+
 ## 실제 검색 경로의 최소 재현
 
 기존 테스트의 원문 `The cache TTL is 37 seconds.\nThe namespace is cache-v7.`를
@@ -52,9 +56,18 @@ python release-candidates/v2.0.0-source-search/probe.py \
 
 ## 후보 파일과 정식 전환 조건
 
-[공개 v2.0.0 파일](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0)에서
-`agents-memory-unified-2.0.0-source-search.tar.gz`와 `SOURCE-SEARCH-SHA256SUMS`를
-받는다. 이전 자산은 유지한다. 모델 companion과 source-free Core wheel은 그대로이고,
+[이 폴더의 후보 파일](agents-memory-unified-2.0.0-source-search.tar.gz)과
+[SOURCE-SEARCH-SHA256SUMS](SOURCE-SEARCH-SHA256SUMS)를 받는다. GitHub 파일 화면의
+Raw/Download를 사용하거나 다음 공개 주소로 내려받는다. 릴리즈 자산 업로드는
+GitHub 업로드 서버의 401 인증 오류로 대기 중이며 기존 자산은 유지한다.
+
+```sh
+curl -fL https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/main/release-candidates/v2.0.0-source-search/agents-memory-unified-2.0.0-source-search.tar.gz -o agents-memory-unified-2.0.0-source-search.tar.gz
+curl -fL https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/main/release-candidates/v2.0.0-source-search/SOURCE-SEARCH-SHA256SUMS -o SOURCE-SEARCH-SHA256SUMS
+shasum -a 256 -c SOURCE-SEARCH-SHA256SUMS
+```
+
+모델 companion과 source-free Core wheel은 그대로이고,
 새 SDK의 Python 15개 파일과 SQL schema가 검증한 소스와 바이트 단위로 같다.
 서버와 클라이언트 양쪽을 갱신해야 새 도구를 사용할 수 있다.
 
