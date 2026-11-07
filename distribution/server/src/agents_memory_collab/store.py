@@ -14,6 +14,9 @@ from .models import Failure, Operation
 from .protocol import GENESIS, canonical, chain_hash, digest, operation_digest
 from .client import _reject_source_secrets
 
+# Leave headroom below the client's 4 MiB response limit after expanding sources.
+MAX_SEARCH_RESPONSE_BYTES = 4_000_000
+
 
 @dataclass(frozen=True)
 class Actor:
@@ -636,6 +639,7 @@ class Store:
                     source = {"id":str(row["id"]),"revision":row["revision"],"project":row["project"]}
                     if source not in item["sources"]:
                         item["sources"].append(source)
+            expanded = {}
             for identity,item in grouped.items():
                 # A matching native chunk can omit a condition elsewhere in its source.
                 # Publish complete approved source text, as the grounded search path does.
@@ -643,10 +647,38 @@ class Store:
                 ordered = sorted(contexts[identity].values(), key=lambda row: (
                     next((rank for rank, fragment in enumerate(fragments)
                           if fragment in row["text"]), len(fragments)), str(row["id"])))
-                item["text"] = "\n".join(dict.fromkeys(row["text"] for row in ordered))
-            result = sorted(grouped.values(),key=lambda r:(-r["score"],str(r["id"])))
-            return {"memories":result[:limit],"semantic":True,"engine":"hindsight",
-                    "integration_enabled":True,"generation_enabled":False}
+                bodies = list(dict.fromkeys(row["text"] for row in ordered))
+                item["text"] = "\n".join(bodies)
+                key = ordered[0]["engine_bank"], tuple(sorted(bodies))
+                previous = expanded.get(key)
+                if previous is None:
+                    expanded[key] = item
+                    continue
+                best = max((previous, item), key=lambda row: row["score"])
+                primary = min((previous, item), key=lambda row: str(row["id"]))
+                sources = {(source["id"], source["revision"], source["project"]): source
+                           for source in previous["sources"] + item["sources"]}
+                merged = dict(primary)
+                merged.update(text=best["text"], score=best["score"],
+                              sources=[sources[key] for key in sorted(sources)])
+                expanded[key] = merged
+            result = sorted(expanded.values(),key=lambda r:(-r["score"],str(r["id"])))
+            response = {"memories": [], "semantic": True, "engine": "hindsight",
+                        "integration_enabled": True, "generation_enabled": False,
+                        "partial": False, "omitted_due_to_budget": len(result)}
+            # Reserve the widest omission count and count encoded JSON bytes, including commas.
+            used, omitted = len(canonical(response).encode("utf-8")), 0
+            for item in result:
+                if len(response["memories"]) >= limit:
+                    break
+                size = len(canonical(item).encode("utf-8")) + bool(response["memories"])
+                if used + size > MAX_SEARCH_RESPONSE_BYTES:
+                    omitted += 1
+                    continue
+                response["memories"].append(item)
+                used += size
+            response.update(partial=bool(omitted), omitted_due_to_budget=omitted)
+            return response
         result = []
         for row in rows:
             identity = (row["engine_bank"], row["engine_document"])
