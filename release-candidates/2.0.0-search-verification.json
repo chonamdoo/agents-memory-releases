@@ -43,7 +43,7 @@
     "tokenizers": "0.22.1",
     "go": "1.27.3",
     "bun": "1.4.4",
-    "shipping_transitive_dependency_closure_match": false,
+    "shipping_transitive_dependency_closure_verified": false,
     "resource_limit_certification": false
   },
   "admission": "scripted; search and integration use the actual pinned native engine",
