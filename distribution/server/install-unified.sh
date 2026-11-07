@@ -1,5 +1,5 @@
 #!/bin/bash
-# The unpublished 2.0.0 release runs only from an operator-verified local bundle.
+# The 2.0.0 prerelease requires a manually downloaded, verified, extracted bundle.
 set -euo pipefail
 umask 077
 am_bootstrap_sha=3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34
@@ -25,7 +25,7 @@ while [[ $# -gt 0 ]]; do
   case "$am_option" in
     --help|-h)
       printf '%s\n' \
-        'Unpublished 2.0.0: use an extracted, operator-verified local bundle; no unified bundle is downloaded.' \
+        '2.0.0 prerelease (quality gates failed): manually download, verify and extract the release bundle; this installer does not download it.' \
         'Local/server: bash install-unified.sh [--bundle PATH] [--bootstrap-bundle PATH] --reranker-dir PATH --mode local|personal-server|team-server|company-server --client claude|codex|omp|all --project /absolute/project' \
         'Existing server client only: bash install-unified.sh [--bundle PATH] --connect-server --url https://YOUR_GATEWAY --profile personal --client all' \
         '--bundle defaults to the adjacent bundle only when ASSETS.json validates. --bootstrap-bundle is an extracted genuine 1.0.2 bundle or its pinned .tar.gz.' \
@@ -57,7 +57,7 @@ else
   [[ -z ${am_remote_options[0]-} ]] || am_fail "Remote-only option requires --connect-server: ${am_remote_options[0]}"
 fi
 [[ -n $am_bundle ]] || am_bundle=$am_source
-[[ -d $am_bundle && ! -L $am_bundle && -s "$am_bundle/ASSETS.json" && ! -L "$am_bundle/ASSETS.json" ]] || am_fail 'A valid extracted 2.0.0 bundle with ASSETS.json is required; supply --bundle PATH. No public bundle download is available.'
+[[ -d $am_bundle && ! -L $am_bundle && -s "$am_bundle/ASSETS.json" && ! -L "$am_bundle/ASSETS.json" ]] || am_fail 'A valid extracted 2.0.0 prerelease bundle with ASSETS.json is required; supply --bundle PATH. Manually download it from https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0.'
 am_bundle="$(cd -- "$am_bundle" && pwd -P)"
 case "$(uname -s):$(uname -m)" in
   Darwin:arm64) am_target=darwin-arm64 ;;

@@ -1,5 +1,7 @@
 # agents-memory releases
 
+> **시험 릴리즈 v2.0.0 (prerelease):** [공개 배포 파일](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0) · [수동 번들 설치·업데이트](distribution/server/README.ko.md). 사용자가 품질 실패를 확인하고 시험 배포를 선택했습니다. 정당한 명시 저장 70/80, 이어가기 Hit@5 30/40은 고정 Wilson 하한 기준 미달이며 필수 근거 전체 회수는 2/40입니다. 정식 출시·100점·품질 통과를 뜻하지 않습니다. Jev 전용 판단 경로이며 번들과 모델 companion을 직접 내려받아 검증·압축 해제해야 합니다. 자동 다운로드나 마켓플레이스 업데이트 완료를 주장하지 않습니다. 이전 정식 최신 릴리즈는 v1.0.8로 유지합니다.
+
 > **정식 v1.0.8:** [릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.8) · [Claude/Codex/OMP 설치·업데이트](distribution/server/README.ko.md). 로컬·본인 서버·팀·회사 서버가 같은 Hindsight 엔진을 사용합니다. 공급자는 Claude CLI·Codex CLI·Jev 세 가지이며 별도 생성 모델 가중치는 받지 않습니다. Mac 실기기 테스트는 사용자가 진행합니다. 아래 1.0.7 안내는 이전 버전 기록입니다.
 
 > **개인형 MCP 설치:** [v0.2.1 정식 배포](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v0.2.1) · [Claude / Codex / OMP 설치 가이드](release-candidates/v0.2.1/MCP-INSTALL.ko.md). 개인 로컬은 기존 로컬 LLM/Jev, 본인 서버 연결은 서버 URL·기기 키를 사용합니다.
