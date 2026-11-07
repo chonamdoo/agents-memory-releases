@@ -1,0 +1,12 @@
+{
+  "schema": "search-preregistration-v1",
+  "fixture_sha256": "861adb11cf8d7beac0cd8c7ae03ae00239d15964a406e9aeba17cc79f42f73a3",
+  "development_floors": [0.1, 0.05, 0.03, 0.02, 0.01, 0.003, 0.001, 0.0003, 0.0001, 0.00003],
+  "development": {"documents": 60, "answerable_queries": 40, "unrelated_queries": 12, "topics": 20},
+  "validation": {"documents": 60, "answerable_queries": 40, "unrelated_queries": 12, "topics": 20},
+  "gates": {"any_hit_at_5_wilson_lower_minimum": 0.75, "noise_wilson_upper_maximum": 0.30, "unrelated_abstention": 1.0},
+  "selection": "Among development candidates passing all gates, maximize all-required-evidence@5, then any-hit@5, then minimize noise rate, then prefer the largest floor.",
+  "validation_policy": "Freeze product source and selected floor before first validation query; preserve the used marker and all original failures; never tune on consumed validation output.",
+  "annotation": "Single author before product output. Synthetic topic-disjoint holdout, not independent human annotations or population-quality certification.",
+  "release_status": "Does not replace the consumed v43 evaluation, its labels, or the original storage and release gates."
+}

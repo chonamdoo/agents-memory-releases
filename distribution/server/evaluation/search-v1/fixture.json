@@ -1,0 +1,2011 @@
+{
+  "schema": "search-fixture-v1",
+  "synthetic_only": true,
+  "annotation": "single_author_before_product_outputs; source-ID gold; no independent human agreement claim",
+  "splits": {
+    "development": {
+      "documents": [
+        {
+          "id": "development-01-a",
+          "topic": "release",
+          "text": "Production releases require three reviewers."
+        },
+        {
+          "id": "development-01-b",
+          "topic": "release",
+          "text": "Emergency hotfixes additionally require incident commander approval."
+        },
+        {
+          "id": "development-01-d",
+          "topic": "release",
+          "text": "The release dashboard uses a cyan accent."
+        },
+        {
+          "id": "development-02-a",
+          "topic": "cache",
+          "text": "The response cache TTL is 37 seconds."
+        },
+        {
+          "id": "development-02-b",
+          "topic": "cache",
+          "text": "The response cache namespace is cache-v7."
+        },
+        {
+          "id": "development-02-d",
+          "topic": "cache",
+          "text": "Cache graphs are displayed with rounded counts."
+        },
+        {
+          "id": "development-03-a",
+          "topic": "backup",
+          "text": "Regular backups are retained for 29 days."
+        },
+        {
+          "id": "development-03-b",
+          "topic": "backup",
+          "text": "Records under legal hold must never be deleted, regardless of age."
+        },
+        {
+          "id": "development-03-d",
+          "topic": "backup",
+          "text": "The backup dashboard displays sizes in mebibytes."
+        },
+        {
+          "id": "development-04-a",
+          "topic": "retry",
+          "text": "The HTTP client retries failed GET requests at most twice."
+        },
+        {
+          "id": "development-04-b",
+          "topic": "retry",
+          "text": "The HTTP client never retries POST requests automatically."
+        },
+        {
+          "id": "development-04-d",
+          "topic": "retry",
+          "text": "HTTP client metrics refresh every minute."
+        },
+        {
+          "id": "development-05-a",
+          "topic": "quota",
+          "text": "Interactive users may submit 120 API requests per minute."
+        },
+        {
+          "id": "development-05-b",
+          "topic": "quota",
+          "text": "Service accounts have a separate 900-request per minute allowance."
+        },
+        {
+          "id": "development-05-d",
+          "topic": "quota",
+          "text": "Quota reports are exported as PDF."
+        },
+        {
+          "id": "development-06-a",
+          "topic": "database",
+          "text": "The application database engine is PostgreSQL 18."
+        },
+        {
+          "id": "development-06-b",
+          "topic": "database",
+          "text": "Production PostgreSQL connections require TLS certificate verification."
+        },
+        {
+          "id": "development-06-d",
+          "topic": "database",
+          "text": "The database status page uses a dark background."
+        },
+        {
+          "id": "development-07-a",
+          "topic": "logging",
+          "text": "Application logs use structured JSON."
+        },
+        {
+          "id": "development-07-b",
+          "topic": "logging",
+          "text": "Session tokens must be masked before a log entry is written."
+        },
+        {
+          "id": "development-07-d",
+          "topic": "logging",
+          "text": "The log viewer defaults to a monospace font."
+        },
+        {
+          "id": "development-08-a",
+          "topic": "python",
+          "text": "Supported Python versions are 3.12 and 3.13."
+        },
+        {
+          "id": "development-08-b",
+          "topic": "python",
+          "text": "Python 3.14 is experimental and must not be used in production."
+        },
+        {
+          "id": "development-08-d",
+          "topic": "python",
+          "text": "The Python documentation theme is light."
+        },
+        {
+          "id": "development-09-a",
+          "topic": "language",
+          "text": "Release notes are written in Korean."
+        },
+        {
+          "id": "development-09-b",
+          "topic": "language",
+          "text": "Public API examples remain in English."
+        },
+        {
+          "id": "development-09-d",
+          "topic": "language",
+          "text": "The documentation sidebar is initially expanded."
+        },
+        {
+          "id": "development-10-a",
+          "topic": "credentials",
+          "text": "The service reads its API key from a private file with mode 0600."
+        },
+        {
+          "id": "development-10-b",
+          "topic": "credentials",
+          "text": "API keys must never be passed in command-line arguments."
+        },
+        {
+          "id": "development-10-d",
+          "topic": "credentials",
+          "text": "The credential settings panel has a help button."
+        },
+        {
+          "id": "development-11-a",
+          "topic": "migration",
+          "text": "Schema changes follow expand-then-contract migrations."
+        },
+        {
+          "id": "development-11-b",
+          "topic": "migration",
+          "text": "A deprecated database column is removed only after two completed release cycles."
+        },
+        {
+          "id": "development-11-d",
+          "topic": "migration",
+          "text": "Migration progress is shown as a percentage."
+        },
+        {
+          "id": "development-12-a",
+          "topic": "embedding",
+          "text": "The document embedding vector has 384 dimensions."
+        },
+        {
+          "id": "development-12-b",
+          "topic": "embedding",
+          "text": "Embedding inference must run locally without sending document text to an external service."
+        },
+        {
+          "id": "development-12-d",
+          "topic": "embedding",
+          "text": "The embedding dashboard shows twelve samples per page."
+        },
+        {
+          "id": "development-13-a",
+          "topic": "ci",
+          "text": "Each CI test shard has a 600-second execution deadline."
+        },
+        {
+          "id": "development-13-b",
+          "topic": "ci",
+          "text": "After a timeout, the shard receives 15 seconds to shut down gracefully."
+        },
+        {
+          "id": "development-13-d",
+          "topic": "ci",
+          "text": "CI job names contain their shard index."
+        },
+        {
+          "id": "development-14-a",
+          "topic": "membership",
+          "text": "Team owners and editors may publish shared project memories."
+        },
+        {
+          "id": "development-14-b",
+          "topic": "membership",
+          "text": "Viewers may read shared memories but cannot publish them."
+        },
+        {
+          "id": "development-14-d",
+          "topic": "membership",
+          "text": "Team avatars are displayed as circles."
+        },
+        {
+          "id": "development-15-a",
+          "topic": "config",
+          "text": "An explicitly selected configuration file takes precedence over ambient environment settings."
+        },
+        {
+          "id": "development-15-b",
+          "topic": "config",
+          "text": "Updating the client must preserve the existing OAuth connection."
+        },
+        {
+          "id": "development-15-d",
+          "topic": "config",
+          "text": "Configuration examples use two-space indentation."
+        },
+        {
+          "id": "development-16-a",
+          "topic": "encryption",
+          "text": "Database backup archives are encrypted before leaving the machine."
+        },
+        {
+          "id": "development-16-b",
+          "topic": "encryption",
+          "text": "The decryption identity is stored separately from the backup archive."
+        },
+        {
+          "id": "development-16-d",
+          "topic": "encryption",
+          "text": "Backup archive filenames contain the creation date."
+        },
+        {
+          "id": "development-17-a",
+          "topic": "sync",
+          "text": "Offline changes remain in a durable local outbox until acknowledged."
+        },
+        {
+          "id": "development-17-b",
+          "topic": "sync",
+          "text": "A conflicting update must not overwrite a newer server revision automatically."
+        },
+        {
+          "id": "development-17-d",
+          "topic": "sync",
+          "text": "The sync status icon is displayed in the toolbar."
+        },
+        {
+          "id": "development-18-a",
+          "topic": "maintenance",
+          "text": "The maintenance window is Sunday at 03:00 Asia/Seoul."
+        },
+        {
+          "id": "development-18-b",
+          "topic": "maintenance",
+          "text": "Maintenance may not interrupt an active database restore."
+        },
+        {
+          "id": "development-18-d",
+          "topic": "maintenance",
+          "text": "Maintenance notices use the project logo."
+        },
+        {
+          "id": "development-19-a",
+          "topic": "alerts",
+          "text": "An alert is raised when the oldest queued job is more than five minutes old."
+        },
+        {
+          "id": "development-19-b",
+          "topic": "alerts",
+          "text": "An unknown queue state must not automatically resolve an existing alert."
+        },
+        {
+          "id": "development-19-d",
+          "topic": "alerts",
+          "text": "Alert cards display their creation timestamp."
+        },
+        {
+          "id": "development-20-a",
+          "topic": "identity",
+          "text": "Each device has a distinct revocable credential."
+        },
+        {
+          "id": "development-20-b",
+          "topic": "identity",
+          "text": "Revoking one device must not revoke other devices belonging to the same account."
+        },
+        {
+          "id": "development-20-d",
+          "topic": "identity",
+          "text": "The device list is sorted by its display name."
+        }
+      ],
+      "queries": [
+        {
+          "id": "development-01-en",
+          "cluster": "release",
+          "query": "How many reviewers approve production releases, and what extra approval do emergency hotfixes need?",
+          "required_sources": [
+            "development-01-a",
+            "development-01-b"
+          ],
+          "relevant_sources": [
+            "development-01-a",
+            "development-01-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-01-ko",
+          "cluster": "release",
+          "query": "운영 배포 리뷰 인원과 긴급 수정 추가 승인",
+          "required_sources": [
+            "development-01-a",
+            "development-01-b"
+          ],
+          "relevant_sources": [
+            "development-01-a",
+            "development-01-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-02-en",
+          "cluster": "cache",
+          "query": "What are the response cache TTL and namespace?",
+          "required_sources": [
+            "development-02-a",
+            "development-02-b"
+          ],
+          "relevant_sources": [
+            "development-02-a",
+            "development-02-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-02-ko",
+          "cluster": "cache",
+          "query": "응답 캐시 만료 시간과 네임스페이스",
+          "required_sources": [
+            "development-02-a",
+            "development-02-b"
+          ],
+          "relevant_sources": [
+            "development-02-a",
+            "development-02-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-03-en",
+          "cluster": "backup",
+          "query": "How long are regular backups retained and what is the legal hold exception?",
+          "required_sources": [
+            "development-03-a",
+            "development-03-b"
+          ],
+          "relevant_sources": [
+            "development-03-a",
+            "development-03-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-03-ko",
+          "cluster": "backup",
+          "query": "백업 보관 기간과 법적 보존 삭제 예외",
+          "required_sources": [
+            "development-03-a",
+            "development-03-b"
+          ],
+          "relevant_sources": [
+            "development-03-a",
+            "development-03-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-04-en",
+          "cluster": "retry",
+          "query": "Which HTTP requests are retried, how many times, and which requests must never be retried?",
+          "required_sources": [
+            "development-04-a",
+            "development-04-b"
+          ],
+          "relevant_sources": [
+            "development-04-a",
+            "development-04-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-04-ko",
+          "cluster": "retry",
+          "query": "HTTP 요청 재시도 횟수와 POST 재시도 금지",
+          "required_sources": [
+            "development-04-a",
+            "development-04-b"
+          ],
+          "relevant_sources": [
+            "development-04-a",
+            "development-04-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-05-en",
+          "cluster": "quota",
+          "query": "What are the per-minute request limits for interactive users and service accounts?",
+          "required_sources": [
+            "development-05-a",
+            "development-05-b"
+          ],
+          "relevant_sources": [
+            "development-05-a",
+            "development-05-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-05-ko",
+          "cluster": "quota",
+          "query": "사용자와 서비스 계정의 분당 API 요청 제한",
+          "required_sources": [
+            "development-05-a",
+            "development-05-b"
+          ],
+          "relevant_sources": [
+            "development-05-a",
+            "development-05-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-06-en",
+          "cluster": "database",
+          "query": "What database engine and version does the application use, and how are production connections verified?",
+          "required_sources": [
+            "development-06-a",
+            "development-06-b"
+          ],
+          "relevant_sources": [
+            "development-06-a",
+            "development-06-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-06-ko",
+          "cluster": "database",
+          "query": "데이터베이스 엔진 버전과 운영 접속 인증서 검증",
+          "required_sources": [
+            "development-06-a",
+            "development-06-b"
+          ],
+          "relevant_sources": [
+            "development-06-a",
+            "development-06-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-07-en",
+          "cluster": "logging",
+          "query": "What is the log format and how are session tokens handled before logging?",
+          "required_sources": [
+            "development-07-a",
+            "development-07-b"
+          ],
+          "relevant_sources": [
+            "development-07-a",
+            "development-07-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-07-ko",
+          "cluster": "logging",
+          "query": "로그 형식과 세션 토큰 마스킹 규칙",
+          "required_sources": [
+            "development-07-a",
+            "development-07-b"
+          ],
+          "relevant_sources": [
+            "development-07-a",
+            "development-07-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-08-en",
+          "cluster": "python",
+          "query": "Which Python versions are supported and which experimental version is excluded from production?",
+          "required_sources": [
+            "development-08-a",
+            "development-08-b"
+          ],
+          "relevant_sources": [
+            "development-08-a",
+            "development-08-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-08-ko",
+          "cluster": "python",
+          "query": "지원 파이썬 버전과 운영에서 제외할 실험 버전",
+          "required_sources": [
+            "development-08-a",
+            "development-08-b"
+          ],
+          "relevant_sources": [
+            "development-08-a",
+            "development-08-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-09-en",
+          "cluster": "language",
+          "query": "Which languages are used for release notes and public API examples?",
+          "required_sources": [
+            "development-09-a",
+            "development-09-b"
+          ],
+          "relevant_sources": [
+            "development-09-a",
+            "development-09-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-09-ko",
+          "cluster": "language",
+          "query": "릴리스 노트와 공개 API 예제 작성 언어",
+          "required_sources": [
+            "development-09-a",
+            "development-09-b"
+          ],
+          "relevant_sources": [
+            "development-09-a",
+            "development-09-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-10-en",
+          "cluster": "credentials",
+          "query": "How is the service API key supplied and which command-line usage is forbidden?",
+          "required_sources": [
+            "development-10-a",
+            "development-10-b"
+          ],
+          "relevant_sources": [
+            "development-10-a",
+            "development-10-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-10-ko",
+          "cluster": "credentials",
+          "query": "API 키 파일 권한과 명령행 인자 전달 금지",
+          "required_sources": [
+            "development-10-a",
+            "development-10-b"
+          ],
+          "relevant_sources": [
+            "development-10-a",
+            "development-10-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-11-en",
+          "cluster": "migration",
+          "query": "What migration pattern is required and when may a deprecated column be removed?",
+          "required_sources": [
+            "development-11-a",
+            "development-11-b"
+          ],
+          "relevant_sources": [
+            "development-11-a",
+            "development-11-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-11-ko",
+          "cluster": "migration",
+          "query": "DB 스키마 마이그레이션 방식과 기존 컬럼 삭제 시점",
+          "required_sources": [
+            "development-11-a",
+            "development-11-b"
+          ],
+          "relevant_sources": [
+            "development-11-a",
+            "development-11-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-12-en",
+          "cluster": "embedding",
+          "query": "What is the embedding dimension and where may document embedding inference run?",
+          "required_sources": [
+            "development-12-a",
+            "development-12-b"
+          ],
+          "relevant_sources": [
+            "development-12-a",
+            "development-12-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-12-ko",
+          "cluster": "embedding",
+          "query": "임베딩 벡터 차원과 문서 외부 전송 제한",
+          "required_sources": [
+            "development-12-a",
+            "development-12-b"
+          ],
+          "relevant_sources": [
+            "development-12-a",
+            "development-12-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-13-en",
+          "cluster": "ci",
+          "query": "What are the CI shard execution deadline and graceful shutdown allowance?",
+          "required_sources": [
+            "development-13-a",
+            "development-13-b"
+          ],
+          "relevant_sources": [
+            "development-13-a",
+            "development-13-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-13-ko",
+          "cluster": "ci",
+          "query": "CI 테스트 실행 제한 시간과 종료 유예",
+          "required_sources": [
+            "development-13-a",
+            "development-13-b"
+          ],
+          "relevant_sources": [
+            "development-13-a",
+            "development-13-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-14-en",
+          "cluster": "membership",
+          "query": "Which team roles may publish shared memories and what may viewers do?",
+          "required_sources": [
+            "development-14-a",
+            "development-14-b"
+          ],
+          "relevant_sources": [
+            "development-14-a",
+            "development-14-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-14-ko",
+          "cluster": "membership",
+          "query": "팀 기억 게시 권한과 뷰어 역할 제한",
+          "required_sources": [
+            "development-14-a",
+            "development-14-b"
+          ],
+          "relevant_sources": [
+            "development-14-a",
+            "development-14-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-15-en",
+          "cluster": "config",
+          "query": "Which configuration takes precedence and what connection must an update preserve?",
+          "required_sources": [
+            "development-15-a",
+            "development-15-b"
+          ],
+          "relevant_sources": [
+            "development-15-a",
+            "development-15-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-15-ko",
+          "cluster": "config",
+          "query": "명시 설정 파일 우선순위와 업데이트 OAuth 보존",
+          "required_sources": [
+            "development-15-a",
+            "development-15-b"
+          ],
+          "relevant_sources": [
+            "development-15-a",
+            "development-15-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-16-en",
+          "cluster": "encryption",
+          "query": "When are backup archives encrypted and where is the decryption identity kept?",
+          "required_sources": [
+            "development-16-a",
+            "development-16-b"
+          ],
+          "relevant_sources": [
+            "development-16-a",
+            "development-16-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-16-ko",
+          "cluster": "encryption",
+          "query": "백업 암호화 시점과 복호화 키 분리 보관",
+          "required_sources": [
+            "development-16-a",
+            "development-16-b"
+          ],
+          "relevant_sources": [
+            "development-16-a",
+            "development-16-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-17-en",
+          "cluster": "sync",
+          "query": "What happens to offline changes and how are conflicting newer server revisions protected?",
+          "required_sources": [
+            "development-17-a",
+            "development-17-b"
+          ],
+          "relevant_sources": [
+            "development-17-a",
+            "development-17-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-17-ko",
+          "cluster": "sync",
+          "query": "오프라인 변경 보존과 서버 최신 리비전 충돌 처리",
+          "required_sources": [
+            "development-17-a",
+            "development-17-b"
+          ],
+          "relevant_sources": [
+            "development-17-a",
+            "development-17-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-18-en",
+          "cluster": "maintenance",
+          "query": "When is the maintenance window and what activity must it not interrupt?",
+          "required_sources": [
+            "development-18-a",
+            "development-18-b"
+          ],
+          "relevant_sources": [
+            "development-18-a",
+            "development-18-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-18-ko",
+          "cluster": "maintenance",
+          "query": "정기 점검 요일 시각 시간대와 DB 복구 중단 금지",
+          "required_sources": [
+            "development-18-a",
+            "development-18-b"
+          ],
+          "relevant_sources": [
+            "development-18-a",
+            "development-18-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-19-en",
+          "cluster": "alerts",
+          "query": "When is a queue alert raised and can an unknown state resolve it?",
+          "required_sources": [
+            "development-19-a",
+            "development-19-b"
+          ],
+          "relevant_sources": [
+            "development-19-a",
+            "development-19-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-19-ko",
+          "cluster": "alerts",
+          "query": "큐 경보 발생 시간과 상태 불명 시 자동 해제 금지",
+          "required_sources": [
+            "development-19-a",
+            "development-19-b"
+          ],
+          "relevant_sources": [
+            "development-19-a",
+            "development-19-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-20-en",
+          "cluster": "identity",
+          "query": "How are device credentials separated and what is the scope of revoking one device?",
+          "required_sources": [
+            "development-20-a",
+            "development-20-b"
+          ],
+          "relevant_sources": [
+            "development-20-a",
+            "development-20-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-20-ko",
+          "cluster": "identity",
+          "query": "기기별 인증 정보 분리와 개별 기기 폐기 범위",
+          "required_sources": [
+            "development-20-a",
+            "development-20-b"
+          ],
+          "relevant_sources": [
+            "development-20-a",
+            "development-20-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "development-control-01",
+          "cluster": "control-01",
+          "query": "Why do ocean tides rise and fall?",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "development-control-02",
+          "cluster": "control-02",
+          "query": "Which planet has the largest number of moons?",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "development-control-03",
+          "cluster": "control-03",
+          "query": "Who won the baseball championship last year?",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "development-control-04",
+          "cluster": "control-04",
+          "query": "What ingredients are used in a traditional tiramisu?",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "development-control-05",
+          "cluster": "control-05",
+          "query": "How do monarch butterflies navigate?",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "development-control-06",
+          "cluster": "control-06",
+          "query": "What is the melting point of platinum?",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "development-control-07",
+          "cluster": "control-07",
+          "query": "토성의 고리는 무엇으로 이루어져 있나?",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "development-control-08",
+          "cluster": "control-08",
+          "query": "조선 시대의 도자기 유약 제조법",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "development-control-09",
+          "cluster": "control-09",
+          "query": "마라톤 세계 기록 보유자는 누구인가?",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "development-control-10",
+          "cluster": "control-10",
+          "query": "고래가 잠자는 방식",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "development-control-11",
+          "cluster": "control-11",
+          "query": "바이올린 현의 표준 조율 음",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "development-control-12",
+          "cluster": "control-12",
+          "query": "히말라야 산맥의 형성 원인",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        }
+      ]
+    },
+    "validation": {
+      "documents": [
+        {
+          "id": "validation-01-a",
+          "topic": "build",
+          "text": "The build cache key includes the compiler version and dependency lock hash."
+        },
+        {
+          "id": "validation-01-b",
+          "topic": "build",
+          "text": "Debug and release builds must not share cached object files."
+        },
+        {
+          "id": "validation-01-d",
+          "topic": "build",
+          "text": "Build duration graphs use a weekly view."
+        },
+        {
+          "id": "validation-02-a",
+          "topic": "cookie",
+          "text": "Browser session cookies are HttpOnly and use SameSite=Lax."
+        },
+        {
+          "id": "validation-02-b",
+          "topic": "cookie",
+          "text": "Session credentials must not appear in URL query parameters."
+        },
+        {
+          "id": "validation-02-d",
+          "topic": "cookie",
+          "text": "The login panel has a blue submit button."
+        },
+        {
+          "id": "validation-03-a",
+          "topic": "upload",
+          "text": "Image uploads are limited to eight mebibytes per file."
+        },
+        {
+          "id": "validation-03-b",
+          "topic": "upload",
+          "text": "SVG uploads are rejected even when they are below the size limit."
+        },
+        {
+          "id": "validation-03-d",
+          "topic": "upload",
+          "text": "The image gallery shows square thumbnails."
+        },
+        {
+          "id": "validation-04-a",
+          "topic": "pagination",
+          "text": "A list response contains at most 100 items."
+        },
+        {
+          "id": "validation-04-b",
+          "topic": "pagination",
+          "text": "Pagination cursors are bound to the original snapshot and cannot be reused for another snapshot."
+        },
+        {
+          "id": "validation-04-d",
+          "topic": "pagination",
+          "text": "List headers remain fixed during scrolling."
+        },
+        {
+          "id": "validation-05-a",
+          "topic": "currency",
+          "text": "KRW monetary values are stored as integer won amounts."
+        },
+        {
+          "id": "validation-05-b",
+          "topic": "currency",
+          "text": "Foreign currency conversion uses the exchange rate fixed at invoice creation."
+        },
+        {
+          "id": "validation-05-d",
+          "topic": "currency",
+          "text": "Currency tables align numeric values to the right."
+        },
+        {
+          "id": "validation-06-a",
+          "topic": "quiet",
+          "text": "Ordinary notifications are suppressed from 22:00 to 07:00 in the user timezone."
+        },
+        {
+          "id": "validation-06-b",
+          "topic": "quiet",
+          "text": "Critical alerts bypass quiet hours only when the user has explicitly opted in."
+        },
+        {
+          "id": "validation-06-d",
+          "topic": "quiet",
+          "text": "Notification badges are hidden after they are read."
+        },
+        {
+          "id": "validation-07-a",
+          "topic": "mail",
+          "text": "A marketing unsubscribe takes effect before the next marketing message is queued."
+        },
+        {
+          "id": "validation-07-b",
+          "topic": "mail",
+          "text": "Unsubscribing from marketing does not disable transactional receipts."
+        },
+        {
+          "id": "validation-07-d",
+          "topic": "mail",
+          "text": "Email previews use a white background."
+        },
+        {
+          "id": "validation-08-a",
+          "topic": "region",
+          "text": "European customer records remain in the EU storage region."
+        },
+        {
+          "id": "validation-08-b",
+          "topic": "region",
+          "text": "Cross-region replication of those customer records is disabled."
+        },
+        {
+          "id": "validation-08-d",
+          "topic": "region",
+          "text": "The region selector displays country flags."
+        },
+        {
+          "id": "validation-09-a",
+          "topic": "index",
+          "text": "The product catalog search index refreshes every 30 seconds."
+        },
+        {
+          "id": "validation-09-b",
+          "topic": "index",
+          "text": "Deleted products are excluded by the current database state immediately, before index refresh."
+        },
+        {
+          "id": "validation-09-d",
+          "topic": "index",
+          "text": "The catalog search field has a clear button."
+        },
+        {
+          "id": "validation-10-a",
+          "topic": "csv",
+          "text": "CSV exports use UTF-8 with a byte order mark."
+        },
+        {
+          "id": "validation-10-b",
+          "topic": "csv",
+          "text": "Cells beginning with a spreadsheet formula character are escaped before CSV export."
+        },
+        {
+          "id": "validation-10-d",
+          "topic": "csv",
+          "text": "Export progress is displayed in the footer."
+        },
+        {
+          "id": "validation-11-a",
+          "topic": "reset",
+          "text": "A password reset link expires after 15 minutes."
+        },
+        {
+          "id": "validation-11-b",
+          "topic": "reset",
+          "text": "A reset link becomes invalid immediately after its first successful use."
+        },
+        {
+          "id": "validation-11-d",
+          "topic": "reset",
+          "text": "The password reset screen displays the account logo."
+        },
+        {
+          "id": "validation-12-a",
+          "topic": "billing",
+          "text": "Monthly billing reconciliation closes at 18:00 on the last business day."
+        },
+        {
+          "id": "validation-12-b",
+          "topic": "billing",
+          "text": "Unresolved discrepancies require human review before an invoice is finalized."
+        },
+        {
+          "id": "validation-12-d",
+          "topic": "billing",
+          "text": "The billing overview groups invoices by month."
+        },
+        {
+          "id": "validation-13-a",
+          "topic": "webhook",
+          "text": "Webhook delivery retries stop 24 hours after the first attempt."
+        },
+        {
+          "id": "validation-13-b",
+          "topic": "webhook",
+          "text": "Webhook HMAC verification covers the exact received request body bytes."
+        },
+        {
+          "id": "validation-13-d",
+          "topic": "webhook",
+          "text": "Webhook history shows the most recent delivery first."
+        },
+        {
+          "id": "validation-14-a",
+          "topic": "sla",
+          "text": "Priority support tickets receive a first response within four business hours."
+        },
+        {
+          "id": "validation-14-b",
+          "topic": "sla",
+          "text": "Published public holidays are excluded from support business hours."
+        },
+        {
+          "id": "validation-14-d",
+          "topic": "sla",
+          "text": "The support inbox displays ticket priority with an icon."
+        },
+        {
+          "id": "validation-15-a",
+          "topic": "shipment",
+          "text": "Refrigerated shipments must stay between two and eight degrees Celsius."
+        },
+        {
+          "id": "validation-15-b",
+          "topic": "shipment",
+          "text": "A temperature excursion causes quarantine until a qualified reviewer releases the shipment."
+        },
+        {
+          "id": "validation-15-d",
+          "topic": "shipment",
+          "text": "Shipment labels are printed in landscape orientation."
+        },
+        {
+          "id": "validation-16-a",
+          "topic": "calibration",
+          "text": "Pressure sensors are calibrated every 90 days."
+        },
+        {
+          "id": "validation-16-b",
+          "topic": "calibration",
+          "text": "A sensor with an expired calibration must not publish production measurements."
+        },
+        {
+          "id": "validation-16-d",
+          "topic": "calibration",
+          "text": "Sensor names include their installation zone."
+        },
+        {
+          "id": "validation-17-a",
+          "topic": "notebook",
+          "text": "Restarting a notebook kernel clears variables held in memory."
+        },
+        {
+          "id": "validation-17-b",
+          "topic": "notebook",
+          "text": "Files already saved to the workspace disk survive a kernel restart."
+        },
+        {
+          "id": "validation-17-d",
+          "topic": "notebook",
+          "text": "Notebook sections may be collapsed by the reader."
+        },
+        {
+          "id": "validation-18-a",
+          "topic": "inventory",
+          "text": "Reserved inventory may never become negative."
+        },
+        {
+          "id": "validation-18-b",
+          "topic": "inventory",
+          "text": "Backorders are accepted only when the product backorder flag is enabled."
+        },
+        {
+          "id": "validation-18-d",
+          "topic": "inventory",
+          "text": "Inventory counts are displayed without thousands separators."
+        },
+        {
+          "id": "validation-19-a",
+          "topic": "audio",
+          "text": "Consented audio transcripts are retained for seven days."
+        },
+        {
+          "id": "validation-19-b",
+          "topic": "audio",
+          "text": "Revoking transcription consent removes stored transcripts before another transcription is started."
+        },
+        {
+          "id": "validation-19-d",
+          "topic": "audio",
+          "text": "The audio player displays a waveform preview."
+        },
+        {
+          "id": "validation-20-a",
+          "topic": "format",
+          "text": "Source code uses tab indentation with a display width of four columns."
+        },
+        {
+          "id": "validation-20-b",
+          "topic": "format",
+          "text": "YAML files use two spaces per indentation level and must not contain indentation tabs."
+        },
+        {
+          "id": "validation-20-d",
+          "topic": "format",
+          "text": "The editor minimap is hidden by default."
+        }
+      ],
+      "queries": [
+        {
+          "id": "validation-01-en",
+          "cluster": "build",
+          "query": "What inputs form the build cache key and which build outputs must remain separate?",
+          "required_sources": [
+            "validation-01-a",
+            "validation-01-b"
+          ],
+          "relevant_sources": [
+            "validation-01-a",
+            "validation-01-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-01-ko",
+          "cluster": "build",
+          "query": "빌드 캐시 키 구성과 디버그 릴리스 산출물 분리",
+          "required_sources": [
+            "validation-01-a",
+            "validation-01-b"
+          ],
+          "relevant_sources": [
+            "validation-01-a",
+            "validation-01-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-02-en",
+          "cluster": "cookie",
+          "query": "What cookie protections are required and where are session credentials forbidden?",
+          "required_sources": [
+            "validation-02-a",
+            "validation-02-b"
+          ],
+          "relevant_sources": [
+            "validation-02-a",
+            "validation-02-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-02-ko",
+          "cluster": "cookie",
+          "query": "브라우저 세션 쿠키 보호와 URL 인증 정보 금지",
+          "required_sources": [
+            "validation-02-a",
+            "validation-02-b"
+          ],
+          "relevant_sources": [
+            "validation-02-a",
+            "validation-02-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-03-en",
+          "cluster": "upload",
+          "query": "What is the image upload size limit and which format is rejected regardless of size?",
+          "required_sources": [
+            "validation-03-a",
+            "validation-03-b"
+          ],
+          "relevant_sources": [
+            "validation-03-a",
+            "validation-03-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-03-ko",
+          "cluster": "upload",
+          "query": "이미지 업로드 크기 제한과 SVG 형식 거절",
+          "required_sources": [
+            "validation-03-a",
+            "validation-03-b"
+          ],
+          "relevant_sources": [
+            "validation-03-a",
+            "validation-03-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-04-en",
+          "cluster": "pagination",
+          "query": "What is the page size limit and how are pagination cursors scoped?",
+          "required_sources": [
+            "validation-04-a",
+            "validation-04-b"
+          ],
+          "relevant_sources": [
+            "validation-04-a",
+            "validation-04-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-04-ko",
+          "cluster": "pagination",
+          "query": "목록 페이지 최대 항목 수와 커서 스냅샷 범위",
+          "required_sources": [
+            "validation-04-a",
+            "validation-04-b"
+          ],
+          "relevant_sources": [
+            "validation-04-a",
+            "validation-04-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-05-en",
+          "cluster": "currency",
+          "query": "How are KRW values stored and when is the exchange rate fixed for conversion?",
+          "required_sources": [
+            "validation-05-a",
+            "validation-05-b"
+          ],
+          "relevant_sources": [
+            "validation-05-a",
+            "validation-05-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-05-ko",
+          "cluster": "currency",
+          "query": "원화 금액 저장 단위와 환율 고정 시점",
+          "required_sources": [
+            "validation-05-a",
+            "validation-05-b"
+          ],
+          "relevant_sources": [
+            "validation-05-a",
+            "validation-05-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-06-en",
+          "cluster": "quiet",
+          "query": "When are ordinary notifications suppressed and when may critical alerts bypass quiet hours?",
+          "required_sources": [
+            "validation-06-a",
+            "validation-06-b"
+          ],
+          "relevant_sources": [
+            "validation-06-a",
+            "validation-06-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-06-ko",
+          "cluster": "quiet",
+          "query": "알림 방해 금지 시간과 긴급 경보 예외 동의",
+          "required_sources": [
+            "validation-06-a",
+            "validation-06-b"
+          ],
+          "relevant_sources": [
+            "validation-06-a",
+            "validation-06-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-07-en",
+          "cluster": "mail",
+          "query": "When does marketing unsubscribe apply and what receipts must remain enabled?",
+          "required_sources": [
+            "validation-07-a",
+            "validation-07-b"
+          ],
+          "relevant_sources": [
+            "validation-07-a",
+            "validation-07-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-07-ko",
+          "cluster": "mail",
+          "query": "마케팅 수신 거부 적용 시점과 거래 영수증 유지",
+          "required_sources": [
+            "validation-07-a",
+            "validation-07-b"
+          ],
+          "relevant_sources": [
+            "validation-07-a",
+            "validation-07-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-08-en",
+          "cluster": "region",
+          "query": "Where are European customer records stored and may they be replicated across regions?",
+          "required_sources": [
+            "validation-08-a",
+            "validation-08-b"
+          ],
+          "relevant_sources": [
+            "validation-08-a",
+            "validation-08-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-08-ko",
+          "cluster": "region",
+          "query": "유럽 고객 데이터 저장 지역과 지역 간 복제 제한",
+          "required_sources": [
+            "validation-08-a",
+            "validation-08-b"
+          ],
+          "relevant_sources": [
+            "validation-08-a",
+            "validation-08-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-09-en",
+          "cluster": "index",
+          "query": "How often does the catalog index refresh and how are deletions enforced before refresh?",
+          "required_sources": [
+            "validation-09-a",
+            "validation-09-b"
+          ],
+          "relevant_sources": [
+            "validation-09-a",
+            "validation-09-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-09-ko",
+          "cluster": "index",
+          "query": "상품 검색 색인 갱신 주기와 삭제 즉시 제외",
+          "required_sources": [
+            "validation-09-a",
+            "validation-09-b"
+          ],
+          "relevant_sources": [
+            "validation-09-a",
+            "validation-09-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-10-en",
+          "cluster": "csv",
+          "query": "What encoding is used for CSV exports and how are formula-like cells handled?",
+          "required_sources": [
+            "validation-10-a",
+            "validation-10-b"
+          ],
+          "relevant_sources": [
+            "validation-10-a",
+            "validation-10-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-10-ko",
+          "cluster": "csv",
+          "query": "CSV 내보내기 인코딩과 스프레드시트 수식 이스케이프",
+          "required_sources": [
+            "validation-10-a",
+            "validation-10-b"
+          ],
+          "relevant_sources": [
+            "validation-10-a",
+            "validation-10-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-11-en",
+          "cluster": "reset",
+          "query": "How long is a password reset link valid and may it be used more than once?",
+          "required_sources": [
+            "validation-11-a",
+            "validation-11-b"
+          ],
+          "relevant_sources": [
+            "validation-11-a",
+            "validation-11-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-11-ko",
+          "cluster": "reset",
+          "query": "비밀번호 재설정 링크 유효 시간과 일회용 처리",
+          "required_sources": [
+            "validation-11-a",
+            "validation-11-b"
+          ],
+          "relevant_sources": [
+            "validation-11-a",
+            "validation-11-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-12-en",
+          "cluster": "billing",
+          "query": "When does monthly reconciliation close and how are unresolved discrepancies handled?",
+          "required_sources": [
+            "validation-12-a",
+            "validation-12-b"
+          ],
+          "relevant_sources": [
+            "validation-12-a",
+            "validation-12-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-12-ko",
+          "cluster": "billing",
+          "query": "월별 청구 대사 마감 시각과 미해결 차이 검토",
+          "required_sources": [
+            "validation-12-a",
+            "validation-12-b"
+          ],
+          "relevant_sources": [
+            "validation-12-a",
+            "validation-12-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-13-en",
+          "cluster": "webhook",
+          "query": "How long are webhook deliveries retried and which bytes are covered by HMAC verification?",
+          "required_sources": [
+            "validation-13-a",
+            "validation-13-b"
+          ],
+          "relevant_sources": [
+            "validation-13-a",
+            "validation-13-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-13-ko",
+          "cluster": "webhook",
+          "query": "웹훅 재시도 종료 시간과 HMAC 서명 대상",
+          "required_sources": [
+            "validation-13-a",
+            "validation-13-b"
+          ],
+          "relevant_sources": [
+            "validation-13-a",
+            "validation-13-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-14-en",
+          "cluster": "sla",
+          "query": "What is the priority support response deadline and how do public holidays affect it?",
+          "required_sources": [
+            "validation-14-a",
+            "validation-14-b"
+          ],
+          "relevant_sources": [
+            "validation-14-a",
+            "validation-14-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-14-ko",
+          "cluster": "sla",
+          "query": "우선 지원 티켓 첫 응답 기한과 공휴일 제외",
+          "required_sources": [
+            "validation-14-a",
+            "validation-14-b"
+          ],
+          "relevant_sources": [
+            "validation-14-a",
+            "validation-14-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-15-en",
+          "cluster": "shipment",
+          "query": "What temperature range is required and what happens after a temperature excursion?",
+          "required_sources": [
+            "validation-15-a",
+            "validation-15-b"
+          ],
+          "relevant_sources": [
+            "validation-15-a",
+            "validation-15-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-15-ko",
+          "cluster": "shipment",
+          "query": "냉장 운송 온도 범위와 온도 이탈 격리",
+          "required_sources": [
+            "validation-15-a",
+            "validation-15-b"
+          ],
+          "relevant_sources": [
+            "validation-15-a",
+            "validation-15-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-16-en",
+          "cluster": "calibration",
+          "query": "How often are pressure sensors calibrated and may an expired sensor publish production readings?",
+          "required_sources": [
+            "validation-16-a",
+            "validation-16-b"
+          ],
+          "relevant_sources": [
+            "validation-16-a",
+            "validation-16-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-16-ko",
+          "cluster": "calibration",
+          "query": "압력 센서 교정 주기와 교정 만료 측정값 게시 금지",
+          "required_sources": [
+            "validation-16-a",
+            "validation-16-b"
+          ],
+          "relevant_sources": [
+            "validation-16-a",
+            "validation-16-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-17-en",
+          "cluster": "notebook",
+          "query": "What state is cleared by a kernel restart and which saved files survive?",
+          "required_sources": [
+            "validation-17-a",
+            "validation-17-b"
+          ],
+          "relevant_sources": [
+            "validation-17-a",
+            "validation-17-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-17-ko",
+          "cluster": "notebook",
+          "query": "노트북 커널 재시작 변수 초기화와 저장 파일 보존",
+          "required_sources": [
+            "validation-17-a",
+            "validation-17-b"
+          ],
+          "relevant_sources": [
+            "validation-17-a",
+            "validation-17-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-18-en",
+          "cluster": "inventory",
+          "query": "What invariant applies to reserved inventory and when are backorders accepted?",
+          "required_sources": [
+            "validation-18-a",
+            "validation-18-b"
+          ],
+          "relevant_sources": [
+            "validation-18-a",
+            "validation-18-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-18-ko",
+          "cluster": "inventory",
+          "query": "예약 재고 음수 금지와 백오더 허용 조건",
+          "required_sources": [
+            "validation-18-a",
+            "validation-18-b"
+          ],
+          "relevant_sources": [
+            "validation-18-a",
+            "validation-18-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-19-en",
+          "cluster": "audio",
+          "query": "How long are consented transcripts retained and what happens when consent is revoked?",
+          "required_sources": [
+            "validation-19-a",
+            "validation-19-b"
+          ],
+          "relevant_sources": [
+            "validation-19-a",
+            "validation-19-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-19-ko",
+          "cluster": "audio",
+          "query": "음성 전사 보관 기간과 동의 철회 삭제 순서",
+          "required_sources": [
+            "validation-19-a",
+            "validation-19-b"
+          ],
+          "relevant_sources": [
+            "validation-19-a",
+            "validation-19-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-20-en",
+          "cluster": "format",
+          "query": "What indentation is required for source code and what is the YAML exception?",
+          "required_sources": [
+            "validation-20-a",
+            "validation-20-b"
+          ],
+          "relevant_sources": [
+            "validation-20-a",
+            "validation-20-b"
+          ],
+          "language": "en",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-20-ko",
+          "cluster": "format",
+          "query": "소스 코드 들여쓰기와 YAML 탭 금지 예외",
+          "required_sources": [
+            "validation-20-a",
+            "validation-20-b"
+          ],
+          "relevant_sources": [
+            "validation-20-a",
+            "validation-20-b"
+          ],
+          "language": "ko",
+          "kind": "answerable"
+        },
+        {
+          "id": "validation-control-01",
+          "cluster": "control-01",
+          "query": "How does an octopus change skin color?",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "validation-control-02",
+          "cluster": "control-02",
+          "query": "What is the capital of Mongolia?",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "validation-control-03",
+          "cluster": "control-03",
+          "query": "When was the first steam locomotive built?",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "validation-control-04",
+          "cluster": "control-04",
+          "query": "How is sourdough starter maintained?",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "validation-control-05",
+          "cluster": "control-05",
+          "query": "Which instrument measures atmospheric humidity?",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "validation-control-06",
+          "cluster": "control-06",
+          "query": "Why do leaves turn red in autumn?",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "validation-control-07",
+          "cluster": "control-07",
+          "query": "남극 대륙의 평균 해발 고도",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "validation-control-08",
+          "cluster": "control-08",
+          "query": "태양 흑점의 생성 원리",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "validation-control-09",
+          "cluster": "control-09",
+          "query": "체스의 앙파상 규칙",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "validation-control-10",
+          "cluster": "control-10",
+          "query": "산호초가 백화되는 이유",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "validation-control-11",
+          "cluster": "control-11",
+          "query": "고대 이집트 파피루스 제조법",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        },
+        {
+          "id": "validation-control-12",
+          "cluster": "control-12",
+          "query": "카누 노 젓기 기본 동작",
+          "required_sources": [],
+          "relevant_sources": [],
+          "kind": "unrelated"
+        }
+      ]
+    }
+  }
+}
