@@ -7,6 +7,15 @@
 > **개인형 MCP 설치:** [v0.2.1 정식 배포](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v0.2.1) · [Claude / Codex / OMP 설치 가이드](release-candidates/v0.2.1/MCP-INSTALL.ko.md). 개인 로컬은 기존 로컬 LLM/Jev, 본인 서버 연결은 서버 URL·기기 키를 사용합니다.
 
 
+## 2.0.0 MCP 마켓 설치
+
+[현재 설치·업데이트 안내](distribution/server/README.ko.md#플러그인-연결)를 따르세요.
+Claude·OMP는 `agents-memory-unified@agents-memory` 플러그인 MCP를 설치합니다.
+Codex는 같은 이름의 전용 마켓 설치 skill을 통해 검증된 런타임 설치기를 실행하고
+프로젝트의 정식 stdio MCP를 등록합니다. 마켓 설치와 엔진 준비는 별도입니다.
+현재 2.0.0은 위에 명시한 시험 릴리즈이며, 자체 마켓 공개가 중앙 공식 디렉터리
+등재나 미검증 Jev 저장 품질 통과를 뜻하지 않습니다.
+
 ## MCP 자동 설치: Claude · Codex · OMP (1.0.7)
 
 [1.0.7 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.7) · [설치·운영 안내](distribution/mcp-local/README.ko.md)

@@ -1,9 +1,12 @@
 {
   "name": "agents-memory-unified",
   "version": "2.0.0",
-  "description": "Jev-backed memory for Claude, Codex and OMP frontends; install from the privately supplied 2.0.0 bundle.",
-  "author": {"name": "chonamdoo"},
+  "description": "Jev-backed memory MCP for Claude, Codex and OMP. Install the verified public 2.0.0 runtime bundle; see release quality status.",
+  "author": {
+    "name": "chonamdoo"
+  },
   "homepage": "https://github.com/chonamdoo/agents-memory-releases",
   "repository": "https://github.com/chonamdoo/agents-memory-releases",
-  "license": "MIT"
+  "license": "MIT",
+  "icon": "./assets/icon.png"
 }

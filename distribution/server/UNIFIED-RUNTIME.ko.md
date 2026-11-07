@@ -108,7 +108,7 @@ Jev 판단과 별도로 로컬 ONNX cross-encoder는 검색 후보를 재순위�
 CPU 실제 batch 8, threads 2, `max_tokens=512`, native reranker timeout `0`을 사용해
 미채점 후보 fallback을 피한다. 외부 HTTP timeout만으로 추론 취소를 보장하지 않는다.
 E5/RRF passthrough는 현재 경로가 아니다. ONNX 점수는 보편적 관련성 확률이 아니다.
-공유 SDK 회상 경계의 native `min_scores.reranker=0.03`은 실제 공개 DEV로 선택한
+공유 SDK 회상 경계의 native `min_scores.reranker=0.003`은 사전 고정한 새 개발 세트에서만 선택한
 경험적 기준이며 SQL cosine 기준이나 독립 출시 품질 증명이 아니다. 거부된 전역
 E5 `0.84` 기준은 적용하지 않는다. FP32와 FP16 기준 모델의 6쌍 최대 절대 오차
 `0.00022161006927490234`는 검색 품질 증명이 아니다. ONNX와 같은 정밀도의

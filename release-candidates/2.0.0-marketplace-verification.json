@@ -1,0 +1,76 @@
+{
+  "schema": "agents-memory-marketplace-verification-v1",
+  "date": "2026-11-07",
+  "release": "2.0.0",
+  "release_channel": "prerelease",
+  "platform": "Linux x86_64",
+  "base_commit": "bd44001a8170af5d929215e27de4248dc7e6a00f",
+  "product_sdk_changed": false,
+  "external_model_calls": 0,
+  "claude": {
+    "version": "2.1.319",
+    "catalog_validation": "pass",
+    "plugin_validation": "pass",
+    "install": "pass",
+    "mcp_health": "connected",
+    "inventory": {
+      "skills": 1,
+      "mcp_servers": 1,
+      "hooks": 0
+    }
+  },
+  "omp": {
+    "version": "18.18.0",
+    "runtime": "Bun 1.4.4",
+    "install": "pass",
+    "rpc_get_state": "pass",
+    "discovered_tool": "mcp__agents_memory_unified_agents_memory_unified_setup_status",
+    "model_requests": 0
+  },
+  "codex": {
+    "version": "0.163.0",
+    "marketplace_add": "pass",
+    "plugin_install": "pass",
+    "marketplace_surface": "setup skill; no bundled MCP",
+    "native_mcp_registration": "separate host-native registration from installer; QA used codex mcp add with the built connector and isolated unconfigured prefix",
+    "app_server_thread_start": "pass",
+    "mcp_initialize_and_tool_discovery": "pass",
+    "server_version": "2.0.0",
+    "tools": [
+      "setup_status"
+    ],
+    "configured_engine_consumption": "not established by this host smoke"
+  },
+  "protocol_test": {
+    "passed": 1,
+    "failed": 0,
+    "scope": "unconfigured connector remains connected, refuses storage before setup"
+  },
+  "sdk_suite_reference": {
+    "file": "release-candidates/2.0.0-search-calibration-verification.json",
+    "passed": 278,
+    "failed": 0,
+    "skipped": 1,
+    "note": "Earlier real SDK+evaluator run; SDK Python files unchanged by marketplace packaging."
+  },
+  "macos_arm64": "cross-compiled connector; no new real-device run",
+  "central_directories": {
+    "openai": "not submitted; local execution submission eligibility/organization approval required",
+    "anthropic": "not submitted; own marketplace publication is separate from directory review"
+  },
+  "payload_sha256": {
+    "plugins/agents-memory-unified/.claude-plugin/plugin.json": "6c3fd1cca0a7e68b5472fcf6126b3c96556f542bf074982e6f93b6721a19ef3d",
+    "plugins/agents-memory-unified/.codex-plugin/plugin.json": "0d899f8c5556dec0b4c0f650fe76c8d31f8c26b8fb7a5e109cc4a1d13d4c46e4",
+    "plugins/agents-memory-unified/.mcp.json": "33310b08308d4d4d5480de38af4e9fceaab28932ecd2c3874678af1b5031100a",
+    "plugins/agents-memory-unified/LICENSE": "c376d0ce79774497521856cc667e3405abd86202b4b7aa2854424f7f6cd01435",
+    "plugins/agents-memory-unified/README.md": "e4c102d815ee41b4b47a511093cf84d3deddde06e405fed3eeb900856627b626",
+    "plugins/agents-memory-unified/assets/icon.png": "aa84d583e18adc3371520cec1ac2d66302ccde8ebb1ae61116696343a830a97b",
+    "plugins/agents-memory-unified/bin/SHA256SUMS": "cadbfa8e258b915a4aedc71a2425269b9b0cf5de94f10a481c84141ff50f1dae",
+    "plugins/agents-memory-unified/bin/connector-darwin-arm64": "b155d4deabe0c774e6b07434eba563f5a7875e4fa00af1da9d18512725d5ff0d",
+    "plugins/agents-memory-unified/bin/connector-linux-x86_64": "b2d116c178c97733c41a40c3eba8c029c2752a5471fa564be0d33627b57a172b",
+    "plugins/agents-memory-unified/codex-skills/setup/SKILL.md": "42e896b8497c4a51281e044522f21e5c455018ee212f9c19de37f723bdf0f9d6",
+    "plugins/agents-memory-unified/scripts/connect.sh": "fc324e3fdab2b19c9a93afc67db3d48ef9e7161603df3e2eb3207b4295769bd4",
+    "plugins/agents-memory-unified/scripts/connector.go": "be9756e1eb531a699f07d16f5bc268041faed1121114299c613a60d80b32aa04",
+    "plugins/agents-memory-unified/skills/setup/SKILL.md": "834440b53795e54c128fe463eb55f38dc00c87e3a5ca3d3f7df0bc8a12c92400"
+  }
+}
