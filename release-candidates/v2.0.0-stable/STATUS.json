@@ -1,6 +1,6 @@
 {
   "schema": "agents-memory-stable-release-status-v1",
-  "as_of": "2026-11-07",
+  "as_of": "2026-11-08",
   "timezone": "Asia/Seoul",
   "policy_sha256": "34b2907f6d799b4405a43fa5729ba0a851ad6323043ed28cc6cd6344ded5ce32",
   "candidate": {
@@ -110,18 +110,27 @@
     },
     {
       "id": "compaction",
-      "status": "unverified",
-      "reason": "Previous per-host scripted lifecycle results are historical. Current candidate native compaction evidence is not supplied here.",
-      "references": []
+      "status": "partial",
+      "reason": "Native compact plus post-compaction fact reinjection passes 36/36 on each real CLI using installed shipping runtime. Memory recall and provider responses are scripted; actual Jev-backed integrated storage/retrieval and fresh quality cohort remain unverified.",
+      "references": [
+        {
+          "path": "release-candidates/v2.0.0-native-lifecycle/NATIVE-LIFECYCLE.json",
+          "sha256": "70d96175acd6e4d6982cefebe75e310ebb86139483fbee9f308a86e6d97553b1"
+        }
+      ]
     },
     {
       "id": "host_lifecycle",
-      "status": "partial",
-      "reason": "Actual public marketplace updates reach package 2.0.1 on all three apps. This is not the full 36-case startup/resume/compact census.",
+      "status": "met",
+      "reason": "Offline native lifecycle scope: actual Claude 2.1.319, Codex 0.167.0 and OMP 18.18.0 each pass all unchanged 36 cases (Wilson lower 0.903581). Shipping CP312 Core/SDK hooks, genuine native compact completion and fresh marker + complete fact at subsequent model ingress verified. Provider responses/recall records are fixtures; first interactive trust and real provider compliance remain unverified.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-source-search/MARKETPLACE-UPDATE.json",
-          "sha256": "59530c8ba4a94c5b6e099b4925dfbb822e2ed740327a83c35da385ec196571c5"
+          "path": "release-candidates/v2.0.0-native-lifecycle/NATIVE-LIFECYCLE.json",
+          "sha256": "70d96175acd6e4d6982cefebe75e310ebb86139483fbee9f308a86e6d97553b1"
+        },
+        {
+          "path": "release-candidates/v2.0.0-native-lifecycle/CHECKER-VALIDATION.json",
+          "sha256": "2acf539edb488c7125899e227973a0aba5a9ac38939f255393ad4ac0a8bd9f2d"
         }
       ]
     },
@@ -143,8 +152,13 @@
     {
       "id": "resources_and_budget",
       "status": "blocked",
-      "reason": "Additional 197 attempts approved; 0 extra calls dispatched here. Actual original budget ledger, fresh live latency and hard resource-limit evidence are not connected.",
-      "references": []
+      "reason": "Native lifecycle hard limits verified: 2 CPU, 4 GiB, swap 0, 256 pids, 512 MiB scratch and 128 loopback requests per container. Additional 197 Jev attempts approved, 0 dispatched here; original actual shared ledger and fresh live latency remain unconnected.",
+      "references": [
+        {
+          "path": "release-candidates/v2.0.0-native-lifecycle/NATIVE-LIFECYCLE.json",
+          "sha256": "70d96175acd6e4d6982cefebe75e310ebb86139483fbee9f308a86e6d97553b1"
+        }
+      ]
     },
     {
       "id": "marketplace_delivery",
@@ -207,5 +221,15 @@
     "central_official_directories": "unverified; not a prerequisite for publishing GitHub stable, but required before claiming central listing",
     "reader_answer_quality": "not evaluated; no new quality claim"
   },
-  "limitations": "Manually reviewed status snapshot. Referenced hashes preserve file identity; they do not independently prove original experiments, author identity or remote publication."
+  "limitations": "Manually reviewed status snapshot. Referenced hashes preserve file identity; they do not independently prove original experiments, author identity or remote publication.",
+  "native_lifecycle_scope": {
+    "status": "passed_offline_only",
+    "successes_per_host": 36,
+    "denominator_per_host": 36,
+    "core_pr": 65,
+    "core_merge": "7451641a114586fff231e15c15db7ebf352b3460",
+    "private_live_inputs": "not connected",
+    "first_interactive_trust": "unverified",
+    "selected_real_provider_compliance": "unverified"
+  }
 }

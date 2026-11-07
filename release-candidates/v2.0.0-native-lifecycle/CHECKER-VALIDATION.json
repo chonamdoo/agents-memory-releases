@@ -1,0 +1,34 @@
+{
+  "baseline": {
+    "claude": 36,
+    "codex": 36,
+    "omp": 36
+  },
+  "mutation_cases": {
+    "missing_fixed_case": {
+      "rejected": true,
+      "reason": "host_case_census"
+    },
+    "reused_phase_marker": {
+      "rejected": true,
+      "reason": "marker_collision"
+    },
+    "fact_absent_from_model_input": {
+      "rejected": true,
+      "reason": "marker_fact_join"
+    },
+    "failed_sdk_hook": {
+      "rejected": true,
+      "reason": "native_hook_join"
+    },
+    "failed_codex_compact": {
+      "rejected": true,
+      "reason": "codex_compact_completion"
+    },
+    "inflated_wilson": {
+      "rejected": true,
+      "reason": "wilson_statistics"
+    }
+  },
+  "scope": "consistency checker tests, not independent authentication or live quality evaluation"
+}
