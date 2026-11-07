@@ -24,7 +24,7 @@ func status() map[string]any {
 	return map[string]any{"ready": false, "server_ready": false, "state": "setup_required", "version": version,
 		"message": "제공받은 2.0.0 번들을 풀고 install-unified.sh를 실행하세요. Claude·Codex·omp는 프런트엔드이며 판단 백엔드는 Jev만 사용합니다. 첫 로컬 설치에는 검증된 모델 폴더가 필요합니다. Jev 키는 터미널에서 숨김 입력하며 채팅에 보내지 마세요.",
 		"install_command": "bash /path/to/extracted-bundle/install-unified.sh --bundle /path/to/extracted-bundle --reranker-dir /path/to/companion/model --provider jev --client all --project /absolute/project",
-		"guide": "제공받은 번들의 README.ko.md와 UNIFIED-RUNTIME.ko.md를 확인하세요. 2.0.0은 비공개 QA용이며 공개 다운로드 URL은 없습니다."}
+		"guide": "공개 2.0.0 릴리스 https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0 에서 설치 자산과 SHA256SUMS를 확인하세요. 압축을 푼 번들의 README.ko.md와 UNIFIED-RUNTIME.ko.md를 따르세요."}
 }
 
 func serve(in *os.File, out *os.File) {
