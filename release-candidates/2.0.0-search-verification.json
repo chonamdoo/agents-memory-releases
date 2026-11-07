@@ -1,0 +1,59 @@
+{
+  "schema": "agents-memory-search-engineering-verification-v1",
+  "date": "2026-11-07",
+  "release": "2.0.0",
+  "release_gate_status": "fail",
+  "scope": "synthetic engineering regressions; not a fresh independent quality evaluation",
+  "product_source_commit": "211b42e1ebf41f8ceeff2bc6bce8d4aadc88d17f",
+  "sdk_wheel_sha256": "a92b9687917862a5ad7c9f120f15e7cb7477730f9c9ed62c3b72885050a20ab2",
+  "sdk_wheel_python_source_files": 15,
+  "sdk_wheel_source_bytes_match": true,
+  "candidate_bundle_sha256": "31c2a5c31c59b3f1a61e8da1eef154b7ceb6793c516d4bd99721a748a5a52e69",
+  "tests": {
+    "passed": 266,
+    "failed": 2,
+    "skipped": 1,
+    "seconds": 185.28,
+    "failures": [
+      "tests.test_collaboration.test_real_e5_pgvector_semantic_search",
+      "tests.test_unified_contract.test_backend_hit_is_not_lost_behind_unrelated_projection_rows"
+    ],
+    "skips": [
+      {
+        "test": "tests.test_unified_connector.test_configured_release_plugin_executes_installed_owned_runtime",
+        "reason": "Requires an explicit owned synthetic installation"
+      }
+    ],
+    "junit_sha256": "3ac024b19ab31ce589d5cfe7e7928d17ed6d4f14a8aa393e17cfa2fcea271ca8"
+  },
+  "focused_regressions": {
+    "passed": 16,
+    "seconds": 18.9
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "sqlite": "3.53.1",
+    "postgres": "18.6",
+    "pgvector": "0.8.7",
+    "hindsight_api_slim": "1.1.0",
+    "hindsight_python_files": 366,
+    "hindsight_python_tree_sha256": "5a147dfc212e2f2bf5d13b405413e0fc13e9d48654e46a097c0b6e9c895e3783",
+    "onnxruntime": "1.23.2",
+    "transformers": "5.15.1",
+    "tokenizers": "0.22.1",
+    "go": "1.27.3",
+    "bun": "1.4.4",
+    "shipping_transitive_dependency_closure_verified": false,
+    "resource_limit_certification": false
+  },
+  "admission": "scripted; search and integration use the actual pinned native engine",
+  "external_jev_api_calls": 0,
+  "remaining": [
+    "Korean-to-English retrieval failures",
+    "fresh independent corpus/gold unavailable",
+    "configured owned synthetic plugin installation not exercised",
+    "fresh end-to-end release quality and final deployment verification incomplete"
+  ],
+  "release_assets_modified": false,
+  "release_prerelease_flag_modified": false
+}

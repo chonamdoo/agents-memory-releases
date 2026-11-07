@@ -4,6 +4,7 @@ from uuid import uuid4
 
 import pytest
 from agents_memory_collab.models import Operation
+from agents_memory_collab.protocol import canonical
 from engine_double import ProtocolEngine
 from test_collaboration import account, operation
 
@@ -52,6 +53,30 @@ async def test_duplicate_native_evidence_cannot_displace_a_distinct_top_result(s
     assert {source["id"] for source in result["memories"][0]["sources"]} == {
         str(first["id"]), str(second["id"]),
     }
+    assert result["memories"][0]["score"] == 1
+
+
+@pytest.mark.asyncio
+async def test_different_native_fragments_of_identical_sources_share_one_result_slot(store):
+    _, actor = await account(store)
+    body = "The cache TTL is 37 seconds.\nThe namespace is cache-v7."
+    first = await retained(store, actor, body)
+    second = await retained(store, actor, body)
+    other = await retained(store, actor, "Backups are retained for 29 days.")
+    bank = first["engine_bank"]
+    store.memory_engine = RecallEngine({bank: [
+        hit("The cache TTL is 37 seconds.", first),
+        hit("The namespace is cache-v7.", second),
+        hit(other["text"], other),
+    ]})
+
+    result = await store.search(actor, "cache and backup policy", project="app", limit=2)
+
+    assert [item["text"] for item in result["memories"]] == [body, other["text"]]
+    assert {source["id"] for source in result["memories"][0]["sources"]} == {
+        str(first["id"]), str(second["id"]),
+    }
+    assert str(result["memories"][0]["id"]) == min(str(first["id"]), str(second["id"]))
     assert result["memories"][0]["score"] == 1
 
 
@@ -138,3 +163,70 @@ async def test_similar_text_is_not_deduplicated_as_identical_evidence(store, sec
         [{"id": str(row["id"]), "revision": row["revision"], "project": "app"}]
         for row in (first, second)
     ]
+
+
+@pytest.mark.asyncio
+async def test_matching_fragment_cannot_drop_the_sources_final_exception(store):
+    _, actor = await account(store)
+    text = (
+        "Atlas backup retention is 29 days.\n"
+        + "Audit details apply to regular backups.\n" * 100
+        + "Records under legal hold must never be deleted, regardless of age."
+    )
+    source = await retained(store, actor, text)
+    store.memory_engine = RecallEngine({source["engine_bank"]: [
+        hit("Atlas backup retention is 29 days.", source),
+    ]})
+
+    result = await store.search(actor, "Atlas backup retention", project="app")
+
+    assert len(result["memories"]) == 1
+    assert result["memories"][0]["text"] == text
+    assert result["memories"][0]["sources"] == [{
+        "id": str(source["id"]), "revision": source["revision"], "project": "app",
+    }]
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("composite", [False, True])
+async def test_complete_source_budget_skips_whole_evidence_without_losing_qualifiers(
+    store, monkeypatch, composite,
+):
+    import agents_memory_collab.store as store_module
+
+    monkeypatch.setattr(store_module, "MAX_SEARCH_RESPONSE_BYTES", 1200)
+    _, actor = await account(store)
+    large = await retained(store, actor, "Shared release rule. " + "가" * 1000 + "\nNever delete legal holds.")
+    small = await retained(store, actor, 'Preserve "legal holds".\nNever delete them.')
+    bank = large["engine_bank"]
+    hits = ([hit("Shared release rule.", large, small)] if composite else [
+        hit("Shared release rule.", large), hit(small["text"], small),
+    ])
+    store.memory_engine = RecallEngine({bank: hits})
+
+    result = await store.search(actor, "release retention", project="app", limit=1)
+
+    assert [item["text"] for item in result["memories"]] == ([] if composite else [small["text"]])
+    assert result["partial"] is True
+    assert result["omitted_due_to_budget"] == 1
+    assert len(canonical(result).encode("utf-8")) <= 1200
+
+
+@pytest.mark.asyncio
+async def test_budget_omission_is_not_reported_as_no_matching_memory():
+    from agents_memory_collab.stdio import BUDGET_SCOPE, LocalMCP
+
+    class Remote:
+        def request(self, path, value):
+            return {"memories": [], "partial": True, "omitted_due_to_budget": 1}
+
+    class Replica:
+        remote = Remote()
+
+        def status(self):
+            return {"memory_contract": "agents-memory-grounded-v1"}
+
+    result = await LocalMCP(Replica(), "app").recall({"query": "release rules", "project": "app"})
+
+    assert result["empty_result_scope"] == BUDGET_SCOPE
+    assert result["partial"] is True and result["omitted_due_to_budget"] == 1

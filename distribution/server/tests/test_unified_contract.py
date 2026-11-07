@@ -534,3 +534,26 @@ async def test_brief_keeps_a_long_fact_with_its_final_exception_intact(store):
     await store.sharing(owner, team, [ShareMapping(source_project="synthetic-app", project_id=project)])
     result = await store.brief(owner, team, project)
     assert [item["text"] for item in result["items"]] == [fact]
+
+
+async def test_search_keeps_the_complete_approved_source_beyond_the_matching_native_chunk(store):
+    if runtime()["processing"] != "integrated":
+        pytest.skip("Exercises integrated source expansion")
+    _, actor = await account(store)
+    fact = (
+        "Atlas backup retention is 29 days.\n"
+        + "Audit details apply to regular backups.\n" * 100
+        + "Records under legal hold must never be deleted, regardless of age."
+    )
+    item = op(fact)
+    await store.push(actor, [item])
+    approved = await store.pool.fetchval(
+        "SELECT text FROM am_collab.memories WHERE user_id=$1 AND id=$2",
+        actor.user_id, item.memory_id,
+    )
+
+    found = await store.search(actor, "What is the Atlas backup retention period?", project=item.project)
+
+    assert [row["text"] for row in found["memories"]] == [approved]
+    assert found["memories"][0]["text"].endswith(
+        "Records under legal hold must never be deleted, regardless of age.")
