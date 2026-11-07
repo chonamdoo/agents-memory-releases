@@ -66,8 +66,8 @@
   },
   "archive": {
     "name": "agents-memory-unified-2.0.0-source-search.tar.gz",
-    "sha256": "e7a632077ce7cc23bdb3bf173e8fc958c8ad649b97827745f455bc269347ffcf",
-    "bytes": 234873
+    "sha256": "01b094ee982ee9cfe8649e56cedf85efeff90b5e816b870fcb1a82875fd192af",
+    "bytes": 234947
   },
   "unchanged_core_wheels": {
     "agents_memory_core-2.0.0-cp313-none-any.whl": "1c5de9e8be3446acf12b08a41e18b2f2ab451058ae8302a8ef4cc2690c812bf9",
@@ -88,6 +88,29 @@
     "probe.py": "1a78cbc42cf885e01edfc24a3d2e1cf2a7b24ed2c53158948f1f9504fac264e1",
     "LOCAL-CI.xml": "7e307de9eca8e4136ebb02be3705f27b9dc9d8ed7e1981b01133b51a91c057d8",
     "INSTALLED-WHEEL.xml": "62e4e017be24e22cf256b8a97cf94e1dadb2a00f2b7fa91ec77d514364133ca8",
-    "SOURCE-SEARCH-SHA256SUMS": "f89ee487811ba349b6a95f19281651086f5d00cb0e7508fdd73ce90990c16672"
+    "SOURCE-SEARCH-SHA256SUMS": "9332701bae228e3d8190ea3fa570bcbe109a274f6a0c8e7d9ba2b0e474c77967",
+    "FINAL-BUNDLE-INSTALL.xml": "37a5498fce1e9738b1d52fee664a3c4a2ac20156296f18f500e31e9ab1159684"
+  },
+  "previous_local_archive": {
+    "name": "agents-memory-unified-2.0.0-source-search.tar.gz",
+    "sha256": "e7a632077ce7cc23bdb3bf173e8fc958c8ad649b97827745f455bc269347ffcf",
+    "bytes": 234873
+  },
+  "packaging_update": {
+    "reason": "release upload server returns 401; include explicit repository download instructions",
+    "after_full_suite_changes": "packaged README only; SDK and source-free Core bytes unchanged",
+    "final_installer": {
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 6.75,
+      "report": "FINAL-BUNDLE-INSTALL.xml"
+    }
+  },
+  "publication": {
+    "channel": "prerelease_candidate_in_repository",
+    "release_asset_upload": "blocked_http_401",
+    "source_search_pr": 23,
+    "product_merge_commit": "851ba78b9e5e4d55a9acc32d16dd021e5ba07caf"
   }
 }

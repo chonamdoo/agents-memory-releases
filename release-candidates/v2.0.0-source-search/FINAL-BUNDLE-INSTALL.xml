@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="6.198" timestamp="2026-11-07T12:51:18.968313+00:00" hostname="0bd38df85d94"><testcase classname="tests.test_client_setup" name="test_actual_client_installer_and_repeat_install_keeps_settings" time="6.123" /></testsuite></testsuites>
