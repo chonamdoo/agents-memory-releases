@@ -12,8 +12,8 @@ import tarfile
 from pathlib import Path
 
 VERSION = "2.0.0"
-MANIFEST_SHA256 = "ed763f2e78be09613874392d5729fdd1831a1bdd12d094d76d8f6a1dfa62d5d2"
-MODEL_SHA256 = "838c5f31e2cc50385c55693d2960edbae41f9f8bf8257e93bce80bc15ae919ea"
+MANIFEST_SHA256 = "cebbe7e926d2e6614c6b4a1f54612aa5fca6f385f46c145979f46ac51dc28fa0"
+MODEL_SHA256 = "cfc1a4de75f13cd68467b84bddbe2f9b87033782e9bbef43f7f85292758c0af1"
 MODEL_FILES = {
     "config.json",
     "model.onnx",

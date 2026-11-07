@@ -108,8 +108,8 @@ companion을 풀면 `model/`을 `--reranker-dir`로 전달합니다. 바깥의
 
 native `min_scores.reranker=0.03`은 실제 공개 DEV에서 선택한 경험적 기준입니다.
 SQL cosine cutoff나 보편적으로 보정된 관련성 확률이 아니며 독립 출시 품질을
-입증하지 않습니다. 과거 전역 E5 `0.84` 기준은 적용하지 않습니다. 모델의 명시적
-학습 언어 14개에는 한국어가 없으므로 기본 한국어 지원을 보장하지 않습니다.
+입증하지 않습니다. 과거 전역 E5 `0.84` 기준은 적용하지 않습니다.
+모델 이름이나 다국어 표기만으로 한국어 검색 품질을 보장하지 않습니다.
 
 `--reranker-dir`에는 정확히 다음 6개 파일만 있어야 합니다. 출처·라이선스는 밖에 둡니다.
 
@@ -123,10 +123,13 @@ tokenizer_config.json
 ```
 
 그래프와 tokenizer는 번들의 `reranker-assets.sha256.json`으로 모두 고정합니다.
-모델은 `cross-encoder/mmarco-mMiniLMv2-L12-H384-v1`,
-revision `1427fd652930e4ba29e8149678df786c240d8825`입니다.
+모델은 `BAAI/bge-reranker-v2-m3`,
+revision `953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e`입니다.
 최종 `model.onnx` SHA-256은
-`838c5f31e2cc50385c55693d2960edbae41f9f8bf8257e93bce80bc15ae919ea`입니다.
+`cfc1a4de75f13cd68467b84bddbe2f9b87033782e9bbef43f7f85292758c0af1`입니다.
+고정 원본 safetensors를 Core의 `python deploy/unified-core/prepare_reranker.py --source /absolute/pinned-source --output /absolute/prepared-reranker`로 준비합니다.
+FP16 가중치·eager encoder·FP32 Sigmoid 출력의 단일 파일 그래프이며 외부 런타임 텐서는 없습니다.
+준비된 6개 파일은 `python build-reranker-bundle.py --model-dir /absolute/prepared-reranker --output /absolute/new-companion`으로 포장합니다.
 자세한 실행·점수 계약은 [판단·검색 계약](GENERATION-CONTRACT.ko.md)을 따릅니다.
 
 ## 계약·검증·제한

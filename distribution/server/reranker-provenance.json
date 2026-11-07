@@ -1,15 +1,40 @@
 {
-  "model_id": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
-  "model_revision": "1427fd652930e4ba29e8149678df786c240d8825",
-  "official_model_card_url": "https://huggingface.co/cross-encoder/mmarco-mMiniLMv2-L12-H384-v1/raw/1427fd652930e4ba29e8149678df786c240d8825/README.md",
-  "attribution": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1, published by the cross-encoder organization on Hugging Face; based on nreimers/mMiniLMv2-L12-H384-distilled-from-XLMR-Large and trained on unicamp-dl/mmarco, as stated in the pinned official model card.",
+  "model_id": "BAAI/bge-reranker-v2-m3",
+  "model_revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+  "official_model_card_url": "https://huggingface.co/BAAI/bge-reranker-v2-m3/raw/953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e/README.md",
+  "attribution": "BAAI/bge-reranker-v2-m3, published by BAAI on Hugging Face.",
   "license": "Apache-2.0",
   "license_source_url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
   "official_model_card_license": "apache-2.0",
-  "upstream_onnx_sha256": "3e9a03ed1e966f7c5288dd4230e3d6a9bf5e3a170a06f1f4241c5bca12c6487c",
-  "distributed_onnx_sha256": "838c5f31e2cc50385c55693d2960edbae41f9f8bf8257e93bce80bc15ae919ea",
-  "modification_notice": "The distributed model.onnx is modified from the author's ONNX graph by adding a final Sigmoid. It is not the unmodified upstream file. This companion builder does not convert the model; it only verifies and packages the approved prepared files.",
+  "source_weights_file": "model.safetensors",
+  "source_weights_sha256": "d9e3e081faff1eefb84019509b2f5558fd74c1a05a2c7db22f74174fcedb5286",
+  "distributed_onnx_sha256": "cfc1a4de75f13cd68467b84bddbe2f9b87033782e9bbef43f7f85292758c0af1",
+  "precision": "fp16_weights_eager_encoder_fp32_sigmoid_output",
+  "export_dependencies": {
+    "torch": "2.8.0",
+    "transformers": "4.55.4",
+    "safetensors": "0.6.2",
+    "onnx": "1.19.0",
+    "onnxruntime": "1.22.1",
+    "sentencepiece": "0.2.1"
+  },
+  "modification_notice": "The distributed model.onnx is a deterministic export from the pinned original safetensors, using FP16 weights, an eager encoder and FP32 Sigmoid output. All 393 original tensors are bound in one graph file; no external runtime tensors are required. It is not a vendor-provided ONNX graph. This companion builder only verifies and packages the approved prepared files.",
+  "fp32_vs_fp16_reference_six_pairs_max_abs_error": 0.00022161006927490234,
+  "onnx_vs_same_precision_reference": {
+    "pairs": 6,
+    "max_abs_error": 0.00019311904907226562,
+    "atol": 0.0001,
+    "rtol": 0.0001,
+    "allclose": false
+  },
+  "onnx_vs_original_fp32_reference": {
+    "pairs": 6,
+    "max_abs_error": 0.00012940168380737305,
+    "atol": 0.0001,
+    "rtol": 0.0001,
+    "allclose": true
+  },
   "asset_manifest": "reranker-assets.sha256.json",
   "model_directory": "model",
-  "quality_notice": "Hash verification establishes artifact identity, not retrieval quality. Numerical parity is not retrieval-quality proof. No universal relevance probability or production-quality certification is asserted. The old independent v22 release gates failed auto precision, legitimate explicit storage, and recall/noise; the independent 2.0.0 release gate remains pending."
+  "quality_notice": "Hash verification establishes artifact identity, not retrieval quality. Numerical comparison is not retrieval-quality proof, and same-precision and original-FP32 results are reported separately without changing tolerances. No universal relevance probability or production-quality certification is asserted. Consumed independent v22 and v27 failures are preserved; the next unused independent release evaluation has not run."
 }

@@ -61,23 +61,25 @@ omp adapter는 stdout 청크마다 따로 문자열로 바꾸지 않고 스트�
 
 현재 검색은 고정 multilingual E5와 RRF 후보 결합 뒤 필수 다국어 ONNX
 cross-encoder로 재순위를 매긴다. E5/RRF 점수를 그대로 통과시키는 경로가 아니다.
-모델은 `cross-encoder/mmarco-mMiniLMv2-L12-H384-v1`,
-revision `1427fd652930e4ba29e8149678df786c240d8825`로 고정한다.
+모델은 `BAAI/bge-reranker-v2-m3`,
+revision `953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e`로 고정한다.
 정확한 6개 파일과 tokenizer 해시는 `reranker-assets.sha256.json`을 따른다.
 준비된 모델 디렉터리는 최초 엔진 설치의 필수 자산이며 원격 연결 클라이언트에는 필요 없다.
 모델을 자동 다운로드하지 않으며 출처·라이선스는 모델 디렉터리 밖에 둔다.
 
-author ONNX SHA-256은
-`3e9a03ed1e966f7c5288dd4230e3d6a9bf5e3a170a06f1f4241c5bca12c6487c`이고,
-최종 Sigmoid를 붙인 런타임 그래프 SHA-256은
-`838c5f31e2cc50385c55693d2960edbae41f9f8bf8257e93bce80bc15ae919ea`다.
-순수 수치 비교의 최대 오차 `5.96e-8`은 검색 품질 증거가 아니다.
+원본 `model.safetensors` SHA-256은
+`d9e3e081faff1eefb84019509b2f5558fd74c1a05a2c7db22f74174fcedb5286`이고,
+FP16 가중치·eager encoder·FP32 Sigmoid 출력으로 내보낸 런타임 그래프 SHA-256은
+`cfc1a4de75f13cd68467b84bddbe2f9b87033782e9bbef43f7f85292758c0af1`다.
+원본 텐서 393개가 단일 그래프에 포함되며 외부 런타임 텐서는 없다.
+FP32와 FP16 기준 모델의 6쌍 최대 절대 오차는 `0.00022161006927490234`다.
+ONNX와 같은 정밀도의 기준 모델 간 수치 일치는 아직 측정하지 않았으며,
+이 수치나 파일 해시는 검색 품질 증거가 아니다.
 Sigmoid 점수는 보편적으로 보정된 관련성 확률이 아니다. 공유 SDK 회상 경계의
 native `min_scores.reranker=0.03`은 실제 공개 DEV 관찰로 선택한 경험적 기준이다.
 SQL cosine cutoff가 아니며 과거 전역 E5 `0.84` 기준은 거부되어 적용하지 않는다.
 독립 출시 품질 검증이나 모든 언어의 무관 기억 제외를 입증하지 않는다.
-모델의 명시적 학습 언어 14개에는 한국어가 포함되지 않으므로 한국어 지원을
-기본 모델의 명칭만으로 보장하지 않는다.
+모델 이름이나 다국어 표기만으로 한국어 검색 품질을 보장하지 않는다.
 
 CPU 실행은 실제 batch 8, threads 2, `max_tokens=512`다.
 native reranker timeout은 `0`으로 두어 시간 초과 뒤 미채점 후보를 반환하는
