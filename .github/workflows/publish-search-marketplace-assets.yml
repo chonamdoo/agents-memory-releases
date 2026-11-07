@@ -1,0 +1,49 @@
+name: Publish reviewed v2 search and marketplace assets
+
+on:
+  pull_request:
+    paths:
+      - release-candidates/v2.0.0-search-marketplace-assets/**
+      - .github/ci/publish-search-marketplace-assets.py
+      - .github/workflows/publish-search-marketplace-assets.yml
+  push:
+    branches: [main]
+    paths:
+      - release-candidates/v2.0.0-search-marketplace-assets/**
+      - .github/ci/publish-search-marketplace-assets.py
+      - .github/workflows/publish-search-marketplace-assets.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-search-marketplace-assets-v2
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - run: python3 .github/ci/publish-search-marketplace-assets.py
+  publish:
+    needs: verify
+    if: github.event_name != 'pull_request' && github.repository == 'chonamdoo/agents-memory-releases' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Verify reviewed payload against current source
+        run: python3 .github/ci/publish-search-marketplace-assets.py
+      - name: Add assets and update notes without promoting or replacing historical files
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/ci/publish-search-marketplace-assets.py --publish

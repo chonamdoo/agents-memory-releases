@@ -1,6 +1,6 @@
 # agents-memory releases
 
-> **시험 릴리즈 v2.0.0 (prerelease):** [공개 배포 파일](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0) · [수동 번들 설치·업데이트](distribution/server/README.ko.md). 사용자가 품질 실패를 확인하고 시험 배포를 선택했습니다. 정당한 명시 저장 70/80, 이어가기 Hit@5 30/40은 고정 Wilson 하한 기준 미달이며 필수 근거 전체 회수는 2/40입니다. 정식 출시·100점·품질 통과를 뜻하지 않습니다. Jev 전용 판단 경로이며 번들과 모델 companion을 직접 내려받아 검증·압축 해제해야 합니다. 자동 다운로드나 마켓플레이스 업데이트 완료를 주장하지 않습니다. 이전 정식 최신 릴리즈는 v1.0.8로 유지합니다.
+> **시험 릴리즈 v2.0.0 (prerelease):** [공개 파일](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0) · [설치·마켓 안내](distribution/server/README.ko.md). 검색 수정 후보는 `agents-memory-unified-2.0.0-search-calibrated.tar.gz`이며 `SEARCH-MARKETPLACE-SHA256SUMS`로 검증합니다. 새 개발 자료에서만 기준을 선택하고 고정한 합성 검증에서 Hit@5 40/40, 필수 근거 전체 회수 38/40, 무관 질의 12/12 빈 결과를 확인했습니다. 단일 작성자 자료이며 독립 인적 평가나 Jev 저장 품질 검증은 아닙니다. 기존 v43의 명시 저장 70/80·검색 30/40 실패 기록을 보존하고 정식 전환은 보류합니다. Claude·OMP 플러그인 MCP와 Codex 전용 설치 skill을 자체 마켓에 공개했습니다. 중앙 공식 디렉터리 등재는 별도입니다. Jev 전용 판단 경로이며 모델 companion도 직접 검증·준비해야 합니다. 이전 정식 최신 버전은 v1.0.8입니다.
 
 > **정식 v1.0.8:** [릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.8) · [Claude/Codex/OMP 설치·업데이트](distribution/server/README.ko.md). 로컬·본인 서버·팀·회사 서버가 같은 Hindsight 엔진을 사용합니다. 공급자는 Claude CLI·Codex CLI·Jev 세 가지이며 별도 생성 모델 가중치는 받지 않습니다. Mac 실기기 테스트는 사용자가 진행합니다. 아래 1.0.7 안내는 이전 버전 기록입니다.
 

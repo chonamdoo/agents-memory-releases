@@ -1,0 +1,73 @@
+{
+  "schema": "agents-memory-search-marketplace-assets-v1",
+  "date": "2026-11-07",
+  "release": "v2.0.0",
+  "channel": "prerelease",
+  "repository": "https://github.com/chonamdoo/agents-memory-releases",
+  "sdk_wheel_sha256": "e4920ef9cc122ccb53cf96dcee26c9a770206e8786d79ab7acb450300437210f",
+  "sdk_python_files_match_frozen_tested_source": 15,
+  "sdk_python_changed_after_quality_validation": false,
+  "search_verification": "release-candidates/2.0.0-search-calibration-verification.json",
+  "marketplace_verification": "release-candidates/2.0.0-marketplace-verification.json",
+  "search_hit_at_5": {
+    "successes": 40,
+    "trials": 40,
+    "wilson_lower_95": 0.912378
+  },
+  "all_required_evidence": {
+    "successes": 38,
+    "trials": 40
+  },
+  "unrelated_queries_empty": {
+    "successes": 12,
+    "trials": 12
+  },
+  "external_jev_calls": 0,
+  "known_original_storage_quality": {
+    "accepted": 70,
+    "legitimate": 80,
+    "gate_passed": false,
+    "new_live_revalidation": false
+  },
+  "original_release_assets_preserved": [
+    {
+      "name": "agents-memory-reranker-2.0.0.tar.gz",
+      "id": 719270210,
+      "size": 1051083704,
+      "digest": "sha256:de45a486c6ca40d7ab24d138eb8f35d00b69977b553b3c5918c67f7bd03672a1"
+    },
+    {
+      "name": "agents-memory-unified-2.0.0.tar.gz",
+      "id": 719270213,
+      "size": 231586,
+      "digest": "sha256:f56cf26bf122570c2abc6daa529772d43b24a6d749670a6d3918b8a27c8f2f8b"
+    },
+    {
+      "name": "SHA256SUMS",
+      "id": 719270209,
+      "size": 294,
+      "digest": "sha256:13e3b95a0529a282f8b23d67ff54cb5908b801c104ad2300c01e1be8b86662d7"
+    },
+    {
+      "name": "SOURCE-VERIFICATION.json",
+      "id": 719270212,
+      "size": 5417,
+      "digest": "sha256:57377a8a47cc948b1b17a0974e358fbc2ca526f6ad46201deec66a7f63d0471d"
+    }
+  ],
+  "unchanged_model_companion_sha256": "de45a486c6ca40d7ab24d138eb8f35d00b69977b553b3c5918c67f7bd03672a1",
+  "new_files": {
+    "agents-memory-unified-plugin-2.0.0.zip": "e7fcbf40c5251fb8a503456cedd85fae4e3537e6494bbfccf737af39f9f2afff",
+    "agents-memory-unified-2.0.0-search-calibrated.tar.gz": "8da7128a831199dcfb89154727ff77925b0fd52dd1a1c2759c75ff01a51920ee",
+    "SUBMISSION.ko.md": "c788b7ab511dfca8dc064e6b661a404ca71e7dcc61e91988457b9acb0a43b7c3"
+  },
+  "central_directory_status": "not submitted; reviewer/account eligibility still required",
+  "macos": "cross-compiled only; no new real-device claim",
+  "product_source_commit": "859bdbc1f59e5fa0b75c8998a6643f88e91099a6",
+  "packaging_source": "Reviewed PR #22 files; exact package/source identity checked in CI",
+  "public_marketplace_install": {
+    "claude": "2.1.319 passed from GitHub main",
+    "codex": "0.163.0 setup skill passed from GitHub main",
+    "omp": "18.18.0 passed from GitHub main"
+  }
+}

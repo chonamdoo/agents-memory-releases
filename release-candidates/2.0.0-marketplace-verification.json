@@ -63,14 +63,15 @@
     "plugins/agents-memory-unified/.codex-plugin/plugin.json": "0d899f8c5556dec0b4c0f650fe76c8d31f8c26b8fb7a5e109cc4a1d13d4c46e4",
     "plugins/agents-memory-unified/.mcp.json": "33310b08308d4d4d5480de38af4e9fceaab28932ecd2c3874678af1b5031100a",
     "plugins/agents-memory-unified/LICENSE": "c376d0ce79774497521856cc667e3405abd86202b4b7aa2854424f7f6cd01435",
-    "plugins/agents-memory-unified/README.md": "e4c102d815ee41b4b47a511093cf84d3deddde06e405fed3eeb900856627b626",
+    "plugins/agents-memory-unified/README.md": "3ab003ec48f89114ca4f0777e00af0bd1089d0d577359a2076388bf1f6961a02",
     "plugins/agents-memory-unified/assets/icon.png": "aa84d583e18adc3371520cec1ac2d66302ccde8ebb1ae61116696343a830a97b",
     "plugins/agents-memory-unified/bin/SHA256SUMS": "cadbfa8e258b915a4aedc71a2425269b9b0cf5de94f10a481c84141ff50f1dae",
     "plugins/agents-memory-unified/bin/connector-darwin-arm64": "b155d4deabe0c774e6b07434eba563f5a7875e4fa00af1da9d18512725d5ff0d",
     "plugins/agents-memory-unified/bin/connector-linux-x86_64": "b2d116c178c97733c41a40c3eba8c029c2752a5471fa564be0d33627b57a172b",
-    "plugins/agents-memory-unified/codex-skills/setup/SKILL.md": "42e896b8497c4a51281e044522f21e5c455018ee212f9c19de37f723bdf0f9d6",
+    "plugins/agents-memory-unified/codex-skills/setup/SKILL.md": "51206a92feeadadba8f6a2d8fcda6803f4fdf4331cac766f4128416b8c847d49",
     "plugins/agents-memory-unified/scripts/connect.sh": "fc324e3fdab2b19c9a93afc67db3d48ef9e7161603df3e2eb3207b4295769bd4",
     "plugins/agents-memory-unified/scripts/connector.go": "be9756e1eb531a699f07d16f5bc268041faed1121114299c613a60d80b32aa04",
-    "plugins/agents-memory-unified/skills/setup/SKILL.md": "834440b53795e54c128fe463eb55f38dc00c87e3a5ca3d3f7df0bc8a12c92400"
-  }
+    "plugins/agents-memory-unified/skills/setup/SKILL.md": "fa900149c3630dc0551ebd787650686502309916484cc88d72dcc7e76d771c6e"
+  },
+  "packaging_update": "Only README/setup-skill asset selection text updated after initial host protocol verification; connector and manifests unchanged."
 }
