@@ -604,11 +604,21 @@ class Store:
             *params, sorted({document for _, document in hits}))
         if getattr(self.memory_engine,"integrated",False):
             authorized = {(r["engine_bank"],r["engine_document"]):r for r in rows}
-            grouped = {}
+            evidence = {}
             for bank,documents,text,score,derived_id in generated:
                 if any((bank,d) not in authorized for d in documents):
                     continue
-                sources = [authorized[(bank,d)] for d in documents]
+                # Raw facts and observations can nominate the same whole text.
+                # Merge only authorized hits within one bank before applying the result limit.
+                key = bank, text
+                if key not in evidence:
+                    evidence[key] = {"documents": set(), "score": score}
+                evidence[key]["documents"].update(documents)
+                evidence[key]["score"] = max(evidence[key]["score"], score)
+            grouped, texts = {}, {}
+            for (bank,text),entry in evidence.items():
+                sources = [authorized[(bank,d)] for d in sorted(entry["documents"])]
+                score = entry["score"]
                 primary = min(sources,key=lambda r:str(r["id"]))
                 identity = str(primary["author_id"]),str(primary["id"])
                 if identity not in grouped:
@@ -616,14 +626,16 @@ class Store:
                     item.pop("engine_bank");item.pop("engine_document")
                     item.update(text="",score=score,derived=True,sources=[])
                     grouped[identity] = item
+                    texts[identity] = []
                 item = grouped[identity]
-                if text not in item["text"].split("\n"):
-                    item["text"] += ("\n" if item["text"] else "") + text
+                texts[identity].append(text)
                 item["score"] = max(item["score"],score)
                 for row in sources:
                     source = {"id":str(row["id"]),"revision":row["revision"],"project":row["project"]}
                     if source not in item["sources"]:
                         item["sources"].append(source)
+            for identity,item in grouped.items():
+                item["text"] = "\n".join(texts[identity])
             result = sorted(grouped.values(),key=lambda r:(-r["score"],str(r["id"])))
             return {"memories":result[:limit],"semantic":True,"engine":"hindsight",
                     "integration_enabled":True,"generation_enabled":False}
