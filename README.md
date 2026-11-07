@@ -9,6 +9,9 @@
 
 ## 2.0.0 MCP 마켓 설치
 
+[정식 배포 조건과 현재 미충족 항목](release-candidates/v2.0.0-stable/CONDITIONS.ko.md)을 공개합니다.
+정식 전환은 동일 후보의 품질·안전·기능·설치 검증과 릴리즈 자산 전달을 확인한 뒤 수행합니다.
+
 [현재 설치·업데이트 안내](distribution/server/README.ko.md#플러그인-연결)를 따르세요.
 Claude·OMP는 `agents-memory-unified@agents-memory` 플러그인 MCP를 설치합니다.
 Codex는 같은 이름의 전용 마켓 설치 skill을 통해 검증된 런타임 설치기를 실행하고
