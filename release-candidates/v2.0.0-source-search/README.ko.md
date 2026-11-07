@@ -83,3 +83,23 @@ python release-candidates/v2.0.0-source-search/verify.py \
 실제 Jev 재평가는 별도 연결한 키와 기존 private 원본·정답·ledger가 필요하다.
 **추가 197회 승인 유지, 실제 추가 호출 0회.** macOS 실기기와 중앙 공식 마켓
 등재도 이 Linux 검증으로 완료했다고 하지 않는다.
+
+## 마켓 안내와 릴리즈 자산 게시
+
+Claude·OMP의 setup skill과 Codex 전용 setup skill도 이 후보를 선택하도록
+수정했다. 세 앱의 실제 격리 로컬 마켓 설치본에서 안내 파일의 일치를 확인했다.
+런타임·SDK·connector·플러그인 manifest는 바꾸지 않았다.
+[설치·게시 검증 기록](MARKETPLACE-UPDATE.json)에 범위를 구분한다.
+
+이 저장소의 v2.0.0에 자산을 추가하는 로컬 명령은 아래와 같다. 기본 실행은
+검증과 게시 계획 조회만 한다. 인증 연결 뒤 `--publish`를 붙이면 기존 9개 자산을
+보존하며 새 후보·체크섬·검증 기록을 추가한다. 다른 해시의 동명 파일이 있으면
+덮어쓰지 않고 중단한다. Actions 실행·tag 이동·정식 전환은 수행하지 않는다.
+
+```sh
+python .github/ci/publish-source-search-assets.py
+python .github/ci/publish-source-search-assets.py --publish
+```
+
+업로드에는 `uploads.github.com`에서 유효한 GitHub 인증이 필요하다.
+현재 조회·머지는 가능하지만 해당 업로드 인증은 HTTP 401을 반환한다.

@@ -1,0 +1,45 @@
+{
+  "schema": "agents-memory-marketplace-source-search-update-v1",
+  "date": "2026-11-07",
+  "repository": "chonamdoo/agents-memory-releases",
+  "base_commit": "14e9853797fd3fdf5bdeba3ee54619ffa44d6e16",
+  "changes": "Select the source-search runtime in Claude/OMP and Codex marketplace setup skills",
+  "runtime_sdk_core_connector_manifests_unchanged": true,
+  "plugin_guide_sha256": {
+    "README.md": "b57c9afc957d8f2e25853fdca328bf91a63aa16185755c2477e095d96d93eb6e",
+    "skills/setup/SKILL.md": "5fe955dceb29d1e54a813d40bb8411be60696735e2d7e0fd0858b1352d7d6407",
+    "codex-skills/setup/SKILL.md": "df04d98093fdf41d032dd94ef82aad684efbf78a3b3d85d428d8ceb4a6835f30"
+  },
+  "premerge_local_marketplace_install": {
+    "claude": {
+      "installed": true,
+      "guide_bytes_match": true,
+      "version": "2.0.0"
+    },
+    "codex": {
+      "installed": true,
+      "guide_bytes_match": true,
+      "version": "2.0.0"
+    },
+    "omp": {
+      "installed": true,
+      "guide_bytes_match": true,
+      "version": "2.0.0"
+    }
+  },
+  "scope": "Actual host CLIs, isolated configuration directories, local marketplace tree; public GitHub update is verified after merge",
+  "publisher_safeguards": {
+    "tests_passed": 5,
+    "tests_failed": 0,
+    "actual_read_only_preflight_passed": true,
+    "target_release": "v2.0.0",
+    "expected_release_id": 437252762,
+    "writes_require": "--publish",
+    "does_not_dispatch_actions": true,
+    "never_promotes_retags_or_clobbers": true
+  },
+  "external_jev_calls": 0,
+  "release_asset_upload_status": "blocked HTTP 401 until uploads.github.com authentication is connected",
+  "live_v43_quality_revalidation": "not run; evaluation key and original private corpus/gold/ledger not connected",
+  "approved_additional_jev_calls": 197
+}
