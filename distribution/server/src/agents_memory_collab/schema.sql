@@ -83,3 +83,6 @@ CREATE TABLE IF NOT EXISTS am_collab.memory_jobs (
     prepared jsonb, bank text, document text, created_at timestamptz NOT NULL DEFAULT now(),
     PRIMARY KEY(user_id,op_id)
 );
+CREATE INDEX IF NOT EXISTS memory_jobs_original_fts ON am_collab.memory_jobs
+    USING gin(to_tsvector('english',coalesce(original->>'text','')))
+    WHERE stage IN ('ready','discarded');

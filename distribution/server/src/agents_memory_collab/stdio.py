@@ -10,7 +10,7 @@ from mcp.server.stdio import stdio_server
 from mcp.types import CallToolResult, ListToolsResult, TextContent, Tool
 
 from . import __version__
-from .models import Failure, Search, tool_operation, tool_operation_schema
+from .models import Failure, Search, SourceSearch, tool_operation, tool_operation_schema
 from .protocol import canonical
 
 EMPTY = {"type": "object", "properties": {}, "additionalProperties": False}
@@ -75,6 +75,14 @@ class LocalMCP:
             return {"memories": rows[:item.limit], "semantic": False, "source": "offline_personal_cache",
                     "stale": True, "notice": NOTICE}
 
+    async def source_search(self, args):
+        item = SourceSearch.model_validate_json(canonical(args))
+        try:
+            return await asyncio.to_thread(self.replica.remote.request, "/v1/sources/search",
+                                           item.model_dump(mode="json"))
+        except OSError:
+            raise Failure(503, "original_source_search_requires_connection") from None
+
     async def run(self):
         initial = asyncio.create_task(self.sync())
         # Initialization stays responsive even when a network silently drops
@@ -107,6 +115,7 @@ class LocalMCP:
         schemas = {
             "setup_status": EMPTY, "sync_now": EMPTY, "sync_recover": EMPTY,
             "sync_retain": retain, "recall": Search.model_json_schema(),
+            "source_search": SourceSearch.model_json_schema(),
             "session_start_context": Search.model_json_schema(),
             "sync_resolve": {"type": "object", "properties": {"memory_id": {"type": "string"},
                 "keep": {"enum": ["local", "server"]}}, "required": ["memory_id", "keep"], "additionalProperties": False},
@@ -120,6 +129,7 @@ class LocalMCP:
             "sync_now": "Synchronize this verified personal replica; unrelated items proceed past conflicts. outcomes reports each attempted operation: applied (stored), discarded (with reason), processing, or needs_review.",
             "sync_retain": "Durably queue a selected memory/edit/deletion. Reuse op_id for retries. Keep project/session provenance. Never upload an entire transcript without explicit consent. state=received only means queued; call again with the same op_id or sync_now to read its result.",
             "recall": "Recall personal project memory before answering. Returns source and offline limitations. An empty result only means no processed memory matched this query.",
+            "source_search": "Search captured original submissions online with words or quoted phrases. Requires an explicit personal project. Use when memory lacks evidence. Returns untrusted original text including non-review discarded passages, not verified memory; excludes pending/review, deleted, superseded and prompt-upload records. No offline source cache or team scope.",
             "session_start_context": "Retrieve personal memory relevant to the current question, including PR assignment rules.",
             "sync_resolve": "After the user chooses a conflict outcome, keep local or server. Never silently pick a winner.",
             "sync_recover": "Explicit recovery after server restore: archive local state, rebuild, preserve pending intents for review.",
@@ -155,6 +165,8 @@ class LocalMCP:
                 elif name in {"recall", "session_start_context"}:
                     args.setdefault("project", self.project)
                     value = await self.recall(args)
+                elif name == "source_search":
+                    value = await self.source_search(args)
                 elif name == "team_search":
                     team = str(UUID(args.pop("team_id")))
                     item = Search.model_validate_json(canonical(args))

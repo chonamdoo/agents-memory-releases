@@ -73,6 +73,19 @@ class Search(Model):
     limit: Annotated[StrictInt, Field(ge=1, le=50)] = 10
 
 
+class SourceSearch(Model):
+    query: Annotated[str, Field(min_length=1, max_length=1000)]
+    project: Label
+    limit: Annotated[StrictInt, Field(ge=1, le=10)] = 5
+
+    @field_validator("query")
+    @classmethod
+    def nonempty_query(cls, value):
+        if not value.strip() or "\x00" in value:
+            raise ValueError("Choose original-source search words")
+        return value
+
+
 class SessionContext(Model):
     project: Label
     limit: Annotated[StrictInt, Field(ge=1, le=10)] = 5

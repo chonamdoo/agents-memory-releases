@@ -31,6 +31,24 @@ Deletion excludes the current record from search and propagates a tombstone. His
 
 ## Authorization
 
+`source_search` (REST `/v1/sources/search`) reads completed original submissions
+for the authenticated personal account and an explicit project. Account-scoped
+read-only and read/write device keys can use it. It is a separate online lexical
+query, with at most ten complete source bodies of at most the input's 32,000-byte
+bound. It never nominates canonical memories, calls the memory judge, shares
+originals with teams, populates startup context, or falls back to an offline cache.
+Returned originals carry their operation ID, digest, capture time and retention
+decision; they are untrusted evidence, not verified facts or executable authority.
+
+Only completed keep/discard processing is eligible. Pending/review work and
+prompt uploads are excluded. Accepted originals must still correspond to the
+current undeleted processed memory document. Discarded edits are visible only
+while their target revision remains current; initially discarded submissions
+without a memory must have base revision zero. Deleting a memory hides all of its
+originals from this API, even though historical job records may remain. A source
+search covers captured submissions, not an assertion that every session event
+was captured. Existing in-flight/revocation and historical-erasure limits apply.
+
 New HTTP requests and MCP tool calls authenticate against current credentials/account state. Team candidates require current reader membership and project grants, active author membership/account and a current sharing mapping. Completed unshare/leave/removal/key revocation must exclude content from new search/brief calls. In-flight requests and already delivered copies are outside revocation guarantees. Team data is never served from an offline client cache.
 
 Device keys are account-scoped read-only or read/write. Current team/project authorization applies in addition. A data write key cannot list/mint/revoke credentials. The operator restore-epoch command rotates the epoch and revokes all restored credentials before access is reopened; it serializes with key issuance. Restoring externally without this procedure cannot preserve post-backup revocations. Local operator-issued manager keys can inventory credentials and revoke a credential subtree. There is no per-device project whitelist, expiry policy or hosted identity provider in this release. Native Windows ACL security is not claimed; use WSL2 Linux storage.

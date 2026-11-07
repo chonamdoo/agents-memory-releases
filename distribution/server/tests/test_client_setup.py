@@ -209,7 +209,13 @@ async def test_actual_client_installer_and_repeat_install_keeps_settings(system,
     result = await run()
     assert result['service_ready'] and not result['ready']
     saved = (prefix/'personal/connection.json').read_bytes()
+    # A reviewed 2.0.0 candidate may replace an older 2.0.0 SDK. Force an
+    # observable stale module so the repeat install must restore wheel bytes.
+    sdk_module = next((prefix/'venv/lib').glob('python*/site-packages/agents_memory_collab/stdio.py'))
+    reviewed_module = sdk_module.read_bytes()
+    sdk_module.write_bytes(reviewed_module + b'\nraise RuntimeError("stale_candidate_sdk")\n')
     await run()
+    assert sdk_module.read_bytes() == reviewed_module
     assert (prefix/'personal/connection.json').read_bytes() == saved
     assert len((await system.store.list_devices(actor))['devices']) == 2
     # Cloud clients install neither embedding packages nor a local database.
@@ -222,6 +228,7 @@ async def test_actual_client_installer_and_repeat_install_keeps_settings(system,
         initialized = await session.initialize()
         from agents_memory_collab import __version__
         assert initialized.server_info.version == __version__
+        assert 'source_search' in {tool.name for tool in (await session.list_tools()).tools}
         status = await session.call_tool('setup_status', {})
         status = json.loads(status.content[0].text)
         assert status['service_ready'] and not status['ready']

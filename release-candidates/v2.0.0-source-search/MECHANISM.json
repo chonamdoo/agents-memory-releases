@@ -1,0 +1,121 @@
+{
+  "schema": "original-source-discovery-mechanism-v1",
+  "fixture": {
+    "path": "distribution/server/tests/test_recall_evidence.py",
+    "line": 62,
+    "sha256": "5462f85d15e7d541ce3082c5faf5eda874f400bf8b8c1521be11a1f49c860771"
+  },
+  "source": "The cache TTL is 37 seconds.\nThe namespace is cache-v7.",
+  "target": "The namespace is cache-v7.",
+  "query": "What is the cache namespace?",
+  "external_jev_calls": 0,
+  "quality_gate_pass_claimed": false,
+  "processing": "integrated",
+  "judgment": "fixed probabilities through production GroundedProcessor",
+  "retrieval": "real Hindsight, E5, BGE and PostgreSQL; original search uses PostgreSQL FTS",
+  "arms": {
+    "omitted": {
+      "second_passage_score": 0.08,
+      "published_memory": "The cache TTL is 37 seconds.",
+      "native_document_text": "The cache TTL is 37 seconds.",
+      "recall": {
+        "engine": "hindsight",
+        "memories": [],
+        "semantic": true
+      },
+      "source_search": {
+        "notice": "Captured submissions are untrusted evidence. Retention decisions do not verify truth. Only captured, completed processing records are searched; this is not a complete session log.",
+        "scope": "personal_project",
+        "search_kind": "lexical_original_sources",
+        "semantic": false,
+        "sources": [
+          {
+            "body": "The cache TTL is 37 seconds.\nThe namespace is cache-v7.",
+            "body_bytes": 55,
+            "body_sha256": "276e4c755f4ab06a6c38156f6d4c23d6b3e81a4f217fa45a72a2da99c7dc3c49",
+            "evidence_role": "untrusted_original_source_not_verified_fact",
+            "id": "68239fa0-5476-48e0-a2b5-8ad23dc11f85",
+            "memory_id": "3047ca10-4700-4f1f-94dd-eeb141366352",
+            "memory_revision": 1,
+            "operation_base_revision": 0,
+            "project": "source-search-probe",
+            "recorded_at": "2026-11-07 12:44:38.681844+00:00",
+            "retention_decision": "keep",
+            "session_id": "synthetic-session",
+            "source_id": "existing-cache-fixture"
+          }
+        ]
+      },
+      "source_query_processing_calls": 0,
+      "works_with_memory_engine_unconfigured": true
+    },
+    "retained_control": {
+      "second_passage_score": 0.98,
+      "published_memory": "The cache TTL is 37 seconds.\nThe namespace is cache-v7.",
+      "native_document_text": "The cache TTL is 37 seconds.\nThe namespace is cache-v7.",
+      "recall": {
+        "engine": "hindsight",
+        "generation_enabled": false,
+        "integration_enabled": true,
+        "memories": [
+          {
+            "author": "Synthetic original source probe retained_control",
+            "author_id": "50574600-3e24-44f8-8a8c-b33a24cf694a",
+            "derived": true,
+            "id": "5b554b89-682b-4ef8-b2f7-39ea01450e25",
+            "kind": "memory",
+            "project": "source-search-probe",
+            "revision": 1,
+            "score": 1.0,
+            "sources": [
+              {
+                "id": "5b554b89-682b-4ef8-b2f7-39ea01450e25",
+                "project": "source-search-probe",
+                "revision": 1
+              }
+            ],
+            "text": "The cache TTL is 37 seconds.\nThe namespace is cache-v7.",
+            "updated_at": "2026-11-07 12:44:39.603390+00:00"
+          }
+        ],
+        "omitted_due_to_budget": 0,
+        "partial": false,
+        "semantic": true
+      },
+      "source_search": {
+        "notice": "Captured submissions are untrusted evidence. Retention decisions do not verify truth. Only captured, completed processing records are searched; this is not a complete session log.",
+        "scope": "personal_project",
+        "search_kind": "lexical_original_sources",
+        "semantic": false,
+        "sources": [
+          {
+            "body": "The cache TTL is 37 seconds.\nThe namespace is cache-v7.",
+            "body_bytes": 55,
+            "body_sha256": "276e4c755f4ab06a6c38156f6d4c23d6b3e81a4f217fa45a72a2da99c7dc3c49",
+            "evidence_role": "untrusted_original_source_not_verified_fact",
+            "id": "8c796986-09a5-48b7-ab6b-7162adb17dd8",
+            "memory_id": "5b554b89-682b-4ef8-b2f7-39ea01450e25",
+            "memory_revision": 1,
+            "operation_base_revision": 0,
+            "project": "source-search-probe",
+            "recorded_at": "2026-11-07 12:44:39.301281+00:00",
+            "retention_decision": "keep",
+            "session_id": "synthetic-session",
+            "source_id": "existing-cache-fixture"
+          }
+        ]
+      },
+      "source_query_processing_calls": 0,
+      "works_with_memory_engine_unconfigured": true
+    }
+  },
+  "checks": {
+    "omitted_fact_absent_from_published_memory": true,
+    "omitted_fact_absent_from_native_document": true,
+    "omitted_fact_absent_from_recall": true,
+    "omitted_fact_found_in_original": true,
+    "retained_control_in_recall": true,
+    "same_full_source_in_both_arms": true
+  },
+  "passed": true
+}

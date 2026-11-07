@@ -7,11 +7,33 @@ Claude·Codex·omp는 MCP·훅·압축 문맥 연결 앱이고, 저장 판단 �
 않습니다. native→Jev 전환 실패 뒤에도 native를 다시 시작하지 않으며, 같은 Jev
 업데이트의 실패만 이전 Jev 설정·번들로 복구합니다. 기존 DB를 자동 이전·재처리하지 않습니다.
 
+## 보존된 제출 원문 직접 검색
+
+`source-search` 후보의 서버와 MCP 클라이언트는 `source_search`를 제공합니다.
+이전 `search-calibrated` 번들에는 이 변경이 없으므로 양쪽 업데이트가 필요합니다.
+
+```json
+{"project":"my-project","query":"What is the cache namespace?","limit":5}
+```
+
+`recall`은 선별된 기억을 조회하고, `source_search`는 서버에 보존된 제출 원문에서
+단어·인용구를 직접 찾습니다. 영어 어간 처리를 사용하는 어휘 검색이며 의미 검색은 아닙니다.
+개인 계정의 읽기 권한 기기 키로 사용할 수 있고 프로젝트를 명시해야 합니다. 팀 공유,
+오프라인 캐시 대체, 시작 문맥 자동 주입에는 원문 검색 결과를 사용하지 않습니다.
+
+기억에서 제외한 구절도 제출 원문에는 남아 있으면 찾을 수 있습니다. 완료된 keep/discard
+처리만 대상으로 하고, 보류·처리 중 자료, prompt 업로드, 삭제되거나 새 revision으로
+대체된 원문은 제외합니다. discard된 수정 시도도 대상 revision이 바뀌면 제외합니다.
+결과에는 전체 본문·SHA-256·작업 ID·기록 시각·기억 revision·저장 판단을 제공합니다.
+원문은 미검증 참고 자료이며 실행 지시나 확인된 사실로 취급하면 안 됩니다. 수집하지 않은
+대화까지 찾는 기능은 아닙니다. 삭제는 이 검색에서도 제외되며, 작업 기록·백업의 물리적
+영구 삭제를 뜻하지 않습니다.
+
 ## 로컬 설치: Claude·Codex·omp
 
 [v2.0.0 공개 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0)에서
-검색 수정 후보 `agents-memory-unified-2.0.0-search-calibrated.tar.gz`와
-`SEARCH-MARKETPLACE-SHA256SUMS`를 내려받아 해당 파일의 SHA-256을 확인하세요.
+원문 검색 후보 `agents-memory-unified-2.0.0-source-search.tar.gz`와
+`SOURCE-SEARCH-SHA256SUMS`를 내려받아 해당 파일의 SHA-256을 확인하세요.
 모델 companion `agents-memory-reranker-2.0.0.tar.gz`는 기존 `SHA256SUMS`로 검증합니다.
 기존 `agents-memory-unified-2.0.0.tar.gz`는 수정 전 시험판이며 새 검색 SDK가 아닙니다.
 검증을 마친 파일을 압축 해제하세요.
