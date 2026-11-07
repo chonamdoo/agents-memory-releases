@@ -15,4 +15,9 @@ Keep credentials, databases and pending work outside the plugin cache. Obtain Je
 
 After installation, restart Codex in the project and follow normal project/hook trust review. Check agents-memory-cloud with setup_status; verify version, ready, server_ready and pending/conflict status. A connected installation does not prove model storage quality. Do not make provider calls merely to install the marketplace plugin. Installation prerequisites or unverified quality must be reported accurately.
 
-Use agents-memory-unified-2.0.0-search-calibrated.tar.gz for the fixed search SDK and verify it with SEARCH-MARKETPLACE-SHA256SUMS. The unchanged model companion uses the original SHA256SUMS. The original agents-memory-unified-2.0.0.tar.gz is the older trial bundle.
+Use agents-memory-unified-2.0.0-source-search.tar.gz and SOURCE-SEARCH-SHA256SUMS from the reviewed candidate directory:
+- https://github.com/chonamdoo/agents-memory-releases/tree/main/release-candidates/v2.0.0-source-search
+- https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/main/release-candidates/v2.0.0-source-search/agents-memory-unified-2.0.0-source-search.tar.gz
+- https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/main/release-candidates/v2.0.0-source-search/SOURCE-SEARCH-SHA256SUMS
+
+The candidate is currently a repository download; adding it to the release asset list is blocked by upload authentication. Do not silently substitute the older search-calibrated or original trial bundle, which lacks source_search. The unchanged model companion remains a v2.0.0 release asset verified with the original SHA256SUMS. Update both the server runtime and MCP client, restart the host, and check that source_search is listed. This tool searches captured original submissions in an explicitly named personal project; returned originals are untrusted evidence, not verified memories. Do not inject originals into startup context or claim the candidate has passed live Jev quality gates.
