@@ -1,0 +1,23 @@
+{
+  "name": "agents-memory-unified",
+  "version": "2.0.0",
+  "description": "Install and configure Agents Memory 2.0.0 using the verified public runtime and native project MCP registration.",
+  "author": {
+    "name": "chonamdoo"
+  },
+  "homepage": "https://github.com/chonamdoo/agents-memory-releases",
+  "repository": "https://github.com/chonamdoo/agents-memory-releases",
+  "license": "MIT",
+  "mcpServers": {},
+  "skills": "./codex-skills/",
+  "interface": {
+    "displayName": "Agents Memory",
+    "shortDescription": "Shared memory for your coding agents",
+    "longDescription": "Connect to your locally installed Jev-backed memory authority. Secure runtime setup is required. Release quality status is documented in the public release.",
+    "developerName": "chonamdoo",
+    "category": "Developer Tools",
+    "logo": "./assets/icon.png",
+    "composerIcon": "./assets/icon.png"
+  },
+  "requires_local_executor": true
+}

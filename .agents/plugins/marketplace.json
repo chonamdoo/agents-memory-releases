@@ -1,0 +1,20 @@
+{
+  "name": "agents-memory",
+  "interface": {
+    "displayName": "Agents Memory"
+  },
+  "plugins": [
+    {
+      "name": "agents-memory-unified",
+      "source": {
+        "source": "local",
+        "path": "./plugins/agents-memory-unified"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

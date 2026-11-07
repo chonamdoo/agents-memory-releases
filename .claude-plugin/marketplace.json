@@ -20,7 +20,8 @@
     {
       "name": "agents-memory-unified",
       "source": "./plugins/agents-memory-unified",
-      "description": "1.0.8 common Hindsight memory: Claude CLI, Codex CLI or Jev; Claude/Codex/OMP clients. Mac real-device verification by user."
+      "description": "2.0.0 Jev-backed common MCP for Claude, Codex and OMP. Secure engine setup required; see release quality status.",
+      "version": "2.0.0"
     }
   ]
 }

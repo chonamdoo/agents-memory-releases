@@ -68,11 +68,49 @@ MCP 연결 시 다시 시작됩니다. OS 로그인 서비스는 임의로 등�
 
 ## 플러그인 연결
 
-`agents-memory-local`과 `agents-memory-unified`를 같은 프로젝트에 중복 등록하지
-마세요. 2.0.0 시험 릴리즈의 마켓플레이스 배포·업데이트 완료를 주장하지 않습니다.
-승인된 플러그인을 준비한 경우 같은 설치 명령의 `--client claude-plugin` 또는
-`--client omp-plugin`으로 직접 MCP 중복 등록 없이 훅을 연결합니다.
-Codex는 `--client codex`를 사용합니다. 키·DB·설정은 플러그인 캐시 밖에 둡니다.
+`agents-memory-unified@agents-memory` 2.0.0을 자체 공개 마켓에서 배포합니다.
+`agents-memory-local` 1.0.8은 이전 공급자를 유지하는 별도 항목입니다. 둘을 같은
+프로젝트에 중복 등록하지 마세요. 아래 마켓 설치는 엔진·모델·키 준비와 별도이며,
+현재 2.0.0 릴리스의 시험 배포 상태와 저장 품질 제한을 바꾸지 않습니다.
+
+Claude Code:
+
+```sh
+claude plugin marketplace add chonamdoo/agents-memory-releases
+claude plugin install agents-memory-unified@agents-memory
+```
+
+OMP(oh-my-pi):
+
+```sh
+omp plugin marketplace add chonamdoo/agents-memory-releases
+omp plugin install agents-memory-unified@agents-memory
+```
+
+위 두 앱은 플러그인 MCP를 제공하고 미설정 상태에서 `setup_status`를 안내합니다.
+엔진 준비는 같은 설치 명령에 `--client claude-plugin` 또는 `--client omp-plugin`을
+사용합니다. 직접 MCP를 중복 등록하지 않습니다.
+
+Codex CLI:
+
+```sh
+codex plugin marketplace add chonamdoo/agents-memory-releases
+codex plugin add agents-memory-unified@agents-memory
+```
+
+Codex 마켓 항목은 **설치 안내 skill**입니다. 호스트 간 플러그인 경로 변수 호환을
+가정하지 않으며 MCP를 자동 연결하지 않습니다. 해당 skill에서 위의 검증된 번들
+설치기를 `--client codex --project /실제/프로젝트`로 실행해 `.codex/config.toml`에
+정식 stdio MCP를 등록합니다. 이 단계 이후 `agents-memory-cloud`로 연결합니다.
+
+업데이트는 Claude의 `plugin marketplace update` 후 `plugin update`, OMP의
+`plugin marketplace update` 후 `plugin upgrade`를 사용합니다. Codex는
+`plugin marketplace upgrade agents-memory` 후 해당 항목을 다시 설치하고 런타임
+설치기를 같은 인자로 실행합니다. 업데이트 후 호스트를 다시 시작하세요.
+키·DB·설정은 플러그인 캐시 밖에 둡니다. 앱별 hooks 신뢰는 정상 절차를 따릅니다.
+
+자체 마켓 설치 가능 상태는 Anthropic 또는 OpenAI의 중앙 공식 디렉터리 심사·등재와
+다릅니다. 중앙 디렉터리 등재 완료를 주장하지 않습니다.
 
 ## 개인·팀·회사 서버
 
@@ -108,7 +146,7 @@ companion을 풀면 `model/`을 `--reranker-dir`로 전달합니다. 바깥의
 `reranker-assets.sha256.json`, `LICENSE.Apache-2.0.txt`, `PROVENANCE.json`은
 모델 디렉터리에 넣지 않습니다.
 
-native `min_scores.reranker=0.03`은 실제 공개 DEV에서 선택한 경험적 기준입니다.
+native `min_scores.reranker=0.003`은 사전 고정한 새 개발 세트에서만 선택한 경험적 기준입니다.
 SQL cosine cutoff나 보편적으로 보정된 관련성 확률이 아니며 독립 출시 품질을
 입증하지 않습니다. 과거 전역 E5 `0.84` 기준은 적용하지 않습니다.
 모델 이름이나 다국어 표기만으로 한국어 검색 품질을 보장하지 않습니다.
