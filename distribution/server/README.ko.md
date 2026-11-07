@@ -10,7 +10,11 @@ Claude·Codex·omp는 MCP·훅·압축 문맥 연결 앱이고, 저장 판단 �
 ## 로컬 설치: Claude·Codex·omp
 
 [v2.0.0 공개 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0)에서
-lean 번들·모델 companion·`SHA256SUMS`를 직접 내려받아 SHA-256을 확인하고 압축을 푸세요.
+검색 수정 후보 `agents-memory-unified-2.0.0-search-calibrated.tar.gz`와
+`SEARCH-MARKETPLACE-SHA256SUMS`를 내려받아 해당 파일의 SHA-256을 확인하세요.
+모델 companion `agents-memory-reranker-2.0.0.tar.gz`는 기존 `SHA256SUMS`로 검증합니다.
+기존 `agents-memory-unified-2.0.0.tar.gz`는 수정 전 시험판이며 새 검색 SDK가 아닙니다.
+검증을 마친 파일을 압축 해제하세요.
 설치기는 압축 해제한 로컬 번들을 사용하며 제품 번들·모델을 자동 다운로드하지 않습니다.
 이전 정식 최신 버전 v1.0.8은 그대로 유지합니다. Docker는 필요 없습니다.
 최초 엔진 설치에는 PostgreSQL·pgvector, 고정 Python·Hindsight·E5와 별도의
