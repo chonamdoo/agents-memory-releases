@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import hashlib
+import inspect
 import json
 import os
 import urllib.error
@@ -23,7 +24,7 @@ class _NoRedirect(urllib.request.HTTPRedirectHandler):
 class HindsightEngine:
     contract = CONTRACT
 
-    def __init__(self, url, processor, *, generative=False, source_preserving=False):
+    def __init__(self, url, processor, *, integrated=False):
         parsed = urlsplit(url)
         if (
             parsed.scheme != "http"
@@ -40,9 +41,7 @@ class HindsightEngine:
         if getattr(processor, "contract", None) != CONTRACT:
             raise ValueError("A matching memory processor is required")
         self.url, self.processor = url.rstrip("/"), processor
-        self.generative = generative
-        self.source_preserving = source_preserving
-        self.free_generation = generative and not source_preserving
+        self.integrated = integrated
         # Local internal calls must not send source data through the HTTP proxy.
         self.opener = urllib.request.build_opener(
             urllib.request.ProxyHandler({}), _NoRedirect()
@@ -94,20 +93,17 @@ class HindsightEngine:
             "contract": CONTRACT,
             "engine": "hindsight",
             "extraction": "source_passages",
-            "consolidation": (
-                "source_preserving_observations"
-                if self.source_preserving
-                else "generated_observations"
-            )
-            if self.generative
-            else "not_required_no_generated_observations",
-            "integration_enabled": self.generative,
-            "generation_enabled": self.free_generation,
+            "consolidation": "source_preserving_observations" if self.integrated else "not_required_no_generated_observations",
+            "integration_enabled": self.integrated,
+            "generation_enabled": False,
+            # Clients attach a user-prompt origin only when the processor can use it.
+            "origin_aware": "origin" in inspect.signature(self.processor.process).parameters,
         }
 
-    async def prepare(self, source):
+    async def prepare(self, source, origin=None):
         try:
-            value = await self.processor.process(source)
+            value = await (self.processor.process(source) if origin is None
+                           else self.processor.process(source, origin=origin))
         except Exception as error:  # noqa: BLE001 - never expose provider payloads or credentials
             terminal = {
                 "review_required": "memory_requires_review",
@@ -115,8 +111,13 @@ class HindsightEngine:
                 "request": "memory_input_invalid",
                 "secret_source": "memory_source_contains_credentials",
             }
-            if getattr(error, "kind", None) in terminal:
-                raise Failure(422, terminal[error.kind]) from None
+            kind = getattr(error, "kind", None)
+            if kind in terminal:
+                failure = Failure(422, terminal[kind])
+                audit = getattr(error, "audit", None)
+                if kind == "review_required" and isinstance(audit, dict):
+                    failure.details = {"audit": audit}
+                raise failure from None
             raise Failure(503, "memory_provider_retryable") from None
         if (
             not isinstance(value, dict)
@@ -153,9 +154,8 @@ class HindsightEngine:
         settings = await self.request(path + "/config")
         resolved = settings.get("config", {}) if isinstance(settings, dict) else {}
         if (
-            resolved.get("retain_extraction_mode")
-            != ("concise" if self.free_generation else "chunks")
-            or resolved.get("enable_observations") is not self.generative
+            resolved.get("retain_extraction_mode") != "chunks"
+            or resolved.get("enable_observations") is not self.integrated
             or resolved.get("enable_auto_consolidation") is not False
         ):
             raise Failure(503, "memory_backend_contract_mismatch")
@@ -189,14 +189,25 @@ class HindsightEngine:
             != prepared.get("metadata", {})
         ):
             raise Failure(503, "memory_index_not_confirmed")
-        if self.generative:
+        if self.integrated:
             if not confirmed.get("memory_unit_count"):
                 raise Failure(503, "memory_generation_empty")
-            await self.integrate(bank)
+            stats = await self.integrate(bank)
+            if not stats["total_observations"]:
+                raise Failure(503, "memory_integration_empty")
         return text
 
     async def integrate(self, bank):
         path = "/v1/default/banks/" + bank
+        stats = await self.request(path + "/stats?refresh=true")
+        failed = stats.get("failed_consolidation") if isinstance(stats, dict) else None
+        if type(failed) is not int or failed < 0:
+            raise Failure(503, "memory_integration_not_confirmed")
+        if failed:
+            recovery = await self.request(path + "/consolidation/recover", {})
+            count = recovery.get("retried_count") if isinstance(recovery, dict) else None
+            if type(count) is not int or count < 0:
+                raise Failure(503, "memory_integration_not_confirmed")
         operation = await self.request(path + "/consolidate", {})
         if not isinstance(operation, dict) or not isinstance(
             operation.get("operation_id"), str
@@ -209,7 +220,22 @@ class HindsightEngine:
             )
             state = status.get("status") if isinstance(status, dict) else None
             if state == "completed":
-                return
+                progress = status.get("progress")
+                detail = progress.get("detail") if isinstance(progress, dict) else None
+                if isinstance(detail, dict) and detail.get("memories_failed", 0) != 0:
+                    raise Failure(503, "memory_integration_failed")
+                # Hindsight completes the operation even when every source fact failed;
+                # the final progress checkpoint also replaces its failure counters.
+                stats = await self.request(path + "/stats?refresh=true")
+                counters = ("pending_consolidation", "failed_consolidation", "total_observations")
+                if not isinstance(stats, dict) or any(
+                    type(stats.get(key)) is not int or stats[key] < 0 for key in counters
+                ):
+                    raise Failure(503, "memory_integration_not_confirmed")
+                if stats["failed_consolidation"]:
+                    raise Failure(503, "memory_integration_failed")
+                if not stats["pending_consolidation"]:
+                    return stats
             if state in {"failed", "cancelled"}:
                 raise Failure(503, "memory_integration_failed")
             await asyncio.sleep(0.2)
@@ -233,8 +259,12 @@ class HindsightEngine:
             raise Failure(503, "memory_delete_not_confirmed")
 
     async def recall(self, bank, query):
-        options = {"query": query, "budget": "high", "max_tokens": 8192}
-        if self.generative:
+        # Native neural filtering precedes limits; SQL rank is not relevance confidence.
+        options = {
+            "query": query, "budget": "high", "max_tokens": 8192,
+            "min_scores": {"reranker": 0.03},
+        }
+        if self.integrated:
             options.update(
                 types=["observation", "world", "experience"],
                 include={"source_facts": {"max_tokens": 12000}, "entities": None},
@@ -247,7 +277,7 @@ class HindsightEngine:
         results = value.get("results")
         if not isinstance(results, list):
             raise Failure(503, "invalid_memory_recall")
-        if not self.generative:
+        if not self.integrated:
             return results
         sources = value.get("source_facts") or {}
         nominated = []
@@ -285,11 +315,12 @@ def from_environment():
         from agents_memory.memory_processor import from_environment as processor
 
         processing = os.environ.get("AM_MEMORY_PROCESSING")
+        if processing not in {"grounded", "integrated"}:
+            raise Failure(503, "memory_processing_migration_required")
         return HindsightEngine(
             url,
             processor(),
-            generative=processing in {"generative", "integrated"},
-            source_preserving=processing == "integrated",
+            integrated=processing == "integrated",
         )
     except Exception:  # noqa: BLE001 - private configuration error boundary
         raise Failure(503, "memory_processor_configuration_invalid") from None

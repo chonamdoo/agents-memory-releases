@@ -2,10 +2,12 @@
 import asyncio
 import json
 import subprocess
+import threading
 from uuid import uuid4
 
 import pytest
 from fault_support import DSN, PG, cycle, durable, local, record, req
+from engine_double import ProtocolEngine
 
 from agents_memory_collab.client import Remote
 from agents_memory_collab.models import Failure
@@ -70,6 +72,244 @@ async def test_lost_socket_ack_preserves_meaning_and_applies_once_after_restart(
     assert await system.store.pool.fetchval('SELECT count(*) FROM am_collab.changes') == 1
     assert sum(not e['delivered'] for e in system.proxy.events) == 1
     assert (await req(b.remote, '/v1/recall', {'query': 'Synthetic', 'project': 'scope-a'}))['memories'] or kind == 'prompt'
+
+
+async def test_applied_operation_retry_survives_projection_drift_and_restart(system, tmp_path):
+    a, b, actor = await system.pair(tmp_path)
+    operation_id = str(uuid4())
+    first = a.stage('app', 'original retry payload', op_id=operation_id)
+    await cycle(a)
+    await cycle(b)
+    b.stage('app', 'later revision', memory_id=first['memory_id'],
+            session_id='later-session', source_id='later-source')
+    await cycle(b)
+    await cycle(a)
+    before = await durable(system, actor.user_id)
+    assert before[first['memory_id']]['revision'] == 2
+    remote = a.remote
+    a.close()
+    a = system.replica(tmp_path/'a.sqlite', remote)
+    pushes = sum(event['path'] == '/v1/sync/ops' for event in system.proxy.events)
+
+    retried = a.stage('app', 'original retry payload', op_id=operation_id)
+
+    assert retried == {'memory_id': first['memory_id'], 'op_id': operation_id,
+                       'queued': False, 'state': 'applied', 'reason': None}
+    assert a.outcome(operation_id)['state'] == 'applied'
+    assert a.status()['pending'] == []
+    await cycle(a)
+    assert local(a) == before == await durable(system, actor.user_id)
+    assert sum(event['path'] == '/v1/sync/ops' for event in system.proxy.events) == pushes
+    assert await system.store.pool.fetchval('SELECT count(*) FROM am_collab.changes') == 2
+    assert await system.store.pool.fetchval('SELECT count(*) FROM am_collab.memory_jobs') == 2
+
+
+async def test_pending_operation_retry_keeps_null_metadata_after_projection_drift(system, tmp_path):
+    a, b, actor = await system.pair(tmp_path)
+    memory_id = a.stage('app', 'initial revision')['memory_id']
+    await cycle(a)
+    await cycle(b)
+    operation_id = str(uuid4())
+    a.stage('app', 'pending retry payload', memory_id=memory_id, op_id=operation_id)
+    original_body = a.db.execute('SELECT body FROM outbox').fetchone()[0]
+    original = json.loads(original_body)
+    assert (original['base_revision'], original['session_id'], original['source_id']) == (1, None, None)
+    b.stage('app', 'winning revision', memory_id=memory_id,
+            session_id='later-session', source_id='later-source')
+    await cycle(b)
+    await cycle(a, pull_only=True)
+
+    retried = a.stage('app', 'pending retry payload', memory_id=memory_id, op_id=operation_id)
+
+    assert retried['state'] == 'processing'
+    assert a.db.execute('SELECT body FROM outbox').fetchone()[0] == original_body
+    result = await cycle(a)
+    assert result['state'] == 'needs_review'
+    assert a.outcome(operation_id) == {
+        'op_id': operation_id, 'state': 'needs_review', 'reason': 'revision_conflict'}
+    saved = a.list_memories()[0]
+    assert (saved['text'], saved['revision'], saved['session_id'], saved['source_id']) == (
+        'winning revision', 2, 'later-session', 'later-source')
+    assert local(a) == await durable(system, actor.user_id)
+    assert await system.store.pool.fetchval('SELECT count(*) FROM am_collab.memory_jobs') == 2
+    assert await system.store.pool.fetchval('SELECT count(*) FROM am_collab.changes') == 2
+
+
+
+
+async def test_changed_retry_cannot_inherit_applied_operation_receipt(system, tmp_path):
+    a, _, actor = await system.pair(tmp_path)
+    arguments = {'memory_id': str(uuid4()), 'op_id': str(uuid4()), 'base_revision': 0,
+                 'origin': 'user_prompt'}
+    assert a._state()['origin_aware'] == 0
+    a.stage('app', 'original retry payload', **arguments)
+    await cycle(a)
+    before = await durable(system, actor.user_id)
+    pushes = sum(event['path'] == '/v1/sync/ops' for event in system.proxy.events)
+    with pytest.raises(Failure, match='^operation_id_reused$'):
+        a.stage('app', 'changed retry payload', **arguments)
+    with pytest.raises(Failure, match='^operation_id_reused$'):
+        a.stage('app', 'original retry payload', **{**arguments, 'memory_id': str(uuid4())})
+    with pytest.raises(Failure, match='^operation_id_reused$'):
+        a.stage('app', 'original retry payload', **{**arguments, 'origin': None})
+    assert a.outcome(arguments['op_id']) == {'op_id': arguments['op_id'], 'state': 'applied', 'reason': None}
+    assert a.status()['pending'] == []
+    await cycle(a)
+    assert await durable(system, actor.user_id) == before
+    assert sum(event['path'] == '/v1/sync/ops' for event in system.proxy.events) == pushes
+    assert await system.store.pool.fetchval('SELECT count(*) FROM am_collab.memory_jobs') == 1
+    assert await system.store.pool.fetchval('SELECT count(*) FROM am_collab.changes') == 1
+
+
+async def test_concurrent_same_operation_uses_one_queue_and_server_result(system, tmp_path):
+    a, _, actor = await system.pair(tmp_path)
+    other = system.replica(a.path, Remote(a.remote.url, a.remote.token))
+    operation_id = str(uuid4())
+    barrier = threading.Barrier(2)
+
+    def stage(replica):
+        barrier.wait(timeout=10)
+        return replica.stage('app', 'concurrent retry payload', op_id=operation_id)
+
+    first, second = await asyncio.gather(asyncio.to_thread(stage, a), asyncio.to_thread(stage, other))
+    assert first['op_id'] == second['op_id'] == operation_id
+    assert first['memory_id'] == second['memory_id']
+    assert a.db.execute('SELECT count(*) FROM outbox').fetchone()[0] == 1
+    await cycle(a)
+    await cycle(other)
+    assert a.status()['pending'] == other.status()['pending'] == []
+    assert a.outcome(operation_id) == other.outcome(operation_id) == {
+        'op_id': operation_id, 'state': 'applied', 'reason': None}
+    assert local(a) == local(other) == await durable(system, actor.user_id)
+    assert sum(event['path'] == '/v1/sync/ops' for event in system.proxy.events) == 1
+    assert await system.store.pool.fetchval('SELECT count(*) FROM am_collab.memory_jobs') == 1
+    assert await system.store.pool.fetchval('SELECT count(*) FROM am_collab.changes') == 1
+
+
+async def test_legacy_pending_retry_preserves_wire_body_across_origin_upgrade(system, tmp_path):
+    a, _, actor = await system.pair(tmp_path)
+    memory_id = a.stage('app', 'previous revision', session_id='previous-session',
+                        source_id='previous-source')['memory_id']
+    await cycle(a)
+    legacy = {'op_id': str(uuid4()), 'memory_id': memory_id, 'project': 'app', 'kind': 'memory',
+              'base_revision': 1, 'deleted': False, 'text': 'legacy Ω retry payload',
+              'session_id': None, 'source_id': None, 'origin': None}
+    original_body = json.dumps(legacy, ensure_ascii=False)
+    with a.transaction():
+        a.db.execute('INSERT INTO outbox(op_id,memory_id,body) VALUES(?,?,?)',
+                     (legacy['op_id'], memory_id, original_body))
+    remote = a.remote
+    a.close()
+    a = system.replica(tmp_path/'a.sqlite', remote)
+
+    class OriginAwareEngine(ProtocolEngine):
+        async def health(self):
+            return {**await super().health(), 'origin_aware': True}
+
+        async def prepare(self, source, origin=None):
+            assert origin is None
+            return await super().prepare(source)
+
+    system.store.memory_engine = OriginAwareEngine()
+    await asyncio.to_thread(a.connect)
+    assert a._state()['origin_aware'] == 1
+    retried = a.stage('app', legacy['text'], memory_id=memory_id, op_id=legacy['op_id'],
+                      origin='user_prompt')
+    assert retried['queued'] is True
+    assert retried['origin_conveyed'] is False
+    assert a.db.execute('SELECT body FROM outbox').fetchone()[0] == original_body
+    wire_requests = []
+    original_open = a.remote.http.open
+
+    def capture_wire(request, *args, **kwargs):
+        if request.full_url.endswith('/v1/sync/ops'):
+            wire_requests.append(request.data)
+        return original_open(request, *args, **kwargs)
+
+    a.remote.http.open = capture_wire
+    expected_wire = json.dumps({'operations': [legacy], 'checkpoint': a._checkpoint()},
+                               ensure_ascii=False, allow_nan=False).encode()
+    await cycle(a)
+    assert wire_requests == [expected_wire]
+    assert a.outcome(legacy['op_id'])['state'] == 'applied'
+    assert a.status()['pending'] == []
+    saved = a.list_memories()[0]
+    assert (saved['text'], saved['revision'], saved['session_id'], saved['source_id']) == (
+        legacy['text'], 2, None, None)
+    assert local(a) == await durable(system, actor.user_id)
+    assert await system.store.pool.fetchval('SELECT count(*) FROM am_collab.memory_jobs') == 2
+    assert await system.store.pool.fetchval('SELECT count(*) FROM am_collab.changes') == 2
+
+
+async def test_legacy_discard_receipt_survives_restart_without_reprocessing(system, tmp_path):
+    class DiscardEngine(ProtocolEngine):
+        calls = 0
+
+        async def prepare(self, source):
+            self.calls += 1
+            return {'decision': 'discard', 'passages': []}
+
+    discarded_engine = DiscardEngine()
+    system.store.memory_engine = discarded_engine
+    a, _, actor = await system.pair(tmp_path)
+    original = {'op_id': str(uuid4()), 'memory_id': str(uuid4()), 'project': 'app',
+                'kind': 'memory', 'base_revision': 0, 'deleted': False,
+                'text': 'synthetic discarded candidate', 'session_id': None, 'source_id': None}
+    with a.transaction():
+        a.db.execute('INSERT INTO outbox(op_id,memory_id,body) VALUES(?,?,?)',
+                     (original['op_id'], original['memory_id'], json.dumps(original)))
+    await cycle(a)
+    outcome = a.outcome(original['op_id'])
+    assert outcome == {'op_id': original['op_id'], 'state': 'discarded', 'reason': 'reason_not_recorded'}
+    assert discarded_engine.calls == 1
+    remote = a.remote
+    a.close()
+    a = system.replica(tmp_path/'a.sqlite', remote)
+    system.store.memory_engine = ProtocolEngine()
+    await asyncio.to_thread(a.connect)
+    retried = a.stage('app', original['text'], memory_id=original['memory_id'], op_id=original['op_id'])
+    assert retried == {'memory_id': original['memory_id'], 'op_id': original['op_id'],
+                       'queued': False, 'state': 'discarded', 'reason': outcome['reason']}
+    with pytest.raises(Failure, match='^operation_id_reused$'):
+        a.stage('app', 'changed discarded candidate', memory_id=original['memory_id'], op_id=original['op_id'])
+    await cycle(a)
+    assert a.outcome(original['op_id']) == outcome
+    assert a.status()['pending'] == []
+    assert await durable(system, actor.user_id) == {}
+    assert discarded_engine.calls == 1
+    assert sum(event['path'] == '/v1/sync/ops' for event in system.proxy.events) == 1
+    assert await system.store.pool.fetchval('SELECT count(*) FROM am_collab.memory_jobs') == 1
+    assert await system.store.pool.fetchval('SELECT count(*) FROM am_collab.changes') == 0
+
+
+
+async def test_hash_only_legacy_intent_requires_review_without_changing_receipt(system, tmp_path):
+    a, _, actor = await system.pair(tmp_path)
+    arguments = {'memory_id': str(uuid4()), 'op_id': str(uuid4())}
+    a.stage('app', 'legacy applied payload', **arguments)
+    await cycle(a)
+    outcome = a.outcome(arguments['op_id'])
+    before = await durable(system, actor.user_id)
+    with a.transaction():
+        a.db.execute('CREATE TABLE legacy_operation_intents(op_id TEXT PRIMARY KEY,intent TEXT NOT NULL)')
+        a.db.execute('INSERT INTO legacy_operation_intents SELECT op_id,intent FROM operation_intents')
+        a.db.execute('DROP TABLE operation_intents')
+        a.db.execute('ALTER TABLE legacy_operation_intents RENAME TO operation_intents')
+    remote = a.remote
+    a.close()
+    a = system.replica(tmp_path/'a.sqlite', remote)
+
+    with pytest.raises(Failure, match='^operation_history_requires_review$'):
+        a.stage('app', 'legacy applied payload', **arguments)
+
+    assert a.outcome(arguments['op_id']) == outcome == {
+        'op_id': arguments['op_id'], 'state': 'applied', 'reason': None}
+    assert a.status()['pending'] == []
+    await cycle(a)
+    assert await durable(system, actor.user_id) == before
+    assert sum(event['path'] == '/v1/sync/ops' for event in system.proxy.events) == 1
+    assert await system.store.pool.fetchval('SELECT count(*) FROM am_collab.memory_jobs') == 1
+    assert await system.store.pool.fetchval('SELECT count(*) FROM am_collab.changes') == 1
 
 
 async def test_conflict_is_visible_without_blocking_unrelated_upload_or_download(system, tmp_path):
@@ -274,6 +514,15 @@ async def test_operation_id_collision_does_not_wedge_pull_or_resolution(system, 
     independent = b.stage('app', 'independent intent')
     result = await cycle(b)
     assert result['pending'][0]['error'] == 'operation_id_reused'
+    collision = {'op_id': shared_id, 'state': 'needs_review', 'reason': 'operation_id_reused'}
+    assert b.outcome(shared_id) == collision
+    assert result['outcomes'] == [{'op_id': independent['op_id'], 'state': 'applied', 'reason': None}]
+    remote = b.remote
+    b.close()
+    b = system.replica(tmp_path/'b.sqlite', remote)
+    with pytest.raises(Failure, match='^operation_id_reused$'):
+        b.stage('app', 'different intent', memory_id=second['memory_id'], op_id=shared_id)
+    assert b.outcome(shared_id) == collision
     assert {first['memory_id'], independent['memory_id']} <= set(local(b))
     await asyncio.to_thread(b.resolve, second['memory_id'], 'local')
     await cycle(b)

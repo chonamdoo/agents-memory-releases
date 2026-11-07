@@ -1,0 +1,40 @@
+{
+  "model_id": "BAAI/bge-reranker-v2-m3",
+  "model_revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+  "official_model_card_url": "https://huggingface.co/BAAI/bge-reranker-v2-m3/raw/953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e/README.md",
+  "attribution": "BAAI/bge-reranker-v2-m3, published by BAAI on Hugging Face.",
+  "license": "Apache-2.0",
+  "license_source_url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+  "official_model_card_license": "apache-2.0",
+  "source_weights_file": "model.safetensors",
+  "source_weights_sha256": "d9e3e081faff1eefb84019509b2f5558fd74c1a05a2c7db22f74174fcedb5286",
+  "distributed_onnx_sha256": "cfc1a4de75f13cd68467b84bddbe2f9b87033782e9bbef43f7f85292758c0af1",
+  "precision": "fp16_weights_eager_encoder_fp32_sigmoid_output",
+  "export_dependencies": {
+    "torch": "2.8.0",
+    "transformers": "4.55.4",
+    "safetensors": "0.6.2",
+    "onnx": "1.19.0",
+    "onnxruntime": "1.22.1",
+    "sentencepiece": "0.2.1"
+  },
+  "modification_notice": "The distributed model.onnx is a deterministic export from the pinned original safetensors, using FP16 weights, an eager encoder and FP32 Sigmoid output. All 393 original tensors are bound in one graph file; no external runtime tensors are required. It is not a vendor-provided ONNX graph. This companion builder only verifies and packages the approved prepared files.",
+  "fp32_vs_fp16_reference_six_pairs_max_abs_error": 0.00022161006927490234,
+  "onnx_vs_same_precision_reference": {
+    "pairs": 6,
+    "max_abs_error": 0.00019311904907226562,
+    "atol": 0.0001,
+    "rtol": 0.0001,
+    "allclose": false
+  },
+  "onnx_vs_original_fp32_reference": {
+    "pairs": 6,
+    "max_abs_error": 0.00012940168380737305,
+    "atol": 0.0001,
+    "rtol": 0.0001,
+    "allclose": true
+  },
+  "asset_manifest": "reranker-assets.sha256.json",
+  "model_directory": "model",
+  "quality_notice": "Hash verification establishes artifact identity, not retrieval quality. Same-precision and original-FP32 numerical comparisons are reported separately without changing tolerances. Consumed v22, v27 and v43 failures are preserved. The latest complete 196-case/40-query v43 evaluation passed automatic-admission precision/recall and returned-source noise, but failed legitimate explicit storage and continuation Hit@5; joint required evidence was sufficient for only 2/40 queries. No production-quality certification or universal relevance probability is asserted."
+}

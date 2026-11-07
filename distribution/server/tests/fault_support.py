@@ -174,8 +174,15 @@ async def cycle(replica, **kwargs):
 
 
 
+@pytest.fixture(scope='session')
+def shared_e5():
+    if directory := os.environ.get('AM_COLLAB_TEST_E5'):
+        return E5(Path(directory), Path(os.environ['AM_COLLAB_TEST_E5_MANIFEST']))
+    return None
+
+
 @pytest_asyncio.fixture
-async def system(request):
+async def system(request, shared_e5):
     if not DSN:
         pytest.skip('Requires an isolated PostgreSQL database')
     expected = os.environ.get('AM_COLLAB_TEST_DATA_DIR')
@@ -185,10 +192,7 @@ async def system(request):
     assert Path(await conn.fetchval('SHOW data_directory')).resolve() == Path(expected).resolve()
     await conn.execute('DROP SCHEMA IF EXISTS am_collab CASCADE')
     await conn.close()
-    embedder = None
-    if directory := os.environ.get('AM_COLLAB_TEST_E5'):
-        embedder = E5(Path(directory), Path(os.environ['AM_COLLAB_TEST_E5_MANIFEST']))
-    value = System(embedder)
+    value = System(shared_e5)
     await value.start()
     try:
         yield value

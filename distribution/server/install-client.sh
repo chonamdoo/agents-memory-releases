@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
+umask 077
 # Run from the downloaded/reviewed server distribution. No DB or model is
 # installed on the client; uv manages the small Python runtime automatically.
 am_source="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+if [ ! -f "$am_source/ASSETS.json" ]; then
+  printf '%s\n' 'ASSETS.json과 core·SDK wheel이 포함된 unified client bundle에서 실행하세요.' >&2
+  exit 1
+fi
 case "$(uname -s)" in
   Darwin) am_default="$HOME/Library/Application Support/agents-memory-cloud" ;;
   Linux) am_default="${XDG_DATA_HOME:-$HOME/.local/share}/agents-memory-cloud" ;;
@@ -45,10 +50,25 @@ if [ -z "$am_uv" ]; then
 fi
 printf '%s\n' '클라우드 MCP 클라이언트를 준비합니다. 기존 연결 설정과 기억은 유지합니다.' >&2
 "$am_uv" venv --python 3.12 --allow-existing "$am_prefix/venv"
-"$am_uv" pip sync --python "$am_prefix/venv/bin/python" --require-hashes "$am_source/client-requirements.lock"
-am_package="$am_source"
-if [ -f "$am_source/ASSETS.json" ]; then
-  am_package="$am_source/$("$am_prefix/venv/bin/python" -I -c 'import json,sys; print(json.load(open(sys.argv[1]))["sdk"])' "$am_source/ASSETS.json")"
-fi
-"$am_uv" pip install --python "$am_prefix/venv/bin/python" --no-deps "$am_package"
-exec "$am_prefix/venv/bin/python" -m agents_memory_collab.cli setup --root "$am_prefix" "$@"
+am_wheels="$(mktemp "$am_prefix/client-wheels.XXXXXX")"
+trap 'rm -f -- "$am_wheels"' EXIT
+"$am_prefix/venv/bin/python" -I - "$am_source" > "$am_wheels" <<'PY'
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+bundle = Path(sys.argv[1]).resolve(strict=True)
+manifest = json.loads((bundle / "ASSETS.json").read_text())
+script = bundle / "unified_setup.py"
+source = script.read_bytes()
+if script.is_symlink() or hashlib.sha256(source).hexdigest() != manifest["files"].get("unified_setup.py"):
+    raise SystemExit("Release helper integrity check failed")
+namespace = {"__file__": str(script), "__name__": "unified_client_asset_review"}
+exec(compile(source, str(script), "exec"), namespace)
+sys.stdout.write(namespace["client_requirements"](bundle))
+PY
+"$am_uv" pip sync --python "$am_prefix/venv/bin/python" --require-hashes "$am_source/client-requirements.lock" "$am_wheels"
+rm -f -- "$am_wheels"
+trap - EXIT
+exec "$am_prefix/venv/bin/python" -I -m agents_memory_collab.cli setup --root "$am_prefix" "$@"

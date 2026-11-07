@@ -13,8 +13,10 @@ from agents_memory_collab.setup import write_private
 def test_darwin_normalizes_only_verified_system_root(monkeypatch, alias):
     original_link = Path.is_symlink
     original_real = os.path.realpath
+    original_stat = os.lstat
     monkeypatch.setattr(client.sys, 'platform', 'darwin')
     monkeypatch.setattr(Path, 'is_symlink', lambda p: True if str(p) == alias else original_link(p))
+    monkeypatch.setattr(os, 'lstat', lambda p, **kw: SimpleNamespace(st_uid=0) if str(p) == alias else original_stat(p, **kw))
     monkeypatch.setattr(os.path, 'realpath', lambda p, **kw: '/private'+alias if str(p) == alias else original_real(p, **kw))
     assert client.private_file(Path(alias)/'am-test-uncreated/connection.json') == Path('/private'+alias)/'am-test-uncreated/connection.json'
 

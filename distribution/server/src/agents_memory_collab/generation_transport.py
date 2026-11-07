@@ -12,6 +12,12 @@ from starlette.requests import Request
 from .web import MAX_BODY, response
 
 PATH = "/_internal/memory-generation/v1/chat/completions"
+SAFE_FAILURES = frozenset({
+    "request", "unsupported_integration_request", "unsupported_integration_schema",
+    "invalid_integration_identity", "ambiguous_integration_input", "integration_budget",
+    "integration_requires_review", "transport", "response", "rate_limited",
+    "overloaded", "unauthorized", "configuration", "unavailable",
+})
 
 
 class PrivateGeneration:
@@ -57,12 +63,21 @@ class PrivateGeneration:
             return await response({"error": "invalid_request"}, 400)(
                 scope, receive, send
             )
-        except Exception:  # noqa: BLE001 - never expose source, credentials or provider output
+        except Exception as error:  # noqa: BLE001 - never expose source, credentials or provider output
+            code = "provider_unavailable"
+            try:
+                from agents_memory.jev import ProviderFailure
+            except ImportError:
+                pass
+            else:
+                if isinstance(error, ProviderFailure) and isinstance(error.kind, str) and error.kind in SAFE_FAILURES:
+                    code = error.kind
             return await response(
                 {
                     "error": {
                         "message": "Selected generation provider unavailable",
                         "type": "provider_unavailable",
+                        "code": code,
                     }
                 },
                 503,
@@ -70,7 +85,10 @@ class PrivateGeneration:
 
 
 def from_environment(app):
-    if os.environ.get("AM_MEMORY_PROCESSING") not in {"generative", "integrated"}:
+    processing = os.environ.get("AM_MEMORY_PROCESSING")
+    if processing == "generative":
+        raise ValueError("Free generation was removed; configure Jev with integrated processing.")
+    if processing != "integrated":
         return app
     from agents_memory.generation_provider import from_environment as provider
 

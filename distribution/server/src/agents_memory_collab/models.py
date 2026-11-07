@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from typing import Annotated, Literal
 from uuid import UUID
 
@@ -30,6 +31,8 @@ class Operation(Model):
     text: Text | None = None
     session_id: Label | None = None
     source_id: Label | None = None
+    # Only local host prompt hooks set this channel marker; it does not verify human authorship.
+    origin: Literal["user_prompt"] | None = None
 
     @field_validator("text")
     @classmethod
@@ -37,6 +40,20 @@ class Operation(Model):
         if value is not None and len(value.encode("utf-8")) > 32_000:
             raise ValueError("Source exceeds the 32000-byte processing budget")
         return value
+
+
+def tool_operation(args: dict) -> Operation:
+    """Model-supplied tool arguments never attest a user-prompt origin."""
+    if "origin" in args:
+        raise Failure(400, "origin_not_accepted_from_tools")
+    # Strict models accept UUID strings only through JSON validation, as the edges do.
+    return Operation.model_validate_json(json.dumps(args, default=str, allow_nan=False))
+
+
+def tool_operation_schema() -> dict:
+    schema = Operation.model_json_schema()
+    schema["properties"].pop("origin")
+    return schema
 
 
 class Checkpoint(Model):
@@ -54,6 +71,11 @@ class Search(Model):
     query: Annotated[str, Field(min_length=1, max_length=1000)]
     project: Label | None = None
     limit: Annotated[StrictInt, Field(ge=1, le=50)] = 10
+
+
+class SessionContext(Model):
+    project: Label
+    limit: Annotated[StrictInt, Field(ge=1, le=10)] = 5
 
 
 class Named(Model):
@@ -89,6 +111,7 @@ class Device(Model):
 
 
 class Failure(Exception):
-    def __init__(self, status: int, code: str):
+    def __init__(self, status: int, code: str, *, details: dict | None = None):
         self.status, self.code = status, code
+        self.details = details or {}
         super().__init__(code)

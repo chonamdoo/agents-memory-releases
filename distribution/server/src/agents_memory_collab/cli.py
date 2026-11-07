@@ -161,7 +161,12 @@ def main():
             from .stdio import LocalMCP
             replica = Replica(args.state, remote(args.connection))
             try:
-                asyncio.run(LocalMCP(replica, args.project).run())
+                settings = json.loads(private_file(args.connection).read_text())
+                automation = {"capture_enabled": settings.get("automatic_memory") is True,
+                              "hosts": settings.get("automation_projects", {}).get(args.project, []),
+                              "configuration_verified": (args.project in settings.get("automation_projects", {})
+                                                         or settings.get("automatic_memory") is not True)}
+                asyncio.run(LocalMCP(replica, args.project, automation=automation).run())
             finally:
                 replica.close()
             return

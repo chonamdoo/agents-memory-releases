@@ -11,7 +11,7 @@ import tomllib
 from pathlib import Path
 from uuid import uuid4
 
-from .client import Remote, Replica, private_file
+from .client import Remote, Replica, _reject_source_secrets, private_file
 from .models import Failure
 from .protocol import canonical
 
@@ -61,16 +61,42 @@ def host_config(client, project, connection, state, project_name, *, python_laun
     raw = path.read_text() if path.exists() else ""
     data = tomllib.loads(raw) if client == "codex" else json.loads(raw or "{}")
     key = "mcp_servers" if client == "codex" else "mcpServers"
-    args = ["-m", "agents_memory_collab.cli", "mcp", "--connection", str(connection), "--state", str(state), "--project", project_name]
+    args = ["-I", "-m", "agents_memory_collab.cli", "mcp", "--connection", str(connection), "--state", str(state), "--project", project_name]
     command = str(python_launcher) if python_launcher else sys.executable
     if python_launcher and (not python_launcher.is_absolute() or not python_launcher.is_file() or not os.access(python_launcher,os.X_OK)):
         raise Failure(400,"invalid_python_launcher")
     desired = {"command": command, "args": args}
     existing = data.get(key, {}).get(NAME)
     if existing is not None:
-        if any(existing.get(k) != v for k, v in desired.items()) or existing.get("enabled") is False:
+        if all(existing.get(k) == v for k, v in desired.items()) and existing.get("enabled") is not False:
+            return path, raw, None
+        previous_command = existing.get("command")
+        previous_args = existing.get("args")
+        owned = {"command": previous_command, "args": previous_args}
+        if client == "codex":
+            owned.update(startup_timeout_sec=120, tool_timeout_sec=120)
+        else:
+            owned["type"] = "stdio"
+            if client == "omp":
+                owned.update(instructions=True, timeout=120000)
+        if (existing != owned or previous_args not in (args, args[1:])
+                or not isinstance(previous_command, str)
+                or not Path(previous_command).is_absolute()):
             raise Failure(409, "existing_mcp_config_differs")
-        return path, raw, None
+        if client == "codex":
+            block = (f"\n[mcp_servers.{NAME}]\ncommand = {json.dumps(previous_command)}\n"
+                     f"args = {json.dumps(previous_args)}\nstartup_timeout_sec = 120\ntool_timeout_sec = 120\n")
+            if raw.count(block) != 1:
+                raise Failure(409, "existing_mcp_config_differs")
+            replacement = (f"\n[mcp_servers.{NAME}]\ncommand = {json.dumps(command)}\n"
+                           f"args = {json.dumps(args)}\nstartup_timeout_sec = 120\ntool_timeout_sec = 120\n")
+            output = raw.replace(block, replacement, 1)
+            tomllib.loads(output)
+        else:
+            data[key][NAME]["command"] = command
+            data[key][NAME]["args"] = args
+            output = json.dumps(data, ensure_ascii=False, indent=2) + "\n"
+        return path, raw, output
     if client == "codex":
         output = raw + f"\n[mcp_servers.{NAME}]\ncommand = {json.dumps(command)}\nargs = {json.dumps(args)}\nstartup_timeout_sec = 120\ntool_timeout_sec = 120\n"
         tomllib.loads(output)
@@ -98,6 +124,7 @@ def install(args):
     clients = ["claude", "codex", "omp"] if "all" in clients else list(dict.fromkeys(c.removesuffix("-plugin") for c in clients))
     if any(c not in {"claude", "codex", "omp"} for c in clients):
         raise Failure(400, "invalid_client")
+    _reject_source_secrets("")
     root = (args.root or default_root()).absolute() / args.profile
     connection, state = root / "connection.json", root / "replica.sqlite"
     project = args.project.absolute()
@@ -108,6 +135,9 @@ def install(args):
     plans = [host_config(c, project, connection, state, project_name,python_launcher=getattr(args,"python_launcher",None)) for c in clients if c not in plugin_hosts]
     from .automation_setup import plan
     automation_plans = [plan(c, project, connection, state, project_name,python_launcher=getattr(args,"python_launcher",None)) for c in clients]
+    changed_hosts = {host for host, entry in zip(clients, automation_plans) if entry[2] is not None}
+    changed_hosts.update(host for host, entry in zip(
+        [host for host in clients if host not in plugin_hosts], plans) if entry[2] is not None)
     connection = private_file(connection)
     replacing = connection.exists() and getattr(args, "replace_credential", False)
     previous = None
@@ -155,31 +185,44 @@ def install(args):
             "automatic_memory": not getattr(args, "no_automatic_memory", False)}) + "\n", exclusive=not replacing)
     replica = Replica(state, remote)
     try:
-        if getattr(args, "recover", False) and replica._state():
-            replica.recover()
-        else:
-            replica.connect()
-        result = replica.cycle()
-    except Failure as error:
-        if error.code not in {"server_history_changed", "legacy_replica_requires_recovery", "legacy_unbound_queue_requires_explicit_export"}:
-            raise
-        result = {"state": "recovery_required", "error": error.code, "queue_preserved": True,
-                  "next": "Run this setup command again with --recover. An unbound legacy queue must first be saved with sync export-pending."}
+        try:
+            if getattr(args, "recover", False) and replica._state():
+                replica.recover()
+            else:
+                replica.connect()
+            result = replica.cycle()
+        except Failure as error:
+            if error.code not in {"server_history_changed", "legacy_replica_requires_recovery", "legacy_unbound_queue_requires_explicit_export"}:
+                raise
+            result = {"state": "recovery_required", "error": error.code, "queue_preserved": True,
+                      "next": "Run this setup command again with --recover. An unbound legacy queue must first be saved with sync export-pending."}
+        for path, raw, output in [*plans, *automation_plans]:
+            if output is None:
+                continue
+            if (path.read_text() if path.exists() else "") != raw:
+                raise Failure(409, "host_config_changed_retry_setup")
+            if raw:
+                write_private(path.with_name(path.name + ".am-backup-" + uuid4().hex), raw, exclusive=True)
+            # Host config contains paths only; preserve existing settings in a private backup.
+            if path.exists():
+                path.chmod(0o600)
+            write_private(path, output)
+        saved = json.loads(connection.read_text())
+        projects = saved.setdefault("automation_projects", {})
+        configured = list(dict.fromkeys([*projects.get(project_name, []), *clients]))
+        if projects.get(project_name) != configured:
+            projects[project_name] = configured
+            write_private(connection, canonical(saved) + "\n")
+        replica.reset_host_events(project_name, changed_hosts)
+        automation = replica.host_automation_status(
+            project_name, clients, capture_enabled=saved.get("automatic_memory") is True)
     finally:
         replica.close()
-    for path, raw, output in [*plans, *automation_plans]:
-        if output is None:
-            continue
-        if (path.read_text() if path.exists() else "") != raw:
-            raise Failure(409, "host_config_changed_retry_setup")
-        if raw:
-            write_private(path.with_name(path.name + ".am-backup-" + uuid4().hex), raw, exclusive=True)
-        # Only paths are in host config. Preserve a private backup before replacing.
-        if path.exists():
-            path.chmod(0o600)
-        write_private(path, output)
-    return {"ready": result["state"] == "synced" and result.get("memory_ready", False), "profile": args.profile, "clients": clients,
+    service_ready = result["state"] == "synced" and result.get("memory_ready", False)
+    return {"ready": service_ready and automation["automation_ready"], "service_ready": service_ready,
+            "automation_ready": automation["automation_ready"], "automation_configured": True,
+            "readiness_scope": "service_and_requested_automation", "profile": args.profile, "clients": clients,
             "project": project_name, "config_files": [str(p[0]) for p in plans],
-            "automation_files": [str(p[0]) for p in automation_plans],
-            "automation": "Host trust and enabled hooks/extensions are required. Existing capture preferences are preserved.",
-            "next": "Reload MCP or restart the selected app. Settings persist across upgrades.", "sync": result}
+            "automation_files": [str(p[0]) for p in automation_plans], "automation": automation,
+            "next": "Reload the app and review project trust and hooks/extensions. In Codex use /hooks to review the exact hook definitions. No global trust settings are changed. Receipts prove adapter execution, not model compliance.",
+            "sync": result}

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sqlite3
 import stat
 import sys
@@ -17,6 +18,18 @@ from uuid import UUID, uuid4
 
 from .models import Failure, Operation
 from .protocol import GENESIS, canonical, chain_hash, digest, operation_digest
+
+
+def _reject_source_secrets(text):
+    try:
+        from agents_memory.capture_guard import contains_source_secret
+        rejected = contains_source_secret(text)
+        if type(rejected) is not bool:
+            raise TypeError("Invalid source guard result")
+    except Exception:
+        raise Failure(503, "memory_source_guard_unavailable") from None
+    if rejected:
+        raise Failure(400, "memory_source_contains_credentials")
 
 
 def private_file(path: Path):
@@ -116,13 +129,16 @@ class Replica:
             INSERT OR IGNORE INTO worker(id) VALUES(1);
             CREATE TABLE IF NOT EXISTS receipts(op_id TEXT PRIMARY KEY,digest TEXT NOT NULL);
             CREATE TABLE IF NOT EXISTS recovery_archive(id TEXT PRIMARY KEY,created_at REAL NOT NULL,body TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS operation_intents(op_id TEXT PRIMARY KEY,intent TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS host_events(scope TEXT NOT NULL,project TEXT NOT NULL,host TEXT NOT NULL,event TEXT NOT NULL,source TEXT NOT NULL,capture_enabled INTEGER NOT NULL,context_prepared INTEGER NOT NULL,captured INTEGER NOT NULL,observed_at REAL NOT NULL,PRIMARY KEY(scope,project,host,event,source));
         """)
         additions_by_table = {
-            "state": {"epoch": "TEXT", "chain_hash": "TEXT", "credential": "TEXT", "writable": "INTEGER NOT NULL DEFAULT 0", "memory_ready": "INTEGER NOT NULL DEFAULT 0", "memory_contract": "TEXT"},
+            "state": {"epoch": "TEXT", "chain_hash": "TEXT", "credential": "TEXT", "writable": "INTEGER NOT NULL DEFAULT 0", "memory_ready": "INTEGER NOT NULL DEFAULT 0", "memory_contract": "TEXT", "origin_aware": "INTEGER NOT NULL DEFAULT 0"},
             "memories": {"session_id": "TEXT", "source_id": "TEXT", "applied_sequence": "INTEGER NOT NULL DEFAULT 0", "processing_state": "TEXT NOT NULL DEFAULT 'legacy_pending'"},
             "outbox": {"status": "TEXT NOT NULL DEFAULT 'pending'", "error": "TEXT"},
             "worker": {"pid": "INTEGER"},
-            "receipts": {"outcome": "TEXT NOT NULL DEFAULT 'applied'"},
+            "receipts": {"outcome": "TEXT NOT NULL DEFAULT 'applied'", "reason": "TEXT"},
+            "operation_intents": {"memory_id": "TEXT", "digest": "TEXT"},
         }
         with self.transaction():
             for table, additions in additions_by_table.items():
@@ -176,11 +192,13 @@ class Replica:
             else:
                 self.db.execute("UPDATE state SET credential=?,writable=? WHERE id=1", (digest(self.remote.token), identity["writable"]))
             memory = identity.get("memory", {})
-            self.db.execute("UPDATE state SET memory_ready=?,memory_contract=? WHERE id=1", (bool(memory.get("ready")), memory.get("contract")))
+            self.db.execute("UPDATE state SET memory_ready=?,memory_contract=?,origin_aware=? WHERE id=1",
+                            (bool(memory.get("ready")), memory.get("contract"), memory.get("origin_aware") is True))
         return identity
 
     def stage(self, project, text=None, *, memory_id=None, kind="memory", deleted=False,
-              allow_prompts=False, op_id=None, base_revision=None, session_id=None, source_id=None):
+              allow_prompts=False, op_id=None, base_revision=None, session_id=None, source_id=None,
+              origin=None):
         with self.transaction():
             saved = self._state()
             if not saved or not saved["epoch"]:
@@ -189,8 +207,46 @@ class Replica:
                 raise Failure(409, "verify_destination_before_queueing")
             if not saved["writable"]:
                 raise Failure(403, "read_only_credential")
-            mid = str(UUID(str(memory_id))) if memory_id else str(uuid4())
-            old = self.db.execute("SELECT * FROM memories WHERE id=?", (mid,)).fetchone()
+            identifier = UUID(str(op_id)) if op_id else uuid4()
+            known = self.db.execute("SELECT intent,memory_id,digest FROM operation_intents WHERE op_id=?", (str(identifier),)).fetchone()
+            frozen = self.db.execute("SELECT body FROM outbox WHERE op_id=?", (str(identifier),)).fetchone()
+            frozen = json.loads(frozen["body"]) if frozen else None
+            if memory_id:
+                mid = str(UUID(str(memory_id)))
+            elif known and known["memory_id"]:
+                mid = known["memory_id"]
+            elif frozen:
+                mid = frozen["memory_id"]
+            else:
+                mid = str(uuid4())
+            intent = digest(canonical({"memory_id": mid, "project": project, "kind": kind,
+                                       "text": text, "deleted": deleted, "base_revision": base_revision,
+                                       "session_id": session_id, "source_id": source_id, "origin": origin}))
+            if known:
+                if known["intent"] != intent:
+                    raise Failure(409, "operation_id_reused")
+                if known["digest"]:
+                    received = self.db.execute("SELECT digest FROM receipts WHERE op_id=?", (str(identifier),)).fetchone()
+                    if received and received["digest"] != known["digest"]:
+                        raise Failure(409, "operation_id_reused")
+                    result = self.outcome(identifier)
+                    if result["state"] == "unknown":
+                        raise Failure(409, "operation_history_requires_review")
+                    return {"memory_id": mid, "op_id": str(identifier),
+                            "queued": result["state"] in {"processing", "needs_review"},
+                            "state": result["state"], "reason": result["reason"]}
+                if not frozen:
+                    raise Failure(409, "operation_history_requires_review")
+            if frozen:
+                if base_revision is None:
+                    base_revision = frozen["base_revision"]
+                if session_id is None:
+                    session_id = frozen.get("session_id")
+                if source_id is None:
+                    source_id = frozen.get("source_id")
+                if deleted:
+                    kind, project = frozen["kind"], frozen["project"]
+            old = None if frozen else self.db.execute("SELECT * FROM memories WHERE id=?", (mid,)).fetchone()
             if old:
                 if deleted:
                     kind, project = old["kind"], old["project"]
@@ -202,15 +258,24 @@ class Replica:
                 raise Failure(403, "prompt_upload_requires_explicit_opt_in")
             if not deleted and (not text or not text.strip()):
                 raise Failure(400, "memory_text_required")
-            op = Operation(op_id=UUID(str(op_id)) if op_id else uuid4(), memory_id=UUID(mid),
+            # An older server rejects unknown fields; never queue an operation it cannot accept.
+            conveyed = origin is not None and not deleted and bool(saved["origin_aware"])
+            if frozen and frozen.get("origin") is None:
+                conveyed = False
+            op = Operation(op_id=identifier, memory_id=UUID(mid),
                            project=project, kind=kind, base_revision=base_revision if base_revision is not None else old["revision"] if old else 0,
-                           text=None if deleted else text, deleted=deleted, session_id=session_id, source_id=source_id)
+                           text=None if deleted else text, deleted=deleted, session_id=session_id, source_id=source_id,
+                           origin=origin if conveyed else None)
             fingerprint = operation_digest(op.model_dump(mode="json"))
-            received = self.db.execute("SELECT digest,outcome FROM receipts WHERE op_id=?", (str(op.op_id),)).fetchone()
+            self.db.execute("""INSERT INTO operation_intents(op_id,intent,memory_id,digest) VALUES(?,?,?,?)
+                ON CONFLICT(op_id) DO UPDATE SET memory_id=excluded.memory_id,digest=excluded.digest""",
+                (str(identifier), intent, mid, fingerprint))
+            received = self.db.execute("SELECT digest,outcome,reason FROM receipts WHERE op_id=?", (str(op.op_id),)).fetchone()
             if received:
                 if received[0] != fingerprint:
                     raise Failure(409, "operation_id_reused")
-                return {"memory_id": mid, "op_id": str(op.op_id), "queued": False, "state": received["outcome"]}
+                return {"memory_id": mid, "op_id": str(op.op_id), "queued": False, "state": received["outcome"],
+                        "reason": received["reason"]}
             pending = self.db.execute("SELECT op_id,body FROM outbox WHERE memory_id=? OR op_id=?", (mid, str(op.op_id))).fetchone()
             if pending:
                 if pending["op_id"] != str(op.op_id):
@@ -218,8 +283,13 @@ class Replica:
                 if operation_digest(json.loads(pending["body"])) != fingerprint:
                     raise Failure(409, "operation_id_reused")
             else:
-                self.db.execute("INSERT INTO outbox(op_id,memory_id,body) VALUES(?,?,?)", (str(op.op_id), mid, op.model_dump_json()))
-        return {"memory_id": mid, "op_id": str(op.op_id), "queued": True, "state": "received", "memory_ready": False}
+                _reject_source_secrets(canonical(op.model_dump(mode="json")))
+                self.db.execute("INSERT INTO outbox(op_id,memory_id,body) VALUES(?,?,?)",
+                                (str(op.op_id), mid, op.model_dump_json(exclude=None if op.origin else {"origin"})))
+        result = {"memory_id": mid, "op_id": str(op.op_id), "queued": True, "state": "received", "memory_ready": False}
+        if origin is not None:
+            result["origin_conveyed"] = conveyed
+        return result
 
     def _claim(self):
         owner = str(uuid4())
@@ -280,7 +350,9 @@ class Replica:
             pushed = 0
             with self.lock:
                 rows = self.db.execute("SELECT op_id,body FROM outbox WHERE status IN ('pending','acked') ORDER BY rowid").fetchall()
+            attempted = []
             for row in [] if pull_only else rows:
+                attempted.append(row["op_id"])
                 self._renew(owner)
                 body = json.loads(row["body"])
                 try:
@@ -298,8 +370,11 @@ class Replica:
                     if (result.get("epoch") != self._state()["epoch"] or ack or len(discarded) != 1
                             or discarded[0] != {"op_id": row["op_id"], "digest": operation_digest(body), "state": "discarded"}):
                         raise Failure(502, "invalid_discard_receipt")
+                    reason = result.get("reasons", {}).get(row["op_id"]) if isinstance(result.get("reasons"), dict) else None
+                    if not isinstance(reason, str) or not re.fullmatch(r"[a-z_]{1,64}", reason):
+                        reason = "reason_not_reported_by_server"
                     with self.transaction():
-                        self.db.execute("INSERT OR REPLACE INTO receipts(op_id,digest,outcome) VALUES(?,?,'discarded')", (row["op_id"], operation_digest(body)))
+                        self.db.execute("INSERT OR REPLACE INTO receipts(op_id,digest,outcome,reason) VALUES(?,?,'discarded',?)", (row["op_id"], operation_digest(body), reason))
                         self.db.execute("DELETE FROM outbox WHERE op_id=?", (row["op_id"],))
                     continue
                 if (result.get("epoch") != self._state()["epoch"] or len(ack) != 1
@@ -313,7 +388,9 @@ class Replica:
                     self.db.execute("UPDATE outbox SET status='acked',error=NULL WHERE op_id=?", (row["op_id"],))
                 pushed += 1
             pulled += self._pull(owner)
-            return {"pushed": pushed, "pulled": pulled, "cursor": self._state()["cursor"], **self.status()}
+            # Queue state is not a save result: report each attempted operation's own outcome.
+            return {"pushed": pushed, "pulled": pulled, "cursor": self._state()["cursor"],
+                    "outcomes": [self.outcome(op_id) for op_id in attempted], **self.status()}
         finally:
             self._release(owner)
 
@@ -399,7 +476,8 @@ class Replica:
                 self.db.executemany("INSERT INTO receipts(op_id,digest,outcome) VALUES(?,?,?)", [tuple(r) for r in shadow.db.execute("SELECT op_id,digest,outcome FROM receipts")])
                 self.db.execute("UPDATE state SET epoch=?,cursor=?,chain_hash=?,credential=?,writable=? WHERE id=1",
                                 (target["epoch"], target["cursor"], target["chain_hash"], target["credential"], target["writable"]))
-                self.db.execute("UPDATE state SET memory_ready=?,memory_contract=? WHERE id=1", (target["memory_ready"], target["memory_contract"]))
+                self.db.execute("UPDATE state SET memory_ready=?,memory_contract=?,origin_aware=? WHERE id=1",
+                                (target["memory_ready"], target["memory_contract"], target["origin_aware"]))
                 self.db.execute("UPDATE outbox SET status='needs_review',error='history_recovered_review_required'")
                 for row in self.db.execute("SELECT op_id,body FROM outbox").fetchall():
                     receipt = self.db.execute("SELECT digest FROM receipts WHERE op_id=?", (row["op_id"],)).fetchone()
@@ -438,12 +516,91 @@ class Replica:
         finally:
             self._release(owner)
 
+    def outcome(self, op_id):
+        """One operation's result. `applied` means committed on the server and in this replica."""
+        with self.lock:
+            receipt = self.db.execute("SELECT digest,outcome,reason FROM receipts WHERE op_id=?", (str(op_id),)).fetchone()
+            pending = self.db.execute("SELECT body,status,error FROM outbox WHERE op_id=?", (str(op_id),)).fetchone()
+        if receipt and pending and receipt["digest"] != operation_digest(json.loads(pending["body"])):
+            return {"op_id": str(op_id), "state": "needs_review", "reason": "operation_id_reused"}
+        if receipt:
+            return {"op_id": str(op_id), "state": receipt["outcome"], "reason": receipt["reason"]}
+        if pending:
+            # acked: committed on the server, not yet pulled into this replica.
+            return {"op_id": str(op_id), "state": "needs_review" if pending["status"] == "needs_review" else "processing",
+                    "reason": pending["error"]}
+        return {"op_id": str(op_id), "state": "unknown", "reason": None}
+
+    def _host_event_scope(self):
+        saved = self._state() or {}
+        return digest(canonical({"server": self.remote.url, "credential": digest(self.remote.token),
+                                 "epoch": saved.get("epoch"), "installation": saved.get("installation")}))
+
+    def reset_host_events(self, project, hosts):
+        from .automation_setup import host_capabilities
+        hosts = list(dict.fromkeys(hosts))
+        for host in hosts:
+            host_capabilities(host)
+        with self.transaction():
+            self.db.executemany("DELETE FROM host_events WHERE scope=? AND project=? AND host=?",
+                                [(self._host_event_scope(), project, host) for host in hosts])
+
+    def record_host_event(self, project, host, event, *, capture_enabled, context_delivered, captured, source=None):
+        from .automation_setup import host_capabilities
+        if event not in host_capabilities(host)["events"]:
+            raise ValueError("Unsupported host event")
+        source = source or ""
+        if source not in {"", "startup", "resume", "clear", "compact", "fork", "new", "manual", "auto"}:
+            raise ValueError("Unsupported event source")
+        if any(type(value) is not bool for value in (capture_enabled, context_delivered, captured)):
+            raise ValueError("Invalid host event receipt")
+        if captured and (not capture_enabled or event not in {"UserPromptSubmit", "before_agent_start"}):
+            raise ValueError("Lifecycle events cannot capture")
+        with self.transaction():
+            self.db.execute(
+                "INSERT INTO host_events VALUES(?,?,?,?,?,?,?,?,?) "
+                "ON CONFLICT(scope,project,host,event,source) DO UPDATE SET "
+                "capture_enabled=excluded.capture_enabled,context_prepared=excluded.context_prepared,"
+                "captured=excluded.captured,observed_at=excluded.observed_at",
+                (self._host_event_scope(), project, host, event, source, int(capture_enabled),
+                 int(context_delivered), int(captured), time.time()))
+
+    def host_automation_status(self, project, hosts=None, *, capture_enabled=True):
+        from .automation_setup import host_capabilities
+        hosts = list(dict.fromkeys(hosts or []))
+        with self.lock:
+            rows = [dict(row) for row in self.db.execute(
+                "SELECT host,event,source,capture_enabled,context_prepared,captured,observed_at "
+                "FROM host_events WHERE scope=? AND project=? ORDER BY observed_at",
+                (self._host_event_scope(), project))]
+        result = {}
+        for host in hosts:
+            capabilities = host_capabilities(host)
+            events = [row for row in rows if row["host"] == host]
+            observed = bool(events)
+            captured = any(row["captured"] for row in events)
+            prepared = any(row["context_prepared"] for row in events)
+            result[host] = {"execution": "observed" if observed else "unverified",
+                            "capture": "disabled" if not capture_enabled else "observed" if captured else "unverified",
+                            "context": "prepared" if prepared else "unverified",
+                            "capabilities": capabilities, "observed_events": events}
+        return {"hosts": result, "capture_enabled": capture_enabled,
+                "automation_ready": bool(result) and all(
+                    row["execution"] == "observed" and row["context"] == "prepared"
+                    and row["capture"] in {"disabled", "observed"} for row in result.values()),
+                "evidence_scope": "adapter_execution_and_context_preparation_only",
+                "native_trust": "unverified", "model_compliance": "unverified"}
+
     def status(self):
         with self.lock:
             pending = [dict(r) for r in self.db.execute("SELECT op_id,memory_id,status,error FROM outbox ORDER BY rowid")]
+            recent = [{"op_id": r["op_id"], "state": r["outcome"], "reason": r["reason"]}
+                      for r in self.db.execute("SELECT op_id,outcome,reason FROM receipts ORDER BY rowid DESC LIMIT 10")]
             saved = self._state()
         bound = bool(saved and saved["epoch"])
-        return {"bound": bound, "pending": pending,
+        # `state` describes the local queue and `memory_ready` the server engine; neither is
+        # the result of a particular save. `recent` lists terminal per-operation results.
+        return {"bound": bound, "pending": pending, "recent": recent,
                 "memory_ready": bool(saved and saved["memory_ready"]), "memory_contract": saved["memory_contract"] if saved else None,
                 "cache_identity_verified": bool(bound and saved["server"] == self.remote.url and saved["credential"] == digest(self.remote.token)),
                 "state": "setup_required" if not bound else "needs_review" if any(r["status"] == "needs_review" for r in pending) else "queued" if pending else "synced"}
