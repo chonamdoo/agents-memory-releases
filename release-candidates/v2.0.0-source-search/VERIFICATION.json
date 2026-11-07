@@ -11,12 +11,12 @@
     "authorized_by": "user"
   },
   "local_ci": {
-    "passed": 293,
+    "passed": 294,
     "failed": 0,
     "skipped": 1,
-    "skip": "configured release plugin requires an explicit owned synthetic installation; none configured",
-    "seconds": 194.29,
-    "report": "LOCAL-CI.xml"
+    "seconds": 197.02,
+    "report": "CONNECTOR-LOCAL-CI.xml",
+    "skip": "test_configured_release_plugin_executes_installed_owned_runtime requires an externally provisioned owned installation"
   },
   "installed_wheel": {
     "passed": 26,
@@ -66,8 +66,8 @@
   },
   "archive": {
     "name": "agents-memory-unified-2.0.0-source-search.tar.gz",
-    "sha256": "db6f6d8f4bd4f524f2d70668dfe77980302e681829e35bc2473ada150457c175",
-    "bytes": 235021
+    "sha256": "a8e08c63ac809f22f5cc76f56cbdc8431253f1e616bdac319fcb4c922ad6fafc",
+    "bytes": 235023
   },
   "unchanged_core_wheels": {
     "agents_memory_core-2.0.0-cp313-none-any.whl": "1c5de9e8be3446acf12b08a41e18b2f2ab451058ae8302a8ef4cc2690c812bf9",
@@ -78,18 +78,27 @@
     "used_additional": 0
   },
   "remaining_release_requirements": [
-    "Live Jev revalidation needs connected key and original private v43 corpus/gold/ledger",
-    "Original v43 legitimate explicit retention gate remains failed (70/80); not rescored",
-    "Actual configured unified plugin test was not run",
-    "macOS device and central marketplace directory approval are not established by this Linux run"
+    "Live Jev revalidation needs the connected key and original private v43 corpus/gold/ledger",
+    "Original v43 explicit retention quality remains failed (70/80); not rescored",
+    "Full installed unified bootstrap/ensure/autostart still requires the separately owned installation; fixture transport consumption is now verified",
+    "macOS device execution and central directory approval are not established by this Linux run"
   ],
   "evidence_sha256": {
     "MECHANISM.json": "853175e878c68a4872bfdd48bfcb12fe6023536b808696590bbca717c9687d85",
     "probe.py": "1a78cbc42cf885e01edfc24a3d2e1cf2a7b24ed2c53158948f1f9504fac264e1",
     "LOCAL-CI.xml": "7e307de9eca8e4136ebb02be3705f27b9dc9d8ed7e1981b01133b51a91c057d8",
     "INSTALLED-WHEEL.xml": "62e4e017be24e22cf256b8a97cf94e1dadb2a00f2b7fa91ec77d514364133ca8",
-    "SOURCE-SEARCH-SHA256SUMS": "4cc61a07bb5fe4c1b425a3c948647c0ab10625288315411ac462facc4f152801",
-    "FINAL-BUNDLE-INSTALL.xml": "3faa3678379c400af7128c25c69f702e9d7a34b35f3c8b5eab94712b1047d9fa"
+    "SOURCE-SEARCH-SHA256SUMS": "f9e51f0aa3dc9f8d4a2fddd02bdf3a8552eb06023f0ea1e30c8a908506a2aca3",
+    "FINAL-BUNDLE-INSTALL.xml": "3faa3678379c400af7128c25c69f702e9d7a34b35f3c8b5eab94712b1047d9fa",
+    "CONNECTOR-LOCAL-CI.xml": "3c3f764a04e9fceba1397fe19de96a7722aa2b2576b79ef1d42d032c25cb9619",
+    "CONNECTOR-TARGETED.xml": "77ae393e20615e0e5e62a2eaf9fbe3a9d247889a0c7f71f2b9bc532d638e9a49",
+    "CP312-SOURCE-SEARCH.xml": "5c759e7bda3410f2ca2a3c5f1317c00f1b280146c14e5347e9489914b15f2e57",
+    "CP313-SOURCE-SEARCH.xml": "fdd3008b1d418795628b3200a836eefb2b7cad30778bf6e59130fd16f1989627",
+    "CP312-RUNTIME.json": "ec4b315b7ff092b010708e00fa5f9523517bf18974a73c662ac7bd1ac0deb433",
+    "CP313-RUNTIME.json": "21aa4063cee1a79fe2e30eb39021fb6ceba1522d2f296c54b83850552dfee9c1",
+    "CONNECTOR-BUILD.json": "9f95070014be72f2a396d8b14c536937e0fe61ed6567dea0e6c88b29f58008e1",
+    "CONNECTOR-VALIDATION.json": "5af0dbe6b743d26758c80e9ca4a44a119ed71d18d3ab692def539d64bb64c39e",
+    "verify-installed-runtime.py": "fba1c3c850f6db446dc8c7f44fd8e84a178e93479ff6b25cc8d22c538dfbcb4d"
   },
   "previous_local_archive": {
     "name": "agents-memory-unified-2.0.0-source-search.tar.gz",
@@ -97,14 +106,16 @@
     "bytes": 234873
   },
   "packaging_update": {
-    "reason": "document marketplace package 2.0.1 needed to refresh stale Claude 2.0.0 cache",
-    "after_full_suite_changes": "packaged README only; SDK and source-free Core bytes unchanged",
+    "reason": "Package 2.0.2 fixes the binary setup_status asset selection and duplicate registration instructions",
+    "after_full_suite_changes": "none in shipped runtime or connector; proof/contract files only",
+    "sdk_and_core_bytes_unchanged": true,
     "final_installer": {
       "passed": 1,
       "failed": 0,
-      "skipped": 0,
-      "seconds": 7.93,
-      "report": "FINAL-BUNDLE-INSTALL.xml"
+      "seconds": 4.179,
+      "report": "CONNECTOR-LOCAL-CI.xml",
+      "case": "test_actual_client_installer_and_repeat_install_keeps_settings",
+      "within_full_suite": true
     }
   },
   "publication": {
@@ -118,6 +129,23 @@
       "name": "agents-memory-unified-2.0.0-source-search.tar.gz",
       "sha256": "01b094ee982ee9cfe8649e56cedf85efeff90b5e816b870fcb1a82875fd192af",
       "bytes": 234947
+    },
+    {
+      "name": "agents-memory-unified-2.0.0-source-search.tar.gz",
+      "sha256": "db6f6d8f4bd4f524f2d70668dfe77980302e681829e35bc2473ada150457c175",
+      "bytes": 235021
     }
-  ]
+  ],
+  "previous_sdk_regressions": [
+    {
+      "passed": 293,
+      "failed": 0,
+      "skipped": 1,
+      "skip": "configured release plugin requires an explicit owned synthetic installation; none configured",
+      "seconds": 194.29,
+      "report": "LOCAL-CI.xml"
+    }
+  ],
+  "connector_validation": "CONNECTOR-VALIDATION.json",
+  "marketplace_package_version": "2.0.2"
 }
