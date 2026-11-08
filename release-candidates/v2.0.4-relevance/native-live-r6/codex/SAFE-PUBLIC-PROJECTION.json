@@ -1,0 +1,61 @@
+{
+  "actual_cost": "unknown",
+  "all501_previous_attempts_unchanged": true,
+  "auditor_added_provider_calls": 0,
+  "auth_unchanged": true,
+  "charged_codex_attempts": 3,
+  "charged_shared_attempts": 502,
+  "cleanup": [
+    {
+      "exit_code": 0,
+      "oom_killed": false,
+      "removed": true,
+      "role": "relay"
+    },
+    {
+      "exit_code": 1,
+      "oom_killed": false,
+      "removed": true,
+      "role": "worker"
+    }
+  ],
+  "codex_remaining_of150": 147,
+  "completed_cases": 0,
+  "external_runtime_refs_verified": 35,
+  "final_independent_audit_sha256": "b38df81885f99b99ab0c42e4308e7a9d845aafcf40148acc3f74970c2637a394",
+  "frozen_source_refs_verified": 30,
+  "genuine_compactions_completed": 0,
+  "historical_wire_counts": "Codex117 and OMP3 remain unknown",
+  "installed_core_files": 15,
+  "installed_core_private_pyc": 13,
+  "installed_sdk_files": 18,
+  "installed_sdk_python_modules": 16,
+  "native_model_operations_reserved": 0,
+  "new_attempt_finished": true,
+  "new_attempt_http_status": 200,
+  "new_attempt_stage": "failed",
+  "new_guarded_metadata_attempts": 1,
+  "new_outcome_covered_by_existing_review": false,
+  "omp_scope": "official soft compaction only",
+  "original_cases_reader_schema_model_unchanged": true,
+  "overall_release_pass": false,
+  "peak_bytes": {
+    "relay": 23105536,
+    "worker": 334647296
+  },
+  "planned_cases": 36,
+  "prior_failed_and_unfinished_unknown_attempts_remain_unchanged_charged": true,
+  "resource_limits": {
+    "cpu": 2,
+    "memory": 4294967296,
+    "pids": 256,
+    "swap": 0
+  },
+  "schema": "native-codex-r6-safe-public-failure-projection-v1",
+  "shared_remaining": 498,
+  "source_freeze_sha256": "d7cbad1fbb2867ded49771f0ab4a83424bff48f770232ff1fc9838e521f7897c",
+  "strict_integrated_summary": "UNKNOWN",
+  "vendor_outcome": "unknown",
+  "verdict": "FAIL_BEFORE_MODEL_ACCOUNT_DISCOVERY_LATE_HTTP200_LOCAL_ABORT",
+  "whole_fact_nonce_answers": 0
+}
