@@ -1,0 +1,68 @@
+{
+  "schema": "installed-public-connectors-v1",
+  "commit": "e881375db0b91056eafadc8c2af325101f70e3e2",
+  "checks": {
+    "claude": {
+      "installed_connector_mcp": true,
+      "server_ready": true,
+      "tools": [
+        "recall",
+        "session_start_context",
+        "setup_status",
+        "source_search",
+        "sync_now",
+        "sync_recover",
+        "sync_resolve",
+        "sync_retain",
+        "team_brief",
+        "team_search"
+      ],
+      "original_search_kind": "lexical_original_sources",
+      "recall_source": "server",
+      "scope": "Configured installed public connector protocol, lexical lookup and server recall on an empty owned synthetic project; not answer-quality evaluation",
+      "seconds": 1.0159402869994665
+    },
+    "omp": {
+      "installed_connector_mcp": true,
+      "server_ready": true,
+      "tools": [
+        "recall",
+        "session_start_context",
+        "setup_status",
+        "source_search",
+        "sync_now",
+        "sync_recover",
+        "sync_resolve",
+        "sync_retain",
+        "team_brief",
+        "team_search"
+      ],
+      "original_search_kind": "lexical_original_sources",
+      "recall_source": "server",
+      "scope": "Configured installed public connector protocol, lexical lookup and server recall on an empty owned synthetic project; not answer-quality evaluation",
+      "seconds": 1.0194456260014704
+    },
+    "codex": {
+      "installed_connector_mcp": true,
+      "server_ready": true,
+      "tools": [
+        "recall",
+        "session_start_context",
+        "setup_status",
+        "source_search",
+        "sync_now",
+        "sync_recover",
+        "sync_resolve",
+        "sync_retain",
+        "team_brief",
+        "team_search"
+      ],
+      "original_search_kind": "lexical_original_sources",
+      "recall_source": "server",
+      "scope": "Configured installed public connector protocol, lexical lookup and server recall on an empty owned synthetic project; not answer-quality evaluation",
+      "seconds": 0.6734789239999373
+    }
+  },
+  "new_jev_calls": 0,
+  "scope": "Installed connectors invoked through an actual MCP client; marketplace commands used actual three CLIs. No claim of three real-provider LLM answers."
+}

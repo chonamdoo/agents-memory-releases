@@ -115,4 +115,4 @@ python3 release-candidates/v2.0.0-jev197/verify-candidate.py
 
 실제 키·private Core원본·원시 대화와 공급자 cassette는 공개하지 않는다.
 마켓 전달은 이 저장소 링크와 고정 번들 설치로 검증하며 중앙 공식 디렉터리의
-등재 완료를 주장하지 않는다. 현재 정식 전환은 미완료다.
+등재 완료를 주장하지 않는다. [공개 마켓 업데이트](PUBLIC-MARKETPLACE.json)로 세 앱의2.0.2→2.0.3과 설치파일13개씩을 확인했고, [설치된 커넥터](PUBLIC-CONNECTORS.json)의 실제 MCP연결도 검증했다. [공개 다운로드](PUBLIC-INSTALLED-CP312.json)는 고정커밋 e881375의 번들과 일치한다. 현재 정식 전환은 미완료다.

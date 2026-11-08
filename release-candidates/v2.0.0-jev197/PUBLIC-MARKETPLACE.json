@@ -1,0 +1,152 @@
+{
+  "schema": "public-pinned-mcp-delivery-readback-v1",
+  "repository": "chonamdoo/agents-memory-releases",
+  "commit": "e881375db0b91056eafadc8c2af325101f70e3e2",
+  "archive_url": "https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/e881375db0b91056eafadc8c2af325101f70e3e2/release-candidates/v2.0.0-jev197/agents-memory-unified-2.0.0-request-scope-v16.tar.gz",
+  "archive_sha256": "576c00e85cdabbbb2dd93305a1da97682a3bba59dc744b2c9e3a8a1eaad4dfd8",
+  "manifest_files_verified": 13,
+  "hosts": {
+    "claude": {
+      "from_version": "2.0.2",
+      "selected_version": "2.0.3",
+      "verified_plugin_files": 13,
+      "install_path": "/workspace/scratch/jev197-evaluation/market-public/claude/claude/plugins/cache/agents-memory/agents-memory-unified/2.0.3",
+      "files_sha256": {
+        ".claude-plugin/plugin.json": "1e4fc72bf3caa9c70dcf9899dc2d1a04454922d14b1d3bef76e92286bc055355",
+        ".codex-plugin/plugin.json": "6467c68b55cbfeb8470481b48c2de17c8795e150937ea35aafca642a7dd619f1",
+        ".mcp.json": "33310b08308d4d4d5480de38af4e9fceaab28932ecd2c3874678af1b5031100a",
+        "LICENSE": "c376d0ce79774497521856cc667e3405abd86202b4b7aa2854424f7f6cd01435",
+        "README.md": "f976a99ae697240f1749444e6e7c6af74ede3c37341bc186763c0c7961f8d1e2",
+        "assets/icon.png": "aa84d583e18adc3371520cec1ac2d66302ccde8ebb1ae61116696343a830a97b",
+        "bin/SHA256SUMS": "6786a9f30a63be4162623cd3f33f5db464d1ca026532dca32db92026c8190abc",
+        "bin/connector-darwin-arm64": "200a3c864fcfe43d1ec9a3994f632b4c5bc4bdc933318bd886b978324a6c1a12",
+        "bin/connector-linux-x86_64": "52a303012767e6360f8cfae0e6dafe60cccf3f39096e9891be71176bdac0d1df",
+        "codex-skills/setup/SKILL.md": "766763bb35b962c04637bd72eb638dd0bc237e05136d5b1712fe7dbdec72c040",
+        "scripts/connect.sh": "fc324e3fdab2b19c9a93afc67db3d48ef9e7161603df3e2eb3207b4295769bd4",
+        "scripts/connector.go": "b01df5c7d68ef59c74270e1b5ba8bfd856c6975ecfa6c4edbb0d3f520ec289d5",
+        "skills/setup/SKILL.md": "85a7f080acec4bf1d88586cd891c8a749555621a7c29b86fd2a2da9f22a357aa"
+      }
+    },
+    "omp": {
+      "from_version": "2.0.2",
+      "selected_version": "2.0.3",
+      "verified_plugin_files": 13,
+      "install_path": "/workspace/scratch/jev197-evaluation/market-public/omp/home/.omp/plugins/cache/plugins/agents-memory___agents-memory-unified___2.0.3",
+      "files_sha256": {
+        ".claude-plugin/plugin.json": "1e4fc72bf3caa9c70dcf9899dc2d1a04454922d14b1d3bef76e92286bc055355",
+        ".codex-plugin/plugin.json": "6467c68b55cbfeb8470481b48c2de17c8795e150937ea35aafca642a7dd619f1",
+        ".mcp.json": "33310b08308d4d4d5480de38af4e9fceaab28932ecd2c3874678af1b5031100a",
+        "LICENSE": "c376d0ce79774497521856cc667e3405abd86202b4b7aa2854424f7f6cd01435",
+        "README.md": "f976a99ae697240f1749444e6e7c6af74ede3c37341bc186763c0c7961f8d1e2",
+        "assets/icon.png": "aa84d583e18adc3371520cec1ac2d66302ccde8ebb1ae61116696343a830a97b",
+        "bin/SHA256SUMS": "6786a9f30a63be4162623cd3f33f5db464d1ca026532dca32db92026c8190abc",
+        "bin/connector-darwin-arm64": "200a3c864fcfe43d1ec9a3994f632b4c5bc4bdc933318bd886b978324a6c1a12",
+        "bin/connector-linux-x86_64": "52a303012767e6360f8cfae0e6dafe60cccf3f39096e9891be71176bdac0d1df",
+        "codex-skills/setup/SKILL.md": "766763bb35b962c04637bd72eb638dd0bc237e05136d5b1712fe7dbdec72c040",
+        "scripts/connect.sh": "fc324e3fdab2b19c9a93afc67db3d48ef9e7161603df3e2eb3207b4295769bd4",
+        "scripts/connector.go": "b01df5c7d68ef59c74270e1b5ba8bfd856c6975ecfa6c4edbb0d3f520ec289d5",
+        "skills/setup/SKILL.md": "85a7f080acec4bf1d88586cd891c8a749555621a7c29b86fd2a2da9f22a357aa"
+      }
+    },
+    "codex": {
+      "from_version": "2.0.2",
+      "selected_version": "2.0.3",
+      "verified_plugin_files": 13,
+      "install_path": "/workspace/scratch/jev197-evaluation/market-public/codex/codex/plugins/cache/agents-memory/agents-memory-unified/2.0.3",
+      "files_sha256": {
+        ".claude-plugin/plugin.json": "1e4fc72bf3caa9c70dcf9899dc2d1a04454922d14b1d3bef76e92286bc055355",
+        ".codex-plugin/plugin.json": "6467c68b55cbfeb8470481b48c2de17c8795e150937ea35aafca642a7dd619f1",
+        ".mcp.json": "33310b08308d4d4d5480de38af4e9fceaab28932ecd2c3874678af1b5031100a",
+        "LICENSE": "c376d0ce79774497521856cc667e3405abd86202b4b7aa2854424f7f6cd01435",
+        "README.md": "f976a99ae697240f1749444e6e7c6af74ede3c37341bc186763c0c7961f8d1e2",
+        "assets/icon.png": "aa84d583e18adc3371520cec1ac2d66302ccde8ebb1ae61116696343a830a97b",
+        "bin/SHA256SUMS": "6786a9f30a63be4162623cd3f33f5db464d1ca026532dca32db92026c8190abc",
+        "bin/connector-darwin-arm64": "200a3c864fcfe43d1ec9a3994f632b4c5bc4bdc933318bd886b978324a6c1a12",
+        "bin/connector-linux-x86_64": "52a303012767e6360f8cfae0e6dafe60cccf3f39096e9891be71176bdac0d1df",
+        "codex-skills/setup/SKILL.md": "766763bb35b962c04637bd72eb638dd0bc237e05136d5b1712fe7dbdec72c040",
+        "scripts/connect.sh": "fc324e3fdab2b19c9a93afc67db3d48ef9e7161603df3e2eb3207b4295769bd4",
+        "scripts/connector.go": "b01df5c7d68ef59c74270e1b5ba8bfd856c6975ecfa6c4edbb0d3f520ec289d5",
+        "skills/setup/SKILL.md": "85a7f080acec4bf1d88586cd891c8a749555621a7c29b86fd2a2da9f22a357aa"
+      }
+    }
+  },
+  "upgrade_commands": {
+    "claude": [
+      {
+        "command": [
+          "/workspace/scratch/v2-native-tools-all/bin/claude",
+          "plugin",
+          "marketplace",
+          "update",
+          "agents-memory",
+          "--json"
+        ],
+        "exit_code": 0,
+        "log_sha256": "916bd21e8a5e4f09ce161819b9253fbe19d3b51b0b5ad30caa27596f3c3e8a39"
+      },
+      {
+        "command": [
+          "/workspace/scratch/v2-native-tools-all/bin/claude",
+          "plugin",
+          "update",
+          "agents-memory-unified@agents-memory",
+          "--json"
+        ],
+        "exit_code": 0,
+        "log_sha256": "710cb84b2906889dbf3bf795f15f423560098e071cf4a69404e9881fe9260347"
+      }
+    ],
+    "codex": [
+      {
+        "command": [
+          "/workspace/scratch/v2-native-tools-codex167/bin/codex",
+          "plugin",
+          "marketplace",
+          "upgrade",
+          "agents-memory",
+          "--json"
+        ],
+        "exit_code": 0,
+        "log_sha256": "02cc502aedda5ab603e8e9db158614d18d7761ac20dd539c388432e666a1dc6d"
+      },
+      {
+        "command": [
+          "/workspace/scratch/v2-native-tools-codex167/bin/codex",
+          "plugin",
+          "add",
+          "agents-memory-unified@agents-memory",
+          "--json"
+        ],
+        "exit_code": 0,
+        "log_sha256": "a71ac499998f63be9af68c87eae430b4682db3b6bb67302006f9a11d9dfb06e5"
+      }
+    ],
+    "omp": [
+      {
+        "command": [
+          "/workspace/scratch/v2-native-tools-all/bin/omp",
+          "plugin",
+          "marketplace",
+          "update",
+          "agents-memory"
+        ],
+        "exit_code": 0,
+        "log_sha256": "d3c7e8b71f0fdeb589743e2b61b505f77b6d7167c97f1f35f00602a943c93e37"
+      },
+      {
+        "command": [
+          "/workspace/scratch/v2-native-tools-all/bin/omp",
+          "plugin",
+          "upgrade",
+          "agents-memory-unified@agents-memory",
+          "--json"
+        ],
+        "exit_code": 0,
+        "log_sha256": "4dcf636bd933f7c330fd545a8f608db3d639c264d7d077988b5c2ef07c681726"
+      }
+    ]
+  },
+  "scope": "Actual public GitHub marketplace upgrades and installed-file comparison. Connector protocol checks tracked separately. Not central directory approval or real provider answer quality.",
+  "new_jev_calls": 0,
+  "stable_published": false
+}
