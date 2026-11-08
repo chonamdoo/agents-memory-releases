@@ -2,7 +2,7 @@
   "schema": "agents-memory-stable-release-conditions-v1",
   "target": {
     "repository": "chonamdoo/agents-memory-releases",
-    "release_tag": "v2.0.0",
+    "release_tag": "v2.0.3",
     "runtime_version": "2.0.0",
     "marketplace_package_version": "2.0.3",
     "previous_stable": "v1.0.8"
@@ -43,6 +43,38 @@
       "instruction": "기존 배포 기준에서 맥은 빼 내가 맥에서 테스트할테니 그냥 신경쓰지말고 그거 이외에 동작되면 검증되면 배포해",
       "macos_required_for_release": false,
       "other_release_criteria_preserved": true
+    },
+    "user_authorized_independent_AI_authors": {
+      "instruction": "독립 AI 검증자 두 명에게 맡겨 진행",
+      "human_only_requirement": false,
+      "actual_separate_author_signoffs_still_required": true
+    },
+    "user_authorized_historical_reference_exception": {
+      "schema": "release-reference-scope-authorization-v1",
+      "policy": "v2.0.3-known-references-disclosed-six-gaps-v1",
+      "approved": true,
+      "release": "v2.0.3",
+      "owner_instruction": "누락 6개를 공개하고 새 독립 평가 진행",
+      "unverified_historical_references": {
+        "historical:candidates.jsonl": "0319ef94de834a8cb351308cdd74517d76e7486adbd0473c1ee55ae952cc9cb3",
+        "historical:continuation.jsonl": "3bffb3ccdf580532dbdfa6d778b247218fc2fbb312e6a1e7ce80c248898e5031",
+        "historical:release-auto-authored.jsonl": "2e1016a3476b81cd16fa14be6cd18870e708596ffb791f104be6d4b8c9a0cecf",
+        "historical:release-explicit-authored.jsonl": "4f272a417d709aaec8fb6d6672826b03810138aa374bb0b9a2d68d582bbc90aa",
+        "historical:release-fresh-blind.jsonl": "15023da524d3d32eed350456d131319317ef2143e645ba014c6a14df0c170319",
+        "historical:release-continuation-questions.jsonl": "a8f1b9d6d72716c668333f22f71c39cbbd78a1b7de8106a3bb2a8237c5f84b94"
+      },
+      "required_available_references": {
+        "historical:current-session-initial-cases": "fd2528cfeb38c63cd787b78b58fe998433b4c458ee3770844a352067cf2e907e",
+        "historical:current-session-initial-questions": "897f6a7ff78096060a4e34728e8da5bf008cb008484ab41f0b634e9605646d9b",
+        "historical:current-session-later-cases": "51fe0c552ce69d9ecb648fb2af07ca3136990218236a4a746ba23f2e341daa9e",
+        "historical:current-session-later-original-questions": "f9e10e622c68ef5652c9d221e61bddfb9efee914376721ed0c2c3607f4122c7c",
+        "historical:current-session-later-corrected-questions": "be47d7ac700a710ad68f480a55bfe25a90d93e8c21faad567a36d6c3f585c8a3",
+        "public_admission_cases": "0dc56033c17df5373ab9345873db5e6d4a24d81ff8a6612a3ffbf7f452e24e24"
+      },
+      "all_other_release_gates_unchanged": true,
+      "consumed_identity_rejection_unchanged": true,
+      "historical_failures_preserved": true,
+      "global_historical_no_overlap_verified": false
     }
   },
   "evidence_contract": {
@@ -59,7 +91,22 @@
     "quality_runtime": "integrated real Hindsight with pinned E5/BGE and live Jev judgment",
     "scripted_provider_results": "functional evidence only",
     "replay_results": "not new independent, live network or latency evidence",
-    "missing_or_unreliable_evidence": "unverified; never pass"
+    "missing_or_unreliable_evidence": "unverified; never pass",
+    "historical_duplicate_comparison": {
+      "policy": "v2.0.3-known-references-disclosed-six-gaps-v1",
+      "full_historical_comparison_verified": false,
+      "required_available_reference_texts": 528,
+      "unverified_roles": {
+        "historical:candidates.jsonl": "0319ef94de834a8cb351308cdd74517d76e7486adbd0473c1ee55ae952cc9cb3",
+        "historical:continuation.jsonl": "3bffb3ccdf580532dbdfa6d778b247218fc2fbb312e6a1e7ce80c248898e5031",
+        "historical:release-auto-authored.jsonl": "2e1016a3476b81cd16fa14be6cd18870e708596ffb791f104be6d4b8c9a0cecf",
+        "historical:release-explicit-authored.jsonl": "4f272a417d709aaec8fb6d6672826b03810138aa374bb0b9a2d68d582bbc90aa",
+        "historical:release-fresh-blind.jsonl": "15023da524d3d32eed350456d131319317ef2143e645ba014c6a14df0c170319",
+        "historical:release-continuation-questions.jsonl": "a8f1b9d6d72716c668333f22f71c39cbbd78a1b7de8106a3bb2a8237c5f84b94"
+      },
+      "consumed_identity_rejection_unchanged": true,
+      "global_no_overlap_claim_allowed": false
+    }
   },
   "metrics": [
     {
