@@ -229,20 +229,33 @@
     },
     {
       "id": "marketplace_delivery",
-      "status": "partial",
-      "reason": "Actual isolated local Claude/Codex/OMP installs select2.0.3 and match all plugin bytes. Public main delivery must follow candidate PR merge.",
+      "status": "met",
+      "reason": "Actual public GitHub marketplace upgrades2.0.2to2.0.3 succeeded using Claude/Codex/OMP CLIs in separate homes. All13selected installed files match; actual installed connectors report ready, expose original-source search and answer server recall on an empty owned synthetic project. No real-provider LLM answer claim.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-jev197/LOCAL-MARKETPLACE.json",
-          "sha256": "696273f1bfe627535e2ac5b9e28481475c0eb84b40f9e18fb952c800800bbd70"
+          "path": "release-candidates/v2.0.0-jev197/PUBLIC-MARKETPLACE.json",
+          "sha256": "54433eff224fa9ea9c1de5752469ab24daea18de22e61c1dfd09d719ffc359fe"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/PUBLIC-CONNECTORS.json",
+          "sha256": "030ea4d1f6f5c644dca9394266d587dfa850d38df2d17d628939dc5f06c41aea"
         }
       ]
     },
     {
       "id": "mcp_bundle_delivery",
-      "status": "not_run",
-      "reason": "User-selected MCP-link delivery; verify final pinned repository archive download/hash and public three-host install after candidate merge. New release asset upload is optional in this mode.",
-      "references": []
+      "status": "met",
+      "reason": "Downloaded the public archive pinned to merged commit e881375; SHA256 matches final576c00e8...bundle. All manifest members verified; installed13Core/15SDK/SQL match the public downloaded bytes with network forbidden in the probe.",
+      "references": [
+        {
+          "path": "release-candidates/v2.0.0-jev197/PUBLIC-MARKETPLACE.json",
+          "sha256": "54433eff224fa9ea9c1de5752469ab24daea18de22e61c1dfd09d719ffc359fe"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/PUBLIC-INSTALLED-CP312.json",
+          "sha256": "a1de80954d849bae70a7d826f9827d4c6efdf89d62293236bf7015f47ad7ef6c"
+        }
+      ]
     },
     {
       "id": "release_asset_delivery",
@@ -253,8 +266,13 @@
     {
       "id": "stable_release_readback",
       "status": "not_run",
-      "reason": "Release remains prerelease and stable latest remains v1.0.8; promotion can occur only after the earlier conditions are met.",
-      "references": []
+      "reason": "Public readback confirms v2.0.0 remains prerelease, v1.0.8 remains latest stable and all9existing assets remain present. Stable promotion has not run; remaining original quality conditions are unverified.",
+      "references": [
+        {
+          "path": "release-candidates/v2.0.0-jev197/RELEASE-CHANNEL.json",
+          "sha256": "e769c77af3dfd208b01060690dda05216133447eee6f0dce03708110856609d3"
+        }
+      ]
     }
   ],
   "historical_v43": {
