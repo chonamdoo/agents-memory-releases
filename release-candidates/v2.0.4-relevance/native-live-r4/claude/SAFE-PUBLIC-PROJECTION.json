@@ -1,0 +1,104 @@
+{
+  "answer_envelope_counts": {
+    "bare_json_without_prose": 31,
+    "json_fence_with_prose": 12,
+    "json_fence_without_prose": 29
+  },
+  "auth_unchanged": true,
+  "budget": {
+    "actual_cost": "unknown",
+    "claude_cap": 150,
+    "claude_charged": 113,
+    "claude_completed_including_prior_run": 112,
+    "claude_failed_including_prior_run": 1,
+    "claude_remaining": 37,
+    "failed_ordinal_387_retained_and_charged": true,
+    "original_identity_and_sidecar_preserved_exactly": true,
+    "past_unknown_counts_reset": false,
+    "prior_391_attempt_rows_preserved_exactly": true,
+    "same_original_financial_authority": true,
+    "shared_cap": 1000,
+    "shared_charged": 499,
+    "shared_remaining": 501,
+    "snapshot_boundary": "claude_r4_component_finish"
+  },
+  "component_status": "pass",
+  "counts": {
+    "completed_2xx_upstream_attempts": 108,
+    "exact_fact_and_fresh_nonce_answers": 72,
+    "genuine_guarded_upstream_http_attempts": 108,
+    "genuine_native_compaction_boundaries": 36,
+    "native_operations_completed": 108,
+    "new_failed_upstream_attempts": 0,
+    "planned_cases": 36,
+    "successful_cases": 36,
+    "verified_sdk_hook_invocations": 216
+  },
+  "fact_and_nonce_values_compared_without_normalization": true,
+  "final_independent_audit_sha256": "fa3c691ba712ee0c41fd8270a966352cdbe4e5e43c88587ed039097cf14566a9",
+  "real_installed_sdk_native_lifecycle_and_hooks_verified": true,
+  "resources": {
+    "aggregate_cpu_limit": 2,
+    "aggregate_memory_limit_bytes": 4294967296,
+    "aggregate_pids_limit": 256,
+    "memory_pressure_max_events": 0,
+    "oom_events": 0,
+    "oom_kills": 0,
+    "owned_containers_removed": 2,
+    "partitioned_cgroup_count": 2,
+    "relay_exit_code": 0,
+    "relay_peak_bytes": 22605824,
+    "sum_component_peaks_upper_bound_bytes": 375590912,
+    "swap_limit_bytes": 0,
+    "worker_exit_code": 0,
+    "worker_peak_bytes": 352985088
+  },
+  "retained_failure_lineage": [
+    {
+      "audit_sha256": "4a33dec1fba1699ff2e2cd93e4201594545ee2014eced3a46445b7d5461efb40",
+      "genuine_http_attempts": 0,
+      "stage": "R2_ENOSPC",
+      "status": "blocked_preserved"
+    },
+    {
+      "audit_sha256": "51afdc236fce88c422cc846ad94464dd35f065401b3c343fc7713caec14ed7c3",
+      "failed_http_attempts": 1,
+      "genuine_http_attempts": 1,
+      "stage": "R2_HTTP404",
+      "status": "failed_charged_preserved"
+    },
+    {
+      "audit_sha256": "6465431292b536a203c5fd57e18e407793ddba586c98eb361611bb9ca40b34f9",
+      "genuine_http_attempts": 4,
+      "http200_completed_attempts": 4,
+      "stage": "R3_PARSER",
+      "status": "controller_failed_preserved"
+    }
+  ],
+  "schema": "safe-public-claude-r4-component-projection-v1",
+  "scope": {
+    "ga_approved": false,
+    "general_subscription_entitlement_certified": false,
+    "historical_codex117_native_operations_underlying_wire_count": "unknown",
+    "historical_omp3_fetch_dispatches_underlying_wire_count": "unknown",
+    "memory_backend": "synthetic_component_fixture",
+    "omp_native_scope": "soft_compaction_only_default_remote_v2_not_certified",
+    "release_approved": false,
+    "remaining_hosts_live_gate_pending": 2,
+    "strict_integrated_adapter_overall": "unknown",
+    "this_component_certifies_independent_integrated_memory_quality": false
+  },
+  "source_identity": {
+    "core_cp312_wheel_sha256": "bb4307f72380d4738c4c9305bafec1b70232ec93e153336fbd995619d5b9b0b2",
+    "core_package_files": 15,
+    "execution_freeze_sha256": "d0f0112892630698af14f08ff70dbb8d7d6f0a0691cc774e022a8c6ba310c92c",
+    "external_runtime_references_verified": 35,
+    "frozen_file_references_verified": 22,
+    "installed_file_bytes_verified": 33,
+    "sdk_package_files": 18,
+    "sdk_python_modules": 16,
+    "sdk_wheel_sha256": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+    "source_free_core_private_pyc_modules": 13,
+    "stale_sdk_pycache_files": 0
+  }
+}

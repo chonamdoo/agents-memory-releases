@@ -1,0 +1,54 @@
+{
+  "schema": "safe-public-codex-r4-failure-v1",
+  "status": "failed",
+  "completed_cases": 0,
+  "planned_cases": 36,
+  "native_operations_reserved": 1,
+  "successful_model_turns_or_compactions_verified": 0,
+  "new_charged_upstream_attempts": 1,
+  "unknown_attempt": {
+    "ordinal": 500,
+    "row_sha256": "308f5145e553e018aa8e0dae6ae860d54f79cd1ebbe951328c1b14bbb4558540",
+    "stage": "failed",
+    "http_status": null,
+    "vendor_delivery_and_inference_outcome": "unknown",
+    "charged_not_refunded": true,
+    "old_method_path_transport_error_not_durably_recorded": true,
+    "native_error_code": "workspace routing discovery failed"
+  },
+  "budget_at_failure": {
+    "shared_charged": 500,
+    "shared_remaining": 500,
+    "codex_charged": 1,
+    "codex_remaining": 149,
+    "all499prior_attempts_identity_sidecar_preserved_exactly": true,
+    "oldClaude_failed387_retained_charged": true,
+    "no_financial_or_counter_reset": true,
+    "actual_dollar_spend": null
+  },
+  "resources": {
+    "cpu": 2,
+    "memory_limit_bytes": 4294967296,
+    "swap": 0,
+    "pids": 256,
+    "worker_peak_bytes": 333246464,
+    "relay_peak_bytes": 22446080,
+    "worker_exit": 1,
+    "relay_exit": 0,
+    "OOM": 0,
+    "containers_stopped_and_removed": 2
+  },
+  "auth_unchanged_metadata_only": true,
+  "source_identity": {
+    "freeze_sha256": "9ab9113e636e2f4c2567a85b70fadb05d5bb40036a6ef536b6a1f409a0bb4653",
+    "frozen_refs": 21,
+    "external_refs": 35,
+    "actual_installed_package_files": 33,
+    "sdk_sha256": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+    "core_cp312_sha256": "bb4307f72380d4738c4c9305bafec1b70232ec93e153336fbd995619d5b9b0b2"
+  },
+  "independent_audit_sha256": "945273e765e8e87f692a177f30b96c284f6f5ace0cf164a5379c8d1392212385",
+  "unknown_not_counted_as_pass": true,
+  "whole_release_approval": false,
+  "scope": "Failed current-candidate Nativecomponent preserved. Future source recovery must remain separately registered/reviewed; synthetic offline fixture passes are not live success."
+}

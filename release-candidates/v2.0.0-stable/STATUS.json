@@ -149,22 +149,30 @@
     {
       "id": "compaction",
       "status": "partial",
-      "reason": "Current candidate actual Claude36 is running after reviewed model/format fixes; original R2/R3 failures and all charges are preserved. Codex/OMP current-candidate actual36 have not run. Earlier SDK14ba successes do not qualify newSDK1a8.",
+      "reason": "CurrentSDK1a8 Claude real36/36PASS,72exactwholefact/freshnonceanswers and36genuinecompactions/216SDK hookinvocations,108newguardedHTTP completed; source/installedbytes/resources/authmetadata/cleanup independentlyverified. Codex currentR4 failed atfirststartup/workspace discovery(unknowncharged500),0/36;OMPnotrun. Both remaining hosts still require actual36. Unknown failures never qualify aspasses.",
       "references": [
         {
-          "path": "release-candidates/v2.0.4-relevance/native-verification-progress/SNAPSHOT.json",
-          "sha256": "e943478772aed63db591d3a013881cc71228c76a7d24163ecbde2f7024ec3bfb"
+          "path": "release-candidates/v2.0.4-relevance/native-live-r4/claude/SAFE-PUBLIC-PROJECTION.json",
+          "sha256": "afd11920d2c5bcd6c04a79cc22c1243c163cf7174456a486066975883abbd27d"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/native-live-r4/CODEX-FAILURE.json",
+          "sha256": "2f387f16e679efcba4fc82827c57891998ce870a6c91d30edfbe4629829580f5"
         }
       ]
     },
     {
       "id": "host_lifecycle",
       "status": "partial",
-      "reason": "Original per-host36 and Wilsonlower>=0.90 remain required. Current Claude partial passes only; final36+cleanup and current Codex/OMP evidence pending. Original reader/schema/facts/questions/value predicates unchanged; prose extraction is not pureJSON or generated-answer quality.",
+      "reason": "CurrentSDK1a8 Claude real36/36PASS,72exactwholefact/freshnonceanswers and36genuinecompactions/216SDK hookinvocations,108newguardedHTTP completed; source/installedbytes/resources/authmetadata/cleanup independentlyverified. Codex currentR4 failed atfirststartup/workspace discovery(unknowncharged500),0/36;OMPnotrun. Both remaining hosts still require actual36. Unknown failures never qualify aspasses.",
       "references": [
         {
-          "path": "release-candidates/v2.0.4-relevance/native-verification-progress/SNAPSHOT.json",
-          "sha256": "e943478772aed63db591d3a013881cc71228c76a7d24163ecbde2f7024ec3bfb"
+          "path": "release-candidates/v2.0.4-relevance/native-live-r4/claude/SAFE-PUBLIC-PROJECTION.json",
+          "sha256": "afd11920d2c5bcd6c04a79cc22c1243c163cf7174456a486066975883abbd27d"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/native-live-r4/CODEX-FAILURE.json",
+          "sha256": "2f387f16e679efcba4fc82827c57891998ce870a6c91d30edfbe4629829580f5"
         }
       ]
     },
@@ -186,7 +194,7 @@
     {
       "id": "resources_and_budget",
       "status": "partial",
-      "reason": "New196/40 measured runtime2CPU4GiB/swap0 peak4294336512/OOM0 and190Jev<=197; judgmentp95 22.36<=30. Repeat/rollback peak exactly4GiB, pressure3884/OOM0. Same approved1000pool/subcaps counts every attempt including failed387;391priorrows/identity independently unchanged after reviewed resumption. Final current-host resource/cleanup/cap proof remains pending; historical nativewire unknowns remain unknown.",
+      "reason": "New196/40 measured runtime2CPU4GiB/swap0 peak4294336512/OOM0 and190Jev<=197; judgmentp95 22.36<=30. Repeat/rollback peak exactly4GiB, pressure3884/OOM0. Same approved1000pool/subcaps counts every attempt including failed387;391priorrows/identity independently unchanged after reviewed resumption. Final current-host resource/cleanup/cap proof remains pending; historical nativewire unknowns remain unknown. Claude current36 final:2CPU4GiB/swap0,worker352985088/relay22605824 peaks/OOM0 andbothremoved; all391priorrows preserved. SubsequentCodexunknownattempt500 also charged, shared500/500remaining; all499priorrows preserved. Future current-host caps/cleanup completion stillpending.",
       "references": [
         {
           "path": "release-candidates/v2.0.4-relevance/live-quality-v2/RESOURCE-CLEANUP.json",
@@ -203,6 +211,14 @@
         {
           "path": "release-candidates/v2.0.4-relevance/native-verification-progress/SNAPSHOT.json",
           "sha256": "e943478772aed63db591d3a013881cc71228c76a7d24163ecbde2f7024ec3bfb"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/native-live-r4/claude/SAFE-PUBLIC-PROJECTION.json",
+          "sha256": "afd11920d2c5bcd6c04a79cc22c1243c163cf7174456a486066975883abbd27d"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/native-live-r4/CODEX-FAILURE.json",
+          "sha256": "2f387f16e679efcba4fc82827c57891998ce870a6c91d30edfbe4629829580f5"
         }
       ]
     },
@@ -306,12 +322,12 @@
   },
   "limitations": "Manually reviewed status snapshot. Referenced hashes preserve file identity; they do not independently prove original experiments, author identity or remote publication.",
   "native_lifecycle_scope": {
-    "status": "current_candidate_actual_verification_partial",
+    "status": "current_candidate_claude36_pass_codex_failed_omp_pending",
     "denominator_per_host": 36,
     "current_source_capsule_merge": "f786d5358073b854b34b7f670e4f49e35286f4bf",
     "memory_backend": "synthetic fixed fixture; separate real integrated quality verified196/40",
     "first_interactive_trust": "unverified",
-    "selected_real_provider_compliance": "CurrentClaude36pending/CodexOMPnotrun; no earlierSDKsuccess substitution",
+    "selected_real_provider_compliance": "Claude36/36 actualPASS; currentCodex0/36 failure preserved,OMPnotrun; separate realintegrated196/40 measuredquality remains unchanged",
     "omp_compaction": "official soft only; prior default/remoteV2HTTP400 failed causeunknown"
   },
   "release_basis": {
@@ -362,12 +378,12 @@
   },
   "future_actual_execution": {
     "approval_received": true,
-    "new_supplier_calls": 406,
+    "new_supplier_calls": 500,
     "codex_counted_controller": "36/36 fake only,108local transmissions",
     "claude_counted_controller": "36/36 fake only,144local transmissions",
     "omp_counted_controller": "36/36 fake only,144local transmissions; optional metadata removal afterward verified on exact final freeze1case/4transmissions",
     "historical_native_wire_counts_recoverable": false,
-    "proposal": "Same approved1000 pool; latest exact snapshot is referenced progress metadata. No reset or stacked grant.",
+    "proposal": "Same approved1000pool:500charged/500remaining; oldfailed387 andnewunknown500 retained, originalauthority/caps/counterunchanged",
     "measured_cohort": "v1 failed noise80/200; fresh preregistered v2 complete196/40 measured gates pass, strict overall unknown",
     "new_v2_product_inferences": 190,
     "current_provider_states": {
@@ -375,17 +391,19 @@
         "completed": 386
       },
       "claude": {
-        "completed": 18,
-        "dispatched": 1,
+        "completed": 112,
         "failed": 1
       },
-      "codex": {},
+      "codex": {
+        "failed": 1
+      },
       "omp": {}
     },
     "failed_attempts_counted": true,
-    "current_claude_state": "R4actual36running; priorR2 HTTP4041 andR3controllerformatfailure4HTTP200 retained",
+    "current_claude_state": "COMPLETE36/36actualcomponentPASS",
     "historical_first_independent_product_inferences": 196,
-    "current_candidate_product_inferences": 190
+    "current_candidate_product_inferences": 190,
+    "current_codex_state": "FAILED0/36;unknown500charged;no automaticretry"
   },
   "candidate_role": "Current repaired v2.0.4 candidate. Every current condition below uses matching shipped bytes or explicitly unchanged Core evidence; old failed v2.0.3 remains historical.",
   "repaired_candidate_references": [
@@ -492,9 +510,21 @@
     {
       "path": "release-candidates/v2.0.4-relevance/native-verification-progress/SNAPSHOT.json",
       "sha256": "e943478772aed63db591d3a013881cc71228c76a7d24163ecbde2f7024ec3bfb"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/native-live-r4/CODEX-FAILURE.json",
+      "sha256": "2f387f16e679efcba4fc82827c57891998ce870a6c91d30edfbe4629829580f5"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/native-live-r4/claude/SAFE-PUBLIC-PROJECTION-SHA256.json",
+      "sha256": "c14f14ae9a6b12acefba1cd608f3307ce168b8818c6276bf5eed8128b7b17f4f"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/native-live-r4/claude/SAFE-PUBLIC-PROJECTION.json",
+      "sha256": "afd11920d2c5bcd6c04a79cc22c1243c163cf7174456a486066975883abbd27d"
     }
   ],
-  "as_of_utc": "2026-11-08T17:56:06.536044+00:00",
+  "as_of_utc": "2026-11-08T19:29:14.222062+00:00",
   "historical_measured_candidate_v203": {
     "identity": {
       "runtime_version": "2.0.0",
@@ -651,10 +681,10 @@
       "oom": 0
     },
     "remaining_actual_native_verification": {
-      "claude": "R4running after strictformatfix; R2/R3failures retained",
-      "codex": "not_run_on_successor",
-      "omp": "not_run_on_successor; supported compaction mode official soft",
-      "all_paid_runs": "CurrentClaudeR4full36running with originalchargedledger; otherhosts notrun, serializedGOrequired",
+      "claude": "PASS36/36 real;108newguardedHTTP, resources/authmetadata/cleanupverified",
+      "codex": "FAILED0/36 atworkspace discovery;unknownattempt500retainedcharged;sourceR5repairinprogress",
+      "omp": "R4offline1PASS;actualnotrun;officialsoftscope",
+      "all_paid_runs": "Stopped pending reviewed transport/OAuthbootstrap and countedUNKNOWN recovery; no newfunding or reset",
       "claude_native_default_alias_offline": "claude-sonnet-5-5; not actual entitlement proof"
     },
     "strict_unknowns_preserved": [
