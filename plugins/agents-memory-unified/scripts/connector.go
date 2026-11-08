@@ -13,7 +13,7 @@ import (
 )
 
 const version = "2.0.0"
-const marketplaceVersion = "2.0.3"
+const marketplaceVersion = "2.0.4"
 
 type rpc struct {
 	ID     json.RawMessage `json:"id"`
@@ -24,13 +24,13 @@ type rpc struct {
 func status() map[string]any {
 	base := "bash /path/to/extracted-bundle/install-unified.sh --bundle /path/to/extracted-bundle --reranker-dir /path/to/companion/model --provider jev --client "
 	return map[string]any{"ready": false, "server_ready": false, "state": "setup_required", "version": version,
-		"marketplace_version": marketplaceVersion, "release_channel": "prerelease",
-		"candidate_archive":   "agents-memory-unified-2.0.0-request-scope-v16.tar.gz",
-		"candidate_checksums": "JEV197-SHA256SUMS",
-		"candidate_url":       "https://github.com/chonamdoo/agents-memory-releases/tree/main/release-candidates/v2.0.0-jev197",
+		"marketplace_version": marketplaceVersion, "release_channel": "candidate",
+		"candidate_archive":   "agents-memory-unified-2.0.0-source-subject-v17.tar.gz",
+		"candidate_checksums": "SHA256SUMS",
+		"candidate_url":       "https://github.com/chonamdoo/agents-memory-releases/tree/1903a3d379983883c6069692f249fe470d7d0a61/release-candidates/v2.0.4-relevance",
 		"model_archive":       "agents-memory-reranker-2.0.0.tar.gz", "model_checksums": "SHA256SUMS",
 		"model_url": "https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0",
-		"message":   "2.0.0은 시험판입니다. 후보 폴더의 v16 번들을 JEV197-SHA256SUMS로, 릴리즈의 모델 companion을 기존 SHA256SUMS로 각각 검증하세요. 압축을 푼 뒤 현재 앱의 install_commands 명령으로 설치하세요. Claude·OMP 플러그인과 직접 MCP를 중복 등록하지 마세요. Jev 키는 비공개 파일 또는 터미널 숨김 입력을 사용하고 채팅에 보내지 마세요.",
+		"message":   "MCP 2.0.4는 정식 검증 중인 후보입니다. 고정된 후보 폴더의 v17 번들을 SHA256SUMS로, 릴리즈의 모델 companion을 기존 SHA256SUMS로 각각 검증하세요. 압축을 푼 뒤 현재 앱의 install_commands 명령으로 설치하세요. Claude·OMP 플러그인과 직접 MCP를 중복 등록하지 마세요. Jev 키는 비공개 파일 또는 터미널 숨김 입력을 사용하고 채팅에 보내지 마세요.",
 		"install_commands": map[string]string{
 			"claude": base + "claude-plugin --project /absolute/project",
 			"omp":    base + "omp-plugin --project /absolute/project",
