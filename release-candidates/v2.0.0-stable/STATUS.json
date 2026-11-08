@@ -75,7 +75,7 @@
     {
       "id": "evaluation_inputs",
       "status": "partial",
-      "reason": "Single-author executable-schema fixtures per user authorization, not independent human labels/kappa/signoffs. Ten original questions accidentally exposed a nonexistent root sentinel as an APIfield; originals retained and corrections frozen separately. Original independent contract unverified.",
+      "reason": "Single-author executable-schema fixtures per user authorization, not independent human labels/kappa/signoffs. Ten original questions accidentally exposed a nonexistent root sentinel as an APIfield; originals retained and corrections frozen separately. Original independent contract unverified. User retained original independent criteria. New unregistered 196/40 synthetic draft has no labels, author signoffs or canonical historical duplicate verification; no inference performed.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-jev197/FRESH-COHORT.json",
@@ -88,6 +88,10 @@
         {
           "path": "release-candidates/v2.0.0-jev197/SESSION-BUDGET.json",
           "sha256": "899e981e619fe1d442f82f4a5e5686d9e7db3ab34ba0748cc55753425702742f"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/INDEPENDENT-PREPARATION.json",
+          "sha256": "7ce66dbeb8c33d25cb3f246f3e7c36c155d83ed4b8c30de0fb14a582b66817a7"
         }
       ]
     },
@@ -276,7 +280,7 @@
     {
       "id": "release_asset_delivery",
       "status": "blocked",
-      "reason": "Candidate is delivered as repository-pinned MCP bundle/link. Prior upload401 remains; new release asset list delivery is not verified. Existing v2.0.0 nine assets and tag preserved.",
+      "reason": "Candidate is delivered as repository-pinned MCP bundle/link. Earlier upload401 is historical; authenticated release draft creation/update now succeeds. No new asset upload is verified. Existing v2.0.0 nine assets and tag preserved.",
       "references": []
     },
     {
@@ -327,7 +331,7 @@
   "separate_track": {
     "central_official_directories": "unverified; not a prerequisite for publishing GitHub stable, but required before claiming central listing",
     "reader_answer_quality": "not evaluated; no new quality claim",
-    "new_release_asset_upload": "Prior401; optional for user-selected repository-pinned MCP delivery. Existing9assets/tag preserved."
+    "new_release_asset_upload": "Earlier401 historical; current draft metadata writes succeed. New uploads unverified and optional for selected repository-pinned MCP delivery. Existing9assets/tag preserved."
   },
   "limitations": "Manually reviewed status snapshot. Referenced hashes preserve file identity; they do not independently prove original experiments, author identity or remote publication.",
   "native_lifecycle_scope": {
@@ -339,5 +343,10 @@
     "private_live_inputs": "New self-authored live Jev admission and separate Native storage/recall; original historical inputs not available",
     "first_interactive_trust": "unverified",
     "selected_real_provider_compliance": "unverified"
+  },
+  "release_basis": {
+    "selected": "original-independent-verification",
+    "software_only_ga_alternative": "not adopted",
+    "all_existing_gates_preserved": true
   }
 }

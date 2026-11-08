@@ -1,0 +1,54 @@
+{
+  "schema": "independent-release-preparation-status-v1",
+  "case_count": 196,
+  "question_count": 40,
+  "corpus_authoring": "assistant-generated synthetic draft; not independent labels",
+  "known_current_session_exact_duplicates": 0,
+  "internal_exact_duplicates": 0,
+  "canonical_historical_reference_check": "unverified; required historical raw files unavailable",
+  "question_changes": 0,
+  "labels_a_received": false,
+  "labels_b_received": false,
+  "signoffs_received": false,
+  "annotation_reliability": null,
+  "registered_for_inference": false,
+  "release_ready": false,
+  "new_external_model_api_calls": 0,
+  "product_backend_calls": 0,
+  "product_model_inference_calls": 0,
+  "retrieval_calls": 0,
+  "as_of": "2026-11-08",
+  "timezone": "Asia/Seoul",
+  "release_basis": "original independent verification criteria retained by user",
+  "software_only_ga_alternative": "not adopted",
+  "private_packet_sha256": "f417cf7eeec3b403154439e3c75b16cfc3f40f5e314748ba30eab261ee6ddd82",
+  "input_sha256": {
+    "questions.jsonl": "39b2023b5692084d256f85b8ec3f0460f7328a4f2e205d781327cd1e0d55cfa6",
+    "original_questions.jsonl": "39b2023b5692084d256f85b8ec3f0460f7328a4f2e205d781327cd1e0d55cfa6",
+    "blind.jsonl": "64676953671c9c74d9be95fac9a753502619bb7e83eb39fa84acb17f401744ec"
+  },
+  "pending": [
+    "canonical historical raw reference duplicate verification",
+    "two actual independent authors raw labels",
+    "raw-label reliability and dispute adjudication",
+    "both authors hash-bound preregistration signoffs",
+    "registered live evaluation and all existing release gates"
+  ],
+  "evaluator_profile": {
+    "pr": "https://github.com/chonamdoo/agents-memory/pull/72",
+    "source_commit": "0845533ebcf88d404c2b86983ecfba2e33046931",
+    "new_opt_in": "onnx-serial-v1",
+    "legacy_default": "onnx-batch8-v1",
+    "paid_calls": 0,
+    "offline_tests_passed": 106,
+    "offline_subtests_passed": 150,
+    "scope": "mocked process contract regression; not actual inference or independent performance evidence",
+    "merge_commit": "ad782dcf31d6132d376f69768b00e7373c91a334"
+  },
+  "release_draft": {
+    "draft": true,
+    "tag_name": "v2.0.3",
+    "release_id": 438028736,
+    "published": false
+  }
+}
