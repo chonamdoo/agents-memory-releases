@@ -148,7 +148,7 @@
     {
       "id": "safety",
       "status": "partial",
-      "reason": "New196 inputs:194rawdecision audits,2pre-provider guards; no negative keeps, false storage or guard jobs. ACL/revision/deletion/source boundaries and guard regressions pass. Original four mutation/hard-gate independent quality census not re-certified.",
+      "reason": "Previous development safety evidence retained. On temporary copies of final shipping SDK14ba, all four original detector faults plus tool-origin and empty-recall-scope mutants are detected; all six clean baselines pass. This offline consumer check is not live Native/PostgreSQL/provider or the new independent quality census, which remains pending.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-jev197/FRESH-ADMISSION.json",
@@ -161,6 +161,10 @@
         {
           "path": "release-candidates/v2.0.0-jev197/FINAL-VALIDATION.json",
           "sha256": "bc6e439c65fb6bb81a9b2250f7a91bca67515d1d0a1ab8cc0429e5d1992ce0eb"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/OFFLINE-FAULTS.json",
+          "sha256": "ae97e510240076097c6879ee90e17af8b599bfea459a4ea307ef262f8420f5ab"
         }
       ]
     },
@@ -250,8 +254,8 @@
     },
     {
       "id": "resources_and_budget",
-      "status": "met",
-      "reason": "All40actualqueries completed under aggregate hard2CPU/4GiB/swap0,OOM0/oom_kill0; full candidate13Core15SDK/SQL verified inside the container. All limits unchanged; original OOM retained. Cumulative418/1000 including conservative failed pre-network slot,582remaining; fresh actualJev194call p95<30s. No new Jev during40query replay.",
+      "status": "partial",
+      "reason": "Prior complete development40query 2CPU/4GiB/swap0/OOM0 proof and Jev418/1000 ledger preserved. New independent runtime remains pending. Actual Codex component run respects cgroups and reserves117 native model operations including failures; exact underlying HTTP retries/billing are unknown and are not an independently certified combined external-call cap. Real OMP requests are durably counted separately; no unknown cost treated as zero.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-jev197/FINAL-RESOURCE-AUDIT.json",
