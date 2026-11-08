@@ -1,6 +1,6 @@
 # agents-memory 공통 MCP 2.0.0
 
-**2.0.0은 공개 시험 릴리즈(prerelease)이며 출시 품질 기준을 통과하지 않았습니다.**
+**MCP 2.0.4는 정식 전환 검증 중입니다. 엔진·SDK ABI는 2.0.0이며 전체 출시 기준은 아직 미통과입니다.**
 로컬·개인 서버·팀 서버·회사 서버에서 같은 Hindsight 엔진을 사용합니다.
 Claude·Codex·omp는 MCP·훅·압축 문맥 연결 앱이고, 저장 판단 공급자는 **Jev 하나**입니다.
 구독 CLI 추론과 공급자 선택 메뉴는 제거했습니다. 장애 때 native CLI로 대체하지
@@ -35,7 +35,7 @@ Claude·Codex·omp는 MCP·훅·압축 문맥 연결 앱이고, 저장 판단 �
 [`agents-memory-unified-2.0.0-source-subject-v17.tar.gz`](https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/1903a3d379983883c6069692f249fe470d7d0a61/release-candidates/v2.0.4-relevance/agents-memory-unified-2.0.0-source-subject-v17.tar.gz)와
 [`SHA256SUMS`](https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/1903a3d379983883c6069692f249fe470d7d0a61/release-candidates/v2.0.4-relevance/SHA256SUMS)를 내려받아 검증하세요.
 번들 SHA-256은 `62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef`입니다.
-첫 독립 평가는 검색 잡음 기준에 실패했고 수정 후보의 새 독립 평가는 진행 전입니다.
+첫 독립 평가는 검색 잡음 기준에 실패했습니다. 새 후보의 독립196건·40질문 평가는 측정된 저장·검색 기준을 통과했습니다. 실제 Claude36건은 통과했고 Codex·OMP 실검증은 남아 있습니다.
 [현재 판정](../../release-candidates/v2.0.0-stable/STATUS.json)을 확인하세요.
 모델 companion `agents-memory-reranker-2.0.0.tar.gz`는
 [v2.0.0 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0)의 기존 `SHA256SUMS`로 검증합니다.
@@ -101,7 +101,7 @@ MCP 연결 시 다시 시작됩니다. OS 로그인 서비스는 임의로 등�
 
 `agents-memory-unified@agents-memory` 연결 패키지 **2.0.4**를 자체 공개 마켓의 후보로 준비합니다.
 새 버전은 고정된 v17 번들과 설치 지침을 사용합니다. 정식 판정 전까지 후보 상태입니다.
-엔진·SDK 버전은 **2.0.0 시험판**이며 정식 품질 상태를 바꾸지 않습니다.
+엔진·SDK ABI 버전은 **2.0.0**입니다. 버전 번호와 별개로 정식 판정은 현재 후보의 증거를 따릅니다.
 `agents-memory-local` 1.0.8은 이전 공급자를 유지하는 별도 항목입니다. 둘을 같은
 프로젝트에 중복 등록하지 마세요. 아래 마켓 설치는 엔진·모델·키 준비와 별도이며,
 현재 2.0.0 릴리스의 시험 배포 상태와 저장 품질 제한을 바꾸지 않습니다.
@@ -218,10 +218,10 @@ FP16 가중치·eager encoder·FP32 Sigmoid 출력의 단일 파일 그래프이
 개인 기억은 공유 매핑을 설정하기 전 팀에 공개되지 않습니다. 검색 제외·삭제 전파와
 백업/과거 로그의 원문 파기는 별개의 정책입니다. E2EE 서비스가 아닙니다.
 
-사용자는 독립 품질 실패를 확인한 뒤 시험 릴리즈 배포만 승인했습니다.
-새 독립 v43의 정당한 명시 저장 70/80·이어가기 Hit@5 30/40은 고정 Wilson 하한
+사용자는 수정·검증을 반복하고 전체 기준을 통과하면 정식 MCP로 배포하도록 승인했습니다. 현재 전체 기준은 아직 미통과입니다.
+과거 독립 v43의 정당한 명시 저장 70/80·이어가기 Hit@5 30/40은 고정 Wilson 하한
 기준에 실패했고 필수 근거 전체 회수는 2/40입니다. 이전 v22/v27 실패도 보존합니다.
-수치 일치나 패키지 구성은 검색 품질 증명이 아니며 정식 출시·100점·품질 통과가 아닙니다.
+새 후보의 별도 독립196건·40질문 측정 결과는 [검증 기록](../../release-candidates/v2.0.4-relevance/live-quality-v2/README.ko.md)에 공개합니다. 과거 실패를 새 결과로 덮어쓰지 않으며 생성 답변 품질이나 실제 사용자 모집단 성능을 주장하지 않습니다. 과거 원본6개 대조와 과거 native HTTP 수는 미확인으로 남깁니다.
 소유한 임시 Mac에서 genuine 설치·업데이트와 실제 shipping connector의 저장·회상,
 업데이트 후 세 앱 등록 명령의 동일 ID·revision·전체 원문 회상을 검증했습니다.
 이는 GUI·실제 회사 모델 추론이나 각 앱의 자동화 실행 증거가 아닙니다.
