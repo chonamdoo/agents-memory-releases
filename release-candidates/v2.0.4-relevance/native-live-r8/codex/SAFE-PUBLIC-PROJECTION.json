@@ -1,0 +1,67 @@
+{
+  "actual_cost": "unknown",
+  "actual_resume_and_deferred_hooks": 36,
+  "all504_prior_rows_and_charges_preserved": true,
+  "all_new_http200_completed": true,
+  "auditor_added_supplier_calls": 0,
+  "auth_unchanged": true,
+  "cleanup": [
+    {
+      "exit_code": 0,
+      "oom_killed": false,
+      "removed": true,
+      "role": "relay"
+    },
+    {
+      "exit_code": 0,
+      "oom_killed": false,
+      "removed": true,
+      "role": "worker"
+    }
+  ],
+  "codex_charged_current_pool": 118,
+  "codex_remaining_of150": 32,
+  "completed_cases": 36,
+  "current_run_actual_http": 113,
+  "drain_complete_no_active_queued_owner": true,
+  "exact_whole_fact_fresh_nonce_answers": 72,
+  "final_audit_sha256": "d59502a30602310f8e7c11be24d550fa945e23e9be409fc1ad928b95cdb78baf",
+  "genuine_native_compactions": 36,
+  "historical_codex117_native_ops_underlying_wire_count": "unknown",
+  "historical_omp3_fetch_underlying_wire_count": "unknown",
+  "installed_core_files": 15,
+  "installed_core_private_pyc": 13,
+  "installed_sdk_files": 18,
+  "installed_sdk_modules": 16,
+  "metadata_GETs": 5,
+  "model_POSTs": 108,
+  "models_catalog_bytes_each": 655729,
+  "native_context_sdk_hash_bijection": true,
+  "native_operations": 108,
+  "native_sdk_hook_invocations": 180,
+  "native_trusted_hook_inventory_entries": 72,
+  "no_model_tools": true,
+  "no_oom": true,
+  "old_failed_and_unfinished_outcomes_not_native_passes": true,
+  "omp_scope": "official soft compaction only",
+  "overall_release_pass": false,
+  "peak_bytes": {
+    "relay": 28409856,
+    "worker": 334192640
+  },
+  "raw_answer_hash_and_format_checks": 72,
+  "resource_limits": {
+    "cpu": 2,
+    "memory": 4294967296,
+    "pids": 256,
+    "swap": 0
+  },
+  "schema": "codex-r8-safe-public-component-projection-v1",
+  "shared_charged_current_pool": 617,
+  "shared_remaining": 383,
+  "source_freeze_sha256": "33cb23780ae831e4bd3c3583da1c8240cbe1fb14ee01973426923f3b4fc4f619",
+  "strict_integrated_summary": "UNKNOWN",
+  "verdict": "PASS_REAL_CODEX_NATIVE36_COMPONENT_ONLY",
+  "verified_external_refs": 35,
+  "verified_source_refs": 35
+}

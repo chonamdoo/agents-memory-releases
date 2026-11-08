@@ -1,0 +1,51 @@
+{
+  "schema": "v204-final-counted-native-budget-v1",
+  "as_of_utc": "2026-11-08T22:08:41.932612+00:00",
+  "same_original_pool_not_stacked": true,
+  "original_authorization_sha256": "31636c1cdb02970c35a617118765fc3210cd7134c041edd960e4ea8f9ac59b32",
+  "total_cap": 1000,
+  "charged": 761,
+  "remaining": 239,
+  "provider_caps": {
+    "jev": 582,
+    "claude": 150,
+    "codex": 150,
+    "omp": 147
+  },
+  "provider_stages": {
+    "jev": {
+      "completed": 386
+    },
+    "claude": {
+      "completed": 112,
+      "failed": 1
+    },
+    "codex": {
+      "completed": 114,
+      "dispatched": 1,
+      "failed": 3
+    },
+    "omp": {
+      "completed": 144
+    }
+  },
+  "provider_remaining": {
+    "jev": 196,
+    "claude": 37,
+    "codex": 32,
+    "omp": 3
+  },
+  "failures_interrupts_retries_metadata_included": true,
+  "historical_unfinished501_still_charged_unknown": true,
+  "historical_failed_rows_preserved": true,
+  "all_new_current_host_calls_completed": true,
+  "historical_codex117_omp3_underlying_http": "unknown; no reconstructed past cap compliance",
+  "actual_spend": "unknown; call caps are not a monetary spending guarantee",
+  "cumulative_jev_charged": 804,
+  "cumulative_jev_cap": 1000,
+  "new_independent_cohort_jev": 190,
+  "new_independent_cohort_cap": 197,
+  "native_sources_merged": "b6903f0c71390a83aeacbd2b4f873300e1347b86",
+  "strict_integrated_summary": "UNKNOWN unchanged; final release decision combines separately verified required components",
+  "no_new_supplier_calls_for_this_report": true
+}

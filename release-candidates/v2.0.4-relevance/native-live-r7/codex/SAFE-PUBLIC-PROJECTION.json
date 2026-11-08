@@ -1,0 +1,65 @@
+{
+  "actual_price": "unknown",
+  "aggregate_limits": {
+    "cpu": 2,
+    "memory": 4294967296,
+    "pids": 256,
+    "swap": 0
+  },
+  "all502_prior_rows_identity_sidecar_reviews_acks_preserved": true,
+  "auth_unchanged": true,
+  "charged_total": 504,
+  "cleanup": [
+    {
+      "exit_code": 0,
+      "oom_killed": false,
+      "removed": true,
+      "role": "relay"
+    },
+    {
+      "exit_code": 1,
+      "oom_killed": false,
+      "removed": true,
+      "role": "worker"
+    }
+  ],
+  "codex_charged": 5,
+  "codex_remaining_of150": 145,
+  "completed_cases": 0,
+  "drain_completed": true,
+  "external_refs_verified": 35,
+  "final_audit_sha256": "b01d660109b2ab7faca013fc4733a648f0cec9ba3b66003fb803045fc7cc9f91",
+  "frozen_file_refs_verified": 33,
+  "genuine_compactions_completed": 0,
+  "guard_rejected_before_upstream": 2,
+  "historical501_literal_dispatched_NULLs_preserved": true,
+  "historical_wire_counts": "Codex117 and OMP3 remain unknown",
+  "metadata_accounts": {
+    "received_forwarded_bytes": 1010,
+    "stage": "completed",
+    "status": 200
+  },
+  "metadata_catalog": {
+    "finish_request_state": "failed",
+    "received_forwarded_bytes": 655729,
+    "sse_failure": "unobserved_large_provider_json",
+    "stage": "failed",
+    "status": 200,
+    "transport_exception": false,
+    "usage": null
+  },
+  "native_operations_reserved": 1,
+  "new_guarded_metadata_attempts": 2,
+  "omp_scope": "official soft only",
+  "overall_release_pass": false,
+  "planned_cases": 36,
+  "remaining_of1000": 496,
+  "routing_gate_passed": true,
+  "schema": "codex-r7-safe-public-failure-projection-v1",
+  "source_freeze_sha256": "2511fa6b21469a5e244bcfcb295574cfef9d3580a6df6f2dfd8f66edbf7740fe",
+  "strict_integrated_summary": "UNKNOWN",
+  "subsequent_local429_is_not_vendor429": true,
+  "supplier_model_POSTs_dispatched": 0,
+  "verdict": "FAIL_BEFORE_SUPPLIER_MODEL_CATALOG_OBSERVER_SIZE_LIMIT",
+  "whole_fact_nonce_answers": 0
+}

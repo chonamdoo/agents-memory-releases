@@ -96,7 +96,7 @@ Claude·Codex·OMP 각각 실제 startup/resume/compact/다음 입력을 검증�
 기존 native36/36씩의 오프라인 수명주기 검증과 실제 Jev 통합 품질을 구분한다.
 기존2CPU·4GiB 제한도 유지하며 soft RSS로 hard limit 준수를 대신하지 않는다.
 
-## 현재 확인한 내용
+## 과거 개발 검증 기록
 
 - Core 수정은 [#66](https://github.com/chonamdoo/agents-memory/pull/66),
   Native 중복 관측 정리 수정은 [#67](https://github.com/chonamdoo/agents-memory/pull/67)로 머지했다.
@@ -112,12 +112,12 @@ Claude·Codex·OMP 각각 실제 startup/resume/compact/다음 입력을 검증�
 - 최종 SDK322개와 Python별 검색59개씩·Core 런타임38개씩 통과했다.
 - 긴 검색의4GiB초과 실패를 보존하고 배치8→1을 적용했다. 교정된40질문의 전체 실제 MCP검증은 관련·필수근거40/40·잡음20/140으로 완료했다. 공개 마켓 업데이트·고정 번들 다운로드도 확인했다. 원래 독립 라벨·사전 승인·질문 변경 조건과 새 공학 인수검사 결과를 구분한다.
 
-세부 결과와 실행 범위는 [현재 후보](../v2.0.0-jev197/README.ko.md)를 보라.
-실제 Codex 공급자 검증은 원래36건 모두 통과했다. 72개 답변의 전체 사실과 새 marker, 실제36회 compact를 확인했으며2CPU·4GiB·swap0·OOM0을 지켰다. 이는 합성 기억 backend를 사용한 앱 구성요소 검증이며 새196건의 실제 통합 품질을 대신하지 않는다. Claude·OMP 실제 공급자 검증은 진행 중이다.
+이 절의 과거 개발 결과와 실행 범위는 [당시 후보](../v2.0.0-jev197/README.ko.md)를 보라.
+실제 Codex 공급자 검증은 원래36건 모두 통과했다. 72개 답변의 전체 사실과 새 marker, 실제36회 compact를 확인했으며2CPU·4GiB·swap0·OOM0을 지켰다. 이는 합성 기억 backend를 사용한 앱 구성요소 검증이며 새196건의 실제 통합 품질을 대신하지 않는다. 이는 과거 기록이다. 현재 shipping SDK1a8의 Claude·Codex·OMP 실제 검증은 앱별36/36 완료했으며 [현재 판정](STATUS.json)에 증거를 연결한다.
 
 이 문서의 해시는 파일 동일성을 확인하며 저자 신원이나 미공개 실험의 독립 인증을
-대신하지 않는다. **현재 validation_ready·ready_to_promote·stable_published는 false다.**
+대신하지 않는다. 현재 단계별 값과 공개 릴리즈 readback은 [STATUS.json](STATUS.json)을 확인한다.
 
 수정 후보2.0.4는 같은 최초 정식 전환 작업의 패키지 갱신이며 기존6개 예외의 역할·해시·원래 승인 문서는 그대로 보존한다. 과거 전체 비중복이나 이후 릴리즈의 포괄적 예외를 주장하지 않는다. 새 평가의 알려진 참조764개는 기존528개에 소비된 첫 독립 자료236개를 더해 전수 대조했다. [새 사전 등록](../v2.0.4-relevance/INDEPENDENT-V2-PREREGISTRATION.json)을 참조한다.
 
-추가 계측1000회는 같은 승인 풀로 관리하며 현재196회 사용·804회 잔여다. Jev582·Codex150·Claude150·OMP147 하위 상한과 전체1000 상한을 동시에 적용한다. 과거 Codex/OMP의 복구 불가능한 전송 횟수는 미확인으로 보존하고, 새 계측 결과로 과거를 인증하지 않는다.
+추가 계측1000회는 같은 승인 풀로 관리하며 최종761회 사용·239회 잔여다. [공급자별 최종 기록](../v2.0.4-relevance/native-live-r8/FINAL-BUDGET.json)을 확인한다. Jev582·Codex150·Claude150·OMP147 하위 상한과 전체1000 상한을 동시에 적용한다. 과거 Codex/OMP의 복구 불가능한 전송 횟수는 미확인으로 보존하고, 새 계측 결과로 과거를 인증하지 않는다.

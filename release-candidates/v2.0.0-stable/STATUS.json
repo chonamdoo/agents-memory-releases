@@ -148,47 +148,39 @@
     },
     {
       "id": "compaction",
-      "status": "partial",
-      "reason": "CurrentSDK1a8 Claude real36/36PASS,72exactwholefact/freshnonceanswers and36genuinecompactions/216SDK hookinvocations,108newguardedHTTP completed; source/installedbytes/resources/authmetadata/cleanup independentlyverified. Codex currentR4 failed atfirststartup/workspace discovery(unknowncharged500),0/36;OMPnotrun. Both remaining hosts still require actual36. Unknown failures never qualify aspasses. Subsequent CodexR5 stopped before model/account-read timeout,0/36, one new metadataGET ordinal501 leftdispatched/finishedNULL/statusNULL; both localcontainers independently removed. It stays charged/unknown and existingv2 refuses ACK; all500priorrows unchanged. Shared501charged/499remaining, Codex148remaining. Corrected ordering/drain and explicitly reviewed quiesced-unfinished recovery remain pending. CodexR6 also0/36 beforemodel: correctaccounts-first lease, but200headers arrived125.568s afteropen, afterworkerfailed; localzero-bodyabort recorded502FAILED/http200/finished/charged andrelaydrainedclean. All501priorrows unchanged. NetworkDNS/TCP-only probes found two proxycandidates, firstunreachable/currenthostmappingreachable; actual502peer notcaptured. R7 per-run managedproxyhostmapping and explicitv4 closedmetadata review pending; no historical200 response is a Nativepass.",
+      "status": "met",
+      "reason": "Same shipping SDK1a8: each actual Claude/Codex/OMP fixed36/36 passes startup/resume/genuinecompact/next recall (Wilson95lower0.9035813714>=0.90),72exactwholefact/freshnonceanswers perhost. Separate synthetic memory backend component tests; real integrated196/40quality evidence remains separate. OMP officialsoft/keepRecentTokens20000/3padding only; defaultremoteV2HTTP400 failure remains unexplained. Sources/externalrefs/installed33files/authmetadata/resources/drain/cleanup independently verified. Failed earlier runs and historical unfinished501 stay charged, unknown and never Native passes.",
       "references": [
         {
           "path": "release-candidates/v2.0.4-relevance/native-live-r4/claude/SAFE-PUBLIC-PROJECTION.json",
           "sha256": "afd11920d2c5bcd6c04a79cc22c1243c163cf7174456a486066975883abbd27d"
         },
         {
-          "path": "release-candidates/v2.0.4-relevance/native-live-r4/CODEX-FAILURE.json",
-          "sha256": "2f387f16e679efcba4fc82827c57891998ce870a6c91d30edfbe4629829580f5"
+          "path": "release-candidates/v2.0.4-relevance/native-live-r8/codex/SAFE-PUBLIC-PROJECTION.json",
+          "sha256": "91bf995323cb611525dc0fbd38176e526a635e9743a2401a60adf272e1f456ec"
         },
         {
-          "path": "release-candidates/v2.0.4-relevance/native-live-r5/codex/SAFE-PUBLIC-PROJECTION.json",
-          "sha256": "cc81c9160e1bc6aec26387f0bf743a71b04fbe9e45423190dc1e1989f3ea906d"
-        },
-        {
-          "path": "release-candidates/v2.0.4-relevance/native-live-r6/codex/SAFE-PUBLIC-PROJECTION.json",
-          "sha256": "a8850c12198a8f59a9713bca533787d1df0d750630c02cdc677ee15ba6ad6ad5"
+          "path": "release-candidates/v2.0.4-relevance/native-live-r8/omp/SAFE-PUBLIC-PROJECTION.json",
+          "sha256": "769ae0f17b1675f309e4c7af021e256b75649a8549ac10a6c9728d064de3522a"
         }
       ]
     },
     {
       "id": "host_lifecycle",
-      "status": "partial",
-      "reason": "CurrentSDK1a8 Claude real36/36PASS,72exactwholefact/freshnonceanswers and36genuinecompactions/216SDK hookinvocations,108newguardedHTTP completed; source/installedbytes/resources/authmetadata/cleanup independentlyverified. Codex currentR4 failed atfirststartup/workspace discovery(unknowncharged500),0/36;OMPnotrun. Both remaining hosts still require actual36. Unknown failures never qualify aspasses. Subsequent CodexR5 stopped before model/account-read timeout,0/36, one new metadataGET ordinal501 leftdispatched/finishedNULL/statusNULL; both localcontainers independently removed. It stays charged/unknown and existingv2 refuses ACK; all500priorrows unchanged. Shared501charged/499remaining, Codex148remaining. Corrected ordering/drain and explicitly reviewed quiesced-unfinished recovery remain pending. CodexR6 also0/36 beforemodel: correctaccounts-first lease, but200headers arrived125.568s afteropen, afterworkerfailed; localzero-bodyabort recorded502FAILED/http200/finished/charged andrelaydrainedclean. All501priorrows unchanged. NetworkDNS/TCP-only probes found two proxycandidates, firstunreachable/currenthostmappingreachable; actual502peer notcaptured. R7 per-run managedproxyhostmapping and explicitv4 closedmetadata review pending; no historical200 response is a Nativepass.",
+      "status": "met",
+      "reason": "Same shipping SDK1a8: each actual Claude/Codex/OMP fixed36/36 passes startup/resume/genuinecompact/next recall (Wilson95lower0.9035813714>=0.90),72exactwholefact/freshnonceanswers perhost. Separate synthetic memory backend component tests; real integrated196/40quality evidence remains separate. OMP officialsoft/keepRecentTokens20000/3padding only; defaultremoteV2HTTP400 failure remains unexplained. Sources/externalrefs/installed33files/authmetadata/resources/drain/cleanup independently verified. Failed earlier runs and historical unfinished501 stay charged, unknown and never Native passes.",
       "references": [
         {
           "path": "release-candidates/v2.0.4-relevance/native-live-r4/claude/SAFE-PUBLIC-PROJECTION.json",
           "sha256": "afd11920d2c5bcd6c04a79cc22c1243c163cf7174456a486066975883abbd27d"
         },
         {
-          "path": "release-candidates/v2.0.4-relevance/native-live-r4/CODEX-FAILURE.json",
-          "sha256": "2f387f16e679efcba4fc82827c57891998ce870a6c91d30edfbe4629829580f5"
+          "path": "release-candidates/v2.0.4-relevance/native-live-r8/codex/SAFE-PUBLIC-PROJECTION.json",
+          "sha256": "91bf995323cb611525dc0fbd38176e526a635e9743a2401a60adf272e1f456ec"
         },
         {
-          "path": "release-candidates/v2.0.4-relevance/native-live-r5/codex/SAFE-PUBLIC-PROJECTION.json",
-          "sha256": "cc81c9160e1bc6aec26387f0bf743a71b04fbe9e45423190dc1e1989f3ea906d"
-        },
-        {
-          "path": "release-candidates/v2.0.4-relevance/native-live-r6/codex/SAFE-PUBLIC-PROJECTION.json",
-          "sha256": "a8850c12198a8f59a9713bca533787d1df0d750630c02cdc677ee15ba6ad6ad5"
+          "path": "release-candidates/v2.0.4-relevance/native-live-r8/omp/SAFE-PUBLIC-PROJECTION.json",
+          "sha256": "769ae0f17b1675f309e4c7af021e256b75649a8549ac10a6c9728d064de3522a"
         }
       ]
     },
@@ -209,8 +201,8 @@
     },
     {
       "id": "resources_and_budget",
-      "status": "partial",
-      "reason": "New196/40 measured runtime2CPU4GiB/swap0 peak4294336512/OOM0 and190Jev<=197; judgmentp95 22.36<=30. Repeat/rollback peak exactly4GiB, pressure3884/OOM0. Same approved1000pool/subcaps counts every attempt including failed387;391priorrows/identity independently unchanged after reviewed resumption. Final current-host resource/cleanup/cap proof remains pending; historical nativewire unknowns remain unknown. Claude current36 final:2CPU4GiB/swap0,worker352985088/relay22605824 peaks/OOM0 andbothremoved; all391priorrows preserved. SubsequentCodexunknownattempt500 also charged, shared500/500remaining; all499priorrows preserved. Future current-host caps/cleanup completion stillpending. Subsequent CodexR5 stopped before model/account-read timeout,0/36, one new metadataGET ordinal501 leftdispatched/finishedNULL/statusNULL; both localcontainers independently removed. It stays charged/unknown and existingv2 refuses ACK; all500priorrows unchanged. Shared501charged/499remaining, Codex148remaining. Corrected ordering/drain and explicitly reviewed quiesced-unfinished recovery remain pending. CodexR6 also0/36 beforemodel: correctaccounts-first lease, but200headers arrived125.568s afteropen, afterworkerfailed; localzero-bodyabort recorded502FAILED/http200/finished/charged andrelaydrainedclean. All501priorrows unchanged. NetworkDNS/TCP-only probes found two proxycandidates, firstunreachable/currenthostmappingreachable; actual502peer notcaptured. R7 per-run managedproxyhostmapping and explicitv4 closedmetadata review pending; no historical200 response is a Nativepass.",
+      "status": "met",
+      "reason": "Original2CPU/4GiB/swap0 limits preserved: actual196/40 quality, exactv17repeat/rollback and each current actualNative36 have resource/OOM0/cleanup receipts. Quality190Jev<=197, backgroundp9522.359755325<=30. Shared original1000pool761charged/239remaining; Jev386/582,Claude113/150,Codex118/150,OMP144/147. All failed/interrupted/metadata charged; historical501 remains unfinishedunknown, no reset/refund/pastwire compliance claim. Each new host relay drained and bothcontainersremoved; originalauthmetadataunchanged. Repeat/rollback peak exactly4GiB and pressure3884 are preserved; no belowcap headroom claim.",
       "references": [
         {
           "path": "release-candidates/v2.0.4-relevance/live-quality-v2/RESOURCE-CLEANUP.json",
@@ -243,6 +235,22 @@
         {
           "path": "release-candidates/v2.0.4-relevance/native-live-r6/codex/SAFE-PUBLIC-PROJECTION.json",
           "sha256": "a8850c12198a8f59a9713bca533787d1df0d750630c02cdc677ee15ba6ad6ad5"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/native-live-r4/claude/SAFE-PUBLIC-PROJECTION.json",
+          "sha256": "afd11920d2c5bcd6c04a79cc22c1243c163cf7174456a486066975883abbd27d"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/native-live-r8/codex/SAFE-PUBLIC-PROJECTION.json",
+          "sha256": "91bf995323cb611525dc0fbd38176e526a635e9743a2401a60adf272e1f456ec"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/native-live-r8/omp/SAFE-PUBLIC-PROJECTION.json",
+          "sha256": "769ae0f17b1675f309e4c7af021e256b75649a8549ac10a6c9728d064de3522a"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/native-live-r8/FINAL-BUDGET.json",
+          "sha256": "16c217f7713b33ec010ca9ce363520da233d11ec449c62f192da6da560777e0e"
         }
       ]
     },
@@ -301,7 +309,7 @@
     {
       "id": "stable_release_readback",
       "status": "not_run",
-      "reason": "Current candidate actual Native verification is incomplete; v2.0.4 draft remains unpublished. No stable release promotion/readback performed.",
+      "reason": "All required validation/delivery conditions met. Existing v2.0.4 draft awaits authorized stable/latest publication, followed by remote readback. This phase is not a prerequisite of ready_to_promote.",
       "references": []
     }
   ],
@@ -336,8 +344,8 @@
     "original_shared_ledger": "Old historical844/1000 remains unconnected; not reset or represented as this new session ledger.",
     "allocated_child_capacity": 812
   },
-  "validation_ready": false,
-  "ready_to_promote": false,
+  "validation_ready": true,
+  "ready_to_promote": true,
   "stable_published": false,
   "separate_track": {
     "central_official_directories": "unverified; not a prerequisite for publishing GitHub stable, but required before claiming central listing",
@@ -346,12 +354,12 @@
   },
   "limitations": "Manually reviewed status snapshot. Referenced hashes preserve file identity; they do not independently prove original experiments, author identity or remote publication.",
   "native_lifecycle_scope": {
-    "status": "current_candidate_claude36_pass_codex_failed_omp_pending",
+    "status": "current_candidate_each_host36_actual_pass",
     "denominator_per_host": 36,
-    "current_source_capsule_merge": "f786d5358073b854b34b7f670e4f49e35286f4bf",
+    "current_source_capsule_merge": "b6903f0c71390a83aeacbd2b4f873300e1347b86",
     "memory_backend": "synthetic fixed fixture; separate real integrated quality verified196/40",
     "first_interactive_trust": "unverified",
-    "selected_real_provider_compliance": "Claude36/36 actualPASS; currentCodex0/36 failure preserved,OMPnotrun; separate realintegrated196/40 measuredquality remains unchanged",
+    "selected_real_provider_compliance": "EachClaude/Codex/OMP36/36actualcomponentPASS; realintegrated196/40measuredquality separately verified; firstinteractive trust unverified",
     "omp_compaction": "official soft only; prior default/remoteV2HTTP400 failed causeunknown"
   },
   "release_basis": {
@@ -402,12 +410,12 @@
   },
   "future_actual_execution": {
     "approval_received": true,
-    "new_supplier_calls": 502,
-    "codex_counted_controller": "36/36 fake only,108local transmissions",
-    "claude_counted_controller": "36/36 fake only,144local transmissions",
-    "omp_counted_controller": "36/36 fake only,144local transmissions; optional metadata removal afterward verified on exact final freeze1case/4transmissions",
+    "new_supplier_calls": 761,
+    "codex_counted_controller": "R8actual36/36,113guardedHTTP",
+    "claude_counted_controller": "R4actual36/36,108guardedHTTP",
+    "omp_counted_controller": "R8actual36/36,144guardedHTTP",
     "historical_native_wire_counts_recoverable": false,
-    "proposal": "Same original1000pool:502charged/498remaining, Codex147remaining. Failed387/unknown500/historicalunfinished501/localabortedmetadata502 retained; no newgrant/refund/reset.",
+    "proposal": "Sameoriginal1000pool761charged/239remaining; no newgrant/reset/refund; per-provider caps and old unknowns preserved",
     "measured_cohort": "v1 failed noise80/200; fresh preregistered v2 complete196/40 measured gates pass, strict overall unknown",
     "new_v2_product_inferences": 190,
     "current_provider_states": {
@@ -419,17 +427,21 @@
         "failed": 1
       },
       "codex": {
-        "failed": 2,
-        "dispatched": 1
+        "completed": 114,
+        "dispatched": 1,
+        "failed": 3
       },
-      "omp": {}
+      "omp": {
+        "completed": 144
+      }
     },
     "failed_attempts_counted": true,
     "current_claude_state": "COMPLETE36/36actualcomponentPASS",
     "historical_first_independent_product_inferences": 196,
     "current_candidate_product_inferences": 190,
-    "current_codex_state": "R6FAILED0/36 beforemodel;502FAILED/http200 after125.568s headers thenlocalabort, original501DISPATCHED/NULL unchanged; allactualcontainersremoved/allpaidprocessesstopped.",
-    "all_local_paid_processes_stopped": true
+    "current_codex_state": "COMPLETE R8 36/36 actual componentPASS;113newHTTP=108POST+5GET allcompleted200; old failed/unknown retained",
+    "all_local_paid_processes_stopped": true,
+    "current_omp_state": "COMPLETE R8 36/36 actual componentPASS;144newPOST allcompleted; officialsoftonly"
   },
   "candidate_role": "Current repaired v2.0.4 candidate. Every current condition below uses matching shipped bytes or explicitly unchanged Core evidence; old failed v2.0.3 remains historical.",
   "repaired_candidate_references": [
@@ -568,9 +580,37 @@
     {
       "path": "release-candidates/v2.0.4-relevance/native-live-r6/codex/SHA256.json",
       "sha256": "d08b11d05f2379eb79eb3f1ef449df5b3e506dafd067cbac5f24ae68c4af6127"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/native-live-r8/FINAL-BUDGET.json",
+      "sha256": "16c217f7713b33ec010ca9ce363520da233d11ec449c62f192da6da560777e0e"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/native-live-r8/codex/SAFE-PUBLIC-PROJECTION.json",
+      "sha256": "91bf995323cb611525dc0fbd38176e526a635e9743a2401a60adf272e1f456ec"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/native-live-r8/codex/SHA256.json",
+      "sha256": "0a7b51c51eb605bf172bcddf42542999d3f750955c24a7f3f837be5d371f03d7"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/native-live-r8/omp/SAFE-PUBLIC-PROJECTION.json",
+      "sha256": "769ae0f17b1675f309e4c7af021e256b75649a8549ac10a6c9728d064de3522a"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/native-live-r8/omp/SHA256.json",
+      "sha256": "78262cd2c409e538a5607e9b0e39fe75d30aa03b2a4da44754473e7a535c5704"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/native-live-r7/codex/SAFE-PUBLIC-PROJECTION.json",
+      "sha256": "62f131e95f108bfad1b0d99d79fa079f4156bf4c72259df57c93344b54c46199"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/native-live-r7/codex/SHA256.json",
+      "sha256": "8e35155f501d0c28ef013964484485be37393d02040abe6eaf55077e70453a8f"
     }
   ],
-  "as_of_utc": "2026-11-08T20:52:28.184532+00:00",
+  "as_of_utc": "2026-11-08T22:08:41.932612+00:00",
   "historical_measured_candidate_v203": {
     "identity": {
       "runtime_version": "2.0.0",
@@ -643,7 +683,7 @@
       }
     },
     "real_quality": "complete_all_measured_gates_pass_strict_overall_unknown",
-    "ready_to_promote": false,
+    "ready_to_promote": true,
     "preregistration_commit": "392367ef075b8cb8baec59aafa444cb09002232e",
     "sourcefree_cp313_affected_regression": {
       "collected": 102,
@@ -727,17 +767,16 @@
       "oom": 0
     },
     "remaining_actual_native_verification": {
-      "claude": "PASS36/36 real;108newguardedHTTP, resources/authmetadata/cleanupverified",
-      "codex": "R6FAILED0/36 beforemodel; allchargedrows unchanged, R7 currentmanagedproxy mapping/explicitv4closedmetadata review prepared",
-      "omp": "R4offline1PASS;actualnotrun;officialsoftscope",
-      "all_paid_runs": "STOPPED;502charged/498remaining/Codex147. No oldfailed/unfinished/late200 outcome becomes a pass.",
-      "claude_native_default_alias_offline": "claude-sonnet-5-5; not actual entitlement proof"
+      "claude": "PASS36/36 currentSDK1a8",
+      "codex": "PASS36/36 currentSDK1a8",
+      "omp": "PASS36/36 currentSDK1a8 officialsoftonly",
+      "all_paid_runs": "STOPPED and allcurrentpodsremoved; historicalunfinished501remains unknowncharged"
     },
     "strict_unknowns_preserved": [
-      "native_compaction",
-      "human_origin (user-authorized AI annotation, not human)",
-      "live_subscription",
-      "past native underlying HTTP counts"
+      "Raw strict integrated report UNKNOWN remains immutable; separate currentNative36/host evidence resolves release component checks only",
+      "human_origin: user-authorized AI annotation, not human",
+      "general subscription entitlement and first interactive trust not verified",
+      "past native underlying HTTP counts unknown"
     ]
   }
 }
