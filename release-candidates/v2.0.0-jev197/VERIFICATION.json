@@ -1,0 +1,67 @@
+{
+  "schema": "jev197-v16-candidate-verification-v1",
+  "runtime_version": "2.0.0",
+  "marketplace_package_version": "2.0.3",
+  "policy": "admission-2026-11-08-origin-v16",
+  "channel": "prerelease",
+  "archive": {
+    "name": "agents-memory-unified-2.0.0-request-scope-v16.tar.gz",
+    "sha256": "576c00e85cdabbbb2dd93305a1da97682a3bba59dc744b2c9e3a8a1eaad4dfd8"
+  },
+  "core_source_commit": "a9069272d62fe651d793d54db0034aac59f0e5ed",
+  "core_wheels": {
+    "cp312": {
+      "name": "agents_memory_core-2.0.0-cp312-none-any.whl",
+      "sha256": "bb4307f72380d4738c4c9305bafec1b70232ec93e153336fbd995619d5b9b0b2",
+      "modules": {
+        "agents_memory/admission_provider.pyc": "8a3b1a1c8248f241a05581e95346bfcf869bd6ff59c679291eacdf909ff2abbc",
+        "agents_memory/capture_guard.pyc": "6f4421a0ad86e2febe2e8e70a892f4c3e462205b3bcb314a8dd9fec068b4b9a6",
+        "agents_memory/errors.pyc": "f287722b465dd09d4018d1ed2483e0b5755dd57e942dff1dc191e59939293a71",
+        "agents_memory/generation_provider.pyc": "6e3a9f0582809e3a4214e31b5d14fcb0ea688727544fe4961dec8587dad78137",
+        "agents_memory/hindsight_admission_limits.pyc": "1b04ba04464fd5cb85ca0d6fa065d25687dfc0f4b83b2bf29ae3ef487c72a447",
+        "agents_memory/hindsight_admission_policy.pyc": "4cd1a804ba81836622af3ec39c77d30fb9f36dabb489da17af39dadbe0d1e9c1",
+        "agents_memory/jev.pyc": "038924ef2ed8ce0a93ec5f86033a292927f8a40a1e8f8981928eda6d62bc8e23",
+        "agents_memory/memory_categories.pyc": "f89a87452209cf84751fea5b2a1309df8491c15b29fc78335d7433f2821e82e0",
+        "agents_memory/memory_content.pyc": "20898b384e2479b474e35195980f9cddffd566e2fd1f2a307793dc0a95731f84",
+        "agents_memory/memory_processor.pyc": "15272b9e8705f4258e8e51fac37ac733757738732ae12b8eee220bd658a67ed6",
+        "agents_memory/reranker_assets.pyc": "7b803680f18445195a5ed763d18d4343d200d7fe0a980bf0c5991ab9202ee5e2",
+        "agents_memory/source_integration.pyc": "cc8e11c8e94dace65b0867e6ec6b006801b4b66fc475093eab2fd0fe3ec934db",
+        "agents_memory/unified_runtime.pyc": "0b010a960fc6b04655476ae71ccb2b0440997e291a5fbc5742a0f1f0a28e8b01"
+      }
+    },
+    "cp313": {
+      "name": "agents_memory_core-2.0.0-cp313-none-any.whl",
+      "sha256": "8096e885d9786e01e9aa9a4d039cafc3ee18bca92316554d25e615fe497f106b",
+      "modules": {
+        "agents_memory/admission_provider.pyc": "3dedac3350575512e5dadbe6b10e2ab5445cc842ba320ce85008ee51739c1366",
+        "agents_memory/capture_guard.pyc": "d8937e2b448a7ed0a98f865f8249e264a8ed6a26e553b685d3b42df5414ff40c",
+        "agents_memory/errors.pyc": "dfb62ed6dcda427f293a69952c523c0c5b715365ec35e6c46b8ccb8b7478fe39",
+        "agents_memory/generation_provider.pyc": "ba57295063ee605a74fe6f5d82b58fd0a04956dd4fcc2ee9f916d56cb88b99c0",
+        "agents_memory/hindsight_admission_limits.pyc": "4975e0588e5471145add1092218e5a61def40ac2685aa06600d973a68e79daa0",
+        "agents_memory/hindsight_admission_policy.pyc": "a1c27cfa2494097e8c683a7e8303b847c88436474b3f3621a2e50c8452f3666b",
+        "agents_memory/jev.pyc": "bf37d7a92af3ece77bd08c2ca4d490e25e9d7f78549189cf2e4814d03b3a47e7",
+        "agents_memory/memory_categories.pyc": "b8735270617463f113896ad695924bea057fdc30875f9090df272ca9cb7636d7",
+        "agents_memory/memory_content.pyc": "4765d0e93d60b8fb536995a7fc6a3bc5d595ceb529d6cd4af667249286d3e0d7",
+        "agents_memory/memory_processor.pyc": "30988495bab42ed9eec4a1b8597852abf99ada3e04722567fd977700cb53db12",
+        "agents_memory/reranker_assets.pyc": "0145dec059ee106f33dbfb85f564569a57177b4f3bc96c2e4b9b45397335215c",
+        "agents_memory/source_integration.pyc": "a4714ad973fedbe4d943570656831fbcd84136031bfab02a8d0bcb1b3f370df7",
+        "agents_memory/unified_runtime.pyc": "f21bc1e251a9552d03bf84116a226c71a043428491db69faf639730d41924399"
+      }
+    }
+  },
+  "sdk_wheel_sha256": "14ba497889ace5e92946f328d79b1b6189f0c31b34e64b54fccf269a080f74ea",
+  "raw_inputs": "Private single-author synthetic data, hashes in COHORT.json; never represented as independent human labels",
+  "old_v15_bundle_preserved": "a8e08c63ac809f22f5cc76f56cbdc8431253f1e616bdac319fcb4c922ad6fafc",
+  "validation_ready": false,
+  "ready_to_promote": false,
+  "stable_published": false,
+  "changes": [
+    "v16 selected-quotation/request clarification; thresholds unchanged",
+    "Conservative keep response for Native observation similarity dedup",
+    "Default semantic search timeout130s; explicit caller deadlines preserved",
+    "Linux exiting-process PID identity race handling; live foreign PID denied",
+    "Literal qualified-field and named-type scope after authorized Native source expansion; root type mentions precede member-only fragments; qualified fields prevail",
+    "Serial ONNX reranker batches preserve full scoring within existing4GiB2CPU limits"
+  ],
+  "core_merge_commit": "aa26e986547a466c8b0614e43af465e3394945f2"
+}

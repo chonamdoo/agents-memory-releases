@@ -1,0 +1,9 @@
+{
+  "schema": "approved-jev-attempt-budget-v1",
+  "grant_id": "v2-extra-197-2026-11-08",
+  "cap": 197,
+  "provider": "jev",
+  "counts_failed_and_interrupted": true,
+  "authorization": "User explicitly approved 197 attempts and authorized this agent to create missing evaluation materials on 2026-11-08",
+  "scope": "Fresh single-author development evaluation and at most one connectivity probe; does not reset or claim to reconstruct any historical ledger"
+}

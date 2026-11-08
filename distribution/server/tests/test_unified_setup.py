@@ -407,3 +407,34 @@ def test_process_disappearance_before_term_still_clears_its_own_receipt(assets, 
     monkeypatch.setattr(setup.os, "kill", kill)
     setup._stop_locked(prefix, h)
     assert not receipt.exists()
+
+
+@pytest.mark.parametrize(("later_state", "command", "stopped"), [
+    ("Z", b"", True), ("X", b"", True), (None, b"", True),
+    ("S", b"", False), ("S", b"/usr/bin/unrelated", False),
+])
+def test_linux_exit_between_stat_and_cmdline_requires_observed_exit(
+    assets, monkeypatch, later_state, command, stopped,
+):
+    prefix, bundle, _source = assets
+    h = setup.helper(bundle)
+    h.write_json(prefix / "settings/unified-pid.json", {"pid": 550003, "product_id": "synthetic-owner"})
+    monkeypatch.setattr(h, "owner", lambda path: {"id": "synthetic-owner"})
+    monkeypatch.setattr(setup.os, "kill", lambda pid, sig: None)
+    is_dir, read_text, read_bytes = Path.is_dir, Path.read_text, Path.read_bytes
+    monkeypatch.setattr(Path, "is_dir", lambda path: True if path == Path("/proc") else is_dir(path))
+    states = iter(["S", later_state])
+    def stat_text(path, *args, **kwargs):
+        if path == Path("/proc/550003/stat"):
+            state = next(states)
+            if state is None:
+                raise FileNotFoundError()
+            return "550003 (synthetic) " + state + " 0"
+        return read_text(path, *args, **kwargs)
+    monkeypatch.setattr(Path, "read_text", stat_text)
+    monkeypatch.setattr(Path, "read_bytes", lambda path: command if path == Path("/proc/550003/cmdline") else read_bytes(path))
+    if stopped:
+        assert setup.owned_pid(prefix, h) is None
+    else:
+        with pytest.raises(setup.SetupInputError, match="another process"):
+            setup.owned_pid(prefix, h)

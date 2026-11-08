@@ -1,0 +1,48 @@
+{
+  "schema": "shipping-sdk-final-validation-v2",
+  "sdk_wheel_sha256": "14ba497889ace5e92946f328d79b1b6189f0c31b34e64b54fccf269a080f74ea",
+  "core_wheels": {
+    "cp312": "bb4307f72380d4738c4c9305bafec1b70232ec93e153336fbd995619d5b9b0b2",
+    "cp313": "8096e885d9786e01e9aa9a4d039cafc3ee18bca92316554d25e615fe497f106b"
+  },
+  "checks": [
+    {
+      "path": "SDK-TYPE-PRIORITY-FINAL.xml",
+      "sha256": "d8e4f8487a534cb885dab32c8a7491b6028652bba94be093a9249876d56ecc11",
+      "tests": 322,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "TYPE-PRIORITY-SEARCH312.xml",
+      "sha256": "0dc8a5af90c21ba527fa2f20fe13bedede96492c641f8ac6d2d4097cbe93c565",
+      "tests": 59,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "TYPE-PRIORITY-SEARCH313.xml",
+      "sha256": "d6a468f50aff32ddb0ad20ab1bb4212176c0e6326ac315b33dee77e1b672f151",
+      "tests": 59,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "platform": "Linux x86_64",
+  "full_sdk_python": "CPython3.12",
+  "targeted_python": [
+    "CPython3.12",
+    "CPython3.13"
+  ],
+  "paid_jev_calls_from_these_tests": 0,
+  "source_files_sha256": {
+    "distribution/server/src/agents_memory_collab/client.py": "a1c406f961a84aa5167dc7adc7850d47c0bdbff5e87580faec362bb17ce20ebc",
+    "distribution/server/src/agents_memory_collab/store.py": "84c886834234275b3bb15a52cf2da030aaaf2897cfd5da61b371381832442fed",
+    "distribution/server/src/agents_memory_collab/stdio.py": "3a1c6c7caf65f03d9abfea80426d58b38cc22be35f341ea58d63bd3051d14458"
+  },
+  "qa_database_isolation": "Dedicated databases for full suite, CP312 targeted and CP313 targeted; each validated against the owned PostgreSQL data directory.",
+  "limitations": "Regression and installed-byte evidence; not independent labels, v43 replay, macOS install or stable publication."
+}

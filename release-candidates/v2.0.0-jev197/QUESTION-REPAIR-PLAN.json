@@ -1,0 +1,143 @@
+{
+  "schema": "invalid-question-repair-plan-v1",
+  "frozen_before_first_corrected_query": true,
+  "original40_preserved": true,
+  "original_questions_sha256": "f9e10e622c68ef5652c9d221e61bddfb9efee914376721ed0c2c3607f4122c7c",
+  "corrected_questions_sha256": "be47d7ac700a710ad68f480a55bfe25a90d93e8c21faad567a36d6c3f585c8a3",
+  "unchanged_questions": 30,
+  "changed_questions": 10,
+  "corrections": [
+    {
+      "qid": "f-r004",
+      "model": "AcceptInvite",
+      "reason": "Internal oracle sentinel.$schema was falsely rendered as a real API field; executable SDK schema has no such field. Source facts/gold IDs unchanged.",
+      "schema_root_type": "object",
+      "additionalProperties": false,
+      "required": [
+        "invite"
+      ],
+      "old_question_sha256": "7472ccab21d44f05d158fcd5a3e73d9db459b881e8f4647434f3a3f086a9ff08",
+      "corrected_question_sha256": "295e5c5789f2aea4a204186e1d7394c9e155961f56537b5a88f383442260ebb2"
+    },
+    {
+      "qid": "f-r012",
+      "model": "Push",
+      "reason": "Internal oracle sentinel.$schema was falsely rendered as a real API field; executable SDK schema has no such field. Source facts/gold IDs unchanged.",
+      "schema_root_type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operations"
+      ],
+      "old_question_sha256": "cb24fad5b33a097c56f552038389d3f2baba86bf5aeb3463f1f1327649d1927f",
+      "corrected_question_sha256": "fc1a7ea95af83bcf30f27b2e6d727ba14665595ad1d6de6d470d39bce514543f"
+    },
+    {
+      "qid": "f-r018",
+      "model": "Sharing",
+      "reason": "Internal oracle sentinel.$schema was falsely rendered as a real API field; executable SDK schema has no such field. Source facts/gold IDs unchanged.",
+      "schema_root_type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mappings"
+      ],
+      "old_question_sha256": "54b400447a5606e0eb64eaf56e2c9068d717b7f82d6942b3a94da74c3c66d0c7",
+      "corrected_question_sha256": "bdf1198c63f47821e666aa15b730a3c2373afca3879a4a2d7e0fb40be82eeed1"
+    },
+    {
+      "qid": "f-r021",
+      "model": "Checkpoint",
+      "reason": "Internal oracle sentinel.$schema was falsely rendered as a real API field; executable SDK schema has no such field. Source facts/gold IDs unchanged.",
+      "schema_root_type": "object",
+      "additionalProperties": false,
+      "required": [
+        "epoch",
+        "cursor",
+        "chain_hash"
+      ],
+      "old_question_sha256": "f4c89f36a8e34ad455e9c298963dc10bab3e722cde49fb3fc85c587c6532e563",
+      "corrected_question_sha256": "8cec8c9975f959518d3f16bc42bb7ff51f1a0c77ca78866527cf26490cf722c2"
+    },
+    {
+      "qid": "f-r023",
+      "model": "Search",
+      "reason": "Internal oracle sentinel.$schema was falsely rendered as a real API field; executable SDK schema has no such field. Source facts/gold IDs unchanged.",
+      "schema_root_type": "object",
+      "additionalProperties": false,
+      "required": [
+        "query"
+      ],
+      "old_question_sha256": "48aa124cb216a2bfdf4738b5eeed7907a4aa20dfd9c8fb472d65b6c99f11c971",
+      "corrected_question_sha256": "c170b19423ba9314c7caaf4fbb129054c2fda7aee4f28bb4ce1d22f8f9abab89"
+    },
+    {
+      "qid": "f-r026",
+      "model": "Device",
+      "reason": "Internal oracle sentinel.$schema was falsely rendered as a real API field; executable SDK schema has no such field. Source facts/gold IDs unchanged.",
+      "schema_root_type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name"
+      ],
+      "old_question_sha256": "8f5e2fb04591496e82fb0a48fec5154005f5d6d1b5f488c5c7ab4029787f6bae",
+      "corrected_question_sha256": "dc03f5bbf90255372925863acdb040ab6aaeb5bf340eff99204398b201ba6561"
+    },
+    {
+      "qid": "f-r028",
+      "model": "SourceSearch",
+      "reason": "Internal oracle sentinel.$schema was falsely rendered as a real API field; executable SDK schema has no such field. Source facts/gold IDs unchanged.",
+      "schema_root_type": "object",
+      "additionalProperties": false,
+      "required": [
+        "query",
+        "project"
+      ],
+      "old_question_sha256": "e6beb857b74b5f445b640ed183d44501a468958334c5a6cdf2f12d82f20e448f",
+      "corrected_question_sha256": "177ed5bd729ba19b1d5f6210db40978a5c968be4b66745216a2d22f5df70c3a7"
+    },
+    {
+      "qid": "f-r030",
+      "model": "ShareMapping",
+      "reason": "Internal oracle sentinel.$schema was falsely rendered as a real API field; executable SDK schema has no such field. Source facts/gold IDs unchanged.",
+      "schema_root_type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_project",
+        "project_id"
+      ],
+      "old_question_sha256": "04b0538e3290705cb55d220f14de5f4de0ed67a08a94157909a164d2e9feb5ae",
+      "corrected_question_sha256": "0958866bfbde577959f19fa706e1a867cc0432147a33f210597e8e6ec49defb1"
+    },
+    {
+      "qid": "f-r035",
+      "model": "SessionContext",
+      "reason": "Internal oracle sentinel.$schema was falsely rendered as a real API field; executable SDK schema has no such field. Source facts/gold IDs unchanged.",
+      "schema_root_type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project"
+      ],
+      "old_question_sha256": "4dece08c329bb760cc8fdbc8c95aa287cdeb736059302af5f0f717e93510ce8c",
+      "corrected_question_sha256": "c09196159fa6b9ec88951cc923185e4ec64b618a6775ef9f286c84cfbcb8653a"
+    },
+    {
+      "qid": "f-r037",
+      "model": "Operation",
+      "reason": "Internal oracle sentinel.$schema was falsely rendered as a real API field; executable SDK schema has no such field. Source facts/gold IDs unchanged.",
+      "schema_root_type": "object",
+      "additionalProperties": false,
+      "required": [
+        "op_id",
+        "memory_id",
+        "project"
+      ],
+      "old_question_sha256": "acaf503bf509f832e0906b18bba7fd7b167e00aa9c2a53c0044423e1d423e613",
+      "corrected_question_sha256": "17f7f4d2c3e20e5e247ac0f4e73a1b6835645217657d42b65d19859b847b9dfd"
+    }
+  ],
+  "reuse": "Only30unchanged actual d35 MCP responses may be reused.10changed questions require new real Native/MCP queries; no Jev calls.",
+  "acceptance_thresholds": "Unchanged; report original baseline40, original d35 development40, and repaired development40 separately. Never label repaired corpus fresh independent holdout or erase original failure.",
+  "production_change": "None: SDKd35 and source-free Core431 remain fixed. No special-case.$schema alias added to product.",
+  "original_independent_research_contract": "Question-change/independent-author requirements not claimed satisfied; repaired single-author software acceptance is a separate development result.",
+  "private_plan_sha256": "af4e9e3a7d041b8cee8c616fb18b9c97f408d50e80dd6eddd7fac93a95d13f26",
+  "public_export": "Raw question strings retained privately; hashes, IDs, executable schema metadata and reason exported."
+}

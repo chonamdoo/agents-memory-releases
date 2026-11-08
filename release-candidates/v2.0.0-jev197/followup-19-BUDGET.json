@@ -1,0 +1,1337 @@
+{
+  "cap": 19,
+  "reserved_attempts": 19,
+  "remaining": 0,
+  "attempts": [
+    {
+      "ordinal": 1,
+      "request_hash": "ef871f21f7431d8d4087b16c45b6846a408ecf207f281c46fbb2f2d7d6aa6bf3",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.96,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.68,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.03,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.06,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_fact",
+            "probabilities": {
+              "personal_content": 0.0,
+              "project_fact": 0.63,
+              "project_requirement": 0.37,
+              "question": 0.0,
+              "quoted_directive": 0.0,
+              "transient": 0.0,
+              "uncertain": 0.0,
+              "unsafe": 0.0,
+              "work_preference": 0.0
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "work_preference",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.03,
+              "project_requirement": 0.39,
+              "question": 0.0,
+              "quoted_directive": 0.1,
+              "transient": 0.06,
+              "uncertain": 0.01,
+              "unsafe": 0.0,
+              "work_preference": 0.4
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.07,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2685,
+        "model": "jev-1.14.0",
+        "request_hash": "ef871f21f7431d8d4087b16c45b6846a408ecf207f281c46fbb2f2d7d6aa6bf3",
+        "seconds": 0.17682922399990275
+      }
+    },
+    {
+      "ordinal": 2,
+      "request_hash": "005ba026c9cc23f5eac9cfaa86d9fbf536cf3c46f96070710edb02d3aad11329",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.97,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.6,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.03,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.05,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_fact",
+            "probabilities": {
+              "personal_content": 0.0,
+              "project_fact": 0.59,
+              "project_requirement": 0.4,
+              "question": 0.0,
+              "quoted_directive": 0.0,
+              "transient": 0.0,
+              "uncertain": 0.01,
+              "unsafe": 0.0,
+              "work_preference": 0.0
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "quoted_directive",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.04,
+              "project_requirement": 0.17,
+              "question": 0.0,
+              "quoted_directive": 0.34,
+              "transient": 0.13,
+              "uncertain": 0.02,
+              "unsafe": 0.01,
+              "work_preference": 0.28
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.06,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2699,
+        "model": "jev-1.14.0",
+        "request_hash": "005ba026c9cc23f5eac9cfaa86d9fbf536cf3c46f96070710edb02d3aad11329",
+        "seconds": 0.15295400100012557
+      }
+    },
+    {
+      "ordinal": 3,
+      "request_hash": "91d7c6878a07799748e7655f1c8a8c42286604b883a425b3be8fc6be2bd83c1b",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.98,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.64,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.02,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.07,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_requirement",
+            "probabilities": {
+              "personal_content": 0.0,
+              "project_fact": 0.1,
+              "project_requirement": 0.9,
+              "question": 0.0,
+              "quoted_directive": 0.0,
+              "transient": 0.0,
+              "uncertain": 0.0,
+              "unsafe": 0.0,
+              "work_preference": 0.0
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "work_preference",
+            "probabilities": {
+              "personal_content": 0.02,
+              "project_fact": 0.02,
+              "project_requirement": 0.12,
+              "question": 0.0,
+              "quoted_directive": 0.13,
+              "transient": 0.22,
+              "uncertain": 0.02,
+              "unsafe": 0.01,
+              "work_preference": 0.46
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.05,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2691,
+        "model": "jev-1.14.0",
+        "request_hash": "91d7c6878a07799748e7655f1c8a8c42286604b883a425b3be8fc6be2bd83c1b",
+        "seconds": 0.14728832599985253
+      }
+    },
+    {
+      "ordinal": 4,
+      "request_hash": "f057dd336c6d98b1aab8828e18d5afa3f5d90e1ce5748a6cb3c81a895a491661",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.94,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.63,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.03,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.04,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_fact",
+            "probabilities": {
+              "personal_content": 0.03,
+              "project_fact": 0.68,
+              "project_requirement": 0.24,
+              "question": 0.0,
+              "quoted_directive": 0.0,
+              "transient": 0.0,
+              "uncertain": 0.02,
+              "unsafe": 0.0,
+              "work_preference": 0.03
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "quoted_directive",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.03,
+              "project_requirement": 0.08,
+              "question": 0.0,
+              "quoted_directive": 0.43,
+              "transient": 0.12,
+              "uncertain": 0.03,
+              "unsafe": 0.0,
+              "work_preference": 0.3
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.06,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.97,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2685,
+        "model": "jev-1.14.0",
+        "request_hash": "f057dd336c6d98b1aab8828e18d5afa3f5d90e1ce5748a6cb3c81a895a491661",
+        "seconds": 0.16721842900005868
+      }
+    },
+    {
+      "ordinal": 5,
+      "request_hash": "73d26b928fbefbb3623f6bd741d51aa7a4d3ec8eac97ddde779167a46a2ce573",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.95,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.63,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.03,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.05,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_fact",
+            "probabilities": {
+              "personal_content": 0.0,
+              "project_fact": 0.68,
+              "project_requirement": 0.29,
+              "question": 0.0,
+              "quoted_directive": 0.01,
+              "transient": 0.0,
+              "uncertain": 0.01,
+              "unsafe": 0.0,
+              "work_preference": 0.01
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "work_preference",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.04,
+              "project_requirement": 0.28,
+              "question": 0.0,
+              "quoted_directive": 0.13,
+              "transient": 0.07,
+              "uncertain": 0.02,
+              "unsafe": 0.0,
+              "work_preference": 0.45
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.09,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2679,
+        "model": "jev-1.14.0",
+        "request_hash": "73d26b928fbefbb3623f6bd741d51aa7a4d3ec8eac97ddde779167a46a2ce573",
+        "seconds": 0.17904248000013467
+      }
+    },
+    {
+      "ordinal": 6,
+      "request_hash": "3f0a2c63120ff6dd89173490db947e53f8519e33e2a3fc3932fa0b1995f127f9",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.96,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.54,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.02,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.04,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_fact",
+            "probabilities": {
+              "personal_content": 0.0,
+              "project_fact": 0.84,
+              "project_requirement": 0.15,
+              "question": 0.0,
+              "quoted_directive": 0.0,
+              "transient": 0.0,
+              "uncertain": 0.0,
+              "unsafe": 0.0,
+              "work_preference": 0.01
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "work_preference",
+            "probabilities": {
+              "personal_content": 0.02,
+              "project_fact": 0.02,
+              "project_requirement": 0.08,
+              "question": 0.0,
+              "quoted_directive": 0.21,
+              "transient": 0.13,
+              "uncertain": 0.03,
+              "unsafe": 0.0,
+              "work_preference": 0.51
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.08,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2665,
+        "model": "jev-1.14.0",
+        "request_hash": "3f0a2c63120ff6dd89173490db947e53f8519e33e2a3fc3932fa0b1995f127f9",
+        "seconds": 0.1678179169998657
+      }
+    },
+    {
+      "ordinal": 7,
+      "request_hash": "f5ba2fe01c314452c5e3354f04f93705ed9f635c8b2502a44a96ffd1f4fcaea3",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.96,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.66,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.03,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.05,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_fact",
+            "probabilities": {
+              "personal_content": 0.0,
+              "project_fact": 0.59,
+              "project_requirement": 0.39,
+              "question": 0.0,
+              "quoted_directive": 0.0,
+              "transient": 0.0,
+              "uncertain": 0.01,
+              "unsafe": 0.0,
+              "work_preference": 0.01
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "work_preference",
+            "probabilities": {
+              "personal_content": 0.02,
+              "project_fact": 0.02,
+              "project_requirement": 0.1,
+              "question": 0.0,
+              "quoted_directive": 0.21,
+              "transient": 0.3,
+              "uncertain": 0.03,
+              "unsafe": 0.01,
+              "work_preference": 0.31
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.06,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2703,
+        "model": "jev-1.14.0",
+        "request_hash": "f5ba2fe01c314452c5e3354f04f93705ed9f635c8b2502a44a96ffd1f4fcaea3",
+        "seconds": 0.11840428999994401
+      }
+    },
+    {
+      "ordinal": 8,
+      "request_hash": "6bf53472a61e623d6bbfbcf0ba2f2fc81c5c27bb26f6374d6e2b86e0f2e53003",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.97,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.62,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.02,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.04,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_fact",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.49,
+              "project_requirement": 0.39,
+              "question": 0.0,
+              "quoted_directive": 0.0,
+              "transient": 0.0,
+              "uncertain": 0.02,
+              "unsafe": 0.0,
+              "work_preference": 0.09
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "work_preference",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.02,
+              "project_requirement": 0.18,
+              "question": 0.0,
+              "quoted_directive": 0.22,
+              "transient": 0.09,
+              "uncertain": 0.02,
+              "unsafe": 0.0,
+              "work_preference": 0.46
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.05,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2691,
+        "model": "jev-1.14.0",
+        "request_hash": "6bf53472a61e623d6bbfbcf0ba2f2fc81c5c27bb26f6374d6e2b86e0f2e53003",
+        "seconds": 0.19171505100030117
+      }
+    },
+    {
+      "ordinal": 9,
+      "request_hash": "b712f413bf3addeb0a45d2b034e98311bd68618637a32f1d6864d45e9394b9c0",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.95,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.64,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.03,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.09,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_requirement",
+            "probabilities": {
+              "personal_content": 0.0,
+              "project_fact": 0.47,
+              "project_requirement": 0.5,
+              "question": 0.0,
+              "quoted_directive": 0.01,
+              "transient": 0.0,
+              "uncertain": 0.01,
+              "unsafe": 0.0,
+              "work_preference": 0.01
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "work_preference",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.02,
+              "project_requirement": 0.14,
+              "question": 0.0,
+              "quoted_directive": 0.31,
+              "transient": 0.17,
+              "uncertain": 0.02,
+              "unsafe": 0.01,
+              "work_preference": 0.32
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.06,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2685,
+        "model": "jev-1.14.0",
+        "request_hash": "b712f413bf3addeb0a45d2b034e98311bd68618637a32f1d6864d45e9394b9c0",
+        "seconds": 0.12747906599997805
+      }
+    },
+    {
+      "ordinal": 10,
+      "request_hash": "40daac6d0535f0a41a9161cc9444ebc09837532e31376a072c779ee4324e7fd7",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.98,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.6,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.03,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.04,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_requirement",
+            "probabilities": {
+              "personal_content": 0.0,
+              "project_fact": 0.29000000000000004,
+              "project_requirement": 0.7000000000000001,
+              "question": 0.0,
+              "quoted_directive": 0.0,
+              "transient": 0.0,
+              "uncertain": 0.0,
+              "unsafe": 0.0,
+              "work_preference": 0.010000000000000002
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "work_preference",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.04,
+              "project_requirement": 0.26,
+              "question": 0.0,
+              "quoted_directive": 0.14,
+              "transient": 0.1,
+              "uncertain": 0.02,
+              "unsafe": 0.0,
+              "work_preference": 0.43
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.06,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2673,
+        "model": "jev-1.14.0",
+        "request_hash": "40daac6d0535f0a41a9161cc9444ebc09837532e31376a072c779ee4324e7fd7",
+        "seconds": 0.12372164999987945
+      }
+    },
+    {
+      "ordinal": 11,
+      "request_hash": "55bba64d097cc0508e39083f681bca5abf88feed77e0ff8518eb01a0efb36022",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.97,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.63,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.03,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.05,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_requirement",
+            "probabilities": {
+              "personal_content": 0.0,
+              "project_fact": 0.47,
+              "project_requirement": 0.52,
+              "question": 0.0,
+              "quoted_directive": 0.0,
+              "transient": 0.0,
+              "uncertain": 0.01,
+              "unsafe": 0.0,
+              "work_preference": 0.0
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "work_preference",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.03,
+              "project_requirement": 0.14,
+              "question": 0.0,
+              "quoted_directive": 0.09,
+              "transient": 0.26,
+              "uncertain": 0.03,
+              "unsafe": 0.01,
+              "work_preference": 0.43
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.07,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2669,
+        "model": "jev-1.14.0",
+        "request_hash": "55bba64d097cc0508e39083f681bca5abf88feed77e0ff8518eb01a0efb36022",
+        "seconds": 0.13133714200012037
+      }
+    },
+    {
+      "ordinal": 12,
+      "request_hash": "08f29e51e28c7dbb726f275982844534b29aaf4dfe9417c36ba034aedfe89f14",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.96,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.58,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.02,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.05,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_requirement",
+            "probabilities": {
+              "personal_content": 0.0,
+              "project_fact": 0.24,
+              "project_requirement": 0.76,
+              "question": 0.0,
+              "quoted_directive": 0.0,
+              "transient": 0.0,
+              "uncertain": 0.0,
+              "unsafe": 0.0,
+              "work_preference": 0.0
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "quoted_directive",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.02,
+              "project_requirement": 0.11,
+              "question": 0.0,
+              "quoted_directive": 0.41,
+              "transient": 0.2,
+              "uncertain": 0.02,
+              "unsafe": 0.0,
+              "work_preference": 0.23
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.05,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2695,
+        "model": "jev-1.14.0",
+        "request_hash": "08f29e51e28c7dbb726f275982844534b29aaf4dfe9417c36ba034aedfe89f14",
+        "seconds": 0.11467874900017705
+      }
+    },
+    {
+      "ordinal": 13,
+      "request_hash": "74a2a1535b7548e461f6ecd3793cb736b10b5d54dea629832b466f6e0cd26b66",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.94,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.59,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.03,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.05,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "work_preference",
+            "probabilities": {
+              "personal_content": 0.02,
+              "project_fact": 0.32,
+              "project_requirement": 0.24,
+              "question": 0.0,
+              "quoted_directive": 0.03,
+              "transient": 0.0,
+              "uncertain": 0.01,
+              "unsafe": 0.0,
+              "work_preference": 0.38
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "quoted_directive",
+            "probabilities": {
+              "personal_content": 0.0,
+              "project_fact": 0.04,
+              "project_requirement": 0.16,
+              "question": 0.0,
+              "quoted_directive": 0.44,
+              "transient": 0.06,
+              "uncertain": 0.02,
+              "unsafe": 0.0,
+              "work_preference": 0.28
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.09,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2693,
+        "model": "jev-1.14.0",
+        "request_hash": "74a2a1535b7548e461f6ecd3793cb736b10b5d54dea629832b466f6e0cd26b66",
+        "seconds": 0.12021047200005341
+      }
+    },
+    {
+      "ordinal": 14,
+      "request_hash": "97a60540a2c3749b2b952ed42d41aa820a6fcdd769da4c938185a1a46aaa9cb7",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.97,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.67,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.02,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.04,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_fact",
+            "probabilities": {
+              "personal_content": 0.0,
+              "project_fact": 0.59,
+              "project_requirement": 0.4,
+              "question": 0.0,
+              "quoted_directive": 0.0,
+              "transient": 0.0,
+              "uncertain": 0.01,
+              "unsafe": 0.0,
+              "work_preference": 0.0
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "work_preference",
+            "probabilities": {
+              "personal_content": 0.02,
+              "project_fact": 0.02,
+              "project_requirement": 0.1,
+              "question": 0.0,
+              "quoted_directive": 0.11,
+              "transient": 0.21,
+              "uncertain": 0.03,
+              "unsafe": 0.01,
+              "work_preference": 0.5
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.09,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2681,
+        "model": "jev-1.14.0",
+        "request_hash": "97a60540a2c3749b2b952ed42d41aa820a6fcdd769da4c938185a1a46aaa9cb7",
+        "seconds": 0.1245753540001715
+      }
+    },
+    {
+      "ordinal": 15,
+      "request_hash": "5f78b4bc4c408373725f5de9c080c47938d5fe06938c2934abef40fa4a1939a1",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.98,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.67,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.03,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.04,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_fact",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.81,
+              "project_requirement": 0.15,
+              "question": 0.0,
+              "quoted_directive": 0.0,
+              "transient": 0.0,
+              "uncertain": 0.02,
+              "unsafe": 0.0,
+              "work_preference": 0.01
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "work_preference",
+            "probabilities": {
+              "personal_content": 0.02,
+              "project_fact": 0.04,
+              "project_requirement": 0.28,
+              "question": 0.0,
+              "quoted_directive": 0.08,
+              "transient": 0.09,
+              "uncertain": 0.02,
+              "unsafe": 0.0,
+              "work_preference": 0.47
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.08,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2683,
+        "model": "jev-1.14.0",
+        "request_hash": "5f78b4bc4c408373725f5de9c080c47938d5fe06938c2934abef40fa4a1939a1",
+        "seconds": 0.14225762399973974
+      }
+    },
+    {
+      "ordinal": 16,
+      "request_hash": "70f177b0259e7725cfc26c6f149992e5d2a3c70fd787127e0e3ebe0e76c27f2b",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.97,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.66,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.03,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.04,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_requirement",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.38,
+              "project_requirement": 0.56,
+              "question": 0.0,
+              "quoted_directive": 0.0,
+              "transient": 0.0,
+              "uncertain": 0.02,
+              "unsafe": 0.0,
+              "work_preference": 0.03
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "work_preference",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.03,
+              "project_requirement": 0.16,
+              "question": 0.0,
+              "quoted_directive": 0.18,
+              "transient": 0.12,
+              "uncertain": 0.03,
+              "unsafe": 0.0,
+              "work_preference": 0.47
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.09,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2657,
+        "model": "jev-1.14.0",
+        "request_hash": "70f177b0259e7725cfc26c6f149992e5d2a3c70fd787127e0e3ebe0e76c27f2b",
+        "seconds": 0.11605313599966394
+      }
+    },
+    {
+      "ordinal": 17,
+      "request_hash": "30fa5e922ee852b4f7ecfd156c0a6ae0a2f4b9bcaebb8bb6525145541e222fd9",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.97,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.61,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.03,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.06,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_fact",
+            "probabilities": {
+              "personal_content": 0.0,
+              "project_fact": 0.57,
+              "project_requirement": 0.39,
+              "question": 0.0,
+              "quoted_directive": 0.0,
+              "transient": 0.0,
+              "uncertain": 0.01,
+              "unsafe": 0.0,
+              "work_preference": 0.03
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "work_preference",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.04,
+              "project_requirement": 0.25,
+              "question": 0.0,
+              "quoted_directive": 0.12,
+              "transient": 0.09,
+              "uncertain": 0.03,
+              "unsafe": 0.0,
+              "work_preference": 0.46
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.06,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2679,
+        "model": "jev-1.14.0",
+        "request_hash": "30fa5e922ee852b4f7ecfd156c0a6ae0a2f4b9bcaebb8bb6525145541e222fd9",
+        "seconds": 0.1206300129997544
+      }
+    },
+    {
+      "ordinal": 18,
+      "request_hash": "b695ed4fb4729041d1dfa720db5bd784cd0bb8c9ccc892538d198d45a95b9978",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.98,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.77,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.03,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.05,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_fact",
+            "probabilities": {
+              "personal_content": 0.0,
+              "project_fact": 0.55,
+              "project_requirement": 0.43,
+              "question": 0.0,
+              "quoted_directive": 0.0,
+              "transient": 0.0,
+              "uncertain": 0.01,
+              "unsafe": 0.0,
+              "work_preference": 0.01
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "project_requirement",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.04,
+              "project_requirement": 0.36,
+              "question": 0.0,
+              "quoted_directive": 0.07,
+              "transient": 0.14,
+              "uncertain": 0.03,
+              "unsafe": 0.01,
+              "work_preference": 0.34
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.07,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2671,
+        "model": "jev-1.14.0",
+        "request_hash": "b695ed4fb4729041d1dfa720db5bd784cd0bb8c9ccc892538d198d45a95b9978",
+        "seconds": 0.0938448070000959
+      }
+    },
+    {
+      "ordinal": 19,
+      "request_hash": "a75667517db4d681d543ee1518ccfb73e4ff4c176258844f1046b033485db889",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "explicit_content_0": {
+            "noul": 0.97,
+            "type": "noul"
+          },
+          "explicit_content_1": {
+            "noul": 0.56,
+            "type": "noul"
+          },
+          "injection_0": {
+            "noul": 0.02,
+            "type": "noul"
+          },
+          "injection_1": {
+            "noul": 0.07,
+            "type": "noul"
+          },
+          "memory_kind_0": {
+            "choice": "project_fact",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.36,
+              "project_requirement": 0.34,
+              "question": 0.0,
+              "quoted_directive": 0.01,
+              "transient": 0.0,
+              "uncertain": 0.01,
+              "unsafe": 0.0,
+              "work_preference": 0.27
+            },
+            "type": "choice"
+          },
+          "memory_kind_1": {
+            "choice": "work_preference",
+            "probabilities": {
+              "personal_content": 0.01,
+              "project_fact": 0.03,
+              "project_requirement": 0.09,
+              "question": 0.0,
+              "quoted_directive": 0.27,
+              "transient": 0.21,
+              "uncertain": 0.04,
+              "unsafe": 0.01,
+              "work_preference": 0.34
+            },
+            "type": "choice"
+          },
+          "request_only_0": {
+            "noul": 0.05,
+            "type": "noul"
+          },
+          "request_only_1": {
+            "noul": 0.98,
+            "type": "noul"
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": 2675,
+        "model": "jev-1.14.0",
+        "request_hash": "a75667517db4d681d543ee1518ccfb73e4ff4c176258844f1046b033485db889",
+        "seconds": 0.11595490999980029
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "schema": "approved-jev-attempt-budget-v1",
+  "grant_id": "v2-fresh-contract-v1-2026-11-08",
+  "provider": "jev",
+  "cap": 194,
+  "counts_failed_and_interrupted": true,
+  "session_cumulative_cap": 1000,
+  "inputs_sha256": {
+    "cases.jsonl": "51fe0c552ce69d9ecb648fb2af07ca3136990218236a4a746ba23f2e341daa9e",
+    "queries.jsonl": "f9e10e622c68ef5652c9d221e61bddfb9efee914376721ed0c2c3607f4122c7c",
+    "oracle.jsonl": "fbbbbb9fd600a07e2092e31089440a4ddd9123f4afac700c9031903710a27c0f"
+  },
+  "authorization": "Included in the user-approved cumulative 1000-attempt session; child capacity preallocated before dispatch."
+}

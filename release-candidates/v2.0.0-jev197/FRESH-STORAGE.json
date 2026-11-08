@@ -1,0 +1,17 @@
+{
+  "schema": "fresh-executable-contract-actual-storage-v1",
+  "cohort_sha256": "0ba379dfb29a054aa60a36895cb2725dcb8daca7b612f18d6069c0ffd8d47e2f",
+  "completed": 196,
+  "committed": 120,
+  "native_documents_verified": 120,
+  "all_storage_matches_live_admission": true,
+  "legitimate_explicit_committed": 80,
+  "explicit_denominator": 80,
+  "pre_provider_secret_guards": 2,
+  "new_jev_calls": 0,
+  "source_adapter_fix": "Native merge/keep schema conservatively returns keep; retains separate source evidence",
+  "failed_operation_retried_with_same_id": true,
+  "classification_policy_unchanged_from_frozen_live_calls": true,
+  "journal_sha256": "ada8ada06d2294a5b3f2d6ea3abc53a79b150ffaf777384b1310ad113b7277c0",
+  "provenance": "Single-author executable-contract fixtures; replay of actual Jev decisions; real installed Core/SDK/Native/PG. No independent-human labels or population claim."
+}

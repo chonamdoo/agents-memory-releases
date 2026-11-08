@@ -1,0 +1,40 @@
+{
+  "schema": "v16-recorded-and-19-live-development-evaluation-v1",
+  "policy": "admission-2026-11-08-origin-v16",
+  "scope": "Same consumed, single-author synthetic development cohort; not a fresh holdout",
+  "completed": 196,
+  "planned": 196,
+  "stop": null,
+  "legitimate_explicit_kept": {
+    "successes": 80,
+    "denominator": 80,
+    "wilson95": [
+      0.9541818704644728,
+      0.9999999999999999
+    ]
+  },
+  "auto_precision": {
+    "successes": 40,
+    "denominator": 40,
+    "wilson95": [
+      0.9123783988027135,
+      1.0
+    ]
+  },
+  "auto_recall": {
+    "successes": 40,
+    "denominator": 40,
+    "wilson95": [
+      0.9123783988027135,
+      1.0
+    ]
+  },
+  "negative_keeps": [],
+  "original_grant_used": 197,
+  "followup_grant_used": 19,
+  "cumulative_attempts": 216,
+  "session_cumulative_cap": 1000,
+  "remaining_session_attempts": 784,
+  "independent_human_labels": false,
+  "stable_approval": false
+}

@@ -1,0 +1,22 @@
+{
+  "cap": 1,
+  "reserved_attempts": 1,
+  "remaining": 0,
+  "attempts": [
+    {
+      "ordinal": 1,
+      "request_hash": "9bf07e2e8fe45f29e649bca3642ad9695dabbabaa3415a87d6adcbeefa5528ac",
+      "stage": "completed",
+      "result": {
+        "answers": null,
+        "dispatch_started": true,
+        "failure": "owned_update_failed",
+        "http_status": null,
+        "input_tokens": null,
+        "model": null,
+        "request_hash": "9bf07e2e8fe45f29e649bca3642ad9695dabbabaa3415a87d6adcbeefa5528ac",
+        "seconds": 7.891137787999469
+      }
+    }
+  ]
+}

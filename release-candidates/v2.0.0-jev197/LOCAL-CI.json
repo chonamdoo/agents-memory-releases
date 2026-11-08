@@ -1,0 +1,46 @@
+{
+  "schema": "local-ci-effective-evidence-v1",
+  "tested_core_commit": "8aacc2d869f737911d700fe80c18058c65ef4a47",
+  "platform": "Linux x86_64 Python3.12",
+  "authorization": "Local CI replaces GitHub Actions through 2026-12-01 inclusive; no Actions identity spoofed or manual dispatch",
+  "initial_source_counts": {
+    "passed": 5328,
+    "failed": 4,
+    "skipped": 7
+  },
+  "correction_reason": "Four runtime/CPU-contention cases plus two missing-explicit-Hindsight cases rerun in the provisioned environment. uv hardlink-installed Core rejected by regular-file ownership guard; copy installation fixes environment without weakening guard. All initial receipts retained.",
+  "corrected_cases": {
+    "tests.test_evaluation_controller::test_controller_builds_real_required_only_gateway_with_wire_evidence": "passed",
+    "tests.test_evaluation_controller::test_actual_controller_does_not_stamp_frozen_identity_after_model_reroute[model-reroute]": "passed",
+    "tests.test_ops_boundaries::test_authenticated_private_recovery_rotates_without_claiming_archive_applied": "passed",
+    "tests.test_evaluation_controller::test_actual_native_completion_cannot_credit_unlinked_gateway_delivery[server]": "passed",
+    "tests.test_unified_runtime::test_exact_runtime_pin_is_checked_before_starting_services[False]": "passed",
+    "tests.test_unified_runtime::test_exact_runtime_pin_is_checked_before_starting_services[True]": "passed"
+  },
+  "effective_source_counts": {
+    "passed": 5334,
+    "failed": 0,
+    "skipped": 5
+  },
+  "installed_wheel_counts": {
+    "passed": 899,
+    "failed": 0,
+    "skipped": 5
+  },
+  "linux_inapplicable_cases": [
+    "tests.test_evaluation_verifier::test_command_lease_observes_darwin_exit_without_releasing_group_identity[0-False]",
+    "tests.test_evaluation_verifier::test_command_lease_observes_darwin_exit_without_releasing_group_identity[0-True]",
+    "tests.test_evaluation_verifier::test_command_lease_observes_darwin_exit_without_releasing_group_identity[7-False]",
+    "tests.test_evaluation_verifier::test_command_lease_cleans_descendant_after_darwin_leader_exit",
+    "tests.test_evaluation_verifier::test_command_lease_observes_darwin_exit_without_releasing_group_identity[7-True]"
+  ],
+  "lint_exit_code": 0,
+  "build_exit_code": 0,
+  "external_jev_calls": 0,
+  "receipt_sha256": {
+    "provisioned-ci-r2/source-0-junit.xml": "705bed329b36729cab24a3708b2d30f1ea1163d42c19ab7ba859040968dea12c",
+    "provisioned-ci-r2/source-1-junit.xml": "f58d179e4ce123d6d3dcaf4377441a76a8de531a392ea7c2b0e27a773eb22112",
+    "core-recheck-copy/recheck.xml": "724bf0e81d79ceedab584b638cad85ffedf228ce58efd905b9ba7e3035ae3aed",
+    "wheel-consumer/wheel-0-junit.xml": "0572eeddb9503e76cd9b04193ca043d85b7c9583df28924814a03333a911b43c"
+  }
+}

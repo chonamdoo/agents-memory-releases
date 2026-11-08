@@ -230,3 +230,108 @@ async def test_budget_omission_is_not_reported_as_no_matching_memory():
 
     assert result["empty_result_scope"] == BUDGET_SCOPE
     assert result["partial"] is True and result["omitted_due_to_budget"] == 1
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("query", [
+    "What are the bounds and defaults of Widget.limit?",
+    "Widget.limit의 기본값과 필수 여부는?",
+    "Explain `widget.limit`.",
+    "For model Widget, explain Widget.limit.",
+])
+async def test_qualified_identifier_keeps_matching_native_sources_before_limit(store, query):
+    _, actor = await account(store)
+    identifier = "widget.limit" if "`widget.limit`" in query else "Widget.limit"
+    wrong = await retained(store, actor, "Different.limit has a default of 5.")
+    shape = await retained(store, actor, f"{identifier} has integer shape.")
+    bounds = await retained(store, actor, f"{identifier} has a default of 7 and a maximum of 11.")
+    required = await retained(store, actor, f"{identifier} is optional. Preserve its exception.")
+    bank = shape["engine_bank"]
+    store.memory_engine = RecallEngine({bank: [
+        hit(wrong["text"], wrong), hit(shape["text"], shape),
+        hit(bounds["text"], bounds), hit(required["text"], required),
+    ]})
+
+    result = await store.search(actor, query, project="app", limit=3)
+
+    assert [item["text"] for item in result["memories"]] == [shape["text"], bounds["text"], required["text"]]
+    assert {s["id"] for item in result["memories"] for s in item["sources"]} == {
+        str(row["id"]) for row in (shape, bounds, required)
+    }
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("different", ["Widget.limits", "OtherWidget.limit", "Other.Widget.limit", "Widget.limit.maximum"])
+async def test_qualified_identifier_does_not_match_a_prefix_or_another_qualified_name(store, different):
+    _, actor = await account(store)
+    wrong = await retained(store, actor, f"{different} has a default of 5.")
+    store.memory_engine = RecallEngine({wrong["engine_bank"]: [hit(wrong["text"], wrong)]})
+
+    result = await store.search(actor, "Explain Widget.limit", project="app")
+
+    assert result["memories"] == []
+
+
+@pytest.mark.asyncio
+async def test_identifier_filter_uses_full_authorized_source_not_only_native_fragment(store):
+    _, actor = await account(store)
+    text = "Widget.limit is optional.\nProduction clients must still send an audit token."
+    source = await retained(store, actor, text)
+    store.memory_engine = RecallEngine({source["engine_bank"]: [
+        hit("Production clients must still send an audit token.", source),
+    ]})
+
+    result = await store.search(actor, "Explain Widget.limit", project="app")
+
+    assert [item["text"] for item in result["memories"]] == [text]
+
+
+@pytest.mark.asyncio
+async def test_multiple_identifiers_preserve_evidence_for_either_requested_name(store):
+    _, actor = await account(store)
+    rows = [await retained(store, actor, text) for text in [
+        "Widget.limit defaults to 7.", "Source.limit defaults to 5.", "Other.limit defaults to 99.",
+    ]]
+    store.memory_engine = RecallEngine({rows[0]["engine_bank"]: [hit(row["text"], row) for row in rows]})
+
+    result = await store.search(actor, "Compare Widget.limit and Source.limit", project="app")
+
+    assert [item["text"] for item in result["memories"]] == [row["text"] for row in rows[:2]]
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("query", [
+    "Explain the model Widget and its required fields.",
+    "What does class Widget require?",
+    "Describe type Widget.",
+    "model Widget의 필수 필드는?",
+])
+async def test_named_type_keeps_its_root_and_field_evidence_before_limit(store, query):
+    _, actor = await account(store)
+    rows = [await retained(store, actor, text) for text in [
+        "OtherWidget is an object.", "WidgetExtra requires a token.",
+        "Widget is an object with additionalProperties=false.",
+        "Widget requires the limit field.", "Widget.limit has integer shape.",
+    ]]
+    store.memory_engine = RecallEngine({rows[0]["engine_bank"]: [hit(rows[i]["text"], rows[i]) for i in [0,1,4,2,3]]})
+
+    result = await store.search(actor, query, project="app", limit=3)
+
+    assert [item["text"] for item in result["memories"]] == [row["text"] for row in rows[2:]]
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("query", [
+    "What is the backup policy?", "Use e.g. our backup policy.",
+    "What is documented at https://GitHub.com/example?", "Check example.com backups.",
+    "What model should we use for backups?",
+])
+async def test_ordinary_prose_abbreviations_and_urls_preserve_native_nominations(store, query):
+    _, actor = await account(store)
+    first = await retained(store, actor, "Backups are retained for 29 days.")
+    second = await retained(store, actor, "Legal holds must not be deleted.")
+    store.memory_engine = RecallEngine({first["engine_bank"]: [hit(first["text"], first), hit(second["text"], second)]})
+
+    result = await store.search(actor, query, project="app")
+
+    assert [item["text"] for item in result["memories"]] == [first["text"], second["text"]]

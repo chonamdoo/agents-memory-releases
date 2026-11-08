@@ -4,7 +4,7 @@
     "repository": "chonamdoo/agents-memory-releases",
     "release_tag": "v2.0.0",
     "runtime_version": "2.0.0",
-    "marketplace_package_version": "2.0.2",
+    "marketplace_package_version": "2.0.3",
     "previous_stable": "v1.0.8"
   },
   "established": "2026-11-07",
@@ -20,7 +20,7 @@
       "repository": "chonamdoo/agents-memory",
       "commit": "056f0342e9c5f28535cb2561d5091f5b42e601a1",
       "path": "docs/verification.ko.md",
-      "section": "현재 v43 독립 실측 — 정식 출시 실패"
+      "section": "\ud604\uc7ac v43 \ub3c5\ub9bd \uc2e4\uce21 \u2014 \uc815\uc2dd \ucd9c\uc2dc \uc2e4\ud328"
     },
     "user_authorized_local_ci": {
       "through": "2026-12-01",
@@ -28,7 +28,14 @@
       "timezone": "Asia/Seoul",
       "never_auto_dispatch_actions": true
     },
-    "approved_additional_jev_attempts": 197
+    "approved_additional_jev_attempts": 197,
+    "subsequent_followup_attempts": 19,
+    "approved_cumulative_jev_attempts": 1000,
+    "cumulative_scope": "Conservatively includes original 197, additional19 and subsequent recorded install/update/fresh cohort reservations. Original grants and failed/interrupted reservations are preserved.",
+    "user_selected_distribution": {
+      "channel": "MCP marketplace in chonamdoo/agents-memory-releases, pinned runtime bundle links and installation instructions",
+      "release_assets": "Existing9assets/tag preserved; adding a new binary release asset is optional for this user-selected delivery mode. A401 upload remains a distinct asset status, not a requirement to block repository-pinned MCP delivery."
+    }
   },
   "evidence_contract": {
     "candidate_pinned_before_run": true,
@@ -199,7 +206,7 @@
     "ready_to_promote": [
       "validation_ready",
       "marketplace_delivery",
-      "release_asset_delivery"
+      "mcp_bundle_delivery"
     ],
     "stable_published": [
       "ready_to_promote",

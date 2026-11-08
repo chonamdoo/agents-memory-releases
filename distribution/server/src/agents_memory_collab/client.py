@@ -19,6 +19,8 @@ from uuid import UUID, uuid4
 from .models import Failure, Operation
 from .protocol import GENESIS, canonical, chain_hash, digest, operation_digest
 
+_DEFAULT_TIMEOUT = object()
+
 
 def _reject_source_secrets(text):
     try:
@@ -64,7 +66,7 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 class Remote:
-    def __init__(self, url: str, token: str, *, timeout=10):
+    def __init__(self, url: str, token: str, *, timeout=_DEFAULT_TIMEOUT):
         parsed = urlsplit(url)
         if (parsed.scheme not in {"https", "http"} or not parsed.netloc or parsed.username
                 or parsed.password or parsed.query or parsed.fragment or parsed.path not in {"", "/"}
@@ -73,7 +75,12 @@ class Remote:
         if not token.startswith("amc_") or len(token) > 100 or any(c.isspace() for c in token):
             raise ValueError("Invalid credential format")
         self.url, self.token = url.rstrip("/"), token
-        self.timeout = timeout
+        # Native recall has a 120s backend request deadline. A shorter default
+        # would turn a healthy, slower search into an empty offline-cache hit.
+        # Initialization, synchronization and lexical source lookup stay fast;
+        # callers that supply a deadline retain control of every request.
+        self.timeout = 10 if timeout is _DEFAULT_TIMEOUT else timeout
+        self.search_timeout = 130 if timeout is _DEFAULT_TIMEOUT else timeout
         self.http = urllib.request.build_opener(NoRedirect(), urllib.request.ProxyHandler({}))
 
     def request(self, path, value=None, *, method=None):
@@ -83,7 +90,8 @@ class Remote:
         request = urllib.request.Request(self.url + path, data, method=method or ("POST" if data else "GET"),
             headers={"Authorization": "Bearer " + self.token, "Content-Type": "application/json"})
         try:
-            with self.http.open(request, timeout=self.timeout) as stream:
+            search = path == "/v1/recall" or re.fullmatch(r"/v1/teams/[0-9a-fA-F-]+/search", path)
+            with self.http.open(request, timeout=self.search_timeout if search else self.timeout) as stream:
                 raw = stream.read(4_194_305)
                 if len(raw) > 4_194_304:
                     raise ValueError("Service response too large")

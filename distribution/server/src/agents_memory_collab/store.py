@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import re
 import secrets
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
@@ -609,6 +610,31 @@ class Store:
         await self._active(actor)
         if self.memory_engine is None:
             raise Failure(503, "memory_engine_unconfigured")
+        # Qualified names identify a particular symbol, not similarly named
+        # fields. Match them in complete authorized source text after Native
+        # nomination and before the result limit; never search other raw records.
+        identifiers = set(re.findall(r"`([A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_$][A-Za-z0-9_$]*)+)`", query))
+        identifiers.update(re.findall(r"(?<![A-Za-z0-9_.$/:])[A-Z][A-Za-z0-9_]*(?:\.[A-Za-z_$][A-Za-z0-9_$]*)+(?![A-Za-z0-9_.$])", query))
+        literal_patterns = [re.compile(r"(?<![A-Za-z0-9_.$])" + re.escape(name) + r"(?![A-Za-z0-9_.$])")
+                            for name in sorted(identifiers)]
+        # An explicitly named class/model/type scopes its root documentation
+        # and members. Unlike a qualified field, its following dot is allowed.
+        named_types = set(re.findall(r"(?<![A-Za-z0-9_])(?:class|model|type)\s+`?([A-Z][A-Za-z0-9_]*)`?(?![A-Za-z0-9_])", query)) if not identifiers else set()
+        literal_patterns.extend(re.compile(r"(?<![A-Za-z0-9_.$])" + re.escape(name) + r"(?![A-Za-z0-9_$])")
+                                for name in sorted(named_types))
+        type_patterns = [re.compile(r"(?<![A-Za-z0-9_.$])" + re.escape(name) + r"(?![A-Za-z0-9_.$])")
+                         for name in sorted(named_types)]
+
+        def matches_identifier(text):
+            return not literal_patterns or any(pattern.search(text) for pattern in literal_patterns)
+
+        def result_order(item):
+            # A question naming a type should see its own documentation before
+            # member-only fragments. Keep members as fallback and preserve the
+            # Native order within each group; explicit qualified fields prevail.
+            member_only = bool(type_patterns) and not any(pattern.search(item["text"]) for pattern in type_patterns)
+            return member_only, -item["score"], str(item["id"])
+
         # Tenant and project authorization are part of the SQL candidate set,
         # before ranking/limiting. Never fetch another user's private corpus.
         if team is None:
@@ -714,7 +740,8 @@ class Store:
                 merged.update(text=best["text"], score=best["score"],
                               sources=[sources[key] for key in sorted(sources)])
                 expanded[key] = merged
-            result = sorted(expanded.values(),key=lambda r:(-r["score"],str(r["id"])))
+            result = sorted((item for item in expanded.values() if matches_identifier(item["text"])),
+                            key=result_order)
             response = {"memories": [], "semantic": True, "engine": "hindsight",
                         "integration_enabled": True, "generation_enabled": False,
                         "partial": False, "omitted_due_to_budget": len(result)}
@@ -740,13 +767,13 @@ class Store:
             current = await self.pool.fetchval("""SELECT 1 FROM am_collab.memories WHERE user_id=$1 AND id=$2
                 AND revision=$3 AND NOT deleted AND processing_state='ready' AND engine_document=$4""",
                 row["author_id"], row["id"], row["revision"], row["engine_document"])
-            if current:
+            if current and matches_identifier(row["text"]):
                 item = dict(row)
                 item.pop("engine_bank")
                 item.pop("engine_document")
                 item["score"] = hits[identity]
                 result.append(item)
-        result.sort(key=lambda item: (-item["score"], str(item["id"])))
+        result.sort(key=result_order)
         return {"memories": result[:limit], "semantic": True, "engine": "hindsight"}
 
     async def brief(self, actor, team, project):

@@ -2,116 +2,167 @@
   "schema": "agents-memory-stable-release-status-v1",
   "as_of": "2026-11-08",
   "timezone": "Asia/Seoul",
-  "policy_sha256": "34b2907f6d799b4405a43fa5729ba0a851ad6323043ed28cc6cd6344ded5ce32",
+  "policy_sha256": "9011b7fc3834b4e563f41a75b2213e8566e76d8e14b0e5027ba49520de4cb86d",
   "candidate": {
     "runtime_version": "2.0.0",
-    "marketplace_package_version": "2.0.2",
-    "archive_sha256": "a8e08c63ac809f22f5cc76f56cbdc8431253f1e616bdac319fcb4c922ad6fafc",
-    "sdk_wheel_sha256": "f36a21182189983ba934ce105719c6e32af675b11f3048878d84b9e1f5cec6b6",
+    "marketplace_package_version": "2.0.3",
+    "archive_sha256": "576c00e85cdabbbb2dd93305a1da97682a3bba59dc744b2c9e3a8a1eaad4dfd8",
+    "sdk_wheel_sha256": "14ba497889ace5e92946f328d79b1b6189f0c31b34e64b54fccf269a080f74ea",
     "core_wheels": {
-      "agents_memory_core-2.0.0-cp313-none-any.whl": "1c5de9e8be3446acf12b08a41e18b2f2ab451058ae8302a8ef4cc2690c812bf9",
-      "agents_memory_core-2.0.0-cp312-none-any.whl": "48406a54f4bc78b0276d0550369e140013cc270b5ef9fe13576fb3f22bdb4d14"
+      "agents_memory_core-2.0.0-cp312-none-any.whl": "bb4307f72380d4738c4c9305bafec1b70232ec93e153336fbd995619d5b9b0b2",
+      "agents_memory_core-2.0.0-cp313-none-any.whl": "8096e885d9786e01e9aa9a4d039cafc3ee18bca92316554d25e615fe497f106b"
     },
-    "runtime_sdk_tree_commit": "8a9863f759f8ce6e736855aa4846451458dc07c8",
-    "connector_changes_base_commit": "8170c1ffef043af0bf37ecb4772a48296101c64c",
+    "core_source_commit": "a9069272d62fe651d793d54db0034aac59f0e5ed",
+    "core_merge_commit": "aa26e986547a466c8b0614e43af465e3394945f2",
+    "connector_changes_base_commit": "bab53ff829306317a625183c4f1f5164b003fc22",
     "connector_files_sha256": {
-      ".claude-plugin/marketplace.json": "164e9675ad3a8e7a4618f4d9f3027a2b98e6135a79c7abd7d6ed3c0e83d368fa",
-      "plugins/agents-memory-unified/.claude-plugin/plugin.json": "bb1fa41b9df630279bffd3fdb1985027f879af2bdcc8ba4366c2d79eaacdcbb3",
-      "plugins/agents-memory-unified/.codex-plugin/plugin.json": "e7539f118f23cd1f3d67275400ab58f9c5a9e98d42fe3f26329e53d1a960a471",
-      "plugins/agents-memory-unified/scripts/connector.go": "4333c19b52d65704fb6fa39354aee70d03b2ffc704a5206a12e2bf6852e35799",
-      "plugins/agents-memory-unified/bin/connector-linux-x86_64": "8270d715ec9de7b9e57df75bbf746643c706ebb5aab724c1a676868106709caf",
-      "plugins/agents-memory-unified/bin/connector-darwin-arm64": "3de0905a1dcd06d76807a498f1ca4eec40cad423a2730b1f87a9f5be0cdc7518",
-      "plugins/agents-memory-unified/bin/SHA256SUMS": "4dffdcf404d587807586bcdab384ed1d9df8a571679370901a58f7e30e6e527a"
+      ".claude-plugin/marketplace.json": "80e439f8e2d01ede8b460f2dc0758eda3dc5679bc490b65698b317098bfa369d",
+      "plugins/agents-memory-unified/.claude-plugin/plugin.json": "1e4fc72bf3caa9c70dcf9899dc2d1a04454922d14b1d3bef76e92286bc055355",
+      "plugins/agents-memory-unified/.codex-plugin/plugin.json": "6467c68b55cbfeb8470481b48c2de17c8795e150937ea35aafca642a7dd619f1",
+      "plugins/agents-memory-unified/scripts/connector.go": "b01df5c7d68ef59c74270e1b5ba8bfd856c6975ecfa6c4edbb0d3f520ec289d5",
+      "plugins/agents-memory-unified/bin/connector-linux-x86_64": "52a303012767e6360f8cfae0e6dafe60cccf3f39096e9891be71176bdac0d1df",
+      "plugins/agents-memory-unified/bin/connector-darwin-arm64": "200a3c864fcfe43d1ec9a3994f632b4c5bc4bdc933318bd886b978324a6c1a12",
+      "plugins/agents-memory-unified/bin/SHA256SUMS": "6786a9f30a63be4162623cd3f33f5db464d1ca026532dca32db92026c8190abc"
     }
   },
   "conditions": [
     {
       "id": "candidate_identity",
       "status": "met",
-      "reason": "Current source-search archive verifies against 15 SDK Python files, SQL and unchanged source-free Core wheels.",
+      "reason": "Final source-free CP312/CP313 Core13modules, SDK15modules/SQL and installer match shipped bytes. Core includes serial ONNX reranking; final SDK includes typed-name scope and root-document priority.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-source-search/VERIFICATION.json",
-          "sha256": "3af3b1448c3f60b39df45b5b9a06b1bab897874959fd1ea076bab4604b270ae3"
+          "path": "release-candidates/v2.0.0-jev197/VERIFICATION.json",
+          "sha256": "cb67c4436fdc82c6d2ae98d03e2cd93bd2a851541ed2d8348e33c54a6555b9a1"
         },
         {
-          "path": "release-candidates/v2.0.0-source-search/SOURCE-SEARCH-SHA256SUMS",
-          "sha256": "f9e51f0aa3dc9f8d4a2fddd02bdf3a8552eb06023f0ea1e30c8a908506a2aca3"
+          "path": "release-candidates/v2.0.0-jev197/CP312-V16-RUNTIME.json",
+          "sha256": "a1de80954d849bae70a7d826f9827d4c6efdf89d62293236bf7015f47ad7ef6c"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/CP313-V16-RUNTIME.json",
+          "sha256": "8ca9ba0e863ea7560e0e21d1871d8c9f6df20c52d49463bc4d915a61ab2ddc48"
         }
       ]
     },
     {
       "id": "regression",
-      "status": "partial",
-      "reason": "SDK 294 passed / 1 separately provisioned native installation skip. New real configured connector -> installed SDK -> Native test passes; full unified bootstrap/ensure/autostart acceptance remains incomplete.",
+      "status": "met",
+      "reason": "Final SDK322passed zero failures/skips; separate owned QA databases. Shipping search59each on CP312/CP313; serial-runtime38each on source and both shipping wheels. Core base5334/installed899 and explicit Darwin-only5 exclusions retained.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-source-search/LOCAL-CI.xml",
-          "sha256": "7e307de9eca8e4136ebb02be3705f27b9dc9d8ed7e1981b01133b51a91c057d8"
+          "path": "release-candidates/v2.0.0-jev197/LOCAL-CI.json",
+          "sha256": "95459724962fcfeef9241c89c52422dfd9df2f134fc36a6d4194f023b21d4eda"
         },
         {
-          "path": "release-candidates/v2.0.0-source-search/INSTALLED-WHEEL.xml",
-          "sha256": "62e4e017be24e22cf256b8a97cf94e1dadb2a00f2b7fa91ec77d514364133ca8"
+          "path": "release-candidates/v2.0.0-jev197/FINAL-VALIDATION.json",
+          "sha256": "bc6e439c65fb6bb81a9b2250f7a91bca67515d1d0a1ab8cc0429e5d1992ce0eb"
         },
         {
-          "path": "release-candidates/v2.0.0-source-search/CONNECTOR-LOCAL-CI.xml",
-          "sha256": "3c3f764a04e9fceba1397fe19de96a7722aa2b2576b79ef1d42d032c25cb9619"
+          "path": "release-candidates/v2.0.0-jev197/SERIAL-RERANKER-SOURCE.xml",
+          "sha256": "4ade2853fcc037c8961eb38340ec3133a42b528c9ec243102341aa34fc7cf74f"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/SERIAL-RERANKER-WHEEL312.xml",
+          "sha256": "f12f68b9703cc4c9fa80bc6b1a5cec90f9afa08f87eb2c135ad13f8a97f9ac2a"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/SERIAL-RERANKER-WHEEL313.xml",
+          "sha256": "fc65c9be151fd3c7c6b860461de4e7db6df267938d08ccaf46eb53d95f305fb9"
         }
       ]
     },
     {
       "id": "evaluation_inputs",
-      "status": "blocked",
-      "reason": "New independent corpus, gold, original labels, author signoffs and actual ledger are not connected. Consumed v43 cannot be relabeled as a fresh holdout.",
-      "references": []
+      "status": "partial",
+      "reason": "Single-author executable-schema fixtures per user authorization, not independent human labels/kappa/signoffs. Ten original questions accidentally exposed a nonexistent root sentinel as an APIfield; originals retained and corrections frozen separately. Original independent contract unverified.",
+      "references": [
+        {
+          "path": "release-candidates/v2.0.0-jev197/FRESH-COHORT.json",
+          "sha256": "0ba379dfb29a054aa60a36895cb2725dcb8daca7b612f18d6069c0ffd8d47e2f"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/QUESTION-REPAIR-PLAN.json",
+          "sha256": "a3b3cec4c3356dacfef0a5a2c35805fd7ee7f40305e25d7df2de4e5a7f961ad9"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/SESSION-BUDGET.json",
+          "sha256": "899e981e619fe1d442f82f4a5e5686d9e7db3ab34ba0748cc55753425702742f"
+        }
+      ]
     },
     {
       "id": "live_admission",
-      "status": "blocked",
-      "reason": "Fresh live run absent. Historical v43 legitimate storage is 70/80 and fails the unchanged lower-bound criterion.",
-      "references": []
+      "status": "partial",
+      "reason": "Fresh fixed-v16 actual Jev194 calls +2guards:80/80 legitimate,40/40 auto precision/recall,0negativekeeps,194/194audit. Recorded exact responses through real Store/Native commit120, explicit80/80. Single-author/executable-contract engineering scope; original independent-label claim unverified.",
+      "references": [
+        {
+          "path": "release-candidates/v2.0.0-jev197/FRESH-ADMISSION.json",
+          "sha256": "3d357e37a63027256b1eaf1c9826ab7eb2cebc1f8d8e7f7dc9ba4a5f29283e70"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/FRESH-STORAGE.json",
+          "sha256": "da5c1b49aeed0ce6874b6d5211b3f3d821e86052012bec79b538361a28cebe52"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/FRESH-JEV-LATENCY.json",
+          "sha256": "8e45789d85c8efb98a5c9e399fb632dab37281966c73dd3e1426d45475cb4f7f"
+        }
+      ]
     },
     {
       "id": "live_retrieval",
-      "status": "blocked",
-      "reason": "Fresh independent 40-query run absent. Historical v43 Hit@5 is 30/40; public search-v1 synthetic engineering data is a different cohort.",
+      "status": "partial",
+      "reason": "Failed complete SDK619 baseline: related32/40,all-three6/40,noise134/200. Original40 on qualified-only SDKd35:30/40 all-three,noise0/90,invalid10questions retained. Final same-Core/SDK corrected40actualMCP run in progress,zero cross-candidate reuse. Not original v43 or independent human gold.",
       "references": [
         {
-          "path": "release-candidates/2.0.0-search-calibration-verification.json",
-          "sha256": "5cf45632c97781b828e40e09933267ff9c92311c369e6806609fe90951328bba"
+          "path": "release-candidates/v2.0.0-jev197/FRESH-BASELINE-RETRIEVAL.json",
+          "sha256": "6239b6d0abbe55bba92c5786f3312db47f2ab45631bc7a1012b3f3dda3145b90"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/QUALIFIED-IDENTIFIER-ORIGINAL40.json",
+          "sha256": "0473197efefe7b881ded7870d95e8eadc88784a2bb86809324a1dfc00c04833f"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/FINAL-RETRIEVAL-PLAN.json",
+          "sha256": "cdfecc70ede0689988d9e01d92b2a21aec1fa986ec99112315ae284f36f33709"
         }
       ]
     },
     {
       "id": "safety",
       "status": "partial",
-      "reason": "ACL/revision/deletion and source guard regressions exist; full original hard-gate census and mutation evidence are not bound to a new live candidate run.",
+      "reason": "New196 inputs:194rawdecision audits,2pre-provider guards; no negative keeps, false storage or guard jobs. ACL/revision/deletion/source boundaries and guard regressions pass. Original four mutation/hard-gate independent quality census not re-certified.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-source-search/LOCAL-CI.xml",
-          "sha256": "7e307de9eca8e4136ebb02be3705f27b9dc9d8ed7e1981b01133b51a91c057d8"
+          "path": "release-candidates/v2.0.0-jev197/FRESH-ADMISSION.json",
+          "sha256": "3d357e37a63027256b1eaf1c9826ab7eb2cebc1f8d8e7f7dc9ba4a5f29283e70"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/FRESH-STORAGE.json",
+          "sha256": "da5c1b49aeed0ce6874b6d5211b3f3d821e86052012bec79b538361a28cebe52"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/FINAL-VALIDATION.json",
+          "sha256": "bc6e439c65fb6bb81a9b2250f7a91bca67515d1d0a1ab8cc0429e5d1992ce0eb"
         }
       ]
     },
     {
       "id": "source_search",
       "status": "met",
-      "reason": "25 original-search cases and six real local Hindsight mechanism checks pass; processor probabilities are scripted and are not Jev quality evidence.",
+      "reason": "Final shipping CP312/CP313 tests include independent original-source search and authorization/current revision/deletion boundaries; configured connector consumes genuine owned installation. Source_search results never substituted for Native recall scoring.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-source-search/INSTALLED-WHEEL.xml",
-          "sha256": "62e4e017be24e22cf256b8a97cf94e1dadb2a00f2b7fa91ec77d514364133ca8"
-        },
-        {
-          "path": "release-candidates/v2.0.0-source-search/MECHANISM.json",
-          "sha256": "853175e878c68a4872bfdd48bfcb12fe6023536b808696590bbca717c9687d85"
+          "path": "release-candidates/v2.0.0-jev197/FINAL-VALIDATION.json",
+          "sha256": "bc6e439c65fb6bb81a9b2250f7a91bca67515d1d0a1ab8cc0429e5d1992ce0eb"
         }
       ]
     },
     {
       "id": "compaction",
       "status": "partial",
-      "reason": "Native compact plus post-compaction fact reinjection passes 36/36 on each real CLI using installed shipping runtime. Memory recall and provider responses are scripted; actual Jev-backed integrated storage/retrieval and fresh quality cohort remain unverified.",
+      "reason": "Native compact plus post-compaction complete fact ingress passed36/36 each on actual three CLIs with scripted model responses/recall. Separate real Jev admission and Native storage exist; original independent integrated quality and real provider compliance not recertified.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-native-lifecycle/NATIVE-LIFECYCLE.json",
@@ -137,48 +188,66 @@
     {
       "id": "installation",
       "status": "partial",
-      "reason": "Final bundle client install/reinstall and actual connector consumption pass. Both CP312/CP313 import all 13 shipping private Core modules, 15 SDK modules and SQL with matching bytes; 25 original-search cases pass on each. Full unified bootstrap/ensure/autostart and current supported-platform installation acceptance remain incomplete.",
+      "reason": "Genuine pinned bootstrap installation, repeated production updates and final cold configured MCP autostart pass on Linux; credentials/database/models/connection preserved. Supported isolated measurement Ubuntu24.04/glibc2.39 Linuxx86_64. Debian12/glibc2.36 pgvector loader failure preserved; macOS full installation not verified.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-source-search/FINAL-BUNDLE-INSTALL.xml",
-          "sha256": "3faa3678379c400af7128c25c69f702e9d7a34b35f3c8b5eab94712b1047d9fa"
+          "path": "release-candidates/v2.0.0-jev197/OWNED-UPDATE7.json",
+          "sha256": "e7ccef46e39935d69f2dfc634c7081dd16c731ef1a1dafa8e336e19ace31591f"
         },
         {
-          "path": "release-candidates/v2.0.0-source-search/CONNECTOR-VALIDATION.json",
-          "sha256": "5af0dbe6b743d26758c80e9ca4a44a119ed71d18d3ab692def539d64bb64c39e"
+          "path": "release-candidates/v2.0.0-jev197/FINAL-OWNED-COLD.xml",
+          "sha256": "487cef8cb451d9dc5dcb63eafb04a39d22a2c27e8a87df6e52b9ee8e7e7fcbba"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/CP312-V16-RUNTIME.json",
+          "sha256": "a1de80954d849bae70a7d826f9827d4c6efdf89d62293236bf7015f47ad7ef6c"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/CP313-V16-RUNTIME.json",
+          "sha256": "8ca9ba0e863ea7560e0e21d1871d8c9f6df20c52d49463bc4d915a61ab2ddc48"
         }
       ]
     },
     {
       "id": "resources_and_budget",
-      "status": "blocked",
-      "reason": "Native lifecycle hard limits verified: 2 CPU, 4 GiB, swap 0, 256 pids, 512 MiB scratch and 128 loopback requests per container. Additional 197 Jev attempts approved, 0 dispatched here; original actual shared ledger and fresh live latency remain unconnected.",
+      "status": "partial",
+      "reason": "Cumulative418/1000reserved,582remaining,including one failed pre-network update. Original 4GiB OOM retained; batch8to1 preserves models/tokens/all-candidate scoring. Final same-byte40query isolated2CPU/4GiB/swap0 evaluation in progress; no completed-resource pass claimed.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-native-lifecycle/NATIVE-LIFECYCLE.json",
-          "sha256": "70d96175acd6e4d6982cefebe75e310ebb86139483fbee9f308a86e6d97553b1"
+          "path": "release-candidates/v2.0.0-jev197/SESSION-BUDGET.json",
+          "sha256": "899e981e619fe1d442f82f4a5e5686d9e7db3ab34ba0748cc55753425702742f"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/CORRECTED-QUESTION-OOM.json",
+          "sha256": "9cf0c7d215416739b922992ad5d94463c1a197af73255bfc579ef796f6081818"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/FINAL-RETRIEVAL-PLAN.json",
+          "sha256": "cdfecc70ede0689988d9e01d92b2a21aec1fa986ec99112315ae284f36f33709"
         }
       ]
     },
     {
       "id": "marketplace_delivery",
-      "status": "met",
-      "reason": "Public main upgrades 2.0.1 -> 2.0.2 verified on Claude, Codex and OMP; every installed plugin file matches and each bundled unconfigured connector protocol passes.",
+      "status": "partial",
+      "reason": "Actual isolated local Claude/Codex/OMP installs select2.0.3 and match all plugin bytes. Public main delivery must follow candidate PR merge.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-source-search/MARKETPLACE-UPDATE.json",
-          "sha256": "59530c8ba4a94c5b6e099b4925dfbb822e2ed740327a83c35da385ec196571c5"
-        },
-        {
-          "path": "release-candidates/v2.0.0-source-search/PUBLIC-CONNECTOR-DELIVERY.json",
-          "sha256": "0d111dd59e19b5a58899ccdeaa1dfa6f401c01b81ae59c6aff3c478a31b663ed"
+          "path": "release-candidates/v2.0.0-jev197/LOCAL-MARKETPLACE.json",
+          "sha256": "696273f1bfe627535e2ac5b9e28481475c0eb84b40f9e18fb952c800800bbd70"
         }
       ]
     },
     {
+      "id": "mcp_bundle_delivery",
+      "status": "not_run",
+      "reason": "User-selected MCP-link delivery; verify final pinned repository archive download/hash and public three-host install after candidate merge. New release asset upload is optional in this mode.",
+      "references": []
+    },
+    {
       "id": "release_asset_delivery",
       "status": "blocked",
-      "reason": "New candidate is downloadable from repository files. Upload to this repository release asset list returned HTTP 401. No valid asset/readback receipt for this candidate.",
+      "reason": "Candidate is delivered as repository-pinned MCP bundle/link. Prior upload401 remains; new release asset list delivery is not verified. Existing v2.0.0 nine assets and tag preserved.",
       "references": []
     },
     {
@@ -210,16 +279,21 @@
     "generated_reader_answers": "not evaluated"
   },
   "current_extra_jev_attempts": {
-    "authorized": 197,
-    "dispatched_in_this_environment": 0,
-    "original_shared_ledger": "not connected; historical 844/1000 is a snapshot, not a new ledger"
+    "authorized_cumulative": 1000,
+    "reserved_in_this_evaluation": 418,
+    "remaining": 582,
+    "original_197_preserved": 197,
+    "followup_19_preserved": 19,
+    "failed_process_reservations": 1,
+    "original_shared_ledger": "Old historical844/1000 remains unconnected; not reset or represented as this new session ledger."
   },
   "validation_ready": false,
   "ready_to_promote": false,
   "stable_published": false,
   "separate_track": {
     "central_official_directories": "unverified; not a prerequisite for publishing GitHub stable, but required before claiming central listing",
-    "reader_answer_quality": "not evaluated; no new quality claim"
+    "reader_answer_quality": "not evaluated; no new quality claim",
+    "new_release_asset_upload": "Prior401; optional for user-selected repository-pinned MCP delivery. Existing9assets/tag preserved."
   },
   "limitations": "Manually reviewed status snapshot. Referenced hashes preserve file identity; they do not independently prove original experiments, author identity or remote publication.",
   "native_lifecycle_scope": {
@@ -228,7 +302,7 @@
     "denominator_per_host": 36,
     "core_pr": 65,
     "core_merge": "7451641a114586fff231e15c15db7ebf352b3460",
-    "private_live_inputs": "not connected",
+    "private_live_inputs": "New self-authored live Jev admission and separate Native storage/recall; original historical inputs not available",
     "first_interactive_trust": "unverified",
     "selected_real_provider_compliance": "unverified"
   }

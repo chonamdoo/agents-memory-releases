@@ -1,0 +1,26 @@
+{
+  "cap": 1,
+  "reserved_attempts": 1,
+  "remaining": 0,
+  "attempts": [
+    {
+      "ordinal": 1,
+      "request_hash": "5770a7fe13b3cde8e7392cbcc27db70cee6ff814112c6089e91e856867a5a722",
+      "stage": "completed",
+      "result": {
+        "answers": {
+          "installer": {
+            "exit_code": 0
+          }
+        },
+        "dispatch_started": true,
+        "failure": null,
+        "http_status": null,
+        "input_tokens": null,
+        "model": "external-process-reservation-not-a-typed-Jev-cassette",
+        "request_hash": "5770a7fe13b3cde8e7392cbcc27db70cee6ff814112c6089e91e856867a5a722",
+        "seconds": 114.60656085100027
+      }
+    }
+  ]
+}

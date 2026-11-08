@@ -1,0 +1,12 @@
+{
+  "schema": "approved-jev-attempt-budget-v1",
+  "grant_id": "v2-owned-update-7-2026-11-08",
+  "provider": "jev",
+  "cap": 1,
+  "counts_failed_and_interrupted": true,
+  "session_cumulative_cap": 1000,
+  "inputs_sha256": {
+    "bundle_manifest": "29b660c92d6d1df30173267afd2e2298df09a45d42396dbf223eac64941218ea"
+  },
+  "authorization": "Included in the user-approved cumulative 1000-attempt session; child capacity preallocated before dispatch."
+}

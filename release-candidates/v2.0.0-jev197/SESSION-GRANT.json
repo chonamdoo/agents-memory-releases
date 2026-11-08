@@ -1,0 +1,86 @@
+{
+  "schema": "cumulative-jev-session-grant-v1",
+  "date": "2026-11-08",
+  "maximum_reserved_attempts": 1000,
+  "authorization": "User: 1000\ubc88 \uc2b9\uc778\ud560\uaed8. Assistant explicitly applies a cumulative total including the previous 197 and 19.",
+  "capacity_preallocation": "Sum of immutable child caps never exceeds 1000; failed/interrupted reservations remain consumed.",
+  "grants": [
+    {
+      "name": "initial-197",
+      "cap": 197,
+      "grant_file": "GRANT.json",
+      "ledger": "private/budget",
+      "grant_sha256": "b565c4b1cd787e7191858f46985772373027db4f97ef86c4b004835fff518a28"
+    },
+    {
+      "name": "followup-19",
+      "cap": 19,
+      "grant_file": "FOLLOWUP19-GRANT.json",
+      "ledger": "private/followup19-budget",
+      "grant_sha256": "2a9ede4a1ad08109cf26caf703013522e70e55cedff65d2600318b0165d13d94"
+    },
+    {
+      "name": "owned-install-1",
+      "cap": 1,
+      "grant_file": "owned-install-1-GRANT.json",
+      "ledger": "private/owned-install-1-budget",
+      "grant_sha256": "49ab86d00e86a98947e997985b18c565bb40bd187aecb85e764822555e8c6e79"
+    },
+    {
+      "name": "fresh-contract-v1",
+      "cap": 194,
+      "grant_file": "fresh-contract-v1-GRANT.json",
+      "ledger": "private/fresh-contract-v1-budget",
+      "grant_sha256": "4393994a5b7c61e1a0d5dbade80c28dad02f94b9df98c4836160bf8a7def89cb"
+    },
+    {
+      "name": "owned-update-1",
+      "cap": 1,
+      "grant_file": "owned-update-1-GRANT.json",
+      "ledger": "private/owned-update-1-budget",
+      "grant_sha256": "5beff49cbf6152e59a2866b8bce14759a590646ce521f5abfe5310537ebf2a3b"
+    },
+    {
+      "name": "owned-update-2",
+      "cap": 1,
+      "grant_file": "owned-update-2-GRANT.json",
+      "ledger": "private/owned-update-2-budget",
+      "grant_sha256": "d94fa8cc0f1ca0253332d31d5e14245b84d15c35df96041c95928d693becafad"
+    },
+    {
+      "name": "owned-update-3",
+      "cap": 1,
+      "grant_file": "owned-update-3-GRANT.json",
+      "ledger": "private/owned-update-3-budget",
+      "grant_sha256": "82c4b1d7884ff9e1cf6c65a2f456a953e7ae1dab44cb6770342098ada11463d1"
+    },
+    {
+      "name": "owned-update-4",
+      "cap": 1,
+      "grant_file": "owned-update-4-GRANT.json",
+      "ledger": "private/owned-update-4-budget",
+      "grant_sha256": "da67c03b96c1fb6b79cb9fd095a9129a92e99cff6d46908d374c3e84bac9a9a9"
+    },
+    {
+      "name": "owned-update-5",
+      "cap": 1,
+      "grant_file": "owned-update-5-GRANT.json",
+      "ledger": "private/owned-update-5-budget",
+      "grant_sha256": "582a5d5c7fa315dc46ea88c87afe3ac770c9335e574c673aecffc8f89109740b"
+    },
+    {
+      "name": "owned-update-6",
+      "cap": 1,
+      "grant_file": "owned-update-6-GRANT.json",
+      "ledger": "private/owned-update-6-budget",
+      "grant_sha256": "a5df70c0ef72840f591214d6bdf7866113dc0b258c288e17b3906867e4fd9f42"
+    },
+    {
+      "name": "owned-update-7",
+      "cap": 1,
+      "grant_file": "owned-update-7-GRANT.json",
+      "ledger": "private/owned-update-7-budget",
+      "grant_sha256": "6925d4278b3830721fc87bb8c3255d50a4f37f52323bc7e8d766734058d619b5"
+    }
+  ]
+}
