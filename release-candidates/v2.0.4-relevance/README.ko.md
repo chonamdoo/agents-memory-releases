@@ -1,6 +1,6 @@
 # MCP 2.0.4 검증 결과와 설치
 
-출시 필수 검증을 완료했습니다. 게시 여부는 [전체 출시 판정](../v2.0.0-stable/STATUS.json)의 `stable_published`와 [최신 정식 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/latest)를 확인하세요. MCP 패키지2.0.4, 엔진·SDK ABI2.0.0이며 정확한 바이트는 [CANDIDATE.json](CANDIDATE.json)과 [SHA256SUMS](SHA256SUMS)에 고정합니다.
+출시 필수 검증을 완료하고 [v2.0.4 정식판](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.4)을 게시했습니다. 게시 기록은 [전체 출시 판정](../v2.0.0-stable/STATUS.json)의 `stable_published`와 [최신 정식 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/latest)를 확인하세요. MCP 패키지2.0.4, 엔진·SDK ABI2.0.0이며 정확한 바이트는 [CANDIDATE.json](CANDIDATE.json)과 [SHA256SUMS](SHA256SUMS)에 고정합니다.
 
 [공통 설치 안내](../../distribution/server/README.ko.md#로컬-설치-claudecodexomp)를 따라 고정 v17 번들·모델·Jev 키를 준비하고 Claude·Codex·OMP 마켓에서 `agents-memory-unified@agents-memory`를 설치하세요. Codex는 설치된 setup skill로 프로젝트 stdio MCP를 등록해야 합니다.
 
