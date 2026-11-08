@@ -113,7 +113,7 @@
     {
       "id": "live_retrieval",
       "status": "partial",
-      "reason": "Failed complete SDK619 baseline: related32/40,all-three6/40,noise134/200. Original40 on qualified-only SDKd35:30/40 all-three,noise0/90,invalid10questions retained. Final same-Core/SDK corrected40actualMCP run in progress,zero cross-candidate reuse. Not original v43 or independent human gold.",
+      "reason": "Final same-byte actualMCP/SDK/Native40query engineering run completed: related40/40,all-required40/40 (Wilson lower0.912378),noise20/140 (upper0.210370). Numeric thresholds met; ten corrected development questions, consumed one-author data and missing original independent labels/signoffs prevent treating it as the original contract or v43 passing evaluation.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-jev197/FRESH-BASELINE-RETRIEVAL.json",
@@ -124,8 +124,12 @@
           "sha256": "0473197efefe7b881ded7870d95e8eadc88784a2bb86809324a1dfc00c04833f"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/FINAL-RETRIEVAL-PLAN.json",
-          "sha256": "cdfecc70ede0689988d9e01d92b2a21aec1fa986ec99112315ae284f36f33709"
+          "path": "release-candidates/v2.0.0-jev197/FINAL-RETRIEVAL.json",
+          "sha256": "0a8fbdfc5e59cb7c2045204e0fa5da54ae63a54e0d0c0e3b9feaa9b161a1132a"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/QUESTION-REPAIR-PLAN.json",
+          "sha256": "a3b3cec4c3356dacfef0a5a2c35805fd7ee7f40305e25d7df2de4e5a7f961ad9"
         }
       ]
     },
@@ -210,20 +214,32 @@
     },
     {
       "id": "resources_and_budget",
-      "status": "partial",
-      "reason": "Cumulative418/1000reserved,582remaining,including one failed pre-network update. Original 4GiB OOM retained; batch8to1 preserves models/tokens/all-candidate scoring. Final same-byte40query isolated2CPU/4GiB/swap0 evaluation in progress; no completed-resource pass claimed.",
+      "status": "met",
+      "reason": "All40actualqueries completed under aggregate hard2CPU/4GiB/swap0,OOM0/oom_kill0; full candidate13Core15SDK/SQL verified inside the container. All limits unchanged; original OOM retained. Cumulative418/1000 including conservative failed pre-network slot,582remaining; fresh actualJev194call p95<30s. No new Jev during40query replay.",
       "references": [
+        {
+          "path": "release-candidates/v2.0.0-jev197/FINAL-RESOURCE-AUDIT.json",
+          "sha256": "896809c698381b2b8c5a2eaf456af3cd83bf1dd493388ccd3e74f5538edfe664"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/FINAL-ISOLATED-RESULT.json",
+          "sha256": "ee9c3a484180683caad90b4ac74ab8bb9f856d51a99bc9543183385b705247a4"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/FINAL-CONTAINER-RUNTIME.json",
+          "sha256": "a1de80954d849bae70a7d826f9827d4c6efdf89d62293236bf7015f47ad7ef6c"
+        },
         {
           "path": "release-candidates/v2.0.0-jev197/SESSION-BUDGET.json",
           "sha256": "899e981e619fe1d442f82f4a5e5686d9e7db3ab34ba0748cc55753425702742f"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/CORRECTED-QUESTION-OOM.json",
-          "sha256": "9cf0c7d215416739b922992ad5d94463c1a197af73255bfc579ef796f6081818"
+          "path": "release-candidates/v2.0.0-jev197/FRESH-JEV-LATENCY.json",
+          "sha256": "8e45789d85c8efb98a5c9e399fb632dab37281966c73dd3e1426d45475cb4f7f"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/FINAL-RETRIEVAL-PLAN.json",
-          "sha256": "cdfecc70ede0689988d9e01d92b2a21aec1fa986ec99112315ae284f36f33709"
+          "path": "release-candidates/v2.0.0-jev197/CORRECTED-QUESTION-OOM.json",
+          "sha256": "9cf0c7d215416739b922992ad5d94463c1a197af73255bfc579ef796f6081818"
         }
       ]
     },

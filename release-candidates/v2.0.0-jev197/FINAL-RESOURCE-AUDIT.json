@@ -1,0 +1,12 @@
+{
+  "memory.events": "low 0\nhigh 0\nmax 4\noom 0\noom_kill 0\noom_group_kill 0",
+  "memory.peak": "4294967296",
+  "memory.current": "4131942400",
+  "memory.max": "4294967296",
+  "memory.swap.max": "0",
+  "cpu.max": "200000 100000",
+  "cpu.stat": "usage_usec 4000369681\nuser_usec 3937356094\nsystem_usec 63013586\nnice_usec 0\nnr_periods 22188\nnr_throttled 144\nthrottled_usec 1437354\nnr_bursts 0\nburst_usec 0",
+  "pids.max": "256",
+  "pids.peak": "43",
+  "result_seen": true
+}
