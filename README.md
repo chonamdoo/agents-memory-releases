@@ -2,7 +2,7 @@
 
 Claude Code·Codex·OMP에서 함께 사용하는 기억 MCP입니다.
 
-**MCP 2.0.4의 출시 검증을 완료했습니다.** [게시 상태·검증 범위](release-candidates/v2.0.4-relevance/README.ko.md) · [최신 정식 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/latest)
+**MCP 2.0.4 정식판을 배포했습니다.** [게시 상태·검증 범위](release-candidates/v2.0.4-relevance/README.ko.md) · [최신 정식 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/latest)
 
 배포 검증 대상은 Ubuntu 24.04의 Linux x86_64입니다. macOS는 사용자 직접 테스트
 대상이며 Linux 정식 배포의 필수 검증 조건에서 제외합니다.

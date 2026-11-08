@@ -1,0 +1,23 @@
+{
+  "schema": "v204-stable-publication-readback-v1",
+  "observed_at_utc": "2026-11-08T22:11:28.066940+00:00",
+  "repository": "chonamdoo/agents-memory-releases",
+  "release_id": 438396155,
+  "tag_name": "v2.0.4",
+  "draft": false,
+  "prerelease": false,
+  "published_at": "2026-11-08T22:10:59Z",
+  "html_url": "https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.4",
+  "latest_release_id": 438396155,
+  "target_commit": "a4d6d6f426e663753d326e37c2c11a00eceedadd",
+  "tag_object_type": "commit",
+  "tag_commit": "a4d6d6f426e663753d326e37c2c11a00eceedadd",
+  "new_release_asset_count": 0,
+  "asset_requirement": "optional; verified immutable repository bundle",
+  "no_github_actions_dispatched": true,
+  "immutable_tag_snapshot": "Release tag points to validated ready-to-promote commit; stable publication readback is recorded afterward on main. Earlier snapshot stable_published=false is historical.",
+  "runtime_archive_sha256": "62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef",
+  "sdk_wheel_sha256": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+  "linux_connector_sha256": "30ab2a8708e07799862e4cd4b4e7c5672346a537aeedb4307c987bfe80939a58",
+  "central_directory_listing_claimed": false
+}

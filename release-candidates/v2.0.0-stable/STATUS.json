@@ -308,9 +308,14 @@
     },
     {
       "id": "stable_release_readback",
-      "status": "not_run",
-      "reason": "All required validation/delivery conditions met. Existing v2.0.4 draft awaits authorized stable/latest publication, followed by remote readback. This phase is not a prerequisite of ready_to_promote.",
-      "references": []
+      "status": "met",
+      "reason": "Authenticated remote v2.0.4 release438396155 is published/non-draft/non-prerelease and latest; tag commit exactly matches validated ready-to-promote main. Immutable bundle/marketplace verified separately; adding assets optional and centraldirectory not claimed.",
+      "references": [
+        {
+          "path": "release-candidates/v2.0.4-relevance/STABLE-RELEASE-READBACK.json",
+          "sha256": "52e1663bacef3a893b58a74dabf517123451f9528bdd5d0d7be30cfdaec053da"
+        }
+      ]
     }
   ],
   "historical_v43": {
@@ -346,7 +351,7 @@
   },
   "validation_ready": true,
   "ready_to_promote": true,
-  "stable_published": false,
+  "stable_published": true,
   "separate_track": {
     "central_official_directories": "unverified; not a prerequisite for publishing GitHub stable, but required before claiming central listing",
     "reader_answer_quality": "not evaluated; no new quality claim",
@@ -608,9 +613,13 @@
     {
       "path": "release-candidates/v2.0.4-relevance/native-live-r7/codex/SHA256.json",
       "sha256": "8e35155f501d0c28ef013964484485be37393d02040abe6eaf55077e70453a8f"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/STABLE-RELEASE-READBACK.json",
+      "sha256": "52e1663bacef3a893b58a74dabf517123451f9528bdd5d0d7be30cfdaec053da"
     }
   ],
-  "as_of_utc": "2026-11-08T22:08:41.932612+00:00",
+  "as_of_utc": "2026-11-08T22:11:28.066940+00:00",
   "historical_measured_candidate_v203": {
     "identity": {
       "runtime_version": "2.0.0",
