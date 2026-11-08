@@ -2,9 +2,9 @@
   "schema": "agents-memory-stable-release-conditions-v1",
   "target": {
     "repository": "chonamdoo/agents-memory-releases",
-    "release_tag": "v2.0.3",
+    "release_tag": "v2.0.4",
     "runtime_version": "2.0.0",
-    "marketplace_package_version": "2.0.3",
+    "marketplace_package_version": "2.0.4",
     "previous_stable": "v1.0.8"
   },
   "established": "2026-11-07",
@@ -75,6 +75,20 @@
       "consumed_identity_rejection_unchanged": true,
       "historical_failures_preserved": true,
       "global_historical_no_overlap_verified": false
+    },
+    "user_authorized_future_measured_pool": {
+      "instruction": "새 계측 경로 최대 1,000회 추가 승인",
+      "confirmation_of_same_pool_not_stacked": true,
+      "total": 1000,
+      "provider_caps": {
+        "jev": 582,
+        "codex": 150,
+        "claude": 150,
+        "omp": 147
+      },
+      "failures_interrupts_retries_included": true,
+      "original_financial_sha256": "31636c1cdb02970c35a617118765fc3210cd7134c041edd960e4ea8f9ac59b32",
+      "past_unknown_counts_reset": false
     }
   },
   "evidence_contract": {
@@ -293,5 +307,13 @@
       "support_status": "not_supported",
       "reason": "Preserve observed pinned pgvector loader failure; Linux scope does not imply every Linux distribution is supported."
     }
+  },
+  "qualification_lineage": {
+    "original_candidate_tag": "v2.0.3",
+    "repaired_candidate_tag": "v2.0.4",
+    "reason": "MCP cache invalidation requires package patch bump for repaired initialstable candidate; original failedcandidate remainsunpublished.",
+    "six_gap_authorization_bytes_and_exact_scope_unchanged": true,
+    "other_quality_safety_resource_call_thresholds_unchanged": true,
+    "details": "release-candidates/v2.0.4-relevance/QUALIFICATION-LINEAGE.json"
   }
 }

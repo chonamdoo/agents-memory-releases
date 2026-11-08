@@ -2,7 +2,7 @@
   "schema": "agents-memory-stable-release-status-v1",
   "as_of": "2026-11-08",
   "timezone": "Asia/Seoul",
-  "policy_sha256": "8b97e6541b2787ce00e7b88a74ae5b7474102724d5156611c0f1587830bf3011",
+  "policy_sha256": "4d59b7f0561cc02c5b5106a7923b41ce108fbb00c45ecaa161d44a2288004679",
   "candidate": {
     "runtime_version": "2.0.0",
     "marketplace_package_version": "2.0.3",
@@ -513,9 +513,39 @@
       "question_changes": 0,
       "known_available_reference_fields": 764,
       "exact_known_overlap": 0,
-      "final_candidate_signoffs": false
+      "final_candidate_signoffs": true,
+      "signoff_sha256": {
+        "a": "211c922539abc302fc30f5607161f631e3e7e7bb428eaf4a69e11eaa3de68a8b",
+        "b": "7276f7a85fd9d76dc346357e6eb9b5f1e3e80a2190d75f15e2cb14de79a1c8dc"
+      }
     },
     "real_quality": "not_run",
-    "ready_to_promote": false
-  }
+    "ready_to_promote": false,
+    "preregistration_commit": "392367ef075b8cb8baec59aafa444cb09002232e",
+    "sourcefree_cp313_affected_regression": {
+      "collected": 102,
+      "passed": 102,
+      "failed": 0,
+      "skipped": 0
+    },
+    "immutable_public_archive_download": {
+      "http_status": 200,
+      "bytes": 235844,
+      "sha256": "62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef"
+    }
+  },
+  "repaired_candidate_references": [
+    {
+      "path": "release-candidates/v2.0.4-relevance/INDEPENDENT-V2-PREREGISTRATION.json",
+      "sha256": "e41a9f325d9209a5e39223a7b0945b29fed7bc4952221f5cbcb1563f13e73a91"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/INDEPENDENT-V2-CAPACITY.json",
+      "sha256": "4f884b7cf33ab13bd0ff7d028a8e5cf7ae0bba18318447b95bc9a44d58789a86"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/MARKETPLACE-BUILD.json",
+      "sha256": "d853e07e8de13c2f4ad14fb4035d422d16befef85d729b6933cf7371f3efad8a"
+    }
+  ]
 }
