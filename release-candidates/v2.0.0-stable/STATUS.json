@@ -2,7 +2,7 @@
   "schema": "agents-memory-stable-release-status-v1",
   "as_of": "2026-11-08",
   "timezone": "Asia/Seoul",
-  "policy_sha256": "4f24f821e4bba861e2e03431012024a5ed50263a209810b949f25227efa098a8",
+  "policy_sha256": "8b97e6541b2787ce00e7b88a74ae5b7474102724d5156611c0f1587830bf3011",
   "candidate": {
     "runtime_version": "2.0.0",
     "marketplace_package_version": "2.0.3",
@@ -75,7 +75,7 @@
     {
       "id": "evaluation_inputs",
       "status": "partial",
-      "reason": "Single-author executable-schema fixtures per user authorization, not independent human labels/kappa/signoffs. Ten original questions accidentally exposed a nonexistent root sentinel as an APIfield; originals retained and corrections frozen separately. Original independent contract unverified. User retained original independent criteria. New unregistered 196/40 synthetic draft has no labels, author signoffs or canonical historical duplicate verification; no inference performed.",
+      "reason": "New196/40: two user-authorized separate AI authors independently classified196 and exhaustively labeled7840 relevance pairs; raw class/relevance kappa1.00, own hash-bound signoffs validated, questions unchanged. Registered privately in Core PR75 before product inference. All528 available references compared with0exact duplicates. User excludes only six unavailable historical raw comparisons and requires disclosure; full historical no-overlap remains unverified. Final runtime execution registration pending.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-jev197/FRESH-COHORT.json",
@@ -92,6 +92,14 @@
         {
           "path": "release-candidates/v2.0.0-jev197/INDEPENDENT-PREPARATION.json",
           "sha256": "7ce66dbeb8c33d25cb3f246f3e7c36c155d83ed4b8c30de0fb14a582b66817a7"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/ANNOTATION-PREFLIGHT.json",
+          "sha256": "1615dfa5ca7ce66ec792d8629a3bc8bf7b81222d6efa2e8c5d391fe5919672a8"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/REFERENCE-AUTHORIZATION.json",
+          "sha256": "0f0efaf67bee752f4a3727f3695038c8c4af79d2e0dab5da905bca178966e809"
         }
       ]
     },
@@ -170,7 +178,7 @@
     {
       "id": "compaction",
       "status": "partial",
-      "reason": "Final same-byte native compact and post-compaction complete fact ingress pass36/36 per actual CLI. Scripted provider responses and recall records remain functional evidence; original independent integrated quality and real generation-provider compliance remain unverified.",
+      "reason": "Offline final-wheel36/36 per host preserved. Actual official Codex0.167.0 with real OpenAI gpt-6.1-sol now passes36/36,72exact whole-fact/fresh-marker answers and36genuine compactions under2CPU/4GiB/swap0/OOM0. Synthetic memory backend only, not integrated memory quality. Real Claude/OMP verification pending.",
       "references": [
         {
           "path": "release-candidates/v2.0.3-native-final/NATIVE-LIFECYCLE.json",
@@ -183,6 +191,10 @@
         {
           "path": "release-candidates/v2.0.3-native-final/INSTALLED-WHEELS.json",
           "sha256": "e5ea9c7deb46e041c1d2bdf1b9b21fb064c334d097c1f8a40a6d689c370af52d"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/REAL-CODEX.json",
+          "sha256": "727e9da6f884df27488941ca04f7f4e97e909b8c74d5ef4b5a708c7327d61806"
         }
       ]
     },
@@ -202,6 +214,10 @@
         {
           "path": "release-candidates/v2.0.3-native-final/INSTALLED-WHEELS.json",
           "sha256": "e5ea9c7deb46e041c1d2bdf1b9b21fb064c334d097c1f8a40a6d689c370af52d"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/REAL-CODEX.json",
+          "sha256": "727e9da6f884df27488941ca04f7f4e97e909b8c74d5ef4b5a708c7327d61806"
         }
       ]
     },
@@ -358,12 +374,17 @@
     "core_merge": "7451641a114586fff231e15c15db7ebf352b3460",
     "private_live_inputs": "New self-authored live Jev admission and separate Native storage/recall; original historical inputs not available",
     "first_interactive_trust": "unverified",
-    "selected_real_provider_compliance": "unverified"
+    "selected_real_provider_compliance": "Codex36/36 real-provider component pass; Claude and OMP pending; integrated memory quality not certified"
   },
   "release_basis": {
     "selected": "original-independent-verification",
     "software_only_ga_alternative": "not adopted",
-    "all_existing_gates_preserved": true
+    "all_existing_gates_preserved": false,
+    "only_user_authorized_exceptions": [
+      "macOS required validation excluded; user tests separately",
+      "Only six unavailable historical raw-reference comparisons excluded and disclosed unverified"
+    ],
+    "all_other_quality_safety_resource_call_gates_preserved": true
   },
   "platform_scope": {
     "required_release_platforms": [
@@ -388,5 +409,16 @@
       "support_status": "not_supported",
       "reason": "Preserve observed pinned pgvector loader failure; Linux scope does not imply every Linux distribution is supported."
     }
+  },
+  "independent_annotation_scope": {
+    "author_type": "AI",
+    "human_annotations": false,
+    "class_kappa": 1.0,
+    "relevance_kappa": 1.0,
+    "question_changes": 0,
+    "product_inference_on_new196": false,
+    "historical_full_comparison_verified": false,
+    "known_reference_texts": 528,
+    "exact_known_overlap": 0
   }
 }

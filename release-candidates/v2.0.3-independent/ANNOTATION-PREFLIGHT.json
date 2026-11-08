@@ -1,0 +1,66 @@
+{
+  "schema": "independent-ai-annotation-preflight-v1",
+  "classifications": 196,
+  "questions": 40,
+  "relevance_pairs": 7840,
+  "raw_classification_kappa": 1.0,
+  "raw_relevance_kappa": 1.0,
+  "question_changes": 0,
+  "actual_author_signoffs_validated": true,
+  "authors": {
+    "a": "/root/independent_author_a",
+    "b": "/root/independent_author_b"
+  },
+  "independent_AI_annotations": true,
+  "independent_human_annotations": false,
+  "annotation_admission_preflight": "passed",
+  "continuation_registration": "passed under explicitly approved historical coverage scope",
+  "blocker": null,
+  "canonical_reference_roles_available": 1,
+  "canonical_reference_roles_required": 7,
+  "known_available_reference_texts": 528,
+  "exact_matches_against_known_available_references": 0,
+  "unavailable_historical_references": [
+    {
+      "role": "historical:candidates.jsonl",
+      "sha256": "0319ef94de834a8cb351308cdd74517d76e7486adbd0473c1ee55ae952cc9cb3"
+    },
+    {
+      "role": "historical:continuation.jsonl",
+      "sha256": "3bffb3ccdf580532dbdfa6d778b247218fc2fbb312e6a1e7ce80c248898e5031"
+    },
+    {
+      "role": "historical:release-auto-authored.jsonl",
+      "sha256": "2e1016a3476b81cd16fa14be6cd18870e708596ffb791f104be6d4b8c9a0cecf"
+    },
+    {
+      "role": "historical:release-explicit-authored.jsonl",
+      "sha256": "4f272a417d709aaec8fb6d6672826b03810138aa374bb0b9a2d68d582bbc90aa"
+    },
+    {
+      "role": "historical:release-fresh-blind.jsonl",
+      "sha256": "15023da524d3d32eed350456d131319317ef2143e645ba014c6a14df0c170319"
+    },
+    {
+      "role": "historical:release-continuation-questions.jsonl",
+      "sha256": "a8f1b9d6d72716c668333f22f71c39cbbd78a1b7de8106a3bb2a8237c5f84b94"
+    }
+  ],
+  "model_product_calls_on_this_dataset": 0,
+  "release_ready": false,
+  "reference_policy": "v2.0.3-known-references-disclosed-six-gaps-v1",
+  "historical_full_comparison_verified": false,
+  "release_scope_eligible": true,
+  "manifest_sha256": "5524fd884049028a77cd76e289ba0c95b4729cd36000296389227067b387791b",
+  "provenance_sha256": "5de96eaa46df0583a1851b301b52a54876273b1409a920633f78310252d0401c",
+  "class_signoff_sha256": {
+    "a": "47dcdbc2b42e6d2477861ec9b4f1e0c79249d7be25834c46b88cef1bfe2320c2",
+    "b": "1b6cd1ad6cb1a9d97347635294fe07cb921d23cf56bc0cf64c57382e0343d583"
+  },
+  "private_preregistration": {
+    "repository": "chonamdoo/agents-memory",
+    "pull_request": 75,
+    "merge_commit": "ffbde69b75201fbd970ee71e62a5cbaadf6e879b"
+  },
+  "execution_registration_complete": false
+}

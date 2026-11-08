@@ -1,0 +1,613 @@
+{
+  "schema": "real-codex-component-public-summary-v1",
+  "validator_id": "/root/independent_author_a",
+  "author_type": "AI",
+  "human_authorship": false,
+  "status": "passed_component_scope",
+  "successes": 36,
+  "denominator": 36,
+  "wilson95_lower": 0.9035813714055363,
+  "model_provider": "openai",
+  "requested_model": "gpt-6.1-sol",
+  "observed_pinned_provider_model_responses": 72,
+  "cli_sha256": "cdcb45aaa01d0f14e298985e09465aebccd47f64ecd298aea44814af7b62bbda",
+  "case_file_sha256": "bc4cd0594284cb30b9a8405d88e270c16c9faa9d2e0580d02d63c022d68378a2",
+  "reader_and_output_schema_unchanged": true,
+  "entire_fact_exact_model_answers": 72,
+  "distinct_model_answer_markers": 72,
+  "original_question_messages_observed": 72,
+  "native_compactions_with_matching_success_terminal": 36,
+  "actual_resume_rpcs_and_pending_resume_hooks": 36,
+  "standalone_resume_model_generation": false,
+  "native_hook_returncodes_all_zero": true,
+  "native_hook_invocations": 180,
+  "native_hook_trust_inventory_counts": {
+    "untrusted": 72,
+    "trusted": 144
+  },
+  "native_completed_item_types": {
+    "userMessage": 72,
+    "agentMessage": 72,
+    "contextCompaction": 36
+  },
+  "observed_native_error_notifications": 0,
+  "observed_native_willRetry_notifications": 0,
+  "observed_stderr_retry_error_pattern_matches": 0,
+  "new_native_model_operations": 112,
+  "full_successful_run_operations": 108,
+  "retained_failed_controller_run_operations": 4,
+  "prior_pilot_operations": 5,
+  "combined_native_model_operations": 117,
+  "native_operation_limit": 150,
+  "underlying_http_attempt_count_known": false,
+  "underlying_billing_or_cost": "unknown; native defaults may retry without complete HTTP telemetry; never treated as zero",
+  "controller_retries": 0,
+  "new_jev_calls": 0,
+  "resource_limits": {
+    "cpu.max": "200000 100000",
+    "memory.max": "4294967296",
+    "memory.swap.max": "0",
+    "pids.max": "256",
+    "memory.peak": "334413824",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+    "cpu.stat": "usage_usec 92882879\nuser_usec 73867720\nsystem_usec 19015158\nnice_usec 0\nnr_periods 4917\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+    "pids.events": "max 0"
+  },
+  "auth_original_unchanged": true,
+  "case_checks": [
+    {
+      "case_id": "nc01-tide-ledger",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc02-maple-review",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc03-kite-colours",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc04-orbit-units",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc05-moss-retention",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc06-harbour-owner",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc07-cafe-label",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc08-slate-order",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc09-birch-freeze",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc10-pebble-null",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc11-lantern-retry",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc12-seoul-heading",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc13-atlas-window",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc14-reed-negative",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc15-polar-path",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc16-cedar-rounding",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc17-river-script",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc18-acorn-limits",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc19-comet-scope",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc20-fern-identity",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc21-delta-offset",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc22-cobalt-approval",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc23-lime-threshold",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc24-north-sequence",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc25-quartz-filter",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc26-meadow-format",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc27-saffron-direction",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc28-willow-exception",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc29-opal-precision",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc30-heron-dedup",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc31-ember-override",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc32-spruce-boundary",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc33-iris-fallback",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc34-summit-columns",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc35-azalea-literal",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    },
+    {
+      "case_id": "nc36-brook-archive",
+      "passed": true,
+      "source_fact_exact_before_and_after": true,
+      "startup_and_postcompact_markers_distinct": true,
+      "original_question_observed_twice": true,
+      "matching_native_compaction_terminal_observed": true,
+      "native_startup_resume_compact_sources": {
+        "startup": 1,
+        "resume": 1,
+        "compact": 1
+      }
+    }
+  ],
+  "scope": {
+    "real_provider_native_component_verification": true,
+    "backend": "synthetic memory recall only",
+    "independent_integrated_memory_quality_certified": false,
+    "first_interactive_hook_trust_certified": false,
+    "human_origin_certified": false,
+    "NEW196_mounted_or_inferred": false,
+    "repository_code_changed": false,
+    "published_or_merged": false,
+    "native_resume_semantics": "thread/resume RPC precedes a pending SessionStart hook that materializes on the next native compact/turn action; no invented pre-action hook barrier or separate resume nonce requirement."
+  },
+  "preserved_failures": {
+    "execution-001": "driver directory permissions;0model ops",
+    "execution-002": "pre-dispatch RLIMIT_NPROC EAGAIN;0model ops",
+    "execution-003": "controller resume nonce race;3completed model ops;failed run unchanged",
+    "execution-004": "controller barrier awaited a deferred native hook;1completed model op;failed run unchanged",
+    "execution-005": "scratch ENOSPC before operation ledger;0model ops"
+  },
+  "private_source_sha256": {
+    "INDEPENDENT-VALIDATION.json": "d373f154dbd2dd7d55fd30365c92705593c57810588bad0fd1316712f42a3a87",
+    "execution-006/RESULT.json": "1edf001800ff9b4a5fb22d11e60e9dcd02e4677580423bf16a257558afb92ef7",
+    "execution-006/INSTALLED-IDENTITY.json": "8686f6af06384e226c6531795e99770265146095a2e2033ebfee07d7f95a00e4",
+    "execution-006/PLAN.json": "f97ac8a4f7c15add899687da00cc06fe8ce243530097f55824fa393a038fcfcd",
+    "FINAL-SHA256.json": "3be45617792e61619f1f2c046c653b1089c5b1ef5a63fb171ab2bdd9755dc349"
+  },
+  "operation_ledgers": {
+    "execution-002": {
+      "reservations": 0,
+      "states": {},
+      "sha256": "013eb4bb862324d95bb4d11215d5de16033120843a16702632d72f543f2c8afa"
+    },
+    "execution-003": {
+      "reservations": 3,
+      "states": {
+        "completed": 3
+      },
+      "sha256": "b35dfdce16ba4fa66bac699ff4949428aa5693a791a351f363bc8bcf1da0dde2"
+    },
+    "execution-004": {
+      "reservations": 1,
+      "states": {
+        "completed": 1
+      },
+      "sha256": "c91e231c4e91096a4130bd99e0ee3b2a6a2f1571eaef8f77ad14dda472eeca07"
+    },
+    "execution-006": {
+      "reservations": 108,
+      "states": {
+        "completed": 108
+      },
+      "sha256": "ee54ae2700180690935494712289154a26c9d2661da7f5e312ea20c0824d50a7"
+    }
+  },
+  "prior_pilot_ledgers": {
+    "codex-pilot-001": {
+      "reservations": 0,
+      "states": {},
+      "sha256": "517bb84b06b53957eff44878d96c9cea096bcf2f77a20dfd09a1834adc40562d"
+    },
+    "codex-pilot-002": {
+      "reservations": 1,
+      "states": {
+        "failed_or_unknown": 1
+      },
+      "sha256": "0cb0cc636d456eb393a67ea5d0c9790e835af8d2e5a11db3682a47f6ef57cf84"
+    },
+    "codex-pilot-003": {
+      "reservations": 4,
+      "states": {
+        "completed": 4
+      },
+      "sha256": "673c4ce1b8f708d5f9e49e9d070a36733750338db75dcf0962fd4338fca385f6"
+    }
+  },
+  "container_exit_code": 0,
+  "container_oom_killed": false,
+  "wheels": {
+    "agents_memory_collaboration-2.0.0-py3-none-any.whl": {
+      "sha256": "14ba497889ace5e92946f328d79b1b6189f0c31b34e64b54fccf269a080f74ea",
+      "verified_file_count": 17
+    },
+    "agents_memory_core-2.0.0-cp312-none-any.whl": {
+      "sha256": "bb4307f72380d4738c4c9305bafec1b70232ec93e153336fbd995619d5b9b0b2",
+      "verified_file_count": 15
+    }
+  }
+}
