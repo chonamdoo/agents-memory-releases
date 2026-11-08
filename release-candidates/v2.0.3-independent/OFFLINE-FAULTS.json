@@ -1,0 +1,181 @@
+{
+  "schema": "final-sdk-offline-fault-detector-verification-v1",
+  "sdk_wheel_sha256": "14ba497889ace5e92946f328d79b1b6189f0c31b34e64b54fccf269a080f74ea",
+  "installed_core_cp312_wheel_sha256": "bb4307f72380d4738c4c9305bafec1b70232ec93e153336fbd995619d5b9b0b2",
+  "unmutated_sdk_inputs": "Temporary copies extracted byte-for-byte from final shipping SDK wheel; installed packages not mutated",
+  "core_probe_scope": "Fault consumer uses unchanged Core capture_guard source; final installed Core bytecode separately verified. No live Native/PostgreSQL/provider behavior inferred.",
+  "source_sha256": {
+    "mutate_check.py": "9fce0df0c62619d24ae6200e2bcae3b408dc6353b3d0eddb477b6054b26114f4",
+    "fault_probe.py": "574a2b8c4faa25a8d906d43b036dbb38890dd77c7844cd05447156216f6bdb15",
+    "core_capture_guard.py": "ec443b073307728a27a58b542dc3b5e5bffd66a683d0e42e527c9d65f9043728"
+  },
+  "private_raw_report_sha256": "4e06c2d7dc285bd3760885f732cd9f50d9306d2e78332d06c74a03db915e5742",
+  "installed_runtime_proof_sha256": "a1de80954d849bae70a7d826f9827d4c6efdf89d62293236bf7015f47ad7ef6c",
+  "scope": "offline_sequential_discard_replay_and_real_replica_hook_consumers",
+  "provider_calls": 0,
+  "original_faults": [
+    "silent_discard",
+    "false_success",
+    "duplicate_on_retry",
+    "attribution"
+  ],
+  "clean_probe_count": 6,
+  "detected_fault_count": 6,
+  "report": {
+    "network_proof": false,
+    "original_faults": [
+      "silent_discard",
+      "false_success",
+      "duplicate_on_retry",
+      "attribution"
+    ],
+    "reports": [
+      {
+        "evidence": {
+          "local_memories": 0,
+          "reason": "judge_not_durable",
+          "state": "discarded"
+        },
+        "name": "unmutated",
+        "probe": "silent_discard",
+        "status": "passed"
+      },
+      {
+        "evidence": {
+          "local_memories": 0,
+          "reason": "judge_not_durable",
+          "state": "discarded"
+        },
+        "name": "unmutated",
+        "probe": "false_success",
+        "status": "passed"
+      },
+      {
+        "evidence": {
+          "queued_operations_by_host": {
+            "claude": 1,
+            "codex": 1,
+            "omp": 1
+          },
+          "source_ids_by_host": {
+            "claude": [
+              "host-claude:e886482e072d6b0d581e1a933b7a23ad71d6ba6ffc124aa693d8cbc8316ac4a2"
+            ],
+            "codex": [
+              "host-codex:e886482e072d6b0d581e1a933b7a23ad71d6ba6ffc124aa693d8cbc8316ac4a2"
+            ],
+            "omp": [
+              "host-omp:e886482e072d6b0d581e1a933b7a23ad71d6ba6ffc124aa693d8cbc8316ac4a2"
+            ]
+          }
+        },
+        "name": "unmutated",
+        "probe": "duplicate_on_retry",
+        "status": "passed"
+      },
+      {
+        "evidence": {
+          "queued_operations_by_host": {
+            "claude": 1,
+            "codex": 1,
+            "omp": 1
+          },
+          "source_ids_by_host": {
+            "claude": [
+              "host-claude:e886482e072d6b0d581e1a933b7a23ad71d6ba6ffc124aa693d8cbc8316ac4a2"
+            ],
+            "codex": [
+              "host-codex:e886482e072d6b0d581e1a933b7a23ad71d6ba6ffc124aa693d8cbc8316ac4a2"
+            ],
+            "omp": [
+              "host-omp:e886482e072d6b0d581e1a933b7a23ad71d6ba6ffc124aa693d8cbc8316ac4a2"
+            ]
+          }
+        },
+        "name": "unmutated",
+        "probe": "attribution",
+        "status": "passed"
+      },
+      {
+        "evidence": {
+          "origin_rejected": true
+        },
+        "name": "unmutated",
+        "probe": "tool_origin_accepted",
+        "status": "passed"
+      },
+      {
+        "evidence": {
+          "empty_memories": true,
+          "scope_present": true
+        },
+        "name": "unmutated",
+        "probe": "empty_recall_unscoped",
+        "status": "passed"
+      },
+      {
+        "mutated_nodes": 2,
+        "name": "silent_discard",
+        "probe_result": {
+          "invariant": "discard_reason_visible",
+          "probe": "silent_discard",
+          "status": "violated"
+        },
+        "status": "caught"
+      },
+      {
+        "mutated_nodes": 1,
+        "name": "false_success",
+        "probe_result": {
+          "invariant": "discard_is_not_stored",
+          "probe": "false_success",
+          "status": "violated"
+        },
+        "status": "caught"
+      },
+      {
+        "mutated_nodes": 1,
+        "name": "duplicate_on_retry",
+        "probe_result": {
+          "invariant": "same_event_one_operation",
+          "probe": "duplicate_on_retry",
+          "status": "violated"
+        },
+        "status": "caught"
+      },
+      {
+        "mutated_nodes": 1,
+        "name": "attribution",
+        "probe_result": {
+          "invariant": "capture_preserves_host_and_session",
+          "probe": "attribution",
+          "status": "violated"
+        },
+        "status": "caught"
+      },
+      {
+        "mutated_nodes": 1,
+        "name": "tool_origin_accepted",
+        "probe_result": {
+          "invariant": "tool_origin_rejected",
+          "probe": "tool_origin_accepted",
+          "status": "violated"
+        },
+        "status": "caught"
+      },
+      {
+        "mutated_nodes": 1,
+        "name": "empty_recall_unscoped",
+        "probe_result": {
+          "invariant": "empty_recall_has_scope",
+          "probe": "empty_recall_unscoped",
+          "status": "violated"
+        },
+        "status": "caught"
+      }
+    ],
+    "scope": "offline_sequential_discard_replay_and_real_replica_hook_consumers",
+    "status": "pass"
+  },
+  "release_approval": false
+}
