@@ -1,0 +1,45 @@
+{
+  "schema": "owned-linux-install-rollback-v1",
+  "installer_sha256": "17ea040a6d5a7e0157594ef2abec2a0cbcdd37e52dfcacdfe6a2da8296d4421d",
+  "scenario": "Real owned update; provider verification process fault-injected before launch; automatic restoration to prior installed generation",
+  "provider_verification_processes_intercepted_before_launch": 1,
+  "external_jev_calls": 0,
+  "failed_update_observed": true,
+  "previous_generation_restored": true,
+  "protected_files_preserved": {
+    "PRODUCT.json": true,
+    "settings/unified.json": true,
+    "settings/jev-credential.json": true,
+    "settings/mcp-database.json": true,
+    "settings/unified-manager.json": true,
+    "client/local/connection.json": true
+  },
+  "existing_database_schema_tables_checked": 13,
+  "existing_database_table_contents_preserved": true,
+  "same_pending_operation_id_body_and_status_preserved": true,
+  "previous_service_healthy_after_automatic_rollback": true,
+  "independent_quality_evaluation": false,
+  "ok": true,
+  "owned_models_directory_files_preserved": true,
+  "model_directories_checked": [
+    "models/"
+  ],
+  "probe_script_sha256": "2cedb382fc54397b31ed2c3dfab58f35161a6dd91ab317899936ec8c37fd1ed1",
+  "same_installer_as_candidate": true,
+  "scope": "Controlled functional rollback on the genuine owned Linux installation; no claim of an independent label or live provider-quality evaluation.",
+  "attempt_history": [
+    {
+      "attempt": 1,
+      "result": "manifest_integrity_rejection",
+      "cause": "Diagnostic import created adjacent bytecode in the extracted bundle; no provider process launched. Probe bytecode quarantined without changing release members.",
+      "private_log_sha256": "c53fe7a0ad5a178de035f6607cab521990ceaf5612e616510089d43f4f63ea20"
+    },
+    {
+      "attempt": 2,
+      "result": "passed",
+      "bytecode_writes_disabled": true,
+      "private_log_sha256": "cf253ec33303185de9e5b242106ca37089380692e9223b6564ced8575a550029"
+    }
+  ],
+  "temporary_probe_pending_operation_removed_without_upload": true
+}
