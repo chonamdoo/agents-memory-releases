@@ -17,3 +17,7 @@
 [Codex](CODEX-ACCOUNTED-PREPARATION.json)36/36·108전송, [Claude](CLAUDE-ACCOUNTED-PREPARATION.json)36/36·144전송은 로컬 가짜 공급자로 검증한 새 계측 경로다. 실제 공급자 성공이 아니다. 각 경로는 network-none native→UDS→단일 upstream relay로 전송을 강제하며 합계2CPU/4GiB hardlimit를 지킨다.
 
 [과거 호출 수의 한계](PAST-CALL-COUNT-LIMITATIONS.json)를 명시한다. 이전 Codex117native 작업과 OMP3fetch 진입 기록으로 실제 wire HTTP/재시도 상한을 복구할 수 없다. 초과 과금이나 상한 준수를 단정하지 않고 미검증으로 남긴다. 이를0으로 리셋하거나 새 호출 승인으로 사용하지 않는다. 전체 정식 배포는 실제 새 평가와 검증 완료 후 진행한다.
+
+[OMP 계측 준비](OMP-ACCOUNTED-PREPARATION.json)도 원래36사례·144개 로컬 전송을 통과했다. 이후 근거 없는 optional orgId 메타데이터만 제거했고 최종 코드로1사례·4전송을 추가 확인했다. 실제 native soft 압축의 두 요약 요청과 resume hook을 확인했으며, 과거 remoteV2 HTTP400은 해결된 것으로 바꾸지 않는다. 실제 공급자·OAuth 호환성은 미검증이다.
+
+[다음 실제 호출 계획](FUTURE-CALL-PLAN.json)은 **미승인 제안**이다. 새 계측 경로에서 앞으로 최대1000회, Jev582·Codex150·Claude150·OMP147의 하위 상한을 함께 적용하며 전체1000이 우선한다. 기존 Jev 누적1000·이미418예약·독립 코호트197 한도는 유지한다. 실패·중단·재시도도 차감하고 과거 알 수 없는 호출을0으로 재설정하지 않는다. 과거 전체 잔여량이나 상한 준수를 입증하는 문서가 아니며 비용 금액 상한을 보장하지 않는다. 실제 승인 후 새196/40의 품질 평가부터 실행한다.

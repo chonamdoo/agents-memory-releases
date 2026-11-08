@@ -1,0 +1,46 @@
+{
+  "schema": "explicit-future-supplier-attempt-grant-v1",
+  "status": "proposal_only",
+  "grant_id": "v2.0.3-future-measured-1000-v1",
+  "total_cap": 1000,
+  "provider_caps": {
+    "jev": 582,
+    "codex": 150,
+    "claude": 150,
+    "omp": 147
+  },
+  "past_unknown_counts_reset": false,
+  "counts_failed_interrupted_and_retries": true,
+  "jev_existing_cumulative_cap_preserved": 1000,
+  "existing_jev_reserved": 418,
+  "past_codex_http_attempt_count": null,
+  "all_other_release_gates_preserved": true,
+  "synthetic_test_authority": false,
+  "live_provider_execution_authorized": false,
+  "provider_code_freezes": {
+    "jev": "5424dfaa8b81d2b843c0e329d9266d768c78b86cb96ffa9c22198f27655f93d1",
+    "codex": "4262865c5557901bd351da32c8b5d5f6085bee27f093c0b4c4b4fccb1facb7b9",
+    "claude": "ca240a80ea2a73d0189ea9389d7658fdf4984f8bc0925a695687d643c5b8a792",
+    "omp": "5cd27310dc62a1b8c6d90b33af275d7e0504bceb4586a8e7d32f4e8496c4fc36"
+  },
+  "case_file_sha256": "bc4cd0594284cb30b9a8405d88e270c16c9faa9d2e0580d02d63c022d68378a2",
+  "wheel_sha256": {
+    "agents_memory_collaboration-2.0.0-py3-none-any.whl": "14ba497889ace5e92946f328d79b1b6189f0c31b34e64b54fccf269a080f74ea",
+    "agents_memory_core-2.0.0-cp312-none-any.whl": "bb4307f72380d4738c4c9305bafec1b70232ec93e153336fbd995619d5b9b0b2"
+  },
+  "past_omp_observed_fetch_dispatches": 3,
+  "past_omp_wire_http_attempts": null,
+  "subcaps_sum_may_exceed_total": true,
+  "scope": "Proposed NEW future measured release-qualification pool only. Not approved, no historical remaining-total assertion and no retrospective compliance certification. All subcaps and global1000 apply; failed/interrupted/retried attempts consume capacity. Limits attempts, not dollar spend. Existing Jev total1000/418spent/582remaining and each independent cohort197 remain.",
+  "reserved_headroom_description": "Subcaps and global cap bound metadata/retries and permitted fix/rerun attempts; no automatic retries after a failure. A proposal creates no authority and never resets a ledger.",
+  "historical_unknown_counts_disclosed": true,
+  "actual_approved_grant_exists": false,
+  "first_pass_capacity_plan": {
+    "jev": 197,
+    "codex": 108,
+    "claude": 144,
+    "omp": 144
+  },
+  "first_pass_capacity_plan_total": 593,
+  "first_pass_note": "Jev197 is a cohort reservation ceiling, not an assertion of197 actual requests. Native108/144/144 are nominal from fake runs; all actual metadata/retries remain charged."
+}
