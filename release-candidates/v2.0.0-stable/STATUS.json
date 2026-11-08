@@ -170,26 +170,38 @@
     {
       "id": "compaction",
       "status": "partial",
-      "reason": "Native compact plus post-compaction complete fact ingress passed36/36 each on actual three CLIs with scripted model responses/recall. Separate real Jev admission and Native storage exist; original independent integrated quality and real provider compliance not recertified.",
+      "reason": "Final same-byte native compact and post-compaction complete fact ingress pass36/36 per actual CLI. Scripted provider responses and recall records remain functional evidence; original independent integrated quality and real generation-provider compliance remain unverified.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-native-lifecycle/NATIVE-LIFECYCLE.json",
-          "sha256": "70d96175acd6e4d6982cefebe75e310ebb86139483fbee9f308a86e6d97553b1"
+          "path": "release-candidates/v2.0.3-native-final/NATIVE-LIFECYCLE.json",
+          "sha256": "f1c05ec99e769ec1d2e3e1ca26c87371b9cfc626a6324675a026b5600e400186"
+        },
+        {
+          "path": "release-candidates/v2.0.3-native-final/CHECKER-VALIDATION.json",
+          "sha256": "a5bab4fea50640f1a25aa8fe668e6740f150cf77d10a6e0d7cd46b7c6c241d3a"
+        },
+        {
+          "path": "release-candidates/v2.0.3-native-final/INSTALLED-WHEELS.json",
+          "sha256": "e5ea9c7deb46e041c1d2bdf1b9b21fb064c334d097c1f8a40a6d689c370af52d"
         }
       ]
     },
     {
       "id": "host_lifecycle",
       "status": "met",
-      "reason": "Offline native lifecycle scope: actual Claude 2.1.319, Codex 0.167.0 and OMP 18.18.0 each pass all unchanged 36 cases (Wilson lower 0.903581). Shipping CP312 Core/SDK hooks, genuine native compact completion and fresh marker + complete fact at subsequent model ingress verified. Provider responses/recall records are fixtures; first interactive trust and real provider compliance remain unverified.",
+      "reason": "Final shipping SDK14ba/Core CP312bb verified against actual installed13Core/15SDK+SQL bytes, then actual Claude2.1.319/Codex0.167.0/OMP18.18.0 each completed the unchanged36cases (Wilson lower0.903581). Genuine native compact completion and fresh marker+complete fact at subsequent model ingress verified across24freshnetwork-none batches. Provider responses and recall records remain fixtures; no live-provider quality or first interactive trust claim.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-native-lifecycle/NATIVE-LIFECYCLE.json",
-          "sha256": "70d96175acd6e4d6982cefebe75e310ebb86139483fbee9f308a86e6d97553b1"
+          "path": "release-candidates/v2.0.3-native-final/NATIVE-LIFECYCLE.json",
+          "sha256": "f1c05ec99e769ec1d2e3e1ca26c87371b9cfc626a6324675a026b5600e400186"
         },
         {
-          "path": "release-candidates/v2.0.0-native-lifecycle/CHECKER-VALIDATION.json",
-          "sha256": "2acf539edb488c7125899e227973a0aba5a9ac38939f255393ad4ac0a8bd9f2d"
+          "path": "release-candidates/v2.0.3-native-final/CHECKER-VALIDATION.json",
+          "sha256": "a5bab4fea50640f1a25aa8fe668e6740f150cf77d10a6e0d7cd46b7c6c241d3a"
+        },
+        {
+          "path": "release-candidates/v2.0.3-native-final/INSTALLED-WHEELS.json",
+          "sha256": "e5ea9c7deb46e041c1d2bdf1b9b21fb064c334d097c1f8a40a6d689c370af52d"
         }
       ]
     },

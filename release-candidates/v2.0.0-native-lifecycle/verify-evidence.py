@@ -2,8 +2,8 @@
 """Check exported offline receipts; does not authenticate execution or approve GA."""
 import hashlib
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
 
 def require(condition, reason):
@@ -13,6 +13,35 @@ def require(condition, reason):
 
 def verify(root):
     manifest = json.loads((root / "NATIVE-LIFECYCLE.json").read_text())
+    require(manifest.get("schema") in {"agents-memory-offline-native-lifecycle-v1",
+                                       "agents-memory-offline-native-lifecycle-v2"}, "manifest_schema")
+    installed_prefix = None
+    if manifest["schema"] == "agents-memory-offline-native-lifecycle-v2":
+        verification = root.parent / "v2.0.0-jev197" / "VERIFICATION.json"
+        raw = verification.read_bytes()
+        require(hashlib.sha256(raw).hexdigest() == manifest["runtime_verification_sha256"],
+                "runtime_verification_hash")
+        candidate = json.loads(raw)
+        require(manifest["candidate"]["archive_sha256"] == candidate["archive"]["sha256"]
+                and manifest["candidate"]["sdk_wheel_sha256"] == candidate["sdk_wheel_sha256"]
+                and manifest["candidate"]["core_cp312_wheel_sha256"] == candidate["core_wheels"]["cp312"]["sha256"],
+                "final_candidate_wheel_identity")
+        binding = manifest["installed_wheels"]
+        name = Path(binding["path"])
+        require(len(name.parts) == 1 and name.suffix == ".json", "installed_identity_path")
+        raw = (root / name).read_bytes()
+        require(hashlib.sha256(raw).hexdigest() == binding["sha256"], "installed_identity_hash")
+        installed = json.loads(raw)
+        require(installed["installed_prefix_verified"] is True
+                and installed["external_network"] == "none", "installed_identity_scope")
+        core = "agents_memory_core-2.0.0-cp312-none-any.whl"
+        sdk = "agents_memory_collaboration-2.0.0-py3-none-any.whl"
+        require(installed[core + "_sha256"] == candidate["core_wheels"]["cp312"]["sha256"]
+                and installed[sdk + "_sha256"] == candidate["sdk_wheel_sha256"]
+                and installed["module_counts"] == {core: 13, sdk: 16}, "installed_wheel_bytes")
+        installed_prefix = binding["prefix"]
+        require(isinstance(installed_prefix, str) and Path(installed_prefix).is_absolute(),
+                "installed_prefix")
     expected = manifest["case_ids"]
     require(len(expected) == len(set(expected)) == 36, "fixed_case_census")
     require(set(manifest["hosts"]) == {"claude", "codex", "omp"}, "host_census")
@@ -43,6 +72,16 @@ def verify(root):
                     and control["nonroot_no_capabilities_no_new_privileges"] is True, "isolation")
             require(control["http_request_limit"] == 128 and report["requests"] <= 128, "request_limit")
             require(report["installed_runtime"]["isolated"] is True, "installed_runtime")
+            if installed_prefix is not None:
+                runtime = report["installed_runtime"]
+                require(runtime["prefix"] == installed_prefix
+                        and runtime["executable"] == str(Path(installed_prefix) / "bin/python"),
+                        "final_installed_runtime_prefix")
+                require(set(runtime["packages"]) == {"agents_memory", "agents_memory_collab"}
+                        and all(Path(package["origin"]).is_relative_to(installed_prefix)
+                                and ".." not in Path(package["origin"]).parts
+                                for package in runtime["packages"].values()),
+                        "final_installed_package_origin")
             require(all(p["version"] == "2.0.0" for p in report["installed_runtime"]["packages"].values()),
                     "installed_versions")
             cases = report["hosts"][0]["cases"]

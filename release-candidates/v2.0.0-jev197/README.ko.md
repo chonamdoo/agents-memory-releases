@@ -127,3 +127,5 @@ python3 release-candidates/v2.0.0-jev197/verify-candidate.py
 등재 완료를 주장하지 않는다. [공개 마켓 업데이트](PUBLIC-MARKETPLACE.json)로 세 앱의2.0.2→2.0.3과 설치파일13개씩을 확인했고, [설치된 커넥터](PUBLIC-CONNECTORS.json)의 실제 MCP연결도 검증했다. [공개 다운로드](PUBLIC-INSTALLED-CP312.json)는 고정커밋 e881375의 번들과 일치한다. [최종 실제40질문](FINAL-RETRIEVAL.json)은 관련·필수근거전체40/40(하한0.912378), 잡음20/140(상한0.210370)이다. [격리 자원](FINAL-RESOURCE-AUDIT.json)은2CPU·4GiB·swap0, OOM0이다. 숫자 기준은 충족하지만 수정된 개발 질문10건·단일 작성자 자료를 기존 독립 계약의 통과로 바꾸지 않는다. 현재 정식 전환은 미완료다.
 
 기존 독립 검증 기준을 유지하기로 결정했다. [새 독립 검증 준비 상태](INDEPENDENT-PREPARATION.json)는 입력196건·질문40개, 질문 수정0건인 미등록 합성 초안이다. 실제 두 저자의 독립 라벨·사전 승인·원래 라벨의 κ와 canonical 과거 원본 중복 대조가 미완료이며 추론은 실행하지 않았다. 기존 개발 결과만으로 별도 정식판을 발행하는 대안은 채택하지 않았다.
+
+[최종 wheel의 CLI 수명주기 재검증](../v2.0.3-native-final/README.ko.md)은 실제 설치된 SDK14ba·Core CP312bb에서 원래36사례를 세 CLI에 각각 실행해36/36씩 통과했다. 이전 SDKf36·Core484 기록은 보존했다. 모델 응답과 recall은 고정 fixture이므로 실제 공급자 준수나 독립 품질 통과로 합산하지 않는다.

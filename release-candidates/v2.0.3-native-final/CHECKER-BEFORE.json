@@ -1,0 +1,10 @@
+{
+  "previous_checker_source_commit": "f3aaffdc382d6a04bc9cccca23825cb3c2043c95",
+  "wrong_candidate_sdk_hash_was_rejected": false,
+  "accepted_counts": {
+    "claude": 36,
+    "codex": 36,
+    "omp": 36
+  },
+  "scope": "Reproduces the old checker candidate identity gap; original evidence files unchanged."
+}
