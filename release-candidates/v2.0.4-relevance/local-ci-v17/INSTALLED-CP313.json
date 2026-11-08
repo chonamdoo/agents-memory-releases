@@ -1,0 +1,54 @@
+{
+  "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]",
+  "prefix": "/workspace/scratch/jev197-evaluation/sdk-relevance-ci/qa-venv313",
+  "isolated": true,
+  "product": {
+    "agents_memory": {
+      "wheel_sha256": "8096e885d9786e01e9aa9a4d039cafc3ee18bca92316554d25e615fe497f106b",
+      "modules": 13,
+      "files": {
+        "agents_memory/__init__.py": "870389b855042adb2088eb7897aa29f6cfa1be2a2f33a4cad6e09db513566381",
+        "agents_memory/admission_provider.pyc": "3dedac3350575512e5dadbe6b10e2ab5445cc842ba320ce85008ee51739c1366",
+        "agents_memory/capture_guard.pyc": "d8937e2b448a7ed0a98f865f8249e264a8ed6a26e553b685d3b42df5414ff40c",
+        "agents_memory/errors.pyc": "dfb62ed6dcda427f293a69952c523c0c5b715365ec35e6c46b8ccb8b7478fe39",
+        "agents_memory/generation_provider.pyc": "ba57295063ee605a74fe6f5d82b58fd0a04956dd4fcc2ee9f916d56cb88b99c0",
+        "agents_memory/hindsight_admission_limits.pyc": "4975e0588e5471145add1092218e5a61def40ac2685aa06600d973a68e79daa0",
+        "agents_memory/hindsight_admission_policy.pyc": "a1c27cfa2494097e8c683a7e8303b847c88436474b3f3621a2e50c8452f3666b",
+        "agents_memory/jev.pyc": "bf37d7a92af3ece77bd08c2ca4d490e25e9d7f78549189cf2e4814d03b3a47e7",
+        "agents_memory/memory_categories.pyc": "b8735270617463f113896ad695924bea057fdc30875f9090df272ca9cb7636d7",
+        "agents_memory/memory_content.pyc": "4765d0e93d60b8fb536995a7fc6a3bc5d595ceb529d6cd4af667249286d3e0d7",
+        "agents_memory/memory_processor.pyc": "30988495bab42ed9eec4a1b8597852abf99ada3e04722567fd977700cb53db12",
+        "agents_memory/reranker_assets.pyc": "0145dec059ee106f33dbfb85f564569a57177b4f3bc96c2e4b9b45397335215c",
+        "agents_memory/runtime_launcher.py": "de5bbd587ec04db1d22b0712f2df6c2a9f98ffcd4dbd2e0f786f0846c399dc07",
+        "agents_memory/source_integration.pyc": "a4714ad973fedbe4d943570656831fbcd84136031bfab02a8d0bcb1b3f370df7",
+        "agents_memory/unified_runtime.pyc": "f21bc1e251a9552d03bf84116a226c71a043428491db69faf639730d41924399"
+      }
+    },
+    "agents_memory_collab": {
+      "wheel_sha256": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+      "modules": 16,
+      "files": {
+        "agents_memory_collab/__init__.py": "f730edaf4cec2e8203922e21befe02571ff68fe7c4a6d5fcc10ff329c8540328",
+        "agents_memory_collab/automation.py": "7bd27f9dff8e6989790b056c4ab6792fcd658f2b74314a8c191804375c38c80c",
+        "agents_memory_collab/automation_setup.py": "11fa4ac1f61a6c5b7f164a5cf38a8dd2926cf14dab0ce41fe57342b24721063a",
+        "agents_memory_collab/cli.py": "899d7e3bef64fbd11a2f13f5916ba094fb082eb45814c35005f284257384b0a6",
+        "agents_memory_collab/client.py": "a1c406f961a84aa5167dc7adc7850d47c0bdbff5e87580faec362bb17ce20ebc",
+        "agents_memory_collab/embedding.py": "e1ba3d501829ef4ece988ad56728f5a9093287a58cc48d31140ff3bff7be4f09",
+        "agents_memory_collab/generation_transport.py": "a05a8dc6f0b8b76cb97ee13e288543982df6c7133dc6fca2c618aea083bf1e22",
+        "agents_memory_collab/hindsight.py": "3fba887521a1cfe33fbe666b6579d13ae314c2436da9243e8007effeeb800e4a",
+        "agents_memory_collab/memory_engine.py": "4694d30fb8a38f3225b7dba61a5d2961426b284c76b2a056419032548a2c0cb5",
+        "agents_memory_collab/models.py": "7ab7cfdc7a65a51bf4639346b9328adc4753c641e435223bc3db3a0573f11e0f",
+        "agents_memory_collab/omp_memory.ts": "5db1c25dd4b24fa2d75e0055b7ad9801f9de55d9555e64999a822c736b11217a",
+        "agents_memory_collab/protocol.py": "98a11408abdeede91fcd2a9a8c7c12153b3708cef2ab2ea0ff34bc2c7f651e4c",
+        "agents_memory_collab/recall_relevance.py": "bf4032d5f20bb90ac7fb0f43716f571cc036dc007804decc1d15bfe35981ae6a",
+        "agents_memory_collab/schema.sql": "8c15194b2552c79139868fd1cb2baa642418405c812b3324a87a4d50f84cd6b7",
+        "agents_memory_collab/setup.py": "74c919b25d30e9395ccc5b0c4cc1218377ed921f52fe1a440a193587bdfb8db1",
+        "agents_memory_collab/stdio.py": "3a1c6c7caf65f03d9abfea80426d58b38cc22be35f341ea58d63bd3051d14458",
+        "agents_memory_collab/store.py": "df7979c84a70e7527f0632cd228f1a2be08277ea6052293824f15a61330cb69b",
+        "agents_memory_collab/web.py": "2f852a903c7d9f1c8922ad39b1ab80b540148c4c6cb5929122479224f685684c"
+      }
+    }
+  },
+  "provider_calls": 0,
+  "new_v2_product_calls": 0
+}

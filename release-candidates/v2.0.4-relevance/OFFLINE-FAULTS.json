@@ -1,0 +1,178 @@
+{
+  "schema": "candidate-v17-offline-fault-verification-v1",
+  "sdk_wheel_sha256": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+  "core_capture_guard_source_sha256": "ec443b073307728a27a58b542dc3b5e5bffd66a683d0e42e527c9d65f9043728",
+  "harness_source_sha256": {
+    "mutate_check.py": "9fce0df0c62619d24ae6200e2bcae3b408dc6353b3d0eddb477b6054b26114f4",
+    "fault_probe.py": "574a2b8c4faa25a8d906d43b036dbb38890dd77c7844cd05447156216f6bdb15"
+  },
+  "shipping_packages_mutated": false,
+  "probe_input": "Temporary copies extractedbyteexactfromnewSDKwheel; no installed/source modifications",
+  "scope": "Offlinefunctional fault detection; notliveprovider/PG/Native quality evidence",
+  "provider_calls": 0,
+  "original_four_faults": [
+    "silent_discard",
+    "false_success",
+    "duplicate_on_retry",
+    "attribution"
+  ],
+  "clean_probe_count": 6,
+  "caught_fault_count": 6,
+  "report": {
+    "status": "pass",
+    "network_proof": false,
+    "scope": "offline_sequential_discard_replay_and_real_replica_hook_consumers",
+    "original_faults": [
+      "silent_discard",
+      "false_success",
+      "duplicate_on_retry",
+      "attribution"
+    ],
+    "reports": [
+      {
+        "name": "unmutated",
+        "probe": "silent_discard",
+        "status": "passed",
+        "evidence": {
+          "state": "discarded",
+          "reason": "judge_not_durable",
+          "local_memories": 0
+        }
+      },
+      {
+        "name": "unmutated",
+        "probe": "false_success",
+        "status": "passed",
+        "evidence": {
+          "state": "discarded",
+          "reason": "judge_not_durable",
+          "local_memories": 0
+        }
+      },
+      {
+        "name": "unmutated",
+        "probe": "duplicate_on_retry",
+        "status": "passed",
+        "evidence": {
+          "queued_operations_by_host": {
+            "claude": 1,
+            "codex": 1,
+            "omp": 1
+          },
+          "source_ids_by_host": {
+            "claude": [
+              "host-claude:e886482e072d6b0d581e1a933b7a23ad71d6ba6ffc124aa693d8cbc8316ac4a2"
+            ],
+            "codex": [
+              "host-codex:e886482e072d6b0d581e1a933b7a23ad71d6ba6ffc124aa693d8cbc8316ac4a2"
+            ],
+            "omp": [
+              "host-omp:e886482e072d6b0d581e1a933b7a23ad71d6ba6ffc124aa693d8cbc8316ac4a2"
+            ]
+          }
+        }
+      },
+      {
+        "name": "unmutated",
+        "probe": "attribution",
+        "status": "passed",
+        "evidence": {
+          "queued_operations_by_host": {
+            "claude": 1,
+            "codex": 1,
+            "omp": 1
+          },
+          "source_ids_by_host": {
+            "claude": [
+              "host-claude:e886482e072d6b0d581e1a933b7a23ad71d6ba6ffc124aa693d8cbc8316ac4a2"
+            ],
+            "codex": [
+              "host-codex:e886482e072d6b0d581e1a933b7a23ad71d6ba6ffc124aa693d8cbc8316ac4a2"
+            ],
+            "omp": [
+              "host-omp:e886482e072d6b0d581e1a933b7a23ad71d6ba6ffc124aa693d8cbc8316ac4a2"
+            ]
+          }
+        }
+      },
+      {
+        "name": "unmutated",
+        "probe": "tool_origin_accepted",
+        "status": "passed",
+        "evidence": {
+          "origin_rejected": true
+        }
+      },
+      {
+        "name": "unmutated",
+        "probe": "empty_recall_unscoped",
+        "status": "passed",
+        "evidence": {
+          "empty_memories": true,
+          "scope_present": true
+        }
+      },
+      {
+        "name": "silent_discard",
+        "status": "caught",
+        "mutated_nodes": 2,
+        "probe_result": {
+          "probe": "silent_discard",
+          "status": "violated",
+          "invariant": "discard_reason_visible"
+        }
+      },
+      {
+        "name": "false_success",
+        "status": "caught",
+        "mutated_nodes": 1,
+        "probe_result": {
+          "probe": "false_success",
+          "status": "violated",
+          "invariant": "discard_is_not_stored"
+        }
+      },
+      {
+        "name": "duplicate_on_retry",
+        "status": "caught",
+        "mutated_nodes": 1,
+        "probe_result": {
+          "probe": "duplicate_on_retry",
+          "status": "violated",
+          "invariant": "same_event_one_operation"
+        }
+      },
+      {
+        "name": "attribution",
+        "status": "caught",
+        "mutated_nodes": 1,
+        "probe_result": {
+          "probe": "attribution",
+          "status": "violated",
+          "invariant": "capture_preserves_host_and_session"
+        }
+      },
+      {
+        "name": "tool_origin_accepted",
+        "status": "caught",
+        "mutated_nodes": 1,
+        "probe_result": {
+          "probe": "tool_origin_accepted",
+          "status": "violated",
+          "invariant": "tool_origin_rejected"
+        }
+      },
+      {
+        "name": "empty_recall_unscoped",
+        "status": "caught",
+        "mutated_nodes": 1,
+        "probe_result": {
+          "probe": "empty_recall_unscoped",
+          "status": "violated",
+          "invariant": "empty_recall_has_scope"
+        }
+      }
+    ]
+  },
+  "stable_approval": false
+}

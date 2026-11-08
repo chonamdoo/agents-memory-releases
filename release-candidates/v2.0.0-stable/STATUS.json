@@ -532,6 +532,23 @@
       "http_status": 200,
       "bytes": 235844,
       "sha256": "62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef"
+    },
+    "offline_faults": {
+      "clean_probe_count": 6,
+      "caught_fault_count": 6,
+      "original_four_detected": true,
+      "scope": "functional, no liveprovider/PG/Native proof"
+    },
+    "local_ci": {
+      "membership": 368,
+      "verified_passed": 368,
+      "unverified_or_skipped": 0,
+      "single_full_run_green": false,
+      "explanation": "Original365 passes plus version-corrected status and actual formerly skipped proxy/ownedcoldautostart passes",
+      "cp313_affected": 102,
+      "exact_four_gib_peak_with_no_oom": true,
+      "real_provider_auth_in_QA": false,
+      "local_fake_auth_only": true
     }
   },
   "repaired_candidate_references": [
@@ -546,6 +563,50 @@
     {
       "path": "release-candidates/v2.0.4-relevance/MARKETPLACE-BUILD.json",
       "sha256": "d853e07e8de13c2f4ad14fb4035d422d16befef85d729b6933cf7371f3efad8a"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/OFFLINE-FAULTS.json",
+      "sha256": "b27e451a6b6c4a7abfc14309e9894417b545be800d7aaf03c41cdda9e8d3f3e5"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/CALLS-RUNTIME-HASHES.json",
+      "sha256": "06c018ca4ce94c90d4009e13da78d18a3eb84e9032a036195689c1b70a4e40b8"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/CI-MEMBERSHIP.json",
+      "sha256": "31a312283235d3bb326f845ee1147d6fe3347e32cefc4a7965deedddff068681"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/INSTALLED-CP312.json",
+      "sha256": "a33772469ff600a1ca6f3150211a45f8ef84ad32f8b3fe3574864cd8d97c3b53"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/INSTALLED-CP313.json",
+      "sha256": "8ff58881d63b930e78f8111f44edecb34f024e0acfc55e856addb64ca09603fc"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/OWNED-INSTALL-SCOPE.json",
+      "sha256": "8ef0c2e8593e1dc956d5cba54d1c62731d53bf85be1887d6b30759f155321b25"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/OWNED-INSTALLED-ORIGINS.json",
+      "sha256": "4133d74c29aa3e61cff9b847dcc424a2773e334e67e2f8baeb302bef2f91f5bf"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/README.ko.md",
+      "sha256": "4e41b1a6ee470617f369ff08c6526f1f4ef2e1575db22a749cdb36538fed1b7d"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/RESOURCES-FAILURES-CLEANUP.json",
+      "sha256": "70f578e1400e2858cd75c204609cee8a888bb14a90dc86013f0956dd55db7d78"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/SHA256.json",
+      "sha256": "bdc9227e0461a626a884c7924f93ba205efae938cecfbc0803cfd1b4c17dfc50"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/NATIVE-R2-ACCOUNTED-PREPARATION.json",
+      "sha256": "19b7c73f0cf8e0a38faad8da85911f16bec7390a02e2a359af1f36f1c8bb0776"
     }
   ]
 }

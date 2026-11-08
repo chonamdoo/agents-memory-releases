@@ -1,0 +1,129 @@
+{
+  "runs": {
+    "full-001": {
+      "result_sha256": "7d78d27e8c9ed9b59944b258c438647cd003f0d0d0494d11ab385acaacebdb0f",
+      "resources": {
+        "cpu.max": "200000 100000",
+        "memory.max": "4294967296",
+        "memory.swap.max": "0",
+        "pids.max": "256",
+        "memory.peak": "4294979584",
+        "memory.events": "low 0\nhigh 0\nmax 757\noom 1\noom_kill 1\noom_group_kill 0",
+        "cpu.stat": "usage_usec 126931962\nuser_usec 96266965\nsystem_usec 30664997\nnice_usec 0\nnr_periods 1684\nnr_throttled 12\nthrottled_usec 277177\nnr_bursts 0\nburst_usec 0"
+      },
+      "cleanup": true,
+      "scope": "generic QA fixtures only"
+    },
+    "full-002": {
+      "result_sha256": "82f357f1d4a1e0622234fda15cf5d875e0272918c85c96e2df57e7771e9ac21a",
+      "resources": {
+        "cpu.max": "200000 100000",
+        "memory.max": "4294967296",
+        "memory.swap.max": "0",
+        "pids.max": "256",
+        "memory.peak": "4294967296",
+        "memory.events": "low 0\nhigh 0\nmax 1691\noom 1\noom_kill 1\noom_group_kill 0",
+        "cpu.stat": "usage_usec 66055927\nuser_usec 46358218\nsystem_usec 19697708\nnice_usec 0\nnr_periods 818\nnr_throttled 10\nthrottled_usec 359994\nnr_bursts 0\nburst_usec 0"
+      },
+      "cleanup": true,
+      "scope": "generic QA fixtures only"
+    },
+    "full-003": {
+      "result_sha256": "0884c107af23df7b789ff41e05077e7d7c456dd695196a6baba7ecbd452cada3",
+      "resources": {
+        "cpu.max": "200000 100000",
+        "memory.max": "4294967296",
+        "memory.swap.max": "0",
+        "pids.max": "256",
+        "memory.peak": "4223463424",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "cpu.stat": "usage_usec 193168101\nuser_usec 155366742\nsystem_usec 37801359\nnice_usec 0\nnr_periods 2489\nnr_throttled 31\nthrottled_usec 1315724\nnr_bursts 0\nburst_usec 0"
+      },
+      "cleanup": true,
+      "scope": "generic QA fixtures only"
+    },
+    "affected-004": {
+      "result_sha256": "a2a905c51cd2625eebffbf86a933f6c7f59cb2aecb9ff4c8eaf20777d324e18c",
+      "resources": {
+        "cpu.max": "200000 100000",
+        "memory.max": "4294967296",
+        "memory.swap.max": "0",
+        "pids.max": "256",
+        "memory.peak": "3741970432",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "cpu.stat": "usage_usec 45422510\nuser_usec 27212929\nsystem_usec 18209581\nnice_usec 0\nnr_periods 461\nnr_throttled 7\nthrottled_usec 574069\nnr_bursts 0\nburst_usec 0"
+      },
+      "cleanup": true,
+      "scope": "generic QA fixtures only"
+    },
+    "owned-007": {
+      "result_sha256": "621c6dd805e45e32b902e14a732e20bbf55720b6d486108eb65e21b4bda430be",
+      "resources": {
+        "cpu.max": "200000 100000",
+        "memory.max": "4294967296",
+        "memory.swap.max": "0",
+        "pids.max": "256",
+        "memory.peak": "1466052608",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+      },
+      "cleanup": true,
+      "scope": "generic QA fixtures only"
+    },
+    "owned-008": {
+      "result_sha256": "df2b487576e168de74848da47bb7b4909ae1c6bba666d110ab3a9ec6ef3d8d1d",
+      "resources": {
+        "cpu.max": "200000 100000",
+        "memory.max": "4294967296",
+        "memory.swap.max": "0",
+        "pids.max": "256",
+        "memory.peak": "24211456",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+      },
+      "cleanup": false,
+      "scope": "generic QA fixtures only"
+    },
+    "owned-009": {
+      "result_sha256": "3876ca61a3392c81d4fb5c6ce74eccb72368969567c79ef0eedc4d42a275b243",
+      "resources": {
+        "cpu.max": "200000 100000",
+        "memory.max": "4294967296",
+        "memory.swap.max": "0",
+        "pids.max": "256",
+        "memory.peak": "4294967296",
+        "memory.events": "low 0\nhigh 0\nmax 1543\noom 0\noom_kill 0\noom_group_kill 0"
+      },
+      "cleanup": true,
+      "scope": "generic QA fixtures only"
+    },
+    "search-313-001": {
+      "result_sha256": "45d5bfb4d014e446e81886e03afdade9adf452660485b6db0915e6ab35a28cbd",
+      "resources": {
+        "cpu.max": "200000 100000",
+        "memory.max": "4294967296",
+        "memory.swap.max": "0",
+        "pids.max": "256",
+        "memory.peak": "176734208",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+      },
+      "cleanup": true,
+      "scope": "generic QA fixtures only"
+    }
+  },
+  "full001_002": "Preserved failures: offline cache plumbing, absent loopback generation gateway, Native OOM; not passes",
+  "owned007_008": "Preserved failures: automatic Docker proxy env captured fake HTTPS before local TLS;0HTTP fixture auth requests",
+  "full003": {
+    "oom": 0,
+    "peak_bytes": 4223463424,
+    "limit_bytes": 4294967296
+  },
+  "owned009": {
+    "oom": 0,
+    "peak_bytes": 4294967296,
+    "limit_bytes": 4294967296,
+    "memory_max_pressure_events": 1543,
+    "peak_equals_limit": true,
+    "below_cap_claim": false
+  },
+  "cleanup": "Owned service stopped using original stop command; owned fresh PG stopped; all test containers exited; no actual cohort DB retired",
+  "scratch_cleanup_inventory_sha256": "4bd6ba0c9514ac1c4301d259a4ddb547d2c00ae8d3083b88e16b3e7d6c398d4c"
+}
