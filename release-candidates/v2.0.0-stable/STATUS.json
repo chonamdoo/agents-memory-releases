@@ -1,386 +1,268 @@
 {
   "schema": "agents-memory-stable-release-status-v1",
-  "as_of": "2026-11-08",
+  "as_of": "2026-11-09",
   "timezone": "Asia/Seoul",
   "policy_sha256": "4d59b7f0561cc02c5b5106a7923b41ce108fbb00c45ecaa161d44a2288004679",
   "candidate": {
+    "release_tag": "v2.0.4",
     "runtime_version": "2.0.0",
-    "marketplace_package_version": "2.0.3",
-    "archive_sha256": "576c00e85cdabbbb2dd93305a1da97682a3bba59dc744b2c9e3a8a1eaad4dfd8",
-    "sdk_wheel_sha256": "14ba497889ace5e92946f328d79b1b6189f0c31b34e64b54fccf269a080f74ea",
+    "marketplace_package_version": "2.0.4",
+    "archive_sha256": "62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef",
+    "archive_commit": "1903a3d379983883c6069692f249fe470d7d0a61",
+    "sdk_wheel_sha256": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
     "core_wheels": {
       "agents_memory_core-2.0.0-cp312-none-any.whl": "bb4307f72380d4738c4c9305bafec1b70232ec93e153336fbd995619d5b9b0b2",
       "agents_memory_core-2.0.0-cp313-none-any.whl": "8096e885d9786e01e9aa9a4d039cafc3ee18bca92316554d25e615fe497f106b"
     },
+    "source_sdk_commit": "9870d4f4edbbf5e75f4c67e2daab9fcb822e5fb4",
     "core_source_commit": "a9069272d62fe651d793d54db0034aac59f0e5ed",
-    "core_merge_commit": "aa26e986547a466c8b0614e43af465e3394945f2",
-    "connector_changes_base_commit": "bab53ff829306317a625183c4f1f5164b003fc22",
-    "connector_files_sha256": {
-      ".claude-plugin/marketplace.json": "80e439f8e2d01ede8b460f2dc0758eda3dc5679bc490b65698b317098bfa369d",
-      "plugins/agents-memory-unified/.claude-plugin/plugin.json": "1e4fc72bf3caa9c70dcf9899dc2d1a04454922d14b1d3bef76e92286bc055355",
-      "plugins/agents-memory-unified/.codex-plugin/plugin.json": "6467c68b55cbfeb8470481b48c2de17c8795e150937ea35aafca642a7dd619f1",
-      "plugins/agents-memory-unified/scripts/connector.go": "b01df5c7d68ef59c74270e1b5ba8bfd856c6975ecfa6c4edbb0d3f520ec289d5",
-      "plugins/agents-memory-unified/bin/connector-linux-x86_64": "52a303012767e6360f8cfae0e6dafe60cccf3f39096e9891be71176bdac0d1df",
-      "plugins/agents-memory-unified/bin/connector-darwin-arm64": "200a3c864fcfe43d1ec9a3994f632b4c5bc4bdc933318bd886b978324a6c1a12",
-      "plugins/agents-memory-unified/bin/SHA256SUMS": "6786a9f30a63be4162623cd3f33f5db464d1ca026532dca32db92026c8190abc"
-    }
+    "core_product_code_unchanged": true,
+    "sdk_python_modules": 16,
+    "sdk_package_files": 18,
+    "identity_path": "release-candidates/v2.0.4-relevance/CANDIDATE.json",
+    "identity_sha256": "069b86b96c435013721e1ef89b1afc759ce5260cae006b52fa65f72491b600d8",
+    "linux_connector_sha256": "30ab2a8708e07799862e4cd4b4e7c5672346a537aeedb4307c987bfe80939a58",
+    "darwin_binary_execution": "not_verified; user platform exception"
   },
   "conditions": [
     {
       "id": "candidate_identity",
       "status": "met",
-      "reason": "Final source-free CP312/CP313 Core13modules, SDK15modules/SQL and installer match shipped bytes. Core includes serial ONNX reranking; final SDK includes typed-name scope and root-document priority.",
+      "reason": "Actual v17 public archive62b and installed SDK1a8/Corebb+809 match shipped bytes:16SDK Python/18package files and13private Coremodules on CP312/313. Runtime ABI2.0.0, MCPpackage2.0.4.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-jev197/VERIFICATION.json",
-          "sha256": "cb67c4436fdc82c6d2ae98d03e2cd93bd2a851541ed2d8348e33c54a6555b9a1"
+          "path": "release-candidates/v2.0.4-relevance/CANDIDATE.json",
+          "sha256": "069b86b96c435013721e1ef89b1afc759ce5260cae006b52fa65f72491b600d8"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/CP312-V16-RUNTIME.json",
-          "sha256": "a1de80954d849bae70a7d826f9827d4c6efdf89d62293236bf7015f47ad7ef6c"
+          "path": "release-candidates/v2.0.4-relevance/local-ci-v17/INSTALLED-CP312.json",
+          "sha256": "a33772469ff600a1ca6f3150211a45f8ef84ad32f8b3fe3574864cd8d97c3b53"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/CP313-V16-RUNTIME.json",
-          "sha256": "8ca9ba0e863ea7560e0e21d1871d8c9f6df20c52d49463bc4d915a61ab2ddc48"
+          "path": "release-candidates/v2.0.4-relevance/local-ci-v17/INSTALLED-CP313.json",
+          "sha256": "8ff58881d63b930e78f8111f44edecb34f024e0acfc55e856addb64ca09603fc"
         }
       ]
     },
     {
       "id": "regression",
       "status": "met",
-      "reason": "Final SDK322passed zero failures/skips; separate owned QA databases. Shipping search59each on CP312/CP313; serial-runtime38each on source and both shipping wheels. Core base5334/installed899 and explicit Darwin-only5 exclusions retained. User excludes macOS validation from release prerequisites; the five Darwin-only cases remain unexecuted, not passed.",
+      "reason": "Current SDK368distinct required members verified passed,0remaining skips/failures:365initial passes plus version-corrected status and actual compiledproxy/coldautostart. This was not one green full run. SourcePG110/110 and installedCP313102/102 affected regressions pass. Unchanged shipping Core retains prior base5334/installed899 and5Darwin exclusions; macOS is user-tested separately.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-jev197/LOCAL-CI.json",
-          "sha256": "95459724962fcfeef9241c89c52422dfd9df2f134fc36a6d4194f023b21d4eda"
+          "path": "release-candidates/v2.0.4-relevance/local-ci-v17/CI-MEMBERSHIP.json",
+          "sha256": "31a312283235d3bb326f845ee1147d6fe3347e32cefc4a7965deedddff068681"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/FINAL-VALIDATION.json",
-          "sha256": "bc6e439c65fb6bb81a9b2250f7a91bca67515d1d0a1ab8cc0429e5d1992ce0eb"
+          "path": "release-candidates/v2.0.4-relevance/local-ci-v17/CALLS-RUNTIME-HASHES.json",
+          "sha256": "06c018ca4ce94c90d4009e13da78d18a3eb84e9032a036195689c1b70a4e40b8"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/SERIAL-RERANKER-SOURCE.xml",
-          "sha256": "4ade2853fcc037c8961eb38340ec3133a42b528c9ec243102341aa34fc7cf74f"
-        },
-        {
-          "path": "release-candidates/v2.0.0-jev197/SERIAL-RERANKER-WHEEL312.xml",
-          "sha256": "f12f68b9703cc4c9fa80bc6b1a5cec90f9afa08f87eb2c135ad13f8a97f9ac2a"
-        },
-        {
-          "path": "release-candidates/v2.0.0-jev197/SERIAL-RERANKER-WHEEL313.xml",
-          "sha256": "fc65c9be151fd3c7c6b860461de4e7db6df267938d08ccaf46eb53d95f305fb9"
+          "path": "release-candidates/v2.0.4-relevance/local-ci-v17/RESOURCES-FAILURES-CLEANUP.json",
+          "sha256": "70f578e1400e2858cd75c204609cee8a888bb14a90dc86013f0956dd55db7d78"
         }
       ]
     },
     {
       "id": "evaluation_inputs",
       "status": "met",
-      "reason": "New196/40 inputs independently labeled by two actual user-authorized AI authors before product inference: raw class/relevance kappa1.00, question changes0, own hash-bound signoffs. Approved six missing historical raw comparisons disclosed unverified; all528 available references compared,0exact overlap. Static corpus/runtime registration and actual source-free Linux full-runtime zero-paid preflight passed; actual paid authority and quality metrics are separate pending gates.",
+      "reason": "Fresh196/40 preregistered before product inference, two actual separate AI authors with own final signoffs, class/relevance kappa1 and0question changes. Known764available referencefields compared with0exact overlap; exactsix historical gaps stay disclosed/unverified and no global historical no-overlap claim.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-jev197/FRESH-COHORT.json",
-          "sha256": "0ba379dfb29a054aa60a36895cb2725dcb8daca7b612f18d6069c0ffd8d47e2f"
+          "path": "release-candidates/v2.0.4-relevance/INDEPENDENT-V2-PREREGISTRATION.json",
+          "sha256": "e41a9f325d9209a5e39223a7b0945b29fed7bc4952221f5cbcb1563f13e73a91"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/QUESTION-REPAIR-PLAN.json",
-          "sha256": "a3b3cec4c3356dacfef0a5a2c35805fd7ee7f40305e25d7df2de4e5a7f961ad9"
+          "path": "release-candidates/v2.0.4-relevance/INDEPENDENT-V2-CAPACITY.json",
+          "sha256": "4f884b7cf33ab13bd0ff7d028a8e5cf7ae0bba18318447b95bc9a44d58789a86"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/SESSION-BUDGET.json",
-          "sha256": "899e981e619fe1d442f82f4a5e5686d9e7db3ab34ba0748cc55753425702742f"
-        },
-        {
-          "path": "release-candidates/v2.0.0-jev197/INDEPENDENT-PREPARATION.json",
-          "sha256": "7ce66dbeb8c33d25cb3f246f3e7c36c155d83ed4b8c30de0fb14a582b66817a7"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/ANNOTATION-PREFLIGHT.json",
-          "sha256": "1615dfa5ca7ce66ec792d8629a3bc8bf7b81222d6efa2e8c5d391fe5919672a8"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/REFERENCE-AUTHORIZATION.json",
-          "sha256": "0f0efaf67bee752f4a3727f3695038c8c4af79d2e0dab5da905bca178966e809"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/LINUX-ZERO-PAID-PREFLIGHT.json",
-          "sha256": "3a153e2f42ea7b85cb7beaade35bcb92f4d5bbd2c7a99cd2b3e68fc0e48ccaf1"
+          "path": "release-candidates/v2.0.4-relevance/live-quality-v2/REGISTRATION-EXECUTION-HASHES.json",
+          "sha256": "6120f155d47d2380071f9ef891c0482d64285730cd29865489a5a17e23535f7e"
         }
       ]
     },
     {
       "id": "live_admission",
       "status": "met",
-      "reason": "Last measured SDK14ba/Corebb independent196/40 census: legitimate80/80 andauto40/40 actual Native/server/local commits; original labels/signoffs and priors unchanged. Success does not qualify the separate repaired successor without its own run.",
+      "reason": "Actual fresh196census on SDK1a8: legitimate explicit80/80stored, auto39/40stored,119Native/server/local/provenance commits, audited rejection/review/guard outcomes for every case. One automatic false negative remains; unchanged Wilson thresholds pass.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-jev197/FRESH-ADMISSION.json",
-          "sha256": "3d357e37a63027256b1eaf1c9826ab7eb2cebc1f8d8e7f7dc9ba4a5f29283e70"
+          "path": "release-candidates/v2.0.4-relevance/live-quality-v2/MEASURED-METRICS.json",
+          "sha256": "9bce71d803e4536de64a1aa9aed89bbc32667cb8634b4b8abc79afb9e86cbb28"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/FRESH-STORAGE.json",
-          "sha256": "da5c1b49aeed0ce6874b6d5211b3f3d821e86052012bec79b538361a28cebe52"
-        },
-        {
-          "path": "release-candidates/v2.0.0-jev197/FRESH-JEV-LATENCY.json",
-          "sha256": "8e45789d85c8efb98a5c9e399fb632dab37281966c73dd3e1426d45475cb4f7f"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/live-quality-v1/STRICT-METRICS.json",
-          "sha256": "fc92306150d7cc730800e9610e9f0198a0299e4bb2a479e332be91f7751477b5"
+          "path": "release-candidates/v2.0.4-relevance/live-quality-v2/UNMEASURED-AND-LIMITS.json",
+          "sha256": "4e4f81e1ed0e3f2e7e3ddeaf6f8a5bfda7c6aed7f785810c1670b652f5f337b9"
         }
       ]
     },
     {
       "id": "live_retrieval",
-      "status": "fail",
-      "reason": "Independent real196/40 complete: hit/all-required40/40, but noise80/200=.40 Wilsonupper.46916327960737997>.30. Original questions/gold/filter/denominator unchanged. Consumed cohort retained for diagnosis; successor not yet evaluated.",
+      "status": "met",
+      "reason": "Fresh actual integrated Hindsight/E5/BGE recall40/40hit (Wilsonlower0.912378>=0.75), noise0/119returned sourceoccurrences (upper0.031272<=0.30). Joint required39/40reported without changing questions/labels/denominators; generated answers ungraded and no answer-quality claim. Strict adapter overall UNKNOWN is retained.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-jev197/FRESH-BASELINE-RETRIEVAL.json",
-          "sha256": "6239b6d0abbe55bba92c5786f3312db47f2ab45631bc7a1012b3f3dda3145b90"
+          "path": "release-candidates/v2.0.4-relevance/live-quality-v2/MEASURED-METRICS.json",
+          "sha256": "9bce71d803e4536de64a1aa9aed89bbc32667cb8634b4b8abc79afb9e86cbb28"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/QUALIFIED-IDENTIFIER-ORIGINAL40.json",
-          "sha256": "0473197efefe7b881ded7870d95e8eadc88784a2bb86809324a1dfc00c04833f"
-        },
-        {
-          "path": "release-candidates/v2.0.0-jev197/FINAL-RETRIEVAL.json",
-          "sha256": "0a8fbdfc5e59cb7c2045204e0fa5da54ae63a54e0d0c0e3b9feaa9b161a1132a"
-        },
-        {
-          "path": "release-candidates/v2.0.0-jev197/QUESTION-REPAIR-PLAN.json",
-          "sha256": "a3b3cec4c3356dacfef0a5a2c35805fd7ee7f40305e25d7df2de4e5a7f961ad9"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/live-quality-v1/STRICT-METRICS.json",
-          "sha256": "fc92306150d7cc730800e9610e9f0198a0299e4bb2a479e332be91f7751477b5"
+          "path": "release-candidates/v2.0.4-relevance/live-quality-v2/UNMEASURED-AND-LIMITS.json",
+          "sha256": "4e4f81e1ed0e3f2e7e3ddeaf6f8a5bfda7c6aed7f785810c1670b652f5f337b9"
         }
       ]
     },
     {
       "id": "safety",
-      "status": "partial",
-      "reason": "Previous development safety evidence retained. On temporary copies of final shipping SDK14ba, all four original detector faults plus tool-origin and empty-recall-scope mutants are detected; all six clean baselines pass. This offline consumer check is not live Native/PostgreSQL/provider or the new independent quality census, which remains pending.",
+      "status": "met",
+      "reason": "Actual196case audit has0false success, chatter/quote/unsafe admitted0, and all6source-secret fixtures blocked before provider/outbox/job/server/Native with full guard census. On exact current SDK,6clean offline probes pass and6faultmutants are detected, including originalfour. Offline faults are functional evidence, not live fault injection.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-jev197/FRESH-ADMISSION.json",
-          "sha256": "3d357e37a63027256b1eaf1c9826ab7eb2cebc1f8d8e7f7dc9ba4a5f29283e70"
+          "path": "release-candidates/v2.0.4-relevance/live-quality-v2/MEASURED-METRICS.json",
+          "sha256": "9bce71d803e4536de64a1aa9aed89bbc32667cb8634b4b8abc79afb9e86cbb28"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/FRESH-STORAGE.json",
-          "sha256": "da5c1b49aeed0ce6874b6d5211b3f3d821e86052012bec79b538361a28cebe52"
-        },
-        {
-          "path": "release-candidates/v2.0.0-jev197/FINAL-VALIDATION.json",
-          "sha256": "bc6e439c65fb6bb81a9b2250f7a91bca67515d1d0a1ab8cc0429e5d1992ce0eb"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/OFFLINE-FAULTS.json",
-          "sha256": "ae97e510240076097c6879ee90e17af8b599bfea459a4ea307ef262f8420f5ab"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/live-quality-v1/STRICT-METRICS.json",
-          "sha256": "fc92306150d7cc730800e9610e9f0198a0299e4bb2a479e332be91f7751477b5"
+          "path": "release-candidates/v2.0.4-relevance/OFFLINE-FAULTS.json",
+          "sha256": "b27e451a6b6c4a7abfc14309e9894417b545be800d7aaf03c41cdda9e8d3f3e5"
         }
       ]
     },
     {
       "id": "source_search",
       "status": "met",
-      "reason": "Final shipping CP312/CP313 tests include independent original-source search and authorization/current revision/deletion boundaries; configured connector consumes genuine owned installation. Source_search results never substituted for Native recall scoring.",
+      "reason": "Current SDK full membership includes25passed original-source-search cases plus affected CP312/CP313 tests. Independently discover omitted raw facts with explicit account/project/owner scope before limit, revision/deletion fences, hashes and untrusted labels; no provider/fallback or recall-score substitution.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-jev197/FINAL-VALIDATION.json",
-          "sha256": "bc6e439c65fb6bb81a9b2250f7a91bca67515d1d0a1ab8cc0429e5d1992ce0eb"
+          "path": "release-candidates/v2.0.4-relevance/local-ci-v17/CI-MEMBERSHIP.json",
+          "sha256": "31a312283235d3bb326f845ee1147d6fe3347e32cefc4a7965deedddff068681"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/local-ci-v17/INSTALLED-CP312.json",
+          "sha256": "a33772469ff600a1ca6f3150211a45f8ef84ad32f8b3fe3574864cd8d97c3b53"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/local-ci-v17/INSTALLED-CP313.json",
+          "sha256": "8ff58881d63b930e78f8111f44edecb34f024e0acfc55e856addb64ca09603fc"
         }
       ]
     },
     {
       "id": "compaction",
       "status": "partial",
-      "reason": "Offline final-wheel36/36 per host preserved. Actual official Codex0.167.0 with real OpenAI gpt-6.1-sol now passes36/36,72exact whole-fact/fresh-marker answers and36genuine compactions under2CPU/4GiB/swap0/OOM0. Synthetic memory backend only, not integrated memory quality. Real Claude/OMP verification pending.",
+      "reason": "Current candidate actual Claude36 is running after reviewed model/format fixes; original R2/R3 failures and all charges are preserved. Codex/OMP current-candidate actual36 have not run. Earlier SDK14ba successes do not qualify newSDK1a8.",
       "references": [
         {
-          "path": "release-candidates/v2.0.3-native-final/NATIVE-LIFECYCLE.json",
-          "sha256": "f1c05ec99e769ec1d2e3e1ca26c87371b9cfc626a6324675a026b5600e400186"
-        },
-        {
-          "path": "release-candidates/v2.0.3-native-final/CHECKER-VALIDATION.json",
-          "sha256": "a5bab4fea50640f1a25aa8fe668e6740f150cf77d10a6e0d7cd46b7c6c241d3a"
-        },
-        {
-          "path": "release-candidates/v2.0.3-native-final/INSTALLED-WHEELS.json",
-          "sha256": "e5ea9c7deb46e041c1d2bdf1b9b21fb064c334d097c1f8a40a6d689c370af52d"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/REAL-CODEX.json",
-          "sha256": "727e9da6f884df27488941ca04f7f4e97e909b8c74d5ef4b5a708c7327d61806"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/CODEX-ACCOUNTED-PREPARATION.json",
-          "sha256": "5a5105587da4881bb479fb7c6c5c202d1af492e23bf719800a9927a48447fea2"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/CLAUDE-ACCOUNTED-PREPARATION.json",
-          "sha256": "e2e134d83a934977d409612b8b057d7c6966f2c67fad9e052c0f4bcaf298dfba"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/OMP-ACCOUNTED-PREPARATION.json",
-          "sha256": "0c84a751f819f5c122a7a8a53d36b8227ee9c848eae6c4815d4cf6a22b19d0db"
+          "path": "release-candidates/v2.0.4-relevance/native-verification-progress/SNAPSHOT.json",
+          "sha256": "e943478772aed63db591d3a013881cc71228c76a7d24163ecbde2f7024ec3bfb"
         }
       ]
     },
     {
       "id": "host_lifecycle",
-      "status": "met",
-      "reason": "Final shipping SDK14ba/Core CP312bb verified against actual installed13Core/15SDK+SQL bytes, then actual Claude2.1.319/Codex0.167.0/OMP18.18.0 each completed the unchanged36cases (Wilson lower0.903581). Genuine native compact completion and fresh marker+complete fact at subsequent model ingress verified across24freshnetwork-none batches. Provider responses and recall records remain fixtures; no live-provider quality or first interactive trust claim.",
+      "status": "partial",
+      "reason": "Original per-host36 and Wilsonlower>=0.90 remain required. Current Claude partial passes only; final36+cleanup and current Codex/OMP evidence pending. Original reader/schema/facts/questions/value predicates unchanged; prose extraction is not pureJSON or generated-answer quality.",
       "references": [
         {
-          "path": "release-candidates/v2.0.3-native-final/NATIVE-LIFECYCLE.json",
-          "sha256": "f1c05ec99e769ec1d2e3e1ca26c87371b9cfc626a6324675a026b5600e400186"
-        },
-        {
-          "path": "release-candidates/v2.0.3-native-final/CHECKER-VALIDATION.json",
-          "sha256": "a5bab4fea50640f1a25aa8fe668e6740f150cf77d10a6e0d7cd46b7c6c241d3a"
-        },
-        {
-          "path": "release-candidates/v2.0.3-native-final/INSTALLED-WHEELS.json",
-          "sha256": "e5ea9c7deb46e041c1d2bdf1b9b21fb064c334d097c1f8a40a6d689c370af52d"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/REAL-CODEX.json",
-          "sha256": "727e9da6f884df27488941ca04f7f4e97e909b8c74d5ef4b5a708c7327d61806"
+          "path": "release-candidates/v2.0.4-relevance/native-verification-progress/SNAPSHOT.json",
+          "sha256": "e943478772aed63db591d3a013881cc71228c76a7d24163ecbde2f7024ec3bfb"
         }
       ]
     },
     {
       "id": "installation",
       "status": "met",
-      "reason": "Linux-only release scope per user instruction: genuine pinned bootstrap, repeated installed updates and cold configured MCP autostart pass on Ubuntu24.04/glibc2.39 x86_64. A real owned failed update restored the prior generation and healthy service; six protected files, models directory, all13existing am_collab database tables and the same queued operation ID/body/status were preserved. Provider verification was fault-injected before process launch (0Jevcalls); this is functional rollback evidence. macOS is user-tested separately and is not required. Debian12 loader failure stays unsupported.",
+      "reason": "Exactv17 genuine repeat/newgeneration, installed-byte verification and owned coldautostart pass. Injected update failure restores healthy prior generation and preserves6protected files, models,13DBtables and same unsent intent. QA uses only localfakeTLS, no real profile/cohortDB/provider; unchanged genuine bootstrap/model reused read-only, not freshly downloaded/reinstalled.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-jev197/OWNED-UPDATE7.json",
-          "sha256": "e7ccef46e39935d69f2dfc634c7081dd16c731ef1a1dafa8e336e19ace31591f"
+          "path": "release-candidates/v2.0.4-relevance/local-ci-v17/OWNED-INSTALL-SCOPE.json",
+          "sha256": "8ef0c2e8593e1dc956d5cba54d1c62731d53bf85be1887d6b30759f155321b25"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/FINAL-OWNED-COLD.xml",
-          "sha256": "487cef8cb451d9dc5dcb63eafb04a39d22a2c27e8a87df6e52b9ee8e7e7fcbba"
-        },
-        {
-          "path": "release-candidates/v2.0.0-jev197/CP312-V16-RUNTIME.json",
-          "sha256": "a1de80954d849bae70a7d826f9827d4c6efdf89d62293236bf7015f47ad7ef6c"
-        },
-        {
-          "path": "release-candidates/v2.0.0-jev197/CP313-V16-RUNTIME.json",
-          "sha256": "8ca9ba0e863ea7560e0e21d1871d8c9f6df20c52d49463bc4d915a61ab2ddc48"
-        },
-        {
-          "path": "release-candidates/v2.0.0-jev197/OWNED-LINUX-ROLLBACK.json",
-          "sha256": "bfd870bdfd47306a00486b0eed141f95b4c3df3ff1609d6ff26a5fce7fb90e5f"
+          "path": "release-candidates/v2.0.4-relevance/live-quality-v2/EXACT-V17-REPEAT-ROLLBACK.json",
+          "sha256": "778591585cf505d8ce2938ad49ce46231767c863791c05419c08b6478808f6b9"
         }
       ]
     },
     {
       "id": "resources_and_budget",
       "status": "partial",
-      "reason": "Last measured run passed2CPU4GiB swap0/OOM0 and completed196bounded Jev sends. Cumulative Jev614/1000; shared new1000pool196spent/804remaining. Earlier Codex117operations/OMP3fetch underlying wire counts remain unknown. Successor runtime and genuine host-provider verification remain pending.",
+      "reason": "New196/40 measured runtime2CPU4GiB/swap0 peak4294336512/OOM0 and190Jev<=197; judgmentp95 22.36<=30. Repeat/rollback peak exactly4GiB, pressure3884/OOM0. Same approved1000pool/subcaps counts every attempt including failed387;391priorrows/identity independently unchanged after reviewed resumption. Final current-host resource/cleanup/cap proof remains pending; historical nativewire unknowns remain unknown.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-jev197/FINAL-RESOURCE-AUDIT.json",
-          "sha256": "896809c698381b2b8c5a2eaf456af3cd83bf1dd493388ccd3e74f5538edfe664"
+          "path": "release-candidates/v2.0.4-relevance/live-quality-v2/RESOURCE-CLEANUP.json",
+          "sha256": "861c243dba23aa461e432cc118a92c8e6809836583a794b7fb836456e84032fe"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/FINAL-ISOLATED-RESULT.json",
-          "sha256": "ee9c3a484180683caad90b4ac74ab8bb9f856d51a99bc9543183385b705247a4"
+          "path": "release-candidates/v2.0.4-relevance/live-quality-v2/FROZEN-CALL-COUNTS.json",
+          "sha256": "efac4c301482c39375125156cc04ceec175dc50ca92b751fbc72d3339f518014"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/FINAL-CONTAINER-RUNTIME.json",
-          "sha256": "a1de80954d849bae70a7d826f9827d4c6efdf89d62293236bf7015f47ad7ef6c"
+          "path": "release-candidates/v2.0.4-relevance/live-quality-v2/EXACT-V17-REPEAT-ROLLBACK.json",
+          "sha256": "778591585cf505d8ce2938ad49ce46231767c863791c05419c08b6478808f6b9"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/SESSION-BUDGET.json",
-          "sha256": "899e981e619fe1d442f82f4a5e5686d9e7db3ab34ba0748cc55753425702742f"
-        },
-        {
-          "path": "release-candidates/v2.0.0-jev197/FRESH-JEV-LATENCY.json",
-          "sha256": "8e45789d85c8efb98a5c9e399fb632dab37281966c73dd3e1426d45475cb4f7f"
-        },
-        {
-          "path": "release-candidates/v2.0.0-jev197/CORRECTED-QUESTION-OOM.json",
-          "sha256": "9cf0c7d215416739b922992ad5d94463c1a197af73255bfc579ef796f6081818"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/LINUX-ZERO-PAID-PREFLIGHT.json",
-          "sha256": "3a153e2f42ea7b85cb7beaade35bcb92f4d5bbd2c7a99cd2b3e68fc0e48ccaf1"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/PAST-CALL-COUNT-LIMITATIONS.json",
-          "sha256": "a895fd1fe103b173e4288b6f27511255a3b2a7127e000ac59f5c11bba224945d"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/FUTURE-CALL-PLAN.json",
-          "sha256": "61094e9f4b2126ea5aea2f18ca5bc84a237fb654ad56b78f08ece63cbc1b80de"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/live-quality-v1/CALL-LEDGER-196.json",
-          "sha256": "cb8cb04353985003d5d2cb6b36e2cff8bc629f1724fb6eafb9b8fae01e128592"
-        },
-        {
-          "path": "release-candidates/v2.0.3-independent/live-quality-v1/RESOURCES-CLEANUP.json",
-          "sha256": "d1e0b947658029e61b7f27b26b96b2cdc4589986f0028d2121e3cb7a9b6708d2"
-        },
-        {
-          "path": "release-candidates/v2.0.4-relevance/FUTURE-CALL-CONFIRMATION.json",
-          "sha256": "baed642ce19f0994168004bdc7fc58855d0b692a82f7af35037c271c68845a6c"
+          "path": "release-candidates/v2.0.4-relevance/native-verification-progress/SNAPSHOT.json",
+          "sha256": "e943478772aed63db591d3a013881cc71228c76a7d24163ecbde2f7024ec3bfb"
         }
       ]
     },
     {
       "id": "marketplace_delivery",
       "status": "met",
-      "reason": "Actual public GitHub marketplace upgrades2.0.2to2.0.3 succeeded using Claude/Codex/OMP CLIs in separate homes. All13selected installed files match; actual installed connectors report ready, expose original-source search and answer server recall on an empty owned synthetic project. No real-provider LLM answer claim.",
+      "reason": "Actual public2.0.3to2.0.4 upgrades and sameversion finalfrontend refresh passed through officialClaude/Codex/OMP commands:13selected installed files each exact, newLinux30ab actual unconfiguredMCP/status connections. Codex marketentry is setupskillonly; configuredprojectstdioMCP is separate actual SDKCI proof. No centraldirectory approval claimed.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-jev197/PUBLIC-MARKETPLACE.json",
-          "sha256": "54433eff224fa9ea9c1de5752469ab24daea18de22e61c1dfd09d719ffc359fe"
+          "path": "release-candidates/v2.0.4-relevance/marketplace-delivery/PUBLIC-UPGRADE.json",
+          "sha256": "c0210a51394c488e71d2ff6645c46dba587b2be1e95ddb1c60c08ad8bac9b012"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/PUBLIC-CONNECTORS.json",
-          "sha256": "030ea4d1f6f5c644dca9394266d587dfa850d38df2d17d628939dc5f06c41aea"
+          "path": "release-candidates/v2.0.4-relevance/marketplace-delivery/PUBLIC-FINAL-REFRESH.json",
+          "sha256": "701b7bbdf56286aa67f3973222c543bc4bd86ea69e3e33db810ee6cd834b22c1"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/local-ci-v17/CI-MEMBERSHIP.json",
+          "sha256": "31a312283235d3bb326f845ee1147d6fe3347e32cefc4a7965deedddff068681"
         }
       ]
     },
     {
       "id": "mcp_bundle_delivery",
       "status": "met",
-      "reason": "Downloaded the public archive pinned to merged commit e881375; SHA256 matches final576c00e8...bundle. All manifest members verified; installed13Core/15SDK/SQL match the public downloaded bytes with network forbidden in the probe.",
+      "reason": "Immutable public archive at1903a3d HTTP200/235844bytes/SHA62b, all14members/13ASSETS validated and currentSDK1a8/Corebb+809 installed bytes match. Existing modelcompanion remains separately hash-pinned. New binary release upload is optional for selected repository-pinned MCP delivery.",
       "references": [
         {
-          "path": "release-candidates/v2.0.0-jev197/PUBLIC-MARKETPLACE.json",
-          "sha256": "54433eff224fa9ea9c1de5752469ab24daea18de22e61c1dfd09d719ffc359fe"
+          "path": "release-candidates/v2.0.4-relevance/CANDIDATE.json",
+          "sha256": "069b86b96c435013721e1ef89b1afc759ce5260cae006b52fa65f72491b600d8"
         },
         {
-          "path": "release-candidates/v2.0.0-jev197/PUBLIC-INSTALLED-CP312.json",
-          "sha256": "a1de80954d849bae70a7d826f9827d4c6efdf89d62293236bf7015f47ad7ef6c"
+          "path": "release-candidates/v2.0.4-relevance/MARKETPLACE-BUILD.json",
+          "sha256": "21cd5f6a2d31a9b051be885645f93d20b5c152cdfd0b3a8ae73adcf6bb6d5f7d"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/marketplace-delivery/PUBLIC-FINAL-REFRESH.json",
+          "sha256": "701b7bbdf56286aa67f3973222c543bc4bd86ea69e3e33db810ee6cd834b22c1"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/local-ci-v17/INSTALLED-CP312.json",
+          "sha256": "a33772469ff600a1ca6f3150211a45f8ef84ad32f8b3fe3574864cd8d97c3b53"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/local-ci-v17/INSTALLED-CP313.json",
+          "sha256": "8ff58881d63b930e78f8111f44edecb34f024e0acfc55e856addb64ca09603fc"
         }
       ]
     },
     {
       "id": "release_asset_delivery",
-      "status": "blocked",
-      "reason": "Candidate is delivered as repository-pinned MCP bundle/link. Earlier upload401 is historical; authenticated release draft creation/update now succeeds. No new asset upload is verified. Existing v2.0.0 nine assets and tag preserved.",
+      "status": "not_required",
+      "reason": "Optional newbinary asset upload is unverified (historical401 preserved); selected user-authorized delivery uses verified immutable bundle links. Authenticated v2.0.4 draft exists unpublished; originalv2.0.0nineassets/tag remain. This optional condition is not in ready_to_promote decision phases.",
       "references": []
     },
     {
       "id": "stable_release_readback",
       "status": "not_run",
-      "reason": "Public readback confirms v2.0.0 remains prerelease, v1.0.8 remains latest stable and all9existing assets remain present. Stable promotion has not run; remaining original quality conditions are unverified.",
-      "references": [
-        {
-          "path": "release-candidates/v2.0.0-jev197/RELEASE-CHANNEL.json",
-          "sha256": "e769c77af3dfd208b01060690dda05216133447eee6f0dce03708110856609d3"
-        }
-      ]
+      "reason": "Current candidate actual Native verification is incomplete; v2.0.4 draft remains unpublished. No stable release promotion/readback performed.",
+      "references": []
     }
   ],
   "historical_v43": {
@@ -424,14 +306,13 @@
   },
   "limitations": "Manually reviewed status snapshot. Referenced hashes preserve file identity; they do not independently prove original experiments, author identity or remote publication.",
   "native_lifecycle_scope": {
-    "status": "passed_offline_only",
-    "successes_per_host": 36,
+    "status": "current_candidate_actual_verification_partial",
     "denominator_per_host": 36,
-    "core_pr": 65,
-    "core_merge": "7451641a114586fff231e15c15db7ebf352b3460",
-    "private_live_inputs": "New self-authored live Jev admission and separate Native storage/recall; original historical inputs not available",
+    "current_source_capsule_merge": "f786d5358073b854b34b7f670e4f49e35286f4bf",
+    "memory_backend": "synthetic fixed fixture; separate real integrated quality verified196/40",
     "first_interactive_trust": "unverified",
-    "selected_real_provider_compliance": "Codex36/36 real-provider component pass; Claude and OMP pending; integrated memory quality not certified"
+    "selected_real_provider_compliance": "CurrentClaude36pending/CodexOMPnotrun; no earlierSDKsuccess substitution",
+    "omp_compaction": "official soft only; prior default/remoteV2HTTP400 failed causeunknown"
   },
   "release_basis": {
     "selected": "original-independent-verification",
@@ -481,13 +362,12 @@
   },
   "future_actual_execution": {
     "approval_received": true,
-    "new_supplier_calls": 387,
-    "new196_product_inferences": 196,
+    "new_supplier_calls": 406,
     "codex_counted_controller": "36/36 fake only,108local transmissions",
     "claude_counted_controller": "36/36 fake only,144local transmissions",
     "omp_counted_controller": "36/36 fake only,144local transmissions; optional metadata removal afterward verified on exact final freeze1case/4transmissions",
     "historical_native_wire_counts_recoverable": false,
-    "proposal": "Same approved pool1000,387 charged/613 remaining; Jev386/582; Claude1/150 failed HTTP404; no cap reset",
+    "proposal": "Same approved1000 pool; latest exact snapshot is referenced progress metadata. No reset or stacked grant.",
     "measured_cohort": "v1 failed noise80/200; fresh preregistered v2 complete196/40 measured gates pass, strict overall unknown",
     "new_v2_product_inferences": 190,
     "current_provider_states": {
@@ -495,15 +375,170 @@
         "completed": 386
       },
       "claude": {
+        "completed": 18,
+        "dispatched": 1,
         "failed": 1
       },
       "codex": {},
       "omp": {}
     },
-    "failed_attempts_counted": true
+    "failed_attempts_counted": true,
+    "current_claude_state": "R4actual36running; priorR2 HTTP4041 andR3controllerformatfailure4HTTP200 retained",
+    "historical_first_independent_product_inferences": 196,
+    "current_candidate_product_inferences": 190
   },
-  "candidate_role": "Historical v2.0.3 last full candidate evaluation failed retrieval noise. Do not apply its component results as v2.0.4 evidence; current v2.0.4 is separately identified in next_candidate.",
-  "next_candidate": {
+  "candidate_role": "Current repaired v2.0.4 candidate. Every current condition below uses matching shipped bytes or explicitly unchanged Core evidence; old failed v2.0.3 remains historical.",
+  "repaired_candidate_references": [
+    {
+      "path": "release-candidates/v2.0.4-relevance/INDEPENDENT-V2-PREREGISTRATION.json",
+      "sha256": "e41a9f325d9209a5e39223a7b0945b29fed7bc4952221f5cbcb1563f13e73a91"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/INDEPENDENT-V2-CAPACITY.json",
+      "sha256": "4f884b7cf33ab13bd0ff7d028a8e5cf7ae0bba18318447b95bc9a44d58789a86"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/MARKETPLACE-BUILD.json",
+      "sha256": "21cd5f6a2d31a9b051be885645f93d20b5c152cdfd0b3a8ae73adcf6bb6d5f7d"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/OFFLINE-FAULTS.json",
+      "sha256": "b27e451a6b6c4a7abfc14309e9894417b545be800d7aaf03c41cdda9e8d3f3e5"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/CALLS-RUNTIME-HASHES.json",
+      "sha256": "06c018ca4ce94c90d4009e13da78d18a3eb84e9032a036195689c1b70a4e40b8"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/CI-MEMBERSHIP.json",
+      "sha256": "31a312283235d3bb326f845ee1147d6fe3347e32cefc4a7965deedddff068681"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/INSTALLED-CP312.json",
+      "sha256": "a33772469ff600a1ca6f3150211a45f8ef84ad32f8b3fe3574864cd8d97c3b53"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/INSTALLED-CP313.json",
+      "sha256": "8ff58881d63b930e78f8111f44edecb34f024e0acfc55e856addb64ca09603fc"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/OWNED-INSTALL-SCOPE.json",
+      "sha256": "8ef0c2e8593e1dc956d5cba54d1c62731d53bf85be1887d6b30759f155321b25"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/OWNED-INSTALLED-ORIGINS.json",
+      "sha256": "4133d74c29aa3e61cff9b847dcc424a2773e334e67e2f8baeb302bef2f91f5bf"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/README.ko.md",
+      "sha256": "4e41b1a6ee470617f369ff08c6526f1f4ef2e1575db22a749cdb36538fed1b7d"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/RESOURCES-FAILURES-CLEANUP.json",
+      "sha256": "70f578e1400e2858cd75c204609cee8a888bb14a90dc86013f0956dd55db7d78"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/SHA256.json",
+      "sha256": "bdc9227e0461a626a884c7924f93ba205efae938cecfbc0803cfd1b4c17dfc50"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/NATIVE-R2-ACCOUNTED-PREPARATION.json",
+      "sha256": "19b7c73f0cf8e0a38faad8da85911f16bec7390a02e2a359af1f36f1c8bb0776"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/marketplace-delivery/LOCAL-CACHE-REFRESH.json",
+      "sha256": "e205047ce0a21a4072458fddc0c8f1a88ff97d67348e6b5fc96bc39b13c4f133"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/marketplace-delivery/PUBLIC-FINAL-REFRESH.json",
+      "sha256": "701b7bbdf56286aa67f3973222c543bc4bd86ea69e3e33db810ee6cd834b22c1"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/marketplace-delivery/PUBLIC-UPGRADE.json",
+      "sha256": "c0210a51394c488e71d2ff6645c46dba587b2be1e95ddb1c60c08ad8bac9b012"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/EXACT-V17-REPEAT-ROLLBACK.json",
+      "sha256": "778591585cf505d8ce2938ad49ce46231767c863791c05419c08b6478808f6b9"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/FROZEN-CALL-COUNTS.json",
+      "sha256": "efac4c301482c39375125156cc04ceec175dc50ca92b751fbc72d3339f518014"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/MEASURED-METRICS.json",
+      "sha256": "9bce71d803e4536de64a1aa9aed89bbc32667cb8634b4b8abc79afb9e86cbb28"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/README.ko.md",
+      "sha256": "b1798df6a18c896ebeaf1056c529551cabde70f1a7511e7ab47206bc7b7efee4"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/REGISTRATION-EXECUTION-HASHES.json",
+      "sha256": "6120f155d47d2380071f9ef891c0482d64285730cd29865489a5a17e23535f7e"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/RESOURCE-CLEANUP.json",
+      "sha256": "861c243dba23aa461e432cc118a92c8e6809836583a794b7fb836456e84032fe"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/SHA256.json",
+      "sha256": "3f0fe1db84ad36845cf17f28620662633e37ba238c58fe89e6f298afdda23045"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/UNMEASURED-AND-LIMITS.json",
+      "sha256": "4e4f81e1ed0e3f2e7e3ddeaf6f8a5bfda7c6aed7f785810c1670b652f5f337b9"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/native-verification-progress/SNAPSHOT.json",
+      "sha256": "e943478772aed63db591d3a013881cc71228c76a7d24163ecbde2f7024ec3bfb"
+    }
+  ],
+  "as_of_utc": "2026-11-08T17:56:06.536044+00:00",
+  "historical_measured_candidate_v203": {
+    "identity": {
+      "runtime_version": "2.0.0",
+      "marketplace_package_version": "2.0.3",
+      "archive_sha256": "576c00e85cdabbbb2dd93305a1da97682a3bba59dc744b2c9e3a8a1eaad4dfd8",
+      "sdk_wheel_sha256": "14ba497889ace5e92946f328d79b1b6189f0c31b34e64b54fccf269a080f74ea",
+      "core_wheels": {
+        "agents_memory_core-2.0.0-cp312-none-any.whl": "bb4307f72380d4738c4c9305bafec1b70232ec93e153336fbd995619d5b9b0b2",
+        "agents_memory_core-2.0.0-cp313-none-any.whl": "8096e885d9786e01e9aa9a4d039cafc3ee18bca92316554d25e615fe497f106b"
+      },
+      "core_source_commit": "a9069272d62fe651d793d54db0034aac59f0e5ed",
+      "core_merge_commit": "aa26e986547a466c8b0614e43af465e3394945f2",
+      "connector_changes_base_commit": "bab53ff829306317a625183c4f1f5164b003fc22",
+      "connector_files_sha256": {
+        ".claude-plugin/marketplace.json": "80e439f8e2d01ede8b460f2dc0758eda3dc5679bc490b65698b317098bfa369d",
+        "plugins/agents-memory-unified/.claude-plugin/plugin.json": "1e4fc72bf3caa9c70dcf9899dc2d1a04454922d14b1d3bef76e92286bc055355",
+        "plugins/agents-memory-unified/.codex-plugin/plugin.json": "6467c68b55cbfeb8470481b48c2de17c8795e150937ea35aafca642a7dd619f1",
+        "plugins/agents-memory-unified/scripts/connector.go": "b01df5c7d68ef59c74270e1b5ba8bfd856c6975ecfa6c4edbb0d3f520ec289d5",
+        "plugins/agents-memory-unified/bin/connector-linux-x86_64": "52a303012767e6360f8cfae0e6dafe60cccf3f39096e9891be71176bdac0d1df",
+        "plugins/agents-memory-unified/bin/connector-darwin-arm64": "200a3c864fcfe43d1ec9a3994f632b4c5bc4bdc933318bd886b978324a6c1a12",
+        "plugins/agents-memory-unified/bin/SHA256SUMS": "6786a9f30a63be4162623cd3f33f5db464d1ca026532dca32db92026c8190abc"
+      }
+    },
+    "status_snapshot_commit": "5f9befd4b4f19ca5d7ee31c71f95f77ca0d3e6dd",
+    "release_status": "failed qualification, unpublished draft preserved",
+    "independent_retrieval": {
+      "hit": [
+        40,
+        40
+      ],
+      "joint_required": [
+        40,
+        40
+      ],
+      "noise": [
+        80,
+        200
+      ],
+      "noise_wilson95_upper": 0.46916327960737997,
+      "threshold_maximum": 0.3,
+      "status": "fail"
+    }
+  },
+  "candidate_qualification": {
     "release_tag": "v2.0.4",
     "marketplace_package_version": "2.0.4",
     "runtime_version": "2.0.0",
@@ -616,10 +651,10 @@
       "oom": 0
     },
     "remaining_actual_native_verification": {
-      "claude": "not_passed; first live request HTTP404, failed attempt retained and charged; original cause unknown",
+      "claude": "R4running after strictformatfix; R2/R3failures retained",
       "codex": "not_run_on_successor",
       "omp": "not_run_on_successor; supported compaction mode official soft",
-      "all_paid_runs": "stopped pending reviewed error-observation/model and append-only resumption fixes",
+      "all_paid_runs": "CurrentClaudeR4full36running with originalchargedledger; otherhosts notrun, serializedGOrequired",
       "claude_native_default_alias_offline": "claude-sonnet-5-5; not actual entitlement proof"
     },
     "strict_unknowns_preserved": [
@@ -628,107 +663,5 @@
       "live_subscription",
       "past native underlying HTTP counts"
     ]
-  },
-  "repaired_candidate_references": [
-    {
-      "path": "release-candidates/v2.0.4-relevance/INDEPENDENT-V2-PREREGISTRATION.json",
-      "sha256": "e41a9f325d9209a5e39223a7b0945b29fed7bc4952221f5cbcb1563f13e73a91"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/INDEPENDENT-V2-CAPACITY.json",
-      "sha256": "4f884b7cf33ab13bd0ff7d028a8e5cf7ae0bba18318447b95bc9a44d58789a86"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/MARKETPLACE-BUILD.json",
-      "sha256": "21cd5f6a2d31a9b051be885645f93d20b5c152cdfd0b3a8ae73adcf6bb6d5f7d"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/OFFLINE-FAULTS.json",
-      "sha256": "b27e451a6b6c4a7abfc14309e9894417b545be800d7aaf03c41cdda9e8d3f3e5"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/CALLS-RUNTIME-HASHES.json",
-      "sha256": "06c018ca4ce94c90d4009e13da78d18a3eb84e9032a036195689c1b70a4e40b8"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/CI-MEMBERSHIP.json",
-      "sha256": "31a312283235d3bb326f845ee1147d6fe3347e32cefc4a7965deedddff068681"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/INSTALLED-CP312.json",
-      "sha256": "a33772469ff600a1ca6f3150211a45f8ef84ad32f8b3fe3574864cd8d97c3b53"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/INSTALLED-CP313.json",
-      "sha256": "8ff58881d63b930e78f8111f44edecb34f024e0acfc55e856addb64ca09603fc"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/OWNED-INSTALL-SCOPE.json",
-      "sha256": "8ef0c2e8593e1dc956d5cba54d1c62731d53bf85be1887d6b30759f155321b25"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/OWNED-INSTALLED-ORIGINS.json",
-      "sha256": "4133d74c29aa3e61cff9b847dcc424a2773e334e67e2f8baeb302bef2f91f5bf"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/README.ko.md",
-      "sha256": "4e41b1a6ee470617f369ff08c6526f1f4ef2e1575db22a749cdb36538fed1b7d"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/RESOURCES-FAILURES-CLEANUP.json",
-      "sha256": "70f578e1400e2858cd75c204609cee8a888bb14a90dc86013f0956dd55db7d78"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/SHA256.json",
-      "sha256": "bdc9227e0461a626a884c7924f93ba205efae938cecfbc0803cfd1b4c17dfc50"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/NATIVE-R2-ACCOUNTED-PREPARATION.json",
-      "sha256": "19b7c73f0cf8e0a38faad8da85911f16bec7390a02e2a359af1f36f1c8bb0776"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/marketplace-delivery/LOCAL-CACHE-REFRESH.json",
-      "sha256": "e205047ce0a21a4072458fddc0c8f1a88ff97d67348e6b5fc96bc39b13c4f133"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/marketplace-delivery/PUBLIC-FINAL-REFRESH.json",
-      "sha256": "701b7bbdf56286aa67f3973222c543bc4bd86ea69e3e33db810ee6cd834b22c1"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/marketplace-delivery/PUBLIC-UPGRADE.json",
-      "sha256": "c0210a51394c488e71d2ff6645c46dba587b2be1e95ddb1c60c08ad8bac9b012"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/EXACT-V17-REPEAT-ROLLBACK.json",
-      "sha256": "778591585cf505d8ce2938ad49ce46231767c863791c05419c08b6478808f6b9"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/FROZEN-CALL-COUNTS.json",
-      "sha256": "efac4c301482c39375125156cc04ceec175dc50ca92b751fbc72d3339f518014"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/MEASURED-METRICS.json",
-      "sha256": "9bce71d803e4536de64a1aa9aed89bbc32667cb8634b4b8abc79afb9e86cbb28"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/README.ko.md",
-      "sha256": "b1798df6a18c896ebeaf1056c529551cabde70f1a7511e7ab47206bc7b7efee4"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/REGISTRATION-EXECUTION-HASHES.json",
-      "sha256": "6120f155d47d2380071f9ef891c0482d64285730cd29865489a5a17e23535f7e"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/RESOURCE-CLEANUP.json",
-      "sha256": "861c243dba23aa461e432cc118a92c8e6809836583a794b7fb836456e84032fe"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/SHA256.json",
-      "sha256": "3f0fe1db84ad36845cf17f28620662633e37ba238c58fe89e6f298afdda23045"
-    },
-    {
-      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/UNMEASURED-AND-LIMITS.json",
-      "sha256": "4e4f81e1ed0e3f2e7e3ddeaf6f8a5bfda7c6aed7f785810c1670b652f5f337b9"
-    }
-  ]
+  }
 }

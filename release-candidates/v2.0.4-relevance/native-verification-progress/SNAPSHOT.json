@@ -1,0 +1,103 @@
+{
+  "schema": "current-native-verification-progress-v1",
+  "as_of_utc": "2026-11-08T17:56:06.536044+00:00",
+  "release": "v2.0.4",
+  "sdk_wheel_sha256": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+  "archive_sha256": "62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef",
+  "partial_progress_not_release_pass": true,
+  "historical_native_failures_preserved": [
+    {
+      "run": "Claude R2-001",
+      "failure": "ENOSPC before model operation",
+      "actual_upstream_attempts": 0,
+      "not_passed": true
+    },
+    {
+      "run": "Claude R2-002",
+      "failure": "HTTP404",
+      "actual_upstream_attempts": 1,
+      "charged_ordinal": 387,
+      "original_cause": "unknown; original encoded response bytes not retained",
+      "not_passed": true
+    },
+    {
+      "run": "Claude R3-001",
+      "failure": "JSONDecodeError in controller at case2 startup",
+      "actual_upstream_attempts": 4,
+      "all_four_http200": true,
+      "completed_full_cases": 1,
+      "planned_cases": 36,
+      "run_status": "failed",
+      "inner_case2_fact_nonce_content_verified_separately": true,
+      "raw_answer_schema_envelope": "one leading JSONfence plus prose; no retrospective run pass"
+    }
+  ],
+  "current_claude": {
+    "run": "R4-001",
+    "state": "running",
+    "completed_full_cases": 4,
+    "planned_cases": 36,
+    "model": "claude-sonnet-5-5",
+    "freeze_sha256": "d0f0112892630698af14f08ff70dbb8d7d6f0a0691cc774e022a8c6ba310c92c",
+    "source_capsule_merge": "f786d5358073b854b34b7f670e4f49e35286f4bf",
+    "registration_sha256": "c219e2153d81790790b2a9f196d19b18594a97ac51ac8e2ca6ce6a278fe5322d",
+    "reader_schema_facts_questions_and_value_equality_unchanged": true,
+    "format_extraction": "Single leading JSON object/fence, no expected values or repair; raw answer SHA and exact format metadata retained",
+    "parser_tests": 52,
+    "combined_tests": 135,
+    "subtests": 18,
+    "real_profile_auth_compatibility_full36": "pending",
+    "final_resource_cleanup_receipt": "pending"
+  },
+  "other_current_candidate_hosts": {
+    "codex": "source-only preparation, not run",
+    "omp": "source-only preparation, not run; official soft compaction scope"
+  },
+  "current_shared_pool": {
+    "financial_authority_sha256": "31636c1cdb02970c35a617118765fc3210cd7134c041edd960e4ea8f9ac59b32",
+    "total_cap": 1000,
+    "provider_caps": {
+      "jev": 582,
+      "codex": 150,
+      "claude": 150,
+      "omp": 147
+    },
+    "charged": 406,
+    "remaining": 594,
+    "counts": [
+      {
+        "provider": "claude",
+        "stage": "completed",
+        "count": 18
+      },
+      {
+        "provider": "claude",
+        "stage": "dispatched",
+        "count": 1
+      },
+      {
+        "provider": "claude",
+        "stage": "failed",
+        "count": 1
+      },
+      {
+        "provider": "jev",
+        "stage": "completed",
+        "count": 386
+      }
+    ],
+    "failed_interrupted_retries_charged": true,
+    "original_failed387_still_failed_charged": true,
+    "all391_prior_rows_and_identity_independently_compared_unchanged": true,
+    "baseline_comparison_sha256": "6337bd7b8039cdb4a61c35a221fbd6203dc28a45c97887373e0506dd8ecdb1fd",
+    "new_financial_authority_or_counter_reset": false,
+    "actual_dollar_spend": null
+  },
+  "historical_unknowns": {
+    "past_codex117_underlying_HTTP": null,
+    "past_omp3_underlying_HTTP": null,
+    "past_plus_future_omp150_certified": false,
+    "reset_to_zero": false
+  },
+  "new_raw_or_auth_material_included": false
+}
