@@ -1,0 +1,57 @@
+{
+  "baseline": {
+    "claude": 36,
+    "codex": 36,
+    "omp": 36
+  },
+  "historical_v1_baseline": {
+    "claude": 36,
+    "codex": 36,
+    "omp": 36
+  },
+  "checker_sha256": "dcd33f7ea4c3bb326378cb7d0bfb3d605bc4e5848be70f5ea662d403f6f0127a",
+  "mutation_cases": {
+    "missing_fixed_case": {
+      "rejected": true,
+      "reason": "host_case_census"
+    },
+    "reused_phase_marker": {
+      "rejected": true,
+      "reason": "marker_collision"
+    },
+    "fact_absent_from_model_input": {
+      "rejected": true,
+      "reason": "marker_fact_join"
+    },
+    "failed_sdk_hook": {
+      "rejected": true,
+      "reason": "native_hook_join"
+    },
+    "failed_codex_compact": {
+      "rejected": true,
+      "reason": "codex_compact_completion"
+    },
+    "inflated_wilson": {
+      "rejected": true,
+      "reason": "wilson_statistics"
+    },
+    "wrong_final_candidate_wheel": {
+      "rejected": true,
+      "reason": "final_candidate_wheel_identity"
+    },
+    "missing_installed_identity": {
+      "rejected": true,
+      "reason": "'installed_wheels'"
+    },
+    "incorrect_installed_module_count": {
+      "rejected": true,
+      "reason": "installed_wheel_bytes"
+    },
+    "stale_installed_runtime_prefix": {
+      "rejected": true,
+      "reason": "final_installed_runtime_prefix"
+    }
+  },
+  "scope": "Exported-record consistency and candidate identity checks; not independent authentication, live provider compliance or stable approval.",
+  "previous_checker_gap_reference": "CHECKER-BEFORE.json"
+}

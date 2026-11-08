@@ -1,4 +1,8 @@
-# 현재 후보의 실제 CLI 수명주기 검증
+# 이전 후보의 실제 CLI 수명주기 검증
+
+이 폴더는 이전 SDK `f36a2118…`·Core `48406a54…`의 보존 기록이다.
+최종 배포 wheel과 같은 바이트의 재검증은
+[최종 CLI 검증](../v2.0.3-native-final/README.ko.md)에 별도로 남긴다.
 
 2026-11-08, Asia/Seoul. **Claude 2.1.319·Codex 0.167.0·OMP 18.18.0 각각
 36/36**이 실제 startup/resume/compact와 압축 후 기억 재주입을 완료했다.
