@@ -149,7 +149,7 @@
     {
       "id": "compaction",
       "status": "partial",
-      "reason": "CurrentSDK1a8 Claude real36/36PASS,72exactwholefact/freshnonceanswers and36genuinecompactions/216SDK hookinvocations,108newguardedHTTP completed; source/installedbytes/resources/authmetadata/cleanup independentlyverified. Codex currentR4 failed atfirststartup/workspace discovery(unknowncharged500),0/36;OMPnotrun. Both remaining hosts still require actual36. Unknown failures never qualify aspasses. Subsequent CodexR5 stopped before model/account-read timeout,0/36, one new metadataGET ordinal501 leftdispatched/finishedNULL/statusNULL; both localcontainers independently removed. It stays charged/unknown and existingv2 refuses ACK; all500priorrows unchanged. Shared501charged/499remaining, Codex148remaining. Corrected ordering/drain and explicitly reviewed quiesced-unfinished recovery remain pending.",
+      "reason": "CurrentSDK1a8 Claude real36/36PASS,72exactwholefact/freshnonceanswers and36genuinecompactions/216SDK hookinvocations,108newguardedHTTP completed; source/installedbytes/resources/authmetadata/cleanup independentlyverified. Codex currentR4 failed atfirststartup/workspace discovery(unknowncharged500),0/36;OMPnotrun. Both remaining hosts still require actual36. Unknown failures never qualify aspasses. Subsequent CodexR5 stopped before model/account-read timeout,0/36, one new metadataGET ordinal501 leftdispatched/finishedNULL/statusNULL; both localcontainers independently removed. It stays charged/unknown and existingv2 refuses ACK; all500priorrows unchanged. Shared501charged/499remaining, Codex148remaining. Corrected ordering/drain and explicitly reviewed quiesced-unfinished recovery remain pending. CodexR6 also0/36 beforemodel: correctaccounts-first lease, but200headers arrived125.568s afteropen, afterworkerfailed; localzero-bodyabort recorded502FAILED/http200/finished/charged andrelaydrainedclean. All501priorrows unchanged. NetworkDNS/TCP-only probes found two proxycandidates, firstunreachable/currenthostmappingreachable; actual502peer notcaptured. R7 per-run managedproxyhostmapping and explicitv4 closedmetadata review pending; no historical200 response is a Nativepass.",
       "references": [
         {
           "path": "release-candidates/v2.0.4-relevance/native-live-r4/claude/SAFE-PUBLIC-PROJECTION.json",
@@ -162,13 +162,17 @@
         {
           "path": "release-candidates/v2.0.4-relevance/native-live-r5/codex/SAFE-PUBLIC-PROJECTION.json",
           "sha256": "cc81c9160e1bc6aec26387f0bf743a71b04fbe9e45423190dc1e1989f3ea906d"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/native-live-r6/codex/SAFE-PUBLIC-PROJECTION.json",
+          "sha256": "a8850c12198a8f59a9713bca533787d1df0d750630c02cdc677ee15ba6ad6ad5"
         }
       ]
     },
     {
       "id": "host_lifecycle",
       "status": "partial",
-      "reason": "CurrentSDK1a8 Claude real36/36PASS,72exactwholefact/freshnonceanswers and36genuinecompactions/216SDK hookinvocations,108newguardedHTTP completed; source/installedbytes/resources/authmetadata/cleanup independentlyverified. Codex currentR4 failed atfirststartup/workspace discovery(unknowncharged500),0/36;OMPnotrun. Both remaining hosts still require actual36. Unknown failures never qualify aspasses. Subsequent CodexR5 stopped before model/account-read timeout,0/36, one new metadataGET ordinal501 leftdispatched/finishedNULL/statusNULL; both localcontainers independently removed. It stays charged/unknown and existingv2 refuses ACK; all500priorrows unchanged. Shared501charged/499remaining, Codex148remaining. Corrected ordering/drain and explicitly reviewed quiesced-unfinished recovery remain pending.",
+      "reason": "CurrentSDK1a8 Claude real36/36PASS,72exactwholefact/freshnonceanswers and36genuinecompactions/216SDK hookinvocations,108newguardedHTTP completed; source/installedbytes/resources/authmetadata/cleanup independentlyverified. Codex currentR4 failed atfirststartup/workspace discovery(unknowncharged500),0/36;OMPnotrun. Both remaining hosts still require actual36. Unknown failures never qualify aspasses. Subsequent CodexR5 stopped before model/account-read timeout,0/36, one new metadataGET ordinal501 leftdispatched/finishedNULL/statusNULL; both localcontainers independently removed. It stays charged/unknown and existingv2 refuses ACK; all500priorrows unchanged. Shared501charged/499remaining, Codex148remaining. Corrected ordering/drain and explicitly reviewed quiesced-unfinished recovery remain pending. CodexR6 also0/36 beforemodel: correctaccounts-first lease, but200headers arrived125.568s afteropen, afterworkerfailed; localzero-bodyabort recorded502FAILED/http200/finished/charged andrelaydrainedclean. All501priorrows unchanged. NetworkDNS/TCP-only probes found two proxycandidates, firstunreachable/currenthostmappingreachable; actual502peer notcaptured. R7 per-run managedproxyhostmapping and explicitv4 closedmetadata review pending; no historical200 response is a Nativepass.",
       "references": [
         {
           "path": "release-candidates/v2.0.4-relevance/native-live-r4/claude/SAFE-PUBLIC-PROJECTION.json",
@@ -181,6 +185,10 @@
         {
           "path": "release-candidates/v2.0.4-relevance/native-live-r5/codex/SAFE-PUBLIC-PROJECTION.json",
           "sha256": "cc81c9160e1bc6aec26387f0bf743a71b04fbe9e45423190dc1e1989f3ea906d"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/native-live-r6/codex/SAFE-PUBLIC-PROJECTION.json",
+          "sha256": "a8850c12198a8f59a9713bca533787d1df0d750630c02cdc677ee15ba6ad6ad5"
         }
       ]
     },
@@ -202,7 +210,7 @@
     {
       "id": "resources_and_budget",
       "status": "partial",
-      "reason": "New196/40 measured runtime2CPU4GiB/swap0 peak4294336512/OOM0 and190Jev<=197; judgmentp95 22.36<=30. Repeat/rollback peak exactly4GiB, pressure3884/OOM0. Same approved1000pool/subcaps counts every attempt including failed387;391priorrows/identity independently unchanged after reviewed resumption. Final current-host resource/cleanup/cap proof remains pending; historical nativewire unknowns remain unknown. Claude current36 final:2CPU4GiB/swap0,worker352985088/relay22605824 peaks/OOM0 andbothremoved; all391priorrows preserved. SubsequentCodexunknownattempt500 also charged, shared500/500remaining; all499priorrows preserved. Future current-host caps/cleanup completion stillpending. Subsequent CodexR5 stopped before model/account-read timeout,0/36, one new metadataGET ordinal501 leftdispatched/finishedNULL/statusNULL; both localcontainers independently removed. It stays charged/unknown and existingv2 refuses ACK; all500priorrows unchanged. Shared501charged/499remaining, Codex148remaining. Corrected ordering/drain and explicitly reviewed quiesced-unfinished recovery remain pending.",
+      "reason": "New196/40 measured runtime2CPU4GiB/swap0 peak4294336512/OOM0 and190Jev<=197; judgmentp95 22.36<=30. Repeat/rollback peak exactly4GiB, pressure3884/OOM0. Same approved1000pool/subcaps counts every attempt including failed387;391priorrows/identity independently unchanged after reviewed resumption. Final current-host resource/cleanup/cap proof remains pending; historical nativewire unknowns remain unknown. Claude current36 final:2CPU4GiB/swap0,worker352985088/relay22605824 peaks/OOM0 andbothremoved; all391priorrows preserved. SubsequentCodexunknownattempt500 also charged, shared500/500remaining; all499priorrows preserved. Future current-host caps/cleanup completion stillpending. Subsequent CodexR5 stopped before model/account-read timeout,0/36, one new metadataGET ordinal501 leftdispatched/finishedNULL/statusNULL; both localcontainers independently removed. It stays charged/unknown and existingv2 refuses ACK; all500priorrows unchanged. Shared501charged/499remaining, Codex148remaining. Corrected ordering/drain and explicitly reviewed quiesced-unfinished recovery remain pending. CodexR6 also0/36 beforemodel: correctaccounts-first lease, but200headers arrived125.568s afteropen, afterworkerfailed; localzero-bodyabort recorded502FAILED/http200/finished/charged andrelaydrainedclean. All501priorrows unchanged. NetworkDNS/TCP-only probes found two proxycandidates, firstunreachable/currenthostmappingreachable; actual502peer notcaptured. R7 per-run managedproxyhostmapping and explicitv4 closedmetadata review pending; no historical200 response is a Nativepass.",
       "references": [
         {
           "path": "release-candidates/v2.0.4-relevance/live-quality-v2/RESOURCE-CLEANUP.json",
@@ -231,6 +239,10 @@
         {
           "path": "release-candidates/v2.0.4-relevance/native-live-r5/codex/SAFE-PUBLIC-PROJECTION.json",
           "sha256": "cc81c9160e1bc6aec26387f0bf743a71b04fbe9e45423190dc1e1989f3ea906d"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/native-live-r6/codex/SAFE-PUBLIC-PROJECTION.json",
+          "sha256": "a8850c12198a8f59a9713bca533787d1df0d750630c02cdc677ee15ba6ad6ad5"
         }
       ]
     },
@@ -390,12 +402,12 @@
   },
   "future_actual_execution": {
     "approval_received": true,
-    "new_supplier_calls": 501,
+    "new_supplier_calls": 502,
     "codex_counted_controller": "36/36 fake only,108local transmissions",
     "claude_counted_controller": "36/36 fake only,144local transmissions",
     "omp_counted_controller": "36/36 fake only,144local transmissions; optional metadata removal afterward verified on exact final freeze1case/4transmissions",
     "historical_native_wire_counts_recoverable": false,
-    "proposal": "Same original1000pool:501charged/499remaining; failed387/unknown500 and locallyquiesced unfinished501 remain unchanged/charged. No newgrant/reset/refund.",
+    "proposal": "Same original1000pool:502charged/498remaining, Codex147remaining. Failed387/unknown500/historicalunfinished501/localabortedmetadata502 retained; no newgrant/refund/reset.",
     "measured_cohort": "v1 failed noise80/200; fresh preregistered v2 complete196/40 measured gates pass, strict overall unknown",
     "new_v2_product_inferences": 190,
     "current_provider_states": {
@@ -407,7 +419,7 @@
         "failed": 1
       },
       "codex": {
-        "failed": 1,
+        "failed": 2,
         "dispatched": 1
       },
       "omp": {}
@@ -416,7 +428,7 @@
     "current_claude_state": "COMPLETE36/36actualcomponentPASS",
     "historical_first_independent_product_inferences": 196,
     "current_candidate_product_inferences": 190,
-    "current_codex_state": "R5FAILED0/36 beforemodel/account-read timeout;501dispatched/finishedNULL/statusNULL, actualdeliveryunknown, bothcontainers removed; existingv2 correctlyblocks",
+    "current_codex_state": "R6FAILED0/36 beforemodel;502FAILED/http200 after125.568s headers thenlocalabort, original501DISPATCHED/NULL unchanged; allactualcontainersremoved/allpaidprocessesstopped.",
     "all_local_paid_processes_stopped": true
   },
   "candidate_role": "Current repaired v2.0.4 candidate. Every current condition below uses matching shipped bytes or explicitly unchanged Core evidence; old failed v2.0.3 remains historical.",
@@ -544,9 +556,21 @@
     {
       "path": "release-candidates/v2.0.4-relevance/native-live-r5/codex/SHA256.json",
       "sha256": "ae128b08fdb4812550e7c16319de016b70f53e39ce428e6ad2aa05de7135b8d3"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/native-live-r6/codex/PROXY-DNS-TCP-OBSERVATION.json",
+      "sha256": "79eb9e91d154152a1bddc301aab87f80b9a534a4b98e2c3aac4abda1fbb0e11b"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/native-live-r6/codex/SAFE-PUBLIC-PROJECTION.json",
+      "sha256": "a8850c12198a8f59a9713bca533787d1df0d750630c02cdc677ee15ba6ad6ad5"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/native-live-r6/codex/SHA256.json",
+      "sha256": "d08b11d05f2379eb79eb3f1ef449df5b3e506dafd067cbac5f24ae68c4af6127"
     }
   ],
-  "as_of_utc": "2026-11-08T20:04:52.759545+00:00",
+  "as_of_utc": "2026-11-08T20:52:28.184532+00:00",
   "historical_measured_candidate_v203": {
     "identity": {
       "runtime_version": "2.0.0",
@@ -704,9 +728,9 @@
     },
     "remaining_actual_native_verification": {
       "claude": "PASS36/36 real;108newguardedHTTP, resources/authmetadata/cleanupverified",
-      "codex": "R5FAILED0/36 beforemodel; unfinished501charged/unknown afterbothcontainersremoved; R6ordering/drain/localquiescencefixpending",
+      "codex": "R6FAILED0/36 beforemodel; allchargedrows unchanged, R7 currentmanagedproxy mapping/explicitv4closedmetadata review prepared",
       "omp": "R4offline1PASS;actualnotrun;officialsoftscope",
-      "all_paid_runs": "Stopped; original501charged/499remaining/Codex148remaining. No pendingrequest is turned into a pass or refund.",
+      "all_paid_runs": "STOPPED;502charged/498remaining/Codex147. No oldfailed/unfinished/late200 outcome becomes a pass.",
       "claude_native_default_alias_offline": "claude-sonnet-5-5; not actual entitlement proof"
     },
     "strict_unknowns_preserved": [

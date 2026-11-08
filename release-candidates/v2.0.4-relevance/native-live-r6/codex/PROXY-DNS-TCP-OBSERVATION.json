@@ -1,0 +1,15 @@
+{
+  "schema": "safe-managed-proxy-dns-tcp-observation-v1",
+  "supplier_http_or_tls_calls": 0,
+  "actual_auth_or_ledger_access": false,
+  "same_native_image_bridge": true,
+  "original_dns_candidates": 2,
+  "first_candidate_tcp8080": "timeout_after3.006s",
+  "current_host_mapped_candidate_tcp8080_seconds": 0.0027,
+  "explicit_current_host_mapping_only_tcp8080_seconds": 0.001,
+  "diagnostic_containers_removed": 2,
+  "raw_network_evidence_sha256": "ead043b9e8fa4e7f5ed24f370b5400453b66f707467ef034e0ed4eed06f3154d",
+  "actual502_selected_peer_captured": false,
+  "historical_claude_dns_order_captured": false,
+  "inference": "Observed bad first candidate and reachable current host mapping are consistent with sequential connection fallback delay; old actual peer/auth outcome not reconstructed. Fix preserves inherited proxy URL/CA/TLS/policy and bridge; no hostnetwork or globalconfiguration change."
+}
