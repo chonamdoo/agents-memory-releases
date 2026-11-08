@@ -1,0 +1,13 @@
+{
+  "exit_code": 0,
+  "final_limits": {
+    "cpu.max": "200000 100000",
+    "memory.max": "4294967296",
+    "memory.swap.max": "0",
+    "memory.peak": "4294967296",
+    "pids.max": "256",
+    "pids.peak": "43"
+  },
+  "external_jev_calls": 0,
+  "network": "none"
+}
