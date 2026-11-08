@@ -317,6 +317,12 @@ def owned_pid(prefix, h):
             if (proc / "stat").read_text().rsplit(") ", 1)[1].split()[0] in {"Z", "X"}:
                 return None
             command = (proc / "cmdline").read_bytes()
+            if not command:
+                # Linux can clear cmdline while a verified process is exiting,
+                # between the first stat read and the following cmdline read.
+                # Require observed exit; an empty live/unrelated PID stays denied.
+                if (proc / "stat").read_text().rsplit(") ", 1)[1].split()[0] in {"Z", "X"}:
+                    return None
         except FileNotFoundError:
             return None
     else:

@@ -43,8 +43,8 @@ async def test_unconfigured_release_plugin_stays_connected_without_fake_storage(
         manifest = json.loads((Path(plugin) / ".claude-plugin/plugin.json").read_text())
         assert status["marketplace_version"] == manifest["version"]
         assert status["release_channel"] == "prerelease"
-        assert status["candidate_archive"] == "agents-memory-unified-2.0.0-source-search.tar.gz"
-        assert status["candidate_checksums"] == "SOURCE-SEARCH-SHA256SUMS"
+        assert status["candidate_archive"] == "agents-memory-unified-2.0.0-request-scope-v16.tar.gz"
+        assert status["candidate_checksums"] == "JEV197-SHA256SUMS"
         assert status["candidate_url"].startswith("https://github.com/chonamdoo/agents-memory-releases/")
         assert status["model_checksums"] == "SHA256SUMS"
         for host, client in [("claude", "claude-plugin"), ("omp", "omp-plugin"), ("codex", "codex")]:
@@ -161,4 +161,12 @@ async def test_configured_release_plugin_executes_installed_owned_runtime():
         status = json.loads(
             (await session.call_tool("setup_status", {})).content[0].text
         )
+        # MCP initialization is deliberately responsive while owned autostart
+        # prepares the database/model. Readiness must become true on this same
+        # connection; a warm service is not a prerequisite for this acceptance.
+        deadline = asyncio.get_running_loop().time() + 120
+        while not status["server_ready"] and asyncio.get_running_loop().time() < deadline:
+            await asyncio.sleep(0.25)
+            await session.call_tool("sync_now", {})
+            status = json.loads((await session.call_tool("setup_status", {})).content[0].text)
         assert status["service_ready"] and status["server_ready"]

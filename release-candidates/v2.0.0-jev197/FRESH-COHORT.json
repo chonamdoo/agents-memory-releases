@@ -1,0 +1,24 @@
+{
+  "schema": "fresh-executable-contract-acceptance-v1",
+  "date": "2026-11-08",
+  "policy": "admission-2026-11-08-origin-v16",
+  "case_count": 196,
+  "query_count": 40,
+  "inputs_sha256": {
+    "cases.jsonl": "51fe0c552ce69d9ecb648fb2af07ca3136990218236a4a746ba23f2e341daa9e",
+    "queries.jsonl": "f9e10e622c68ef5652c9d221e61bddfb9efee914376721ed0c2c3607f4122c7c",
+    "oracle.jsonl": "fbbbbb9fd600a07e2092e31089440a4ddd9123f4afac700c9031903710a27c0f"
+  },
+  "author": "Codex in this chat; single-author synthetic rendering",
+  "oracle": "Installed agents_memory_collab.models model_json_schema and Model.model_config; values are independently executable contract facts, not Jev-generated truth labels",
+  "human_label_kappa": null,
+  "independent_human_labels": false,
+  "population_claim": "None: template-based software acceptance cohort, not a representative user performance study",
+  "fresh_vs_development": "No source-text digest overlaps prior196; policy fixed before inference. Shared broad API/software themes are disclosed.",
+  "maximum_attempts": 194,
+  "automatic_retries": 0,
+  "classification_and_source_occurrence_thresholds": "Unchanged from CONDITIONS.json",
+  "raw_inputs": "Private generated fixtures only; no actual user conversations or working credentials",
+  "admission_policy": "admission-2026-11-08-origin-v16",
+  "model": "jev-1.14.0"
+}

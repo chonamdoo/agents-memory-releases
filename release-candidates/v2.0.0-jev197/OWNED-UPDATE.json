@@ -1,0 +1,19 @@
+{
+  "ok": true,
+  "preserved": {
+    "PRODUCT.json": true,
+    "settings/jev-credential.json": true,
+    "settings/mcp-database.json": true,
+    "client/local/connection.json": true
+  },
+  "all_model_files_preserved": true,
+  "new_unified_generation": true,
+  "api_reservation_unit": "one external verification process; statically maximum one Jev call; aborted pre-network attempt also consumed",
+  "session": {
+    "cumulative_reserved_attempts": 414,
+    "approved_cumulative_cap": 1000,
+    "remaining_attempts": 586,
+    "allocated_child_capacity": 414,
+    "unallocated_capacity": 586
+  }
+}

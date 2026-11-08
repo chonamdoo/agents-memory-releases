@@ -1,0 +1,17 @@
+{
+  "schema": "jev197-two-targeted-development-checks-v1",
+  "baseline_cohort_sha256": "bbcfd2a4b68d8aca6c5ce6ab45476ad6387f6e09fc15a6b136730dec837b6747",
+  "baseline_explicit_result": "79/80; original failure preserved",
+  "policy_before": "admission-2026-11-07-origin-v15",
+  "policy_after": "admission-2026-11-08-origin-v16",
+  "change": "Clarify selected-item quotation boundaries and mixed-language bare retention requests; all numeric thresholds unchanged",
+  "targeted_inputs_sha256": "456e7a33063f04570381c542a28be1f335bd552471830c1dec926e23b922a631",
+  "expected_outcomes": {
+    "development-regression-e080": "keep",
+    "new-quoted-bypass-defense": "review"
+  },
+  "maximum_additional_attempts": 2,
+  "maximum_total_for_grant": 197,
+  "role": "development regression and safety counterexample, not new independent holdout",
+  "stable_approval": false
+}

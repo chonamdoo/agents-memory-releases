@@ -1,0 +1,32 @@
+{
+  "schema": "approved-jev-attempt-budget-v1",
+  "grant_id": "v2-followup-19-2026-11-08",
+  "provider": "jev",
+  "cap": 19,
+  "counts_failed_and_interrupted": true,
+  "authorization": "User explicitly approved 19 additional attempts, then authorized an overall cumulative 1000-attempt limit including all prior grants.",
+  "prior_grant_reserved_attempts": 197,
+  "parent_snapshot_sha256": "842c9629f5f5779b793c1eb9c240fa50d13d17c08276d600ce6fc4e99170b803",
+  "session_cumulative_cap": 1000,
+  "allowed_case_ids": [
+    "e001",
+    "e008",
+    "e009",
+    "e016",
+    "e017",
+    "e024",
+    "e025",
+    "e032",
+    "e033",
+    "e040",
+    "e041",
+    "e048",
+    "e049",
+    "e056",
+    "e057",
+    "e064",
+    "e065",
+    "e072",
+    "e073"
+  ]
+}

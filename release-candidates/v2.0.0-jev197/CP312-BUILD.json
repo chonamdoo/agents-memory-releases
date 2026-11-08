@@ -1,0 +1,22 @@
+{
+  "python": "3.12.14",
+  "base_wheel_sha256": "48406a54f4bc78b0276d0550369e140013cc270b5ef9fe13576fb3f22bdb4d14",
+  "updated_wheel_sha256": "bb4307f72380d4738c4c9305bafec1b70232ec93e153336fbd995619d5b9b0b2",
+  "changed_source_sha256": {
+    "hindsight_admission_policy": "9fa41d8a0ddf445cdded4f143e8cf3ad9ea4cb762d41ea939cb9b7cbda4b22b5",
+    "source_integration": "34cb33dd12111188a864ddadfbb8a1a2fc08978a49a42eb8e45a99ab55e58de7",
+    "unified_runtime": "b6d4f1ecf38132e7d1d6399792e389e83ca5ad2191971cc528a1cd58f5944310"
+  },
+  "changed_members": [
+    "agents_memory/hindsight_admission_policy.pyc",
+    "agents_memory/source_integration.pyc",
+    "agents_memory/unified_runtime.pyc",
+    "agents_memory_core-2.0.0.dist-info/RECORD"
+  ],
+  "private_python_source_files": 0,
+  "module_sha256": {
+    "agents_memory/hindsight_admission_policy.pyc": "4cd1a804ba81836622af3ec39c77d30fb9f36dabb489da17af39dadbe0d1e9c1",
+    "agents_memory/source_integration.pyc": "cc8e11c8e94dace65b0867e6ec6b006801b4b66fc475093eab2fd0fe3ec934db",
+    "agents_memory/unified_runtime.pyc": "0b010a960fc6b04655476ae71ccb2b0440997e291a5fbc5742a0f1f0a28e8b01"
+  }
+}

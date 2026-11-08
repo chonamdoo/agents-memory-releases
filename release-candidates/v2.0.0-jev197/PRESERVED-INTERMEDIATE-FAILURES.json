@@ -1,0 +1,106 @@
+{
+  "schema": "preserved-search-candidate-diagnostics-v1",
+  "partial_runs": [
+    {
+      "name": "isolated-serial-reranker",
+      "scope": "partial diagnostic, not a full40question evaluation",
+      "reason": "Deliberately superseded after serial batching removed OOM; named type root evidence still incomplete.",
+      "exit_code": -2,
+      "completed": 4,
+      "all_required": 0,
+      "noise": 12,
+      "returned": 20,
+      "raw_receipt_sha256": "79f2cbb7e8935319943918c0ea91dfa9103174b5e9a0fd36b4d253aba60484b8",
+      "resource": {
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "memory.peak": "4232351744",
+        "memory.current": "3921506304",
+        "memory.max": "4294967296",
+        "memory.swap.max": "0",
+        "cpu.max": "200000 100000",
+        "cpu.stat": "usage_usec 446663537\nuser_usec 436156280\nsystem_usec 10507257\nnice_usec 0\nnr_periods 2507\nnr_throttled 29\nthrottled_usec 259349\nnr_bursts 0\nburst_usec 0",
+        "pids.max": "256",
+        "pids.peak": "47",
+        "result_seen": true
+      }
+    },
+    {
+      "name": "isolated-named-type",
+      "scope": "partial diagnostic, not a full40question evaluation",
+      "reason": "Deliberately superseded after type scope; member-only fragments still displaced root documentation.",
+      "exit_code": -2,
+      "completed": 3,
+      "all_required": 1,
+      "noise": 8,
+      "returned": 15,
+      "raw_receipt_sha256": "99cb8d2a2eb5943764831ec59382781b36e72fbbb7632a72a9bb52fcb8ef0cd2",
+      "resource": {
+        "memory.events": "low 0\nhigh 0\nmax 16\noom 0\noom_kill 0\noom_group_kill 0",
+        "memory.peak": "4294967296",
+        "memory.current": "4009267200",
+        "memory.max": "4294967296",
+        "memory.swap.max": "0",
+        "cpu.max": "200000 100000",
+        "cpu.stat": "usage_usec 364457458\nuser_usec 350579652\nsystem_usec 13877806\nnice_usec 0\nnr_periods 2104\nnr_throttled 11\nthrottled_usec 145730\nnr_bursts 0\nburst_usec 0",
+        "pids.max": "256",
+        "pids.peak": "47",
+        "result_seen": true
+      }
+    },
+    {
+      "name": "sort-helper-name-collision",
+      "scope": "failed candidate; not a passing evaluation",
+      "reason": "Sort helper named rank was overwritten by existing integer enumeration variable; renamed result_order. Existing regressions exposed TypeError.",
+      "exit_code": 1,
+      "completed_mcp_queries": 0,
+      "native_journal_sha256": "3e7403fa9df7b5a5f350abf0cff4ff36785c70a43c93edcc191179f8aa3707e2",
+      "resource": {
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "memory.peak": "4188528640",
+        "memory.current": "3910373376",
+        "memory.max": "4294967296",
+        "memory.swap.max": "0",
+        "cpu.max": "200000 100000",
+        "cpu.stat": "usage_usec 131284795\nuser_usec 120684674\nsystem_usec 10600121\nnice_usec 0\nnr_periods 855\nnr_throttled 3\nthrottled_usec 3764\nnr_bursts 0\nburst_usec 0",
+        "pids.max": "256",
+        "pids.peak": "43",
+        "result_seen": true
+      }
+    }
+  ],
+  "local_tests": [
+    {
+      "name": "type-priority-after312.log",
+      "scope": "invalid concurrent shared-fixture database run",
+      "sha256": "bc843fa1fd4c6d406070805c1e8aa76db8a1856f63bcd1e96d9dc1b2533ac76b"
+    },
+    {
+      "name": "type-priority-after313.log",
+      "scope": "invalid concurrent shared-fixture database run",
+      "sha256": "018b03d30c48ef9494e4b390a216cd7745063d80bbb1530676205e3108d01dc3"
+    },
+    {
+      "name": "sdk-named-type-final.log",
+      "scope": "317passed,3failed,1proxy skip on superseded SDK; concurrent shared-database fixture collision",
+      "sha256": "dc38491a7ac84e6f96dbb4c3cb82f597fc6602803e1bf744633a69021718505a"
+    },
+    {
+      "name": "type-priority-isolated312.log",
+      "scope": "26failed33passed on isolated DB; genuine sort-helper TypeError on superseded SDK",
+      "sha256": "7a9c931296ef6c0535e0b74e1a13a233fd08abe6b24f36c3dd9f7dccf773c75c"
+    },
+    {
+      "name": "type-priority-isolated313.log",
+      "scope": "26failed33passed on isolated DB; genuine sort-helper TypeError on superseded SDK",
+      "sha256": "66f66366ee5d1bf39f44161a2c2f9a4245205a0182259df2c67eaa230045d3c9"
+    },
+    {
+      "name": "type-priority-before.log",
+      "scope": "4 root priority failures and55pass before ranking change",
+      "sha256": "404240b8975108e055d4cae6abbb1945cd962c3368812c83efb013bdd3142953"
+    }
+  ],
+  "fixes": "Separate QA DBs by run; result_order helper avoids rank loop variable collision; final candidate revalidated separately.",
+  "stable_approval": false,
+  "new_jev_calls_from_these_diagnostics": 0
+}

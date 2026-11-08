@@ -1,0 +1,41 @@
+{
+  "schema": "self-authored-jev-development-cohort-v1",
+  "date": "2026-11-08",
+  "timezone": "Asia/Seoul",
+  "author": "Codex agent in this chat; one author",
+  "independent_human_labels": false,
+  "classification_kappa": null,
+  "retrieval_relevance_kappa": null,
+  "case_count": 196,
+  "question_count": 40,
+  "classes": {
+    "explicit": 80,
+    "unsafe": 24,
+    "auto": 40,
+    "chatter": 32,
+    "quote": 20
+  },
+  "explicit_requests": 84,
+  "legitimate_explicit": 80,
+  "pre_provider_secret_guards": 2,
+  "inputs_sha256": {
+    "cases.jsonl": "fd2528cfeb38c63cd787b78b58fe998433b4c458ee3770844a352067cf2e907e",
+    "queries.jsonl": "897f6a7ff78096060a4e34728e8da5bf008cb008484ab41f0b634e9605646d9b"
+  },
+  "maximum_new_jev_attempts": 197,
+  "connectivity_probe_maximum": 1,
+  "model": "jev-1.14.0",
+  "admission_policy": "admission-2026-11-07-origin-v15",
+  "candidate_archive_sha256": "a8e08c63ac809f22f5cc76f56cbdc8431253f1e616bdac319fcb4c922ad6fafc",
+  "cohort_role": "new single-author synthetic development screen; not a replacement for independent release evidence",
+  "quality_thresholds_unchanged": {
+    "legitimate_storage_wilson_lower": 0.95,
+    "auto_precision_wilson_lower": 0.8,
+    "auto_recall_wilson_lower": 0.6,
+    "hit5_wilson_lower": 0.75,
+    "noise_wilson_upper": 0.3
+  },
+  "retrieval_scoring": "Report any relevant source Hit@5 and all-three-required evidence coverage separately; source_search never substitutes for recall.",
+  "stop_rule": "No automatic retry. Stop on provider failure; preserve consumed slots and complete unexecuted case census.",
+  "freeze_rule": "This file and both input hashes are fixed before the first evaluation request. Corrections after seeing outputs create development revisions; no fresh holdout claim."
+}

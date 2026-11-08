@@ -1,0 +1,10 @@
+{
+  "schema": "frozen-live-jev-latency-v1",
+  "attempted_cases": 194,
+  "nearest_rank_p95_seconds": 0.14710347600021123,
+  "maximum_seconds": 0.18535062499995547,
+  "threshold_seconds": 30,
+  "passes_numeric_threshold": true,
+  "scope": "Original wall intervals of 194 live v16 processor calls. Excludes 2 pre-provider guards and all response replay. Not Native recall or reader answer latency.",
+  "raw_journal_sha256": "958322c07be6381044768613bd4c253b46d72e6918a9c4c378a65507ff74cf33"
+}

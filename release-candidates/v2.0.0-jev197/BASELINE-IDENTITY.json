@@ -1,0 +1,9 @@
+{
+  "schema": "preserved-failed-baseline-identity-v1",
+  "archive_sha256": "55d0f03e830c5b43cbea0202bf3e8376b7be2ffcf741b8faac039013d5c49dad",
+  "sdk_wheel_sha256": "619002052b9a424a64a33a697dceab4e6f207910cb8b882eb36ea74aed3171a7",
+  "core_wheel_sha256": "431a6ea1fe788cde38d964c2d4a3cb5aa0b2cb0c1204e634c5d32452fef947f1",
+  "results": "FRESH-BASELINE-RETRIEVAL.json",
+  "stable_approval": false,
+  "role": "Failed complete40query development baseline; private old archive and actual MCP journals retained. Not the final SDK identity."
+}

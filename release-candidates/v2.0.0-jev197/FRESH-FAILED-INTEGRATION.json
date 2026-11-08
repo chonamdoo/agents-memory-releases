@@ -1,0 +1,11 @@
+{
+  "schema": "fresh-integration-failure-preserved-v1",
+  "completed_attempts": 20,
+  "committed": 9,
+  "last_http_status": 503,
+  "last_cid": "f-a017",
+  "cause": "Pinned Native consolidation_dedup invokes a merge/keep structured schema unsupported by exact-source adapter; returned 503. Failed operation and bank retained for retry after product fix.",
+  "storage_journal_sha256": "270f1c620d86b3a39be68468cf7c3d3b82c08d7e764a6915a13b501b39ec7e6e",
+  "new_jev_calls": 0,
+  "success": false
+}

@@ -1,0 +1,40 @@
+{
+  "schema": "single-author-live-jev-recorded-integration-v1",
+  "scope": "fresh frozen executable-contract acceptance; actual stdio MCP/SDK HTTP/Native/E5/BGE/PostgreSQL; installed source-free v16 Core and deadline-fixed SDK; replay of original live Jev decisions adds zero API calls; exact-source adapter; one-author fixtures without population claim",
+  "storage_completed": 196,
+  "stored": 120,
+  "all_storage_decisions_match_recorded_jev": true,
+  "stored_native_documents_verified": 120,
+  "legitimate_explicit_committed": 80,
+  "hit5_any_relevant": {
+    "successes": 32,
+    "denominator": 40,
+    "wilson95": [
+      0.652426936536005,
+      0.895000102745623
+    ]
+  },
+  "all_three_required_evidence": {
+    "successes": 6,
+    "denominator": 40,
+    "wilson95": [
+      0.07061187717320358,
+      0.2907232436648971
+    ]
+  },
+  "top5_noise": {
+    "irrelevant_occurrences": 134,
+    "actual_returned_occurrences": 200,
+    "wilson95": [
+      0.602166847737769,
+      0.7314257412939605
+    ]
+  },
+  "retrieval_completed": 40,
+  "new_provider_calls_during_storage_retrieval": 0,
+  "separate_targeted_attempts_during_replay": 0,
+  "reserved_jev_attempts": 194,
+  "cap": 194,
+  "stable_approval": false,
+  "independent_human_labels": false
+}

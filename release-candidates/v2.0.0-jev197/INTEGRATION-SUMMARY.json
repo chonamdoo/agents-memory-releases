@@ -1,0 +1,52 @@
+{
+  "schema": "single-author-v15-live-jev-recorded-integration-v1",
+  "date": "2026-11-08",
+  "scope": "Real Native/E5/BGE/PostgreSQL and installed source-free CP312 Core/SDK; replay of the original real Jev decisions; local exact-source integration adapter",
+  "storage_completed": 196,
+  "stored": 119,
+  "all_storage_decisions_match_recorded_jev": true,
+  "stored_native_documents_verified": 119,
+  "legitimate_explicit_committed": 79,
+  "source_guards_without_persisted_job": 2,
+  "retrieval_completed": 40,
+  "hit5_any_relevant": {
+    "successes": 40,
+    "denominator": 40,
+    "wilson95": [
+      0.9123783988027135,
+      1.0
+    ]
+  },
+  "all_three_required_evidence": {
+    "successes": 36,
+    "denominator": 40,
+    "wilson95": [
+      0.7694822477247771,
+      0.9604204713173936
+    ]
+  },
+  "top5_noise": {
+    "irrelevant_occurrences": 8,
+    "actual_returned_occurrences": 124,
+    "wilson95": [
+      0.033050909778555196,
+      0.12215272293751893
+    ]
+  },
+  "native_recall_seconds": {
+    "count": 40,
+    "nearest_rank_p95": 61.915,
+    "minimum": 27.978,
+    "maximum": 64.015,
+    "conditions": "Original bounded two-thread reranker; CPU contention during concurrent CI is included, not a dedicated latency benchmark"
+  },
+  "storage_replay_wall_p95_seconds": 0.6956270649999396,
+  "new_provider_calls_in_replay_client": 0,
+  "original_197_grant_used": 197,
+  "followup_19_grant_used": 19,
+  "cumulative_attempts": 216,
+  "session_cumulative_cap": 1000,
+  "stable_approval": false,
+  "independent_human_labels": false,
+  "aggregation_correction": "All 196 storage and 40 retrieval rows completed. Original driver then asserted the global count was unchanged, overlooking two separately authorized concurrent targeted calls. That assertion failure is preserved; this corrected report is recomputed from complete immutable per-case records."
+}

@@ -154,5 +154,7 @@
     }
   ],
   "connector_validation": "CONNECTOR-VALIDATION.json",
-  "marketplace_package_version": "2.0.2"
+  "marketplace_package_version": "2.0.2",
+  "sdk_source_commit": "8a9863f759f8ce6e736855aa4846451458dc07c8",
+  "installer_source_commit": "bab53ff829306317a625183c4f1f5164b003fc22"
 }

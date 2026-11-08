@@ -1,0 +1,17 @@
+{
+  "schema": "type-root-priority-and-serial-reranker-plan-v1",
+  "core_wheel_sha256": "bb4307f72380d4738c4c9305bafec1b70232ec93e153336fbd995619d5b9b0b2",
+  "sdk_wheel_sha256": "14ba497889ace5e92946f328d79b1b6189f0c31b34e64b54fccf269a080f74ea",
+  "question_file_sha256": "be47d7ac700a710ad68f480a55bfe25a90d93e8c21faad567a36d6c3f585c8a3",
+  "questions": 40,
+  "execution_order": "ten corrected root questions first, then30unchanged; sorted byqid within each group; read-only recall",
+  "reuse_of_other_core_responses": 0,
+  "before_first_query": true,
+  "failure_preserved": "isolated-identifier-repaired/output/RESOURCE-AUDIT.json oom_kill1 before first completed query",
+  "change": "Named class/model/type root mentions precede member-only nominations, explicit qualified field scope takes precedence; serial reranker; all40actualqueries, no reused responses.",
+  "stable_approval": false,
+  "independent_holdout": false,
+  "revision": 2,
+  "regression_checks": "59passed on both CPython3.12/3.13 shipping wheels before actual run",
+  "previous_candidate": "sort helper collided with integer Native rank loop; old failure preserved, renamed helper"
+}

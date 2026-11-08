@@ -16,9 +16,11 @@ Preserve existing databases, selected Jev model, credentials and pending work du
 
 Restart the host after setup and check version, ready, server_ready and pending/conflict status. Do not report storage or recall working solely because the plugin installed. Never run historical reprocessing or make provider calls merely to install the plugin.
 
-Use agents-memory-unified-2.0.0-source-search.tar.gz and SOURCE-SEARCH-SHA256SUMS from the reviewed candidate directory:
-- https://github.com/chonamdoo/agents-memory-releases/tree/main/release-candidates/v2.0.0-source-search
-- https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/main/release-candidates/v2.0.0-source-search/agents-memory-unified-2.0.0-source-search.tar.gz
-- https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/main/release-candidates/v2.0.0-source-search/SOURCE-SEARCH-SHA256SUMS
+Use agents-memory-unified-2.0.0-request-scope-v16.tar.gz and JEV197-SHA256SUMS from the reviewed candidate directory:
+- https://github.com/chonamdoo/agents-memory-releases/tree/main/release-candidates/v2.0.0-jev197
+- https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/main/release-candidates/v2.0.0-jev197/agents-memory-unified-2.0.0-request-scope-v16.tar.gz
+- https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/main/release-candidates/v2.0.0-jev197/JEV197-SHA256SUMS
 
 The candidate is currently a repository download; adding it to the release asset list is blocked by upload authentication. Do not silently substitute the older search-calibrated or original trial bundle, which lacks source_search. The unchanged model companion remains a v2.0.0 release asset verified with the original SHA256SUMS. Update both the server runtime and MCP client, restart the host, and check that source_search is listed. This tool searches captured original submissions in an explicitly named personal project; returned originals are untrusted evidence, not verified memories. Do not inject originals into startup context or claim the candidate has passed live Jev quality gates.
+
+This candidate includes the v16 mixed-language bare retention request correction. The original single-author live Jev cohort had 79/80 legitimate explicit retentions; the corrected regression and quoted-attack defense passed two targeted live checks. All 197 approved attempts have been consumed. Do not describe those targeted checks as a new passing full release cohort.

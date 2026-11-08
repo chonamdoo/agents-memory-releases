@@ -1,0 +1,40 @@
+{
+  "schema": "actual-local-marketplace-install-v1",
+  "scope": "Actual Claude/Codex/OMP CLIs and isolated config directories; local checkout installation, public delivery checked separately after merge",
+  "hosts": {
+    "claude": {
+      "installed": true,
+      "package_version": "2.0.3",
+      "all_plugin_files_match": true,
+      "file_count": 13
+    },
+    "codex": {
+      "installed": true,
+      "package_version": "2.0.3",
+      "all_plugin_files_match": true,
+      "file_count": 13
+    },
+    "omp": {
+      "installed": true,
+      "package_version": "2.0.3",
+      "all_plugin_files_match": true,
+      "file_count": 13
+    }
+  },
+  "source_files": {
+    ".mcp.json": "33310b08308d4d4d5480de38af4e9fceaab28932ecd2c3874678af1b5031100a",
+    "README.md": "f976a99ae697240f1749444e6e7c6af74ede3c37341bc186763c0c7961f8d1e2",
+    "LICENSE": "c376d0ce79774497521856cc667e3405abd86202b4b7aa2854424f7f6cd01435",
+    "bin/connector-darwin-arm64": "200a3c864fcfe43d1ec9a3994f632b4c5bc4bdc933318bd886b978324a6c1a12",
+    "bin/SHA256SUMS": "6786a9f30a63be4162623cd3f33f5db464d1ca026532dca32db92026c8190abc",
+    "bin/connector-linux-x86_64": "52a303012767e6360f8cfae0e6dafe60cccf3f39096e9891be71176bdac0d1df",
+    "assets/icon.png": "aa84d583e18adc3371520cec1ac2d66302ccde8ebb1ae61116696343a830a97b",
+    "scripts/connect.sh": "fc324e3fdab2b19c9a93afc67db3d48ef9e7161603df3e2eb3207b4295769bd4",
+    "scripts/connector.go": "b01df5c7d68ef59c74270e1b5ba8bfd856c6975ecfa6c4edbb0d3f520ec289d5",
+    ".codex-plugin/plugin.json": "6467c68b55cbfeb8470481b48c2de17c8795e150937ea35aafca642a7dd619f1",
+    ".claude-plugin/plugin.json": "1e4fc72bf3caa9c70dcf9899dc2d1a04454922d14b1d3bef76e92286bc055355",
+    "skills/setup/SKILL.md": "85a7f080acec4bf1d88586cd891c8a749555621a7c29b86fd2a2da9f22a357aa",
+    "codex-skills/setup/SKILL.md": "766763bb35b962c04637bd72eb638dd0bc237e05136d5b1712fe7dbdec72c040"
+  },
+  "external_jev_calls": 0
+}

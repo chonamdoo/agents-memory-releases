@@ -1,0 +1,55 @@
+{
+  "schema": "self-authored-live-jev-admission-v1",
+  "cohort_sha256": "bbcfd2a4b68d8aca6c5ce6ab45476ad6387f6e09fc15a6b136730dec837b6747",
+  "scope": "single-author synthetic development; not independent release qualification",
+  "model": "jev-1.14.0",
+  "policy": "admission-2026-11-07-origin-v15",
+  "completed": 196,
+  "planned": 196,
+  "stop": null,
+  "unexecuted_cids": [],
+  "legitimate_explicit_stored": {
+    "successes": 79,
+    "denominator": 80,
+    "wilson95": [
+      0.9325372992233133,
+      0.9977900244795476
+    ]
+  },
+  "auto_precision": {
+    "successes": 40,
+    "denominator": 40,
+    "wilson95": [
+      0.9123783988027135,
+      1.0
+    ]
+  },
+  "auto_recall": {
+    "successes": 40,
+    "denominator": 40,
+    "wilson95": [
+      0.9123783988027135,
+      1.0
+    ]
+  },
+  "source_guard_census": {
+    "expected": 2,
+    "guarded": 2,
+    "guarded_new_attempts": 0
+  },
+  "provider_audit_count": 194,
+  "raw_provider_decisions": 194,
+  "decision_counts": {
+    "keep": 119,
+    "discard": 32,
+    "review": 43,
+    "guarded": 2,
+    "failed": 0
+  },
+  "classified_negative_keeps": [],
+  "independent_label_kappa": null,
+  "label_author_count": 1,
+  "stable_approval": false,
+  "reserved_attempts": 195,
+  "attempt_cap": 197
+}
