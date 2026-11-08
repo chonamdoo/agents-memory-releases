@@ -74,8 +74,8 @@
     },
     {
       "id": "evaluation_inputs",
-      "status": "partial",
-      "reason": "New196/40: two user-authorized separate AI authors independently classified196 and exhaustively labeled7840 relevance pairs; raw class/relevance kappa1.00, own hash-bound signoffs validated, questions unchanged. Registered privately in Core PR75 before product inference. All528 available references compared with0exact duplicates. User excludes only six unavailable historical raw comparisons and requires disclosure; full historical no-overlap remains unverified. Final runtime execution registration pending.",
+      "status": "met",
+      "reason": "New196/40 inputs independently labeled by two actual user-authorized AI authors before product inference: raw class/relevance kappa1.00, question changes0, own hash-bound signoffs. Approved six missing historical raw comparisons disclosed unverified; all528 available references compared,0exact overlap. Static corpus/runtime registration and actual source-free Linux full-runtime zero-paid preflight passed; actual paid authority and quality metrics are separate pending gates.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-jev197/FRESH-COHORT.json",
@@ -100,6 +100,10 @@
         {
           "path": "release-candidates/v2.0.3-independent/REFERENCE-AUTHORIZATION.json",
           "sha256": "0f0efaf67bee752f4a3727f3695038c8c4af79d2e0dab5da905bca178966e809"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/LINUX-ZERO-PAID-PREFLIGHT.json",
+          "sha256": "3a153e2f42ea7b85cb7beaade35bcb92f4d5bbd2c7a99cd2b3e68fc0e48ccaf1"
         }
       ]
     },
@@ -199,6 +203,14 @@
         {
           "path": "release-candidates/v2.0.3-independent/REAL-CODEX.json",
           "sha256": "727e9da6f884df27488941ca04f7f4e97e909b8c74d5ef4b5a708c7327d61806"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/CODEX-ACCOUNTED-PREPARATION.json",
+          "sha256": "5a5105587da4881bb479fb7c6c5c202d1af492e23bf719800a9927a48447fea2"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/CLAUDE-ACCOUNTED-PREPARATION.json",
+          "sha256": "e2e134d83a934977d409612b8b057d7c6966f2c67fad9e052c0f4bcaf298dfba"
         }
       ]
     },
@@ -255,7 +267,7 @@
     {
       "id": "resources_and_budget",
       "status": "partial",
-      "reason": "Prior complete development40query 2CPU/4GiB/swap0/OOM0 proof and Jev418/1000 ledger preserved. New independent runtime remains pending. Actual Codex component run respects cgroups and reserves117 native model operations including failures; exact underlying HTTP retries/billing are unknown and are not an independently certified combined external-call cap. Real OMP requests are durably counted separately; no unknown cost treated as zero.",
+      "reason": "New source-free Linux full-runtime preparation passed freshPG/Native1.1/E5/BGE/49pins under2CPU4GiB swap0 OOM0; actual196 quality load not executed. Jev418spent/615capacity metadata/1000ceiling preserved. Past Codex117 nativeops and OMP3 fetch callbacks do not establish exact supplier attempts; neither old budget passes nor overrun is claimed. Future common counters and approval-before-claim are prepared, no new actual authorization.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-jev197/FINAL-RESOURCE-AUDIT.json",
@@ -280,6 +292,14 @@
         {
           "path": "release-candidates/v2.0.0-jev197/CORRECTED-QUESTION-OOM.json",
           "sha256": "9cf0c7d215416739b922992ad5d94463c1a197af73255bfc579ef796f6081818"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/LINUX-ZERO-PAID-PREFLIGHT.json",
+          "sha256": "3a153e2f42ea7b85cb7beaade35bcb92f4d5bbd2c7a99cd2b3e68fc0e48ccaf1"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/PAST-CALL-COUNT-LIMITATIONS.json",
+          "sha256": "bb489674a92eeea486dee3d5b3c88970294587bbd8deadd126443338a948a19d"
         }
       ]
     },
@@ -359,7 +379,8 @@
     "original_197_preserved": 197,
     "followup_19_preserved": 19,
     "failed_process_reservations": 1,
-    "original_shared_ledger": "Old historical844/1000 remains unconnected; not reset or represented as this new session ledger."
+    "original_shared_ledger": "Old historical844/1000 remains unconnected; not reset or represented as this new session ledger.",
+    "allocated_child_capacity": 615
   },
   "validation_ready": false,
   "ready_to_promote": false,
@@ -424,5 +445,14 @@
     "historical_full_comparison_verified": false,
     "known_reference_texts": 528,
     "exact_known_overlap": 0
+  },
+  "future_actual_execution": {
+    "approval_received": false,
+    "new_supplier_calls": 0,
+    "new196_product_inferences": 0,
+    "codex_counted_controller": "36/36 fake only,108local transmissions",
+    "claude_counted_controller": "36/36 fake only,144local transmissions",
+    "omp_counted_controller": "in preparation; previous three fetch records preserved separately",
+    "historical_native_wire_counts_recoverable": false
   }
 }

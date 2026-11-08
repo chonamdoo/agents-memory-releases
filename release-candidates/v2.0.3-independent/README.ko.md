@@ -9,3 +9,11 @@
 정식 배포는 아직 대기 중이다. [전체 조건](../v2.0.0-stable/CONDITIONS.ko.md)을 모두 충족한 뒤 게시한다.
 
 [OFFLINE-FAULTS.json](OFFLINE-FAULTS.json)은 최종 SDK wheel의 임시 복사본에 원래4종 결함과 도구origin/빈회상 범위 결함을 실제로 넣어 해당 소비자 계약이 깨지는지 확인한 결과다. 깨끗한6개 기준은 모두 통과했고6개 변이는 모두 탐지했다. 소켓 연결을 차단한 오프라인 검사이며 실제 Native/DB/공급자 품질의 증거가 아니다.
+
+## 실제 전송 계측 준비
+
+[Linux 비유료 사전 검사](LINUX-ZERO-PAID-PREFLIGHT.json)는 최종 source-free Core·SDK로 새PG/Native/E5/BGE와196/40/49pins를 검증했다.2CPU/4GiB/swap0/OOM0이며 새 자료의 실제 저장·회상은 실행하지 않았다. 승인 없는 --execute는 일회성 자료를 소진하기 전에 거부하도록 Core PR76 리뷰도 수정했다.
+
+[Codex](CODEX-ACCOUNTED-PREPARATION.json)36/36·108전송, [Claude](CLAUDE-ACCOUNTED-PREPARATION.json)36/36·144전송은 로컬 가짜 공급자로 검증한 새 계측 경로다. 실제 공급자 성공이 아니다. 각 경로는 network-none native→UDS→단일 upstream relay로 전송을 강제하며 합계2CPU/4GiB hardlimit를 지킨다.
+
+[과거 호출 수의 한계](PAST-CALL-COUNT-LIMITATIONS.json)를 명시한다. 이전 Codex117native 작업과 OMP3fetch 진입 기록으로 실제 wire HTTP/재시도 상한을 복구할 수 없다. 초과 과금이나 상한 준수를 단정하지 않고 미검증으로 남긴다. 이를0으로 리셋하거나 새 호출 승인으로 사용하지 않는다. 전체 정식 배포는 실제 새 평가와 검증 완료 후 진행한다.

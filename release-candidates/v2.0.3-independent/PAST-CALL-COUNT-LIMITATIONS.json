@@ -1,0 +1,15 @@
+{
+  "schema": "past-native-call-coverage-limitations-v1",
+  "codex_native_operation_reservations": 117,
+  "codex_exact_supplier_http_or_ws_inference_attempts": null,
+  "codex_actual_limit_150_verified": false,
+  "observed_overlimit_confirmed": false,
+  "codex_private_audit_sha256": "5238df551ef023f93176d0d92919f35c22a902c14396d792ccdb6fa8fa5f6740",
+  "codex_source_and_binary_evidence": "Official retry paths can hide first WS retry/fallback; no persisted per-attempt exporter; task profile traces were ephemeral. UI error0 does not prove retry0.",
+  "omp_observed_fetch_callback_dispatches": 3,
+  "omp_exact_underlying_wire_http_attempts": null,
+  "omp_reason": "Old wrapper recorded fetch call/status, not response.redirected/manual-redirect or wire-attempt telemetry. Observed200/200/400 retained; no exact wire-count claim.",
+  "historical_counts_reset": false,
+  "historical_cost": null,
+  "future_execution_authority": "not granted by these records; future common physical-send counting and explicit approval required"
+}
