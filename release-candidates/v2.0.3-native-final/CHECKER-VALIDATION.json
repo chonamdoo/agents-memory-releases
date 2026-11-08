@@ -9,7 +9,7 @@
     "codex": 36,
     "omp": 36
   },
-  "checker_sha256": "dcd33f7ea4c3bb326378cb7d0bfb3d605bc4e5848be70f5ea662d403f6f0127a",
+  "checker_sha256": "c9d32e57699ac2351724645d03b6e374374e8a11a4d86f2c6d31b503cb9960e2",
   "mutation_cases": {
     "missing_fixed_case": {
       "rejected": true,
@@ -50,6 +50,10 @@
     "stale_installed_runtime_prefix": {
       "rejected": true,
       "reason": "final_installed_runtime_prefix"
+    },
+    "stale_installed_package_origin": {
+      "rejected": true,
+      "reason": "final_installed_package_origin"
     }
   },
   "scope": "Exported-record consistency and candidate identity checks; not independent authentication, live provider compliance or stable approval.",

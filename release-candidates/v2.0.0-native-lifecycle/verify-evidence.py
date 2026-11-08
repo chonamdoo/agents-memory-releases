@@ -73,8 +73,15 @@ def verify(root):
             require(control["http_request_limit"] == 128 and report["requests"] <= 128, "request_limit")
             require(report["installed_runtime"]["isolated"] is True, "installed_runtime")
             if installed_prefix is not None:
-                require(report["installed_runtime"]["prefix"] == installed_prefix,
+                runtime = report["installed_runtime"]
+                require(runtime["prefix"] == installed_prefix
+                        and runtime["executable"] == str(Path(installed_prefix) / "bin/python"),
                         "final_installed_runtime_prefix")
+                require(set(runtime["packages"]) == {"agents_memory", "agents_memory_collab"}
+                        and all(Path(package["origin"]).is_relative_to(installed_prefix)
+                                and ".." not in Path(package["origin"]).parts
+                                for package in runtime["packages"].values()),
+                        "final_installed_package_origin")
             require(all(p["version"] == "2.0.0" for p in report["installed_runtime"]["packages"].values()),
                     "installed_versions")
             cases = report["hosts"][0]["cases"]
