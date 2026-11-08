@@ -1,0 +1,61 @@
+{
+  "actual_cost": "unknown",
+  "all500_previous_attempts_unchanged": true,
+  "auditor_added_provider_calls": 0,
+  "auth_unchanged": true,
+  "charged_codex_attempts": 2,
+  "charged_shared_attempts": 501,
+  "cleanup": [
+    {
+      "exit_code": 0,
+      "oom_killed": false,
+      "removed": true,
+      "role": "relay"
+    },
+    {
+      "exit_code": 1,
+      "oom_killed": false,
+      "removed": true,
+      "role": "worker"
+    }
+  ],
+  "codex_remaining_of150": 148,
+  "completed_cases": 0,
+  "external_runtime_refs_verified": 35,
+  "final_independent_audit_sha256": "ece7906113a8f2d713ab35339683d7bfd7f7baa64501fc76222c04b39f334bb0",
+  "frozen_source_refs_verified": 26,
+  "genuine_compactions_completed": 0,
+  "historical_wire_counts": "Codex117 and OMP3 remain unknown",
+  "installed_core_files": 15,
+  "installed_core_private_pyc": 13,
+  "installed_sdk_files": 18,
+  "installed_sdk_python_modules": 16,
+  "native_model_operations_reserved": 0,
+  "new_attempt_finished": false,
+  "new_attempt_http_status": null,
+  "new_attempt_stage": "dispatched",
+  "new_guarded_metadata_attempts": 1,
+  "omp_scope": "official soft compaction only",
+  "original_cases_reader_schema_model_unchanged": true,
+  "overall_release_pass": false,
+  "peak_bytes": {
+    "relay": 22466560,
+    "worker": 334372864
+  },
+  "pending_attempt_acknowledgment_eligible": false,
+  "planned_cases": 36,
+  "prior_known_failed_and_unknown_failed_attempts_remain_charged": true,
+  "resource_limits": {
+    "cpu": 2,
+    "memory": 4294967296,
+    "pids": 256,
+    "swap": 0
+  },
+  "schema": "native-codex-r5-safe-public-failure-projection-v1",
+  "shared_remaining": 499,
+  "source_freeze_sha256": "cafdf5a69fe3807cd3aa06c8136f43f85bc26885c18cce9fd9608a59d2bc11e9",
+  "strict_integrated_summary": "UNKNOWN",
+  "vendor_outcome": "unknown",
+  "verdict": "FAIL_BEFORE_MODEL_PENDING_DISPATCHED_OUTCOME_UNKNOWN",
+  "whole_fact_nonce_answers": 0
+}
