@@ -1,0 +1,116 @@
+{
+  "schema": "native-r2-accounted-preparation-public-safe-v1",
+  "status": "prepared_with_fake_provider_only_waiting_independent_quality_and_root_execution_registration",
+  "candidate_release": "v2.0.4",
+  "sdk_source_commit": "0ecd5e9c0c94c7084f12b3edff20ef994e4863cc",
+  "wheel_sha256": {
+    "agents_memory_collaboration-2.0.0-py3-none-any.whl": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+    "agents_memory_core-2.0.0-cp312-none-any.whl": "bb4307f72380d4738c4c9305bafec1b70232ec93e153336fbd995619d5b9b0b2"
+  },
+  "sdk_exact_python_modules": 16,
+  "sdk_exact_package_files": 18,
+  "actual_installed_shipping_bytes_verified": true,
+  "provider_code_freezes": {
+    "codex": "c31aec3e312cbd2c51c8f4304d2cd0088ad390b65e498c78fb5d2c960ea218db",
+    "claude": "a92db100c338ebedff7b7c4411cf83d93252ef5887cfeab9b37f1c6f47e000f8",
+    "omp": "fa65ec4ec5354214113eb1f29cde06a06cc9ecb453ced76a88fb87b7f0620045"
+  },
+  "fake_socket_native_component_checks": {
+    "codex": {
+      "cases": 1,
+      "passed": true,
+      "guarded_fake_attempts": 3
+    },
+    "claude": {
+      "cases": 1,
+      "passed": true,
+      "guarded_fake_attempts": 4
+    },
+    "omp": {
+      "cases": 1,
+      "passed": true,
+      "guarded_fake_attempts": 4
+    }
+  },
+  "total_fake_attempts_in_final_native_checks": 11,
+  "offline_guard_tests": {
+    "execution_registration_and_shared_budget": {
+      "passed": 27,
+      "subtests_passed": 18
+    },
+    "all_provider_registration_and_auth_gates": 33,
+    "codex_common_relay_boundaries": 4,
+    "omp_common_relay_boundaries": 6,
+    "omp_redirect_ws_connect_boundaries": 2,
+    "claude_opaque_transport_and_live_gates": 11
+  },
+  "resources_verified_on_final_fake_checks": {
+    "combined_cpu": 2,
+    "combined_memory_bytes": 4294967296,
+    "swap": 0,
+    "combined_pids": 256,
+    "partition": "worker1.75CPU/3.75GiB+relay0.25CPU/0.25GiB; same cpuset",
+    "both_containers_network_none": true,
+    "all_final_container_exits_zero": true,
+    "oom": false
+  },
+  "new_sdk_consumption": "Actual isolated interpreter; all16SDK Python modules and18package files match candidate wheel bytes; unchanged Core CP31213pyc/15packagefiles. No editable/source-PYTHONPATH substitution.",
+  "authority_scope": {
+    "this_summary_is_financial_or_execution_authority": false,
+    "original_financial_authority_and_same_counter_required": true,
+    "new_financial_authority_issued_by_preparation": false,
+    "actual_financial_counter_opened_by_preparation": false,
+    "caps_or_prior_counts_reset": false,
+    "future_global_cap": 1000,
+    "future_provider_caps": {
+      "jev": 582,
+      "codex": 150,
+      "claude": 150,
+      "omp": 147
+    },
+    "candidate_execution_registration": "pending fresh independent quality PASS and root registration"
+  },
+  "accounting_boundary": "Network-none native worker to TCP/0600UDS to owned relay; all upstream metadata/retry/preconnect attempts durably reserved before send; first failed/pending attempt stops globally. Opaque body/encoding/headers/SSE forwarded; redirects/WS/CONNECT fail closed.",
+  "prepared_nominal_future_attempts": {
+    "codex": 108,
+    "claude": 144,
+    "omp": 144
+  },
+  "omp_mode": {
+    "supported_preparation_scope": "official native soft compaction only",
+    "keepRecentTokens": 20000,
+    "original_three_user_padding_batches_preserved": true,
+    "default_remote_v2_pass": false,
+    "prior_default_http400_failure": "preserved; cause unknown; not reinterpreted as success"
+  },
+  "historical_limitations": {
+    "codex117_native_operations_underlying_physical_attempts": null,
+    "historical_codex150_gate_verified": false,
+    "omp_prior_observed_fetch_dispatches": 3,
+    "omp_prior_underlying_wire_http": null,
+    "past_plus_future_omp150_certified": false,
+    "unknown_history_reset_to_zero": false
+  },
+  "calls_during_R2_preparation": {
+    "actual_supplier": 0,
+    "actual_model": 0,
+    "jev": 0,
+    "real_auth_profile_reads": 0,
+    "new_quality_corpus_or_labels_accessed": false
+  },
+  "independent_quality_pass": false,
+  "actual_provider_account_model_compatibility_verified": false,
+  "actual_native36_each_completed": false,
+  "stable_release_approval": false,
+  "original_native36_facts_questions_reader_changed": false,
+  "helper_source_commit": "4132d005a5196f3306d130e379a315a88a95a677",
+  "helper_sha256": "628d79e7085e9ec1ed53c82e9a8428db21000341556d53038d48b6168b40bbe7",
+  "unchanged_common_guard_sha256": "117babfc7dc969e78a343fdba5629a4f6aca647a40099024f1a14e5a6a291b19",
+  "offline_results_sha256": "1e75743293caf08297fc37a5b9c7bc8813618a092b898a45c92d9f7dde0fb957",
+  "scope": "Genuine native CLI/SDK hook lifecycle with local deterministic fake provider and synthetic memory only; no actual supplier or independent integrated quality success. Existing v2.0.3 failure and historical unknown counts remain preserved.",
+  "remaining": [
+    "Fresh independent quality PASS for exact candidate bytes.",
+    "Root review/freeze and final registration under unchanged original financial authority/counter.",
+    "Serialized real native36 execution with real auth checks only after gates; stop and preserve first failure."
+  ]
+}

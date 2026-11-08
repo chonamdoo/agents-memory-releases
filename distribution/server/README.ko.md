@@ -31,13 +31,16 @@ Claude·Codex·omp는 MCP·훅·압축 문맥 연결 앱이고, 저장 판단 �
 
 ## 로컬 설치: Claude·Codex·omp
 
-[검증된 원문 검색 후보 파일](https://github.com/chonamdoo/agents-memory-releases/tree/main/release-candidates/v2.0.0-source-search)에서
-`agents-memory-unified-2.0.0-source-search.tar.gz`와 `SOURCE-SEARCH-SHA256SUMS`를
-내려받아 해당 파일의 SHA-256을 확인하세요. 현재 새 후보는 저장소 파일로 공개하며,
-[v2.0.0 릴리즈 자산](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0)에
-추가하는 요청은 업로드 서버의 401 인증 오류로 대기 중입니다.
-모델 companion `agents-memory-reranker-2.0.0.tar.gz`는 기존 `SHA256SUMS`로 검증합니다.
-기존 `agents-memory-unified-2.0.0.tar.gz`는 수정 전 시험판이며 새 검색 SDK가 아닙니다.
+[MCP 2.0.4 검색 수정 후보](../../release-candidates/v2.0.4-relevance/README.ko.md)의
+[`agents-memory-unified-2.0.0-source-subject-v17.tar.gz`](https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/1903a3d379983883c6069692f249fe470d7d0a61/release-candidates/v2.0.4-relevance/agents-memory-unified-2.0.0-source-subject-v17.tar.gz)와
+[`SHA256SUMS`](https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/1903a3d379983883c6069692f249fe470d7d0a61/release-candidates/v2.0.4-relevance/SHA256SUMS)를 내려받아 검증하세요.
+번들 SHA-256은 `62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef`입니다.
+첫 독립 평가는 검색 잡음 기준에 실패했고 수정 후보의 새 독립 평가는 진행 전입니다.
+[현재 판정](../../release-candidates/v2.0.0-stable/STATUS.json)을 확인하세요.
+모델 companion `agents-memory-reranker-2.0.0.tar.gz`는
+[v2.0.0 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0)의 기존 `SHA256SUMS`로 검증합니다.
+MCP 패키지는2.0.4이고 엔진·SDK ABI는2.0.0입니다. 이전 원문 검색·v16 번들은
+이 후보의 검색 수정을 포함하지 않습니다.
 검증을 마친 파일을 압축 해제하세요.
 설치기는 압축 해제한 로컬 번들을 사용하며 제품 번들·모델을 자동 다운로드하지 않습니다.
 이전 정식 최신 버전 v1.0.8은 그대로 유지합니다. Docker는 필요 없습니다.
@@ -96,8 +99,8 @@ MCP 연결 시 다시 시작됩니다. OS 로그인 서비스는 임의로 등�
 
 ## 플러그인 연결
 
-`agents-memory-unified@agents-memory` 연결 패키지 **2.0.2**을 자체 공개 마켓에서 배포합니다.
-Claude의 설치 안내 캐시와 미설정 connector의 이전 번들·중복 MCP 등록 안내를 수정한 패키지입니다.
+`agents-memory-unified@agents-memory` 연결 패키지 **2.0.4**를 자체 공개 마켓의 후보로 준비합니다.
+새 버전은 고정된 v17 번들과 설치 지침을 사용합니다. 정식 판정 전까지 후보 상태입니다.
 엔진·SDK 버전은 **2.0.0 시험판**이며 정식 품질 상태를 바꾸지 않습니다.
 `agents-memory-local` 1.0.8은 이전 공급자를 유지하는 별도 항목입니다. 둘을 같은
 프로젝트에 중복 등록하지 마세요. 아래 마켓 설치는 엔진·모델·키 준비와 별도이며,

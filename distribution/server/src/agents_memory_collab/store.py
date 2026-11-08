@@ -14,6 +14,7 @@ import asyncpg
 from .models import Failure, Operation, SourceSearch
 from .protocol import GENESIS, canonical, chain_hash, digest, operation_digest
 from .client import _reject_source_secrets
+from .recall_relevance import merge_evidence, native_evidence, scoped_native_results
 
 # Leave headroom below the client's 4 MiB response limit after expanding sources.
 MAX_SEARCH_RESPONSE_BYTES = 4_000_000
@@ -660,20 +661,21 @@ class Store:
         # Authorize banks first, then fetch only actual backend nominations.
         # Never cut a current Hindsight hit out with an unrelated SQL row limit.
         banks = await self.pool.fetch("SELECT DISTINCT m.engine_bank " + candidates, *params)
-        hits, generated = {}, []
+        hits, generated, native_hits = {}, [], {}
         for bank in sorted(row["engine_bank"] for row in banks):
             for rank, hit in enumerate(await self.memory_engine.recall(bank, query)):
                 if getattr(self.memory_engine,"integrated",False):
                     documents = hit.get("source_documents")
                     if (isinstance(documents,list) and documents and all(isinstance(d,str) for d in documents)
                             and isinstance(hit.get("text"),str)):
-                        generated.append((bank, documents, hit["text"], 1 / (rank+1), hit.get("id")))
+                        generated.append((bank, documents, hit["text"], 1 / (rank+1), hit, rank+1))
                         for document in documents:
                             hits[(bank,document)] = max(hits.get((bank,document),0),1/(rank+1))
                     continue
                 document = hit.get("document_id")
                 if isinstance(document, str):
                     hits[(bank, document)] = max(hits.get((bank, document), 0), 1 / (rank + 1))
+                    native_hits.setdefault((bank, document), []).append((hit, rank+1))
         await self._active(actor)
         if not hits:
             return {"memories": [], "semantic": True, "engine": "hindsight"}
@@ -685,16 +687,18 @@ class Store:
         if getattr(self.memory_engine,"integrated",False):
             authorized = {(r["engine_bank"],r["engine_document"]):r for r in rows}
             evidence = {}
-            for bank,documents,text,score,derived_id in generated:
+            for bank,documents,text,score,hit,rank in generated:
                 if any((bank,d) not in authorized for d in documents):
                     continue
                 # Raw facts and observations can nominate the same whole text.
                 # Merge only authorized hits within one bank before applying the result limit.
                 key = bank, text
                 if key not in evidence:
-                    evidence[key] = {"documents": set(), "score": score}
+                    evidence[key] = {"documents": set(), "score": score, "native": []}
                 evidence[key]["documents"].update(documents)
                 evidence[key]["score"] = max(evidence[key]["score"], score)
+                record = native_evidence(hit, rank, [str(authorized[(bank,d)]["id"]) for d in documents])
+                evidence[key]["native"] = merge_evidence(evidence[key]["native"], [record])
             grouped, texts, contexts = {}, {}, {}
             for (bank,text),entry in evidence.items():
                 sources = [authorized[(bank,d)] for d in sorted(entry["documents"])]
@@ -705,13 +709,14 @@ class Store:
                     item = dict(primary)
                     item.pop("engine_bank")
                     item.pop("engine_document")
-                    item.update(text="",score=score,derived=True,sources=[])
+                    item.update(text="",score=score,derived=True,sources=[],native_evidence=[])
                     grouped[identity] = item
                     texts[identity] = []
                     contexts[identity] = {}
                 item = grouped[identity]
                 texts[identity].append(text)
                 item["score"] = max(item["score"],score)
+                item["native_evidence"] = merge_evidence(item["native_evidence"], entry["native"])
                 for row in sources:
                     contexts[identity][str(row["id"])] = row
                     source = {"id":str(row["id"]),"revision":row["revision"],"project":row["project"]}
@@ -738,10 +743,14 @@ class Store:
                            for source in previous["sources"] + item["sources"]}
                 merged = dict(primary)
                 merged.update(text=best["text"], score=best["score"],
-                              sources=[sources[key] for key in sorted(sources)])
+                              sources=[sources[key] for key in sorted(sources)],
+                              native_evidence=merge_evidence(previous["native_evidence"], item["native_evidence"]))
                 expanded[key] = merged
             result = sorted((item for item in expanded.values() if matches_identifier(item["text"])),
                             key=result_order)
+            if not literal_patterns:
+                namespaces = {id(item): bank for (bank, _), item in expanded.items()}
+                result = scoped_native_results(query, result, lambda item: namespaces[id(item)])
             response = {"memories": [], "semantic": True, "engine": "hindsight",
                         "integration_enabled": True, "generation_enabled": False,
                         "partial": False, "omitted_due_to_budget": len(result)}
@@ -758,7 +767,7 @@ class Store:
                 used += size
             response.update(partial=bool(omitted), omitted_due_to_budget=omitted)
             return response
-        result = []
+        result, namespaces = [], {}
         for row in rows:
             identity = (row["engine_bank"], row["engine_document"])
             if identity not in hits:
@@ -771,9 +780,14 @@ class Store:
                 item = dict(row)
                 item.pop("engine_bank")
                 item.pop("engine_document")
+                item["native_evidence"] = [native_evidence(hit, rank, [str(row["id"])])
+                                           for hit, rank in native_hits[identity]]
                 item["score"] = hits[identity]
                 result.append(item)
+                namespaces[id(item)] = identity[0]
         result.sort(key=result_order)
+        if not literal_patterns:
+            result = scoped_native_results(query, result, lambda item: namespaces[id(item)])
         return {"memories": result[:limit], "semantic": True, "engine": "hindsight"}
 
     async def brief(self, actor, team, project):

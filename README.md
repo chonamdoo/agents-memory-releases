@@ -34,7 +34,7 @@ omp plugin install agents-memory-unified@agents-memory
 
 ## 처음 연결할 때
 
-앱을 다시 시작하고 setup 안내를 따릅니다. [런타임 다운로드·설치](release-candidates/v2.0.0-jev197/README.ko.md#수정-후보-설치)를 먼저 완료해야 합니다. Claude·OMP는 플러그인 MCP, Codex는 프로젝트 stdio MCP를 사용합니다. 같은 앱에 두 연결을 중복 등록하지 마세요.
+앱을 다시 시작하고 setup 안내를 따릅니다. [런타임 후보·검증 상태](release-candidates/v2.0.4-relevance/README.ko.md)를 먼저 완료해야 합니다. Claude·OMP는 플러그인 MCP, Codex는 프로젝트 stdio MCP를 사용합니다. 같은 앱에 두 연결을 중복 등록하지 마세요.
 
 Jev 키는 설치기의 숨김 입력 또는 비공개 파일로 설정합니다. 설치 후 `setup_status`에서 준비 상태를 확인합니다.
 

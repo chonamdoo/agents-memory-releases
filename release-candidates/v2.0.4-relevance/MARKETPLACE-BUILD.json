@@ -1,0 +1,34 @@
+{
+  "schema": "mcp-marketplace-candidate-build-v1",
+  "marketplace_version": "2.0.4",
+  "runtime_abi_version": "2.0.0",
+  "candidate_archive_commit": "1903a3d379983883c6069692f249fe470d7d0a61",
+  "compiler": "go version go1.27.3 linux/amd64",
+  "cgo": false,
+  "flags": [
+    "-trimpath",
+    "-ldflags=-s -w"
+  ],
+  "build_network": "GOPROXY=off GOSUMDB=off GOTOOLCHAIN=local",
+  "files": {
+    ".claude-plugin/marketplace.json": "3a91aea57c67561a1f4be16e851615a980ef2f05e31b16ca5aa73cfef4351262",
+    "plugins/agents-memory-unified/.claude-plugin/plugin.json": "11605b5af0077fa518ef6993049fdf42b1fc6be006d9f94b16699ba4e2718e30",
+    "plugins/agents-memory-unified/.codex-plugin/plugin.json": "c1a09491f5ad38819c460568bc572753977565d22d0d42b679e758ee0615a59d",
+    "plugins/agents-memory-unified/scripts/connector.go": "514d02ea447bcc13332a719d5353535fd654a4a21ba9f4f2f84b7298299f854f",
+    "plugins/agents-memory-unified/bin/connector-linux-x86_64": "19456ff6c6e7dc6910dad492d7af48d1f1d12f10af1e67f5adf6e8638b892007",
+    "plugins/agents-memory-unified/bin/connector-darwin-arm64": "a86ea8be0be98427a9407c437a94f082540f760fc9265642db8ea94464dec02d",
+    "plugins/agents-memory-unified/bin/SHA256SUMS": "4a85ad3ce62d4c11ac829fd45f7a44ac306b4344bb00c3626d5a00a8ef563de3",
+    "plugins/agents-memory-unified/skills/setup/SKILL.md": "9b76f31f2f0cf1456bf322c1ac9e7e01e3e3a55c91898001b20e7995d6157663",
+    "plugins/agents-memory-unified/codex-skills/setup/SKILL.md": "e3b0cf48cdc9fd6757d4afb2b29ff6f05b3c2419bec7f15bdd69c6755b4e9804",
+    "distribution/server/tests/test_unified_connector.py": "9e2b272fa8d97a60f72da1c1a918dd06a8aa88a2945f37ecb190e868baffea1d"
+  },
+  "linux_unconfigured_mcp_protocol": {
+    "result": "passed",
+    "tests": 1,
+    "seconds": 0.13
+  },
+  "macos_execution": false,
+  "macos_release_gate": false,
+  "qualification": "Pending independent repaired-candidate live run and remaining host checks",
+  "stable_release_ready": false
+}

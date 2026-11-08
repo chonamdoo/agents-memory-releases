@@ -1,0 +1,14 @@
+{
+  "schema": "actual-integrated-safe-evidence-checks-v1",
+  "only_explicit_whitelisted_json_and_readme": true,
+  "raw_corpus_labels_model_payloads_auth_profiles_credentials_databases_and_runtime_packages_bundled": false,
+  "authorized_jev_key_or_owned_evaluation_token_exact_match_found": false,
+  "secret_values_hashes_fragments_or_lengths_printed_or_stored": false,
+  "original_user_profile_or_cli_auth_files_read": false,
+  "new_api_or_model_experiments": 0,
+  "full_original_private_history_preserved": true,
+  "actual_quality_status": "FAIL",
+  "reason": "top5_noise Wilson95 upper exceeds original0.30; no metric/query/filter/denominator changes",
+  "counter_snapshot_at_finish_preserved": true,
+  "source_harness_snapshot_file_count": 10
+}

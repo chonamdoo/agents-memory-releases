@@ -1,0 +1,19 @@
+{
+  "schema": "repaired-candidate-capacity-registration-v1",
+  "new_financial_authority_created": false,
+  "original_financial_sha256": "31636c1cdb02970c35a617118765fc3210cd7134c041edd960e4ea8f9ac59b32",
+  "original_registry_sha256": "cab3f9233d67d083cd9f9adbfd758d0e2393ab10882d53bab0d69854900caa00",
+  "derived_registry_sha256": "887b8b083674e0e676f5e1df24fe4c1620e49db80d65867b05017c4e1833b703",
+  "all_prior_registry_grants_and_ledgers_preserved": true,
+  "selected_child": "independent-ai-v2-v204",
+  "child_cap": 197,
+  "child_grant_file_sha256": "e2bd0ace7f62d5175d290ca805e8ab379004735a88e4b10321a872db1bf43e8e",
+  "execution_registration_sha256": "52efb963fad4062488a345522ace3ce82947d2d2a9af252a4d88e5afdac3c399",
+  "cumulative_jev_prior_reserved": 614,
+  "cumulative_jev_cap": 1000,
+  "allocated_child_caps": 812,
+  "new_jev_or_other_model_calls": 0,
+  "future_pool_already_used": 196,
+  "future_pool_remaining": 804,
+  "corpus_manifest_sha256": "9270ddd062c2587f89bcf7ff03e2a14d839e0319873957158caa579059d687bb"
+}

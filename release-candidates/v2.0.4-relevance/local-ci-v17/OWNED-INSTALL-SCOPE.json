@@ -1,0 +1,20 @@
+{
+  "genuine_unified_installer_exit": 0,
+  "genuine_owned_cold_autostart_test_exit": 0,
+  "local_fake_tls_typed_requests": 1,
+  "real_supplier_auth_verified": false,
+  "real_supplier_calls": 0,
+  "auth_or_profile_of_user_read": false,
+  "new_v2_product_calls": 0,
+  "bootstrap_scope": "new transparent identity/receipt with approved read-only unchanged base runtime/model reuse, not bootstrap reinstallation",
+  "fresh_installer_generated_bytecode_removed_count": 18,
+  "packages_readonly_before_exact_check_and_cold_autostart": true,
+  "source_proof_sha256": "bf3c507cf38a14c8abc1788f6e804d095c76132915e99c306753bf0e320ffbcc",
+  "actual_module_origin_proof_sha256": "4133d74c29aa3e61cff9b847dcc424a2773e334e67e2f8baeb302bef2f91f5bf",
+  "explicit_local_fake_tls_fixture": "network none; api.typesafe.ai resolves127.0.0.1 inside owned namespace; synthetic local CA/key only; original JevClient verification path unchanged",
+  "not_certified": [
+    "real supplier authentication",
+    "independent integrated quality",
+    "macOS execution"
+  ]
+}

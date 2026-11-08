@@ -1,0 +1,37 @@
+{
+  "schema": "actual-integrated-call-accounting-safe-v1",
+  "financial_authorization_sha256": "31636c1cdb02970c35a617118765fc3210cd7134c041edd960e4ea8f9ac59b32",
+  "same_original_authorization_and_counter_preserved": true,
+  "new_jev_reservations": 196,
+  "new_jev_completed": 196,
+  "new_jev_failed_or_pending": 0,
+  "child_cap": 197,
+  "child_remaining": 1,
+  "prior_jev_reserved": 418,
+  "cumulative_jev_reserved": 614,
+  "cumulative_jev_cap": 1000,
+  "cumulative_jev_remaining": 386,
+  "common_future_cap": 1000,
+  "common_counts_at_finish": [
+    {
+      "provider": "jev",
+      "stage": "completed",
+      "count": 196
+    }
+  ],
+  "common_future_reserved_at_finish": 196,
+  "common_future_remaining_at_finish": 804,
+  "future_jev_cap": 582,
+  "future_jev_remaining": 386,
+  "counter_snapshot_sha256": {
+    "common": "44ab2a49266978b33796fb87d82a5a5230af48efb8c603335fffb45ffb3c1beb",
+    "child": "dcac38bab911e031ca3b2e531db7ae433f64ea91dcba2a0e510ed2c34afcb1d1"
+  },
+  "raw_counter_databases_not_bundled": true,
+  "count_unit": "Conservative durable provider transmission-attempt boundary before open, not supplier billing dollars.",
+  "new_cli_calls_in_this_run": 0,
+  "historical_codex117_underlying_http": null,
+  "historical_omp3_underlying_http": null,
+  "past_unknowns_reset": false,
+  "actual_dollar_spend": null
+}

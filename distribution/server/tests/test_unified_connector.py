@@ -42,10 +42,13 @@ async def test_unconfigured_release_plugin_stays_connected_without_fake_storage(
         assert status["ready"] is False and status["state"] == "setup_required"
         manifest = json.loads((Path(plugin) / ".claude-plugin/plugin.json").read_text())
         assert status["marketplace_version"] == manifest["version"]
-        assert status["release_channel"] == "prerelease"
-        assert status["candidate_archive"] == "agents-memory-unified-2.0.0-request-scope-v16.tar.gz"
-        assert status["candidate_checksums"] == "JEV197-SHA256SUMS"
-        assert status["candidate_url"].startswith("https://github.com/chonamdoo/agents-memory-releases/")
+        assert status["release_channel"] == "candidate"
+        assert status["candidate_archive"] == "agents-memory-unified-2.0.0-source-subject-v17.tar.gz"
+        assert status["candidate_checksums"] == "SHA256SUMS"
+        assert status["candidate_url"] == (
+            "https://github.com/chonamdoo/agents-memory-releases/tree/"
+            "1903a3d379983883c6069692f249fe470d7d0a61/release-candidates/v2.0.4-relevance"
+        )
         assert status["model_checksums"] == "SHA256SUMS"
         for host, client in [("claude", "claude-plugin"), ("omp", "omp-plugin"), ("codex", "codex")]:
             command = shlex.split(status["install_commands"][host])

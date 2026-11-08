@@ -2,7 +2,7 @@
   "schema": "agents-memory-stable-release-status-v1",
   "as_of": "2026-11-08",
   "timezone": "Asia/Seoul",
-  "policy_sha256": "8b97e6541b2787ce00e7b88a74ae5b7474102724d5156611c0f1587830bf3011",
+  "policy_sha256": "4d59b7f0561cc02c5b5106a7923b41ce108fbb00c45ecaa161d44a2288004679",
   "candidate": {
     "runtime_version": "2.0.0",
     "marketplace_package_version": "2.0.3",
@@ -109,8 +109,8 @@
     },
     {
       "id": "live_admission",
-      "status": "partial",
-      "reason": "Fresh fixed-v16 actual Jev194 calls +2guards:80/80 legitimate,40/40 auto precision/recall,0negativekeeps,194/194audit. Recorded exact responses through real Store/Native commit120, explicit80/80. Single-author/executable-contract engineering scope; original independent-label claim unverified.",
+      "status": "met",
+      "reason": "Last measured SDK14ba/Corebb independent196/40 census: legitimate80/80 andauto40/40 actual Native/server/local commits; original labels/signoffs and priors unchanged. Success does not qualify the separate repaired successor without its own run.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-jev197/FRESH-ADMISSION.json",
@@ -123,13 +123,17 @@
         {
           "path": "release-candidates/v2.0.0-jev197/FRESH-JEV-LATENCY.json",
           "sha256": "8e45789d85c8efb98a5c9e399fb632dab37281966c73dd3e1426d45475cb4f7f"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/live-quality-v1/STRICT-METRICS.json",
+          "sha256": "fc92306150d7cc730800e9610e9f0198a0299e4bb2a479e332be91f7751477b5"
         }
       ]
     },
     {
       "id": "live_retrieval",
-      "status": "partial",
-      "reason": "Final same-byte actualMCP/SDK/Native40query engineering run completed: related40/40,all-required40/40 (Wilson lower0.912378),noise20/140 (upper0.210370). Numeric thresholds met; ten corrected development questions, consumed one-author data and missing original independent labels/signoffs prevent treating it as the original contract or v43 passing evaluation.",
+      "status": "fail",
+      "reason": "Independent real196/40 complete: hit/all-required40/40, but noise80/200=.40 Wilsonupper.46916327960737997>.30. Original questions/gold/filter/denominator unchanged. Consumed cohort retained for diagnosis; successor not yet evaluated.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-jev197/FRESH-BASELINE-RETRIEVAL.json",
@@ -146,6 +150,10 @@
         {
           "path": "release-candidates/v2.0.0-jev197/QUESTION-REPAIR-PLAN.json",
           "sha256": "a3b3cec4c3356dacfef0a5a2c35805fd7ee7f40305e25d7df2de4e5a7f961ad9"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/live-quality-v1/STRICT-METRICS.json",
+          "sha256": "fc92306150d7cc730800e9610e9f0198a0299e4bb2a479e332be91f7751477b5"
         }
       ]
     },
@@ -169,6 +177,10 @@
         {
           "path": "release-candidates/v2.0.3-independent/OFFLINE-FAULTS.json",
           "sha256": "ae97e510240076097c6879ee90e17af8b599bfea459a4ea307ef262f8420f5ab"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/live-quality-v1/STRICT-METRICS.json",
+          "sha256": "fc92306150d7cc730800e9610e9f0198a0299e4bb2a479e332be91f7751477b5"
         }
       ]
     },
@@ -271,7 +283,7 @@
     {
       "id": "resources_and_budget",
       "status": "partial",
-      "reason": "New source-free Linux full-runtime preparation passed freshPG/Native1.1/E5/BGE/49pins under2CPU4GiB swap0 OOM0; actual196 quality load not executed. Jev418spent/615capacity metadata/1000ceiling preserved. Past Codex117 nativeops and OMP3 fetch callbacks do not establish exact supplier attempts; neither old budget passes nor overrun is claimed. Future common counters and approval-before-claim are prepared, no new actual authorization.",
+      "reason": "Last measured run passed2CPU4GiB swap0/OOM0 and completed196bounded Jev sends. Cumulative Jev614/1000; shared new1000pool196spent/804remaining. Earlier Codex117operations/OMP3fetch underlying wire counts remain unknown. Successor runtime and genuine host-provider verification remain pending.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-jev197/FINAL-RESOURCE-AUDIT.json",
@@ -308,6 +320,18 @@
         {
           "path": "release-candidates/v2.0.3-independent/FUTURE-CALL-PLAN.json",
           "sha256": "61094e9f4b2126ea5aea2f18ca5bc84a237fb654ad56b78f08ece63cbc1b80de"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/live-quality-v1/CALL-LEDGER-196.json",
+          "sha256": "cb8cb04353985003d5d2cb6b36e2cff8bc629f1724fb6eafb9b8fae01e128592"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/live-quality-v1/RESOURCES-CLEANUP.json",
+          "sha256": "d1e0b947658029e61b7f27b26b96b2cdc4589986f0028d2121e3cb7a9b6708d2"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/FUTURE-CALL-CONFIRMATION.json",
+          "sha256": "baed642ce19f0994168004bdc7fc58855d0b692a82f7af35037c271c68845a6c"
         }
       ]
     },
@@ -382,8 +406,8 @@
   },
   "current_extra_jev_attempts": {
     "authorized_cumulative": 1000,
-    "reserved_in_this_evaluation": 418,
-    "remaining": 582,
+    "reserved_in_this_evaluation": 614,
+    "remaining": 386,
     "original_197_preserved": 197,
     "followup_19_preserved": 19,
     "failed_process_reservations": 1,
@@ -455,13 +479,134 @@
     "exact_known_overlap": 0
   },
   "future_actual_execution": {
-    "approval_received": false,
-    "new_supplier_calls": 0,
-    "new196_product_inferences": 0,
+    "approval_received": true,
+    "new_supplier_calls": 196,
+    "new196_product_inferences": 196,
     "codex_counted_controller": "36/36 fake only,108local transmissions",
     "claude_counted_controller": "36/36 fake only,144local transmissions",
     "omp_counted_controller": "36/36 fake only,144local transmissions; optional metadata removal afterward verified on exact final freeze1case/4transmissions",
     "historical_native_wire_counts_recoverable": false,
-    "proposal": "FUTURE-CALL-PLAN.json; explicit NEW future-pool approval absent; old unknown counts not reset"
-  }
+    "proposal": "Explicitly confirmed same future1000 pool;196spent preserved, shared804remaining/Jev386remaining",
+    "measured_cohort": "independent-ai-v1; complete196/40; FAILnoise80/200",
+    "new_v2_product_inferences": 0
+  },
+  "candidate_role": "Last fully measured candidate. Repaired successor is separately identified in next_candidate.",
+  "next_candidate": {
+    "release_tag": "v2.0.4",
+    "marketplace_package_version": "2.0.4",
+    "runtime_version": "2.0.0",
+    "sdk_wheel_sha256": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+    "archive_sha256": "62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef",
+    "identity_path": "release-candidates/v2.0.4-relevance/CANDIDATE.json",
+    "identity_sha256": "069b86b96c435013721e1ef89b1afc759ce5260cae006b52fa65f72491b600d8",
+    "source_postgresql_regression": {
+      "collected": 110,
+      "passed": 110,
+      "failed": 0,
+      "skipped": 0,
+      "scope": "owned PostgreSQL/HTTP/MCP and scripted engines, unchanged fixtures, not real Hindsight semantic quality"
+    },
+    "new_raw_labels": {
+      "authors": "two new separate AI annotators",
+      "class_kappa": 1.0,
+      "relevance_kappa": 1.0,
+      "question_changes": 0,
+      "known_available_reference_fields": 764,
+      "exact_known_overlap": 0,
+      "final_candidate_signoffs": true,
+      "signoff_sha256": {
+        "a": "211c922539abc302fc30f5607161f631e3e7e7bb428eaf4a69e11eaa3de68a8b",
+        "b": "7276f7a85fd9d76dc346357e6eb9b5f1e3e80a2190d75f15e2cb14de79a1c8dc"
+      }
+    },
+    "real_quality": "not_run",
+    "ready_to_promote": false,
+    "preregistration_commit": "392367ef075b8cb8baec59aafa444cb09002232e",
+    "sourcefree_cp313_affected_regression": {
+      "collected": 102,
+      "passed": 102,
+      "failed": 0,
+      "skipped": 0
+    },
+    "immutable_public_archive_download": {
+      "http_status": 200,
+      "bytes": 235844,
+      "sha256": "62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef"
+    },
+    "offline_faults": {
+      "clean_probe_count": 6,
+      "caught_fault_count": 6,
+      "original_four_detected": true,
+      "scope": "functional, no liveprovider/PG/Native proof"
+    },
+    "local_ci": {
+      "membership": 368,
+      "verified_passed": 368,
+      "unverified_or_skipped": 0,
+      "single_full_run_green": false,
+      "explanation": "Original365 passes plus version-corrected status and actual formerly skipped proxy/ownedcoldautostart passes",
+      "cp313_affected": 102,
+      "exact_four_gib_peak_with_no_oom": true,
+      "real_provider_auth_in_QA": false,
+      "local_fake_auth_only": true
+    }
+  },
+  "repaired_candidate_references": [
+    {
+      "path": "release-candidates/v2.0.4-relevance/INDEPENDENT-V2-PREREGISTRATION.json",
+      "sha256": "e41a9f325d9209a5e39223a7b0945b29fed7bc4952221f5cbcb1563f13e73a91"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/INDEPENDENT-V2-CAPACITY.json",
+      "sha256": "4f884b7cf33ab13bd0ff7d028a8e5cf7ae0bba18318447b95bc9a44d58789a86"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/MARKETPLACE-BUILD.json",
+      "sha256": "d853e07e8de13c2f4ad14fb4035d422d16befef85d729b6933cf7371f3efad8a"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/OFFLINE-FAULTS.json",
+      "sha256": "b27e451a6b6c4a7abfc14309e9894417b545be800d7aaf03c41cdda9e8d3f3e5"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/CALLS-RUNTIME-HASHES.json",
+      "sha256": "06c018ca4ce94c90d4009e13da78d18a3eb84e9032a036195689c1b70a4e40b8"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/CI-MEMBERSHIP.json",
+      "sha256": "31a312283235d3bb326f845ee1147d6fe3347e32cefc4a7965deedddff068681"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/INSTALLED-CP312.json",
+      "sha256": "a33772469ff600a1ca6f3150211a45f8ef84ad32f8b3fe3574864cd8d97c3b53"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/INSTALLED-CP313.json",
+      "sha256": "8ff58881d63b930e78f8111f44edecb34f024e0acfc55e856addb64ca09603fc"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/OWNED-INSTALL-SCOPE.json",
+      "sha256": "8ef0c2e8593e1dc956d5cba54d1c62731d53bf85be1887d6b30759f155321b25"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/OWNED-INSTALLED-ORIGINS.json",
+      "sha256": "4133d74c29aa3e61cff9b847dcc424a2773e334e67e2f8baeb302bef2f91f5bf"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/README.ko.md",
+      "sha256": "4e41b1a6ee470617f369ff08c6526f1f4ef2e1575db22a749cdb36538fed1b7d"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/RESOURCES-FAILURES-CLEANUP.json",
+      "sha256": "70f578e1400e2858cd75c204609cee8a888bb14a90dc86013f0956dd55db7d78"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/local-ci-v17/SHA256.json",
+      "sha256": "bdc9227e0461a626a884c7924f93ba205efae938cecfbc0803cfd1b4c17dfc50"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/NATIVE-R2-ACCOUNTED-PREPARATION.json",
+      "sha256": "19b7c73f0cf8e0a38faad8da85911f16bec7390a02e2a359af1f36f1c8bb0776"
+    }
+  ]
 }

@@ -1,0 +1,24 @@
+{
+  "new_actual_provider_calls": 0,
+  "new_v2_product_calls": 0,
+  "user_auth_profile_reads": 0,
+  "financial_sha256": "31636c1cdb02970c35a617118765fc3210cd7134c041edd960e4ea8f9ac59b32",
+  "same_financial_ledger_counts": [
+    [
+      "jev",
+      "completed",
+      196
+    ]
+  ],
+  "original_actual_cohort_failed_run_unchanged": true,
+  "candidate_archive_sha256": "62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef",
+  "candidate_sdk_sha256": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+  "adapter_sha256": "43fd98b63cf1324e0c85aaa9b1d46b74ed350c1e8d6feb773285876d5f911fe1",
+  "new_gateway_venv": "/workspace/scratch/jev197-evaluation/independent-linux-runtime/gateway-candidate-v17-venv",
+  "installed_cp312_proof_sha256": "a33772469ff600a1ca6f3150211a45f8ef84ad32f8b3fe3574864cd8d97c3b53",
+  "installed_cp313_proof_sha256": "8ff58881d63b930e78f8111f44edecb34f024e0acfc55e856addb64ca09603fc",
+  "proxy_source_sha256": "e04f96a2dd3d3222e16514f1bd64cebe678346187f631e0c3dafdf91b6195a35",
+  "proxy_binary_sha256": "36a35e0584949084b0f98a5cf8964d8aca11a16d7487500d9c2771730a6b017e",
+  "mcp204_snapshot_manifest_sha256": "d98630d80a03da387cfd0a13375c451ba9f05e070e793d023c359621e49b91a9",
+  "full003_plugin_scope": "Host package rebuild became visible through RO mount before connector phase; exact new2.0.4 package separately snapshotted and all affected tests rerun against immutable snapshot."
+}

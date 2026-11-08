@@ -1,0 +1,102 @@
+{
+  "schema": "independent-ai-v2-public-preregistration-v1",
+  "case_count": 196,
+  "query_count": 40,
+  "reviewed_pairs_per_author": 7840,
+  "class_kappa": 1.0,
+  "relevance_kappa": 1.0,
+  "required_pairs": 120,
+  "uncertain_pairs": 0,
+  "question_changes": 0,
+  "authors": {
+    "a": "/root/independent_v2_a",
+    "b": "/root/independent_v2_b"
+  },
+  "actual_final_pre_inference_signoffs_verified": true,
+  "signoff_sha256": {
+    "a": "211c922539abc302fc30f5607161f631e3e7e7bb428eaf4a69e11eaa3de68a8b",
+    "b": "7276f7a85fd9d76dc346357e6eb9b5f1e3e80a2190d75f15e2cb14de79a1c8dc"
+  },
+  "candidate_execution_binding_sha256": "8e7f1907fc103c5e70cf3708bfab3f0d4e996fb7afc29ec77b3726d2ef0ecbae",
+  "corpus_id": "f85d0b75b15784ded30f70920dfa10a31bc83031363139dae04eea4b144c9bca",
+  "manifest_sha256": "9270ddd062c2587f89bcf7ff03e2a14d839e0319873957158caa579059d687bb",
+  "known_reference_fields": 764,
+  "known_exact_overlap": 0,
+  "six_missing_historical_references": [
+    {
+      "role": "historical:candidates.jsonl",
+      "sha256": "0319ef94de834a8cb351308cdd74517d76e7486adbd0473c1ee55ae952cc9cb3"
+    },
+    {
+      "role": "historical:continuation.jsonl",
+      "sha256": "3bffb3ccdf580532dbdfa6d778b247218fc2fbb312e6a1e7ce80c248898e5031"
+    },
+    {
+      "role": "historical:release-auto-authored.jsonl",
+      "sha256": "2e1016a3476b81cd16fa14be6cd18870e708596ffb791f104be6d4b8c9a0cecf"
+    },
+    {
+      "role": "historical:release-explicit-authored.jsonl",
+      "sha256": "4f272a417d709aaec8fb6d6672826b03810138aa374bb0b9a2d68d582bbc90aa"
+    },
+    {
+      "role": "historical:release-fresh-blind.jsonl",
+      "sha256": "15023da524d3d32eed350456d131319317ef2143e645ba014c6a14df0c170319"
+    },
+    {
+      "role": "historical:release-continuation-questions.jsonl",
+      "sha256": "a8f1b9d6d72716c668333f22f71c39cbbd78a1b7de8106a3bb2a8237c5f84b94"
+    }
+  ],
+  "all_other_quality_thresholds_unchanged": true,
+  "historical_full_comparison_verified": false,
+  "release_scope_eligible": true,
+  "product_calls_on_new_packet": 0,
+  "stable_ready": false,
+  "status": "preregistered_before_first_product_execution",
+  "raw_corpus_and_labels_public": false,
+  "input_sha256": {
+    "blind": "e07fd7b855bf1f338006adc6efd8525e5b0914b1053584b34802c15bb3df0aab",
+    "questions": "13a4b92503d36162467ce514177001cc4a8bcefefa765bf07a358f0898b1082f",
+    "original_questions": "13a4b92503d36162467ce514177001cc4a8bcefefa765bf07a358f0898b1082f",
+    "class_a": "da53d4ae438e1e3896641462a0e6a835827ce1014cb719050f9c5bbae156d478",
+    "raw_a": "5e5be9613679e161b666d97520f10881ec2ad9931fa6097ec2af77b7f46aad66",
+    "final_class_a": "da53d4ae438e1e3896641462a0e6a835827ce1014cb719050f9c5bbae156d478",
+    "final_a": "5e5be9613679e161b666d97520f10881ec2ad9931fa6097ec2af77b7f46aad66",
+    "class_b": "da53d4ae438e1e3896641462a0e6a835827ce1014cb719050f9c5bbae156d478",
+    "raw_b": "5e5be9613679e161b666d97520f10881ec2ad9931fa6097ec2af77b7f46aad66",
+    "final_class_b": "da53d4ae438e1e3896641462a0e6a835827ce1014cb719050f9c5bbae156d478",
+    "final_b": "5e5be9613679e161b666d97520f10881ec2ad9931fa6097ec2af77b7f46aad66",
+    "gold": "da53d4ae438e1e3896641462a0e6a835827ce1014cb719050f9c5bbae156d478",
+    "historical:current-session-initial-cases": "fd2528cfeb38c63cd787b78b58fe998433b4c458ee3770844a352067cf2e907e",
+    "historical:current-session-initial-questions": "897f6a7ff78096060a4e34728e8da5bf008cb008484ab41f0b634e9605646d9b",
+    "historical:current-session-later-cases": "51fe0c552ce69d9ecb648fb2af07ca3136990218236a4a746ba23f2e341daa9e",
+    "historical:current-session-later-original-questions": "f9e10e622c68ef5652c9d221e61bddfb9efee914376721ed0c2c3607f4122c7c",
+    "historical:current-session-later-corrected-questions": "be47d7ac700a710ad68f480a55bfe25a90d93e8c21faad567a36d6c3f585c8a3",
+    "public_admission_cases": "0dc56033c17df5373ab9345873db5e6d4a24d81ff8a6612a3ffbf7f452e24e24",
+    "historical:independent-ai-v1-cases": "64676953671c9c74d9be95fac9a753502619bb7e83eb39fa84acb17f401744ec",
+    "historical:independent-ai-v1-original-questions": "39b2023b5692084d256f85b8ec3f0460f7328a4f2e205d781327cd1e0d55cfa6",
+    "reference_authorization": "0f0efaf67bee752f4a3727f3695038c8c4af79d2e0dab5da905bca178966e809",
+    "signoff_a": "211c922539abc302fc30f5607161f631e3e7e7bb428eaf4a69e11eaa3de68a8b",
+    "signoff_b": "7276f7a85fd9d76dc346357e6eb9b5f1e3e80a2190d75f15e2cb14de79a1c8dc",
+    "provenance": "ccc72de1cf23226122e8d60b0582ba4934cf0ddb3eb5795936c05c9c0aa65d45"
+  },
+  "candidate": {
+    "source_commit": "9870d4f4edbbf5e75f4c67e2daab9fcb822e5fb4",
+    "archive_commit": "1903a3d379983883c6069692f249fe470d7d0a61",
+    "archive_sha256": "62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef",
+    "sdk_sha256": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+    "sdk_python_modules": 16,
+    "harness_commit": "731b0e9f6d578763f2614404826137932409e8b8",
+    "linux_adapter_sha256": "43fd98b63cf1324e0c85aaa9b1d46b74ed350c1e8d6feb773285876d5f911fe1"
+  },
+  "scope": "Synthetic controlled task instances independently annotated by two AI reviewers; not real-user/time-ordered or human-authored general-performance evidence.",
+  "class_counts": {
+    "explicit": 80,
+    "auto": 40,
+    "chatter": 32,
+    "unsafe": 24,
+    "quote": 20
+  },
+  "six_invalid_synthetic_secret_fixtures": "Included within unsafe24; no dropped census rows. Expected pre-provider guard behavior is a prediction, not measured pass."
+}
