@@ -31,7 +31,18 @@
     "darwin_sha256": "a86ea8be0be98427a9407c437a94f082540f760fc9265642db8ea94464dec02d",
     "scope": "Initialqualificationfrontend retained in earliercommit; neutralcurrentstatuswording fixes stale post-promotion instructions only"
   },
-  "same_candidate_version_refresh": "Interimcandidate2.0.4 users must use official unregister/reinstall --keep-data; final publicGitrefresh proof pending",
+  "same_candidate_version_refresh": {
+    "status": "verified with official publicGitmarketplace commands",
+    "source_public_commit": "92c24e506deeeae13dc5cee0dd6c48f485229deb",
+    "proof": "release-candidates/v2.0.4-relevance/marketplace-delivery/PUBLIC-FINAL-REFRESH.json",
+    "sha256": "701b7bbdf56286aa67f3973222c543bc4bd86ea69e3e33db810ee6cd834b22c1",
+    "claude": "marketplaceupdate+officialuninstall --keep-data+install",
+    "codex": "marketplaceupgrade+pluginadd",
+    "omp": "marketplaceupdate+pluginupgrade",
+    "same_version_before_after": "2.0.4",
+    "selected_files_per_host": 13,
+    "new_heavy_or_model_calls": 0
+  },
   "runtime_sdk_core_and_archive_unchanged": true,
   "linux_unconfigured_mcp_protocol": {
     "result": "passed",
