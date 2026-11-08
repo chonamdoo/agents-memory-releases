@@ -1,0 +1,46 @@
+{
+  "schema": "agents-memory-relevance-candidate-identity-v1",
+  "runtime_version": "2.0.0",
+  "sdk_version": "2.0.0",
+  "marketplace_package_version": "2.0.4",
+  "release_target": "v2.0.4",
+  "source_commit": "9870d4f4edbbf5e75f4c67e2daab9fcb822e5fb4",
+  "archive": {
+    "name": "agents-memory-unified-2.0.0-source-subject-v17.tar.gz",
+    "sha256": "62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef",
+    "bytes": 235844
+  },
+  "core_wheels": {
+    "agents_memory_core-2.0.0-cp312-none-any.whl": "bb4307f72380d4738c4c9305bafec1b70232ec93e153336fbd995619d5b9b0b2",
+    "agents_memory_core-2.0.0-cp313-none-any.whl": "8096e885d9786e01e9aa9a4d039cafc3ee18bca92316554d25e615fe497f106b"
+  },
+  "sdk_wheel_sha256": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+  "sdk_python_modules": 16,
+  "sdk_package_files": {
+    "agents_memory_collab/__init__.py": "f730edaf4cec2e8203922e21befe02571ff68fe7c4a6d5fcc10ff329c8540328",
+    "agents_memory_collab/automation.py": "7bd27f9dff8e6989790b056c4ab6792fcd658f2b74314a8c191804375c38c80c",
+    "agents_memory_collab/automation_setup.py": "11fa4ac1f61a6c5b7f164a5cf38a8dd2926cf14dab0ce41fe57342b24721063a",
+    "agents_memory_collab/cli.py": "899d7e3bef64fbd11a2f13f5916ba094fb082eb45814c35005f284257384b0a6",
+    "agents_memory_collab/client.py": "a1c406f961a84aa5167dc7adc7850d47c0bdbff5e87580faec362bb17ce20ebc",
+    "agents_memory_collab/embedding.py": "e1ba3d501829ef4ece988ad56728f5a9093287a58cc48d31140ff3bff7be4f09",
+    "agents_memory_collab/generation_transport.py": "a05a8dc6f0b8b76cb97ee13e288543982df6c7133dc6fca2c618aea083bf1e22",
+    "agents_memory_collab/hindsight.py": "3fba887521a1cfe33fbe666b6579d13ae314c2436da9243e8007effeeb800e4a",
+    "agents_memory_collab/memory_engine.py": "4694d30fb8a38f3225b7dba61a5d2961426b284c76b2a056419032548a2c0cb5",
+    "agents_memory_collab/models.py": "7ab7cfdc7a65a51bf4639346b9328adc4753c641e435223bc3db3a0573f11e0f",
+    "agents_memory_collab/omp_memory.ts": "5db1c25dd4b24fa2d75e0055b7ad9801f9de55d9555e64999a822c736b11217a",
+    "agents_memory_collab/protocol.py": "98a11408abdeede91fcd2a9a8c7c12153b3708cef2ab2ea0ff34bc2c7f651e4c",
+    "agents_memory_collab/recall_relevance.py": "bf4032d5f20bb90ac7fb0f43716f571cc036dc007804decc1d15bfe35981ae6a",
+    "agents_memory_collab/schema.sql": "8c15194b2552c79139868fd1cb2baa642418405c812b3324a87a4d50f84cd6b7",
+    "agents_memory_collab/setup.py": "74c919b25d30e9395ccc5b0c4cc1218377ed921f52fe1a440a193587bdfb8db1",
+    "agents_memory_collab/stdio.py": "3a1c6c7caf65f03d9abfea80426d58b38cc22be35f341ea58d63bd3051d14458",
+    "agents_memory_collab/store.py": "df7979c84a70e7527f0632cd228f1a2be08277ea6052293824f15a61330cb69b",
+    "agents_memory_collab/web.py": "2f852a903c7d9f1c8922ad39b1ab80b540148c4c6cb5929122479224f685684c"
+  },
+  "archive_members": 14,
+  "source_free_core_unchanged": true,
+  "previous_candidate_archive_sha256": "576c00e85cdabbbb2dd93305a1da97682a3bba59dc744b2c9e3a8a1eaad4dfd8",
+  "new_variant_has_not_used_old_scores_as_passing_evidence": true,
+  "quality_status_at_build": "pending new blind cohort; old candidate failed noise80/200",
+  "identity_snapshot_only": true,
+  "current_qualification_status": "../v2.0.0-stable/STATUS.json"
+}

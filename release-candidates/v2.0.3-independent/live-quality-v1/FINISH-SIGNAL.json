@@ -1,0 +1,234 @@
+{
+  "schema": "actual-linux-integrated-finish-signal-v1",
+  "at": 1794143002.8909407,
+  "measured_quality": "FAIL",
+  "strict_release_gate_status": "fail",
+  "strict_complete": true,
+  "adapter_exit_code_is_completeness_not_quality": 0,
+  "summary_path": "/workspace/scratch/jev197-evaluation/independent-linux-runtime/integrated-live-001/output/strict-ledger/integrated-evaluation/48abcf1a6ae328562eda33ad625c86cbafe73eef301e7b7175a7269fd1f30487.summary.json",
+  "summary_sha256": "d56b456ac0d7692edbb42c1a4df394138727c7bedf87dee6ebb9a4e8c65ed1f7",
+  "failed_metrics": [
+    "top5_noise"
+  ],
+  "metrics": {
+    "admission_auto_precision": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.8,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 40,
+      "total": 40,
+      "wilson95": [
+        0.9123783988027135,
+        1.0
+      ]
+    },
+    "admission_auto_recall": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.6,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 40,
+      "total": 40,
+      "wilson95": [
+        0.9123783988027135,
+        1.0
+      ]
+    },
+    "auto_precision": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.8,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 40,
+      "total": 40,
+      "wilson95": [
+        0.9123783988027135,
+        1.0
+      ]
+    },
+    "auto_recall": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.6,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 40,
+      "total": 40,
+      "wilson95": [
+        0.9123783988027135,
+        1.0
+      ]
+    },
+    "background_judgment_p95": {
+      "maximum_seconds": 30,
+      "samples": 196,
+      "seconds": 21.522241705999477,
+      "status": "pass",
+      "timing": "case_wall_clock_including_guard_and_processing"
+    },
+    "continuation_hit_at_5": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.75,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 40,
+      "total": 40,
+      "wilson95": [
+        0.9123783988027135,
+        1.0
+      ]
+    },
+    "decision_audit_coverage_all": {
+      "comparison": "exact_census",
+      "minimum": 1.0,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 196,
+      "total": 196,
+      "wilson95": [
+        0.980777468082132,
+        1.0
+      ]
+    },
+    "explicit_processed": {
+      "comparison": "exact_census",
+      "minimum": 1.0,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 80,
+      "total": 80,
+      "wilson95": [
+        0.9541818704644728,
+        0.9999999999999999
+      ]
+    },
+    "legitimate_explicit_admitted": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.95,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 80,
+      "total": 80,
+      "wilson95": [
+        0.9541818704644728,
+        0.9999999999999999
+      ]
+    },
+    "legitimate_explicit_stored": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.95,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 80,
+      "total": 80,
+      "wilson95": [
+        0.9541818704644728,
+        0.9999999999999999
+      ]
+    },
+    "raw_audit_coverage_decisions_including_review": {
+      "comparison": "exact_census",
+      "minimum": 1.0,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 196,
+      "total": 196,
+      "wilson95": [
+        0.980777468082132,
+        1.0
+      ]
+    },
+    "top5_noise": {
+      "comparison": "wilson95_upper",
+      "maximum": 0.3,
+      "rate": 0.4,
+      "status": "fail",
+      "successes": 80,
+      "total": 200,
+      "wilson95": [
+        0.33460578566807336,
+        0.46916327960737997
+      ]
+    }
+  },
+  "retrieval": {
+    "completed": 40,
+    "empty_results": 0,
+    "generated_answers_evaluated": false,
+    "hits": 40,
+    "irrelevant_rows": 80,
+    "joint_required_evidence_sufficient": 40,
+    "noise_denominator_returned_source_occurrences": 200,
+    "noise_numerator_irrelevant_source_occurrences": 80,
+    "questions": 40,
+    "returned_rows": 200
+  },
+  "storage": {
+    "committed_native_local": 120,
+    "failures": 0,
+    "false_success": 0,
+    "status": "pass"
+  },
+  "outcomes": {
+    "discard": 32,
+    "keep": 120,
+    "review": 44
+  },
+  "call_budget": {
+    "all_calls_one_evaluation_session": true,
+    "judgment_requests": 196,
+    "maximum": 197,
+    "status": "pass",
+    "user_turns": 196
+  },
+  "new_jev_child_reserved": 196,
+  "child_failed_or_pending": 0,
+  "historical_jev_reserved": 418,
+  "jev_session_reserved": 614,
+  "jev_session_remaining": 386,
+  "common_counts_at_finish": [
+    {
+      "provider": "jev",
+      "stage": "completed",
+      "count": 196
+    }
+  ],
+  "common_total_at_finish": 196,
+  "common_total_cap": 1000,
+  "future_jev_cap": 582,
+  "future_jev_remaining": 386,
+  "immutable_counter_backups": {
+    "common": {
+      "path": "/workspace/scratch/jev197-evaluation/independent-linux-runtime/integrated-live-001/FINISH-COUNTERS/common.sqlite",
+      "sha256": "44ab2a49266978b33796fb87d82a5a5230af48efb8c603335fffb45ffb3c1beb",
+      "source_path": "/workspace/scratch/jev197-evaluation/private/future-measured-1000-v1/future-attempts.sqlite"
+    },
+    "child": {
+      "path": "/workspace/scratch/jev197-evaluation/independent-linux-runtime/integrated-live-001/FINISH-COUNTERS/child.sqlite",
+      "sha256": "dcac38bab911e031ca3b2e531db7ae433f64ea91dcba2a0e510ed2c34afcb1d1",
+      "source_path": "/workspace/scratch/jev197-evaluation/private/independent-ai-v1-r2-budget/attempts.sqlite"
+    }
+  },
+  "cleanup": {
+    "container_running": false,
+    "container_oom_killed": false,
+    "runtime_residual_pids": [],
+    "fresh_pg_postmaster_pid_present": false,
+    "resources": {
+      "cpu.max": "200000 100000",
+      "memory.max": "4294967296",
+      "memory.swap.max": "0",
+      "pids.max": "256",
+      "memory.peak": "4180643840",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+      "pids.events": "max 0",
+      "cpu.stat": "usage_usec 4490097158\nuser_usec 4389126823\nsystem_usec 100970335\nnice_usec 0\nnr_periods 49666\nnr_throttled 95\nthrottled_usec 1045081\nnr_bursts 0\nburst_usec 0"
+    }
+  },
+  "new_cli_calls": 0,
+  "source_or_label_or_metric_changes_during_run": false,
+  "historical_codex117_underlying_http": null,
+  "historical_omp3_underlying_http": null,
+  "past_unknowns_reset": false,
+  "actual_dollar_spend": null
+}

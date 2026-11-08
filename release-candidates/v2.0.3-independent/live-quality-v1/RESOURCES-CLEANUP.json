@@ -1,0 +1,73 @@
+{
+  "schema": "actual-integrated-resources-cleanup-safe-v1",
+  "container_id": "21a8614371b03878dae9d49eb827506a80deae659a34c60b0cc0a64183d4fb92",
+  "image": "sha256:d9b8c34d61a9b9a3c44cab883d7d2f2619d674966ab520186f799cf32e3e0377",
+  "user": "1000:1000",
+  "limits": {
+    "NetworkMode": "bridge",
+    "ReadonlyRootfs": true,
+    "Memory": 4294967296,
+    "MemorySwap": 4294967296,
+    "NanoCpus": 2000000000,
+    "PidsLimit": 256,
+    "CapDrop": [
+      "ALL"
+    ],
+    "SecurityOpt": [
+      "no-new-privileges"
+    ],
+    "Tmpfs": {
+      "/dev/shm": "rw,nosuid,nodev,noexec,size=32m",
+      "/scratch": "rw,exec,nosuid,nodev,uid=1000,gid=1000,mode=0700,size=512m"
+    }
+  },
+  "environment_names_only": [
+    "HTTP_PROXY",
+    "ALL_PROXY",
+    "http_proxy",
+    "https_proxy",
+    "all_proxy",
+    "REQUESTS_CA_BUNDLE",
+    "HOME",
+    "TMPDIR",
+    "HTTPS_PROXY",
+    "NO_PROXY",
+    "no_proxy",
+    "SSL_CERT_FILE",
+    "PYTHONDONTWRITEBYTECODE",
+    "PATH"
+  ],
+  "exit": {
+    "Status": "exited",
+    "Running": false,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 0,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-11-08T11:14:10.40143844Z",
+    "FinishedAt": "2026-11-08T13:03:12.142152796Z"
+  },
+  "adapter_attach_exit_code": 0,
+  "cleanup": {
+    "container_running": false,
+    "container_oom_killed": false,
+    "runtime_residual_pids": [],
+    "fresh_pg_postmaster_pid_present": false,
+    "resources": {
+      "cpu.max": "200000 100000",
+      "memory.max": "4294967296",
+      "memory.swap.max": "0",
+      "pids.max": "256",
+      "memory.peak": "4180643840",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+      "pids.events": "max 0",
+      "cpu.stat": "usage_usec 4490097158\nuser_usec 4389126823\nsystem_usec 100970335\nnice_usec 0\nnr_periods 49666\nnr_throttled 95\nthrottled_usec 1045081\nnr_bursts 0\nburst_usec 0"
+    }
+  },
+  "fresh_postgresql": true,
+  "previous_postgresql_snapshot_reused": false,
+  "all_runtime_components_inside_same_cgroup": true
+}

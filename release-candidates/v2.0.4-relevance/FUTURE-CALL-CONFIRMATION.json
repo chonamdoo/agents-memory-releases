@@ -1,0 +1,29 @@
+{
+  "schema": "future-supplier-budget-explicit-confirmation-v1",
+  "user_answer": "새 계측 경로 최대 1,000회 추가 승인",
+  "confirmed_at": "2026-11-08T22:02:16.288025+09:00",
+  "financial_authority_sha256": "31636c1cdb02970c35a617118765fc3210cd7134c041edd960e4ea8f9ac59b32",
+  "same_already_disclosed_future_pool": true,
+  "additional_stacked_pool": false,
+  "total_cap": 1000,
+  "provider_caps": {
+    "jev": 582,
+    "codex": 150,
+    "claude": 150,
+    "omp": 147
+  },
+  "already_reserved_counts": [
+    [
+      "jev",
+      "completed",
+      196
+    ]
+  ],
+  "already_spent_is_not_reset": true,
+  "original_authority_bytes_modified": false,
+  "reserved_at_this_snapshot": 196,
+  "shared_remaining_at_snapshot": 804,
+  "jev_cumulative_at_snapshot": 614,
+  "jev_remaining_at_snapshot": 386,
+  "new_v2_provider_calls": 0
+}

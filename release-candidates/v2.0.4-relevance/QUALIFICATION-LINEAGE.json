@@ -1,0 +1,15 @@
+{
+  "schema": "initial-stable-qualification-candidate-lineage-v1",
+  "original_candidate": "v2.0.3",
+  "repair_candidate": "v2.0.4",
+  "reason": "Claude caches setup instructions by marketplace package version. A repaired bundle pointer requires a new patch version within the same ongoing initial stable qualification task.",
+  "owner_continuation_instruction": "계속해서 이제 배포버전만들자",
+  "original_reference_exception_instruction": "누락 6개를 공개하고 새 독립 평가 진행",
+  "numeric_quality_safety_resource_call_gates_changed": false,
+  "missing_reference_roles_expanded": false,
+  "original_reference_authorization_path": "release-candidates/v2.0.3-independent/REFERENCE-AUTHORIZATION.json",
+  "original_reference_authorization_sha256": "0f0efaf67bee752f4a3727f3695038c8c4af79d2e0dab5da905bca178966e809",
+  "scope": "Same initial stable release preparation after a failed candidate; the identical six historical comparisons remain unverified. This does not authorize exceptions for unrelated future releases.",
+  "original_financial_authority_sha256": "31636c1cdb02970c35a617118765fc3210cd7134c041edd960e4ea8f9ac59b32",
+  "ledger_reset": false
+}

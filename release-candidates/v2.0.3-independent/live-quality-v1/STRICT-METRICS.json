@@ -1,0 +1,238 @@
+{
+  "schema": "actual-integrated-strict-metrics-safe-v1",
+  "source_summary_sha256": "d56b456ac0d7692edbb42c1a4df394138727c7bedf87dee6ebb9a4e8c65ed1f7",
+  "source_manifest_sha256": "68fe0e980f1d7b8aae33e79e34661e1c63d487c82b41c10bd4452f503398dc61",
+  "quality_status": "FAIL",
+  "release_gate_status": "fail",
+  "complete": true,
+  "process_exit_zero_means_census_complete_not_quality_pass": true,
+  "policy": "admission-2026-11-08-origin-v16",
+  "scope": "independently_authored_synthetic_not_production_distribution",
+  "class_counts": {
+    "auto": 40,
+    "chatter": 32,
+    "explicit": 80,
+    "quote": 20,
+    "unsafe": 24
+  },
+  "outcomes": {
+    "discard": 32,
+    "keep": 120,
+    "review": 44
+  },
+  "census": {
+    "case_identities_complete": true,
+    "expected_cases": 196,
+    "expected_queries": 40,
+    "query_identities_complete": true,
+    "unique_cases": 196,
+    "unique_queries": 40
+  },
+  "metrics": {
+    "admission_auto_precision": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.8,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 40,
+      "total": 40,
+      "wilson95": [
+        0.9123783988027135,
+        1.0
+      ]
+    },
+    "admission_auto_recall": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.6,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 40,
+      "total": 40,
+      "wilson95": [
+        0.9123783988027135,
+        1.0
+      ]
+    },
+    "auto_precision": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.8,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 40,
+      "total": 40,
+      "wilson95": [
+        0.9123783988027135,
+        1.0
+      ]
+    },
+    "auto_recall": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.6,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 40,
+      "total": 40,
+      "wilson95": [
+        0.9123783988027135,
+        1.0
+      ]
+    },
+    "background_judgment_p95": {
+      "maximum_seconds": 30,
+      "samples": 196,
+      "seconds": 21.522241705999477,
+      "status": "pass",
+      "timing": "case_wall_clock_including_guard_and_processing"
+    },
+    "continuation_hit_at_5": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.75,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 40,
+      "total": 40,
+      "wilson95": [
+        0.9123783988027135,
+        1.0
+      ]
+    },
+    "decision_audit_coverage_all": {
+      "comparison": "exact_census",
+      "minimum": 1.0,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 196,
+      "total": 196,
+      "wilson95": [
+        0.980777468082132,
+        1.0
+      ]
+    },
+    "explicit_processed": {
+      "comparison": "exact_census",
+      "minimum": 1.0,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 80,
+      "total": 80,
+      "wilson95": [
+        0.9541818704644728,
+        0.9999999999999999
+      ]
+    },
+    "legitimate_explicit_admitted": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.95,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 80,
+      "total": 80,
+      "wilson95": [
+        0.9541818704644728,
+        0.9999999999999999
+      ]
+    },
+    "legitimate_explicit_stored": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.95,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 80,
+      "total": 80,
+      "wilson95": [
+        0.9541818704644728,
+        0.9999999999999999
+      ]
+    },
+    "raw_audit_coverage_decisions_including_review": {
+      "comparison": "exact_census",
+      "minimum": 1.0,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 196,
+      "total": 196,
+      "wilson95": [
+        0.980777468082132,
+        1.0
+      ]
+    },
+    "top5_noise": {
+      "comparison": "wilson95_upper",
+      "maximum": 0.3,
+      "rate": 0.4,
+      "status": "fail",
+      "successes": 80,
+      "total": 200,
+      "wilson95": [
+        0.33460578566807336,
+        0.46916327960737997
+      ]
+    }
+  },
+  "retrieval": {
+    "completed": 40,
+    "empty_results": 0,
+    "generated_answers_evaluated": false,
+    "hits": 40,
+    "irrelevant_rows": 80,
+    "joint_required_evidence_sufficient": 40,
+    "noise_denominator_returned_source_occurrences": 200,
+    "noise_numerator_irrelevant_source_occurrences": 80,
+    "questions": 40,
+    "returned_rows": 200
+  },
+  "storage": {
+    "committed_native_local": 120,
+    "failures": 0,
+    "false_success": 0,
+    "status": "pass"
+  },
+  "hard_gate_observations": {
+    "chatter_admitted": 0,
+    "class_label_eligible": true,
+    "explicit_promotion_by_class": {
+      "chatter": 0,
+      "quote": 0,
+      "unsafe": 0
+    },
+    "explicit_unexplained": 0,
+    "false_success": 0,
+    "idempotency_attribution_false_success": 0,
+    "immutable_storage_receipts": 120,
+    "quote_admitted": 0,
+    "search_zero_and_fault_injection": null,
+    "source_secret_admitted": 0,
+    "source_secret_cases": 0,
+    "source_secret_native_documents": 0,
+    "source_secret_outbox_rows": 0,
+    "source_secret_provider_transmissions": 0,
+    "source_secret_raw_jobs": 0,
+    "source_secret_server_memories": 0,
+    "unsafe_admitted": 0
+  },
+  "call_budget": {
+    "all_calls_one_evaluation_session": true,
+    "judgment_requests": 196,
+    "maximum": 197,
+    "status": "pass",
+    "user_turns": 196
+  },
+  "unmeasured_gates": {
+    "compaction_survival": {
+      "minimum_wilson95_lower": 0.9,
+      "reason": "admission_only_no_compaction_probe",
+      "status": "unknown"
+    },
+    "shared_provider_call_cap": {
+      "maximum": 1000,
+      "reason": "Jev child reservations are measured separately; other provider HTTP attempt counts are not certified by this adapter",
+      "status": "unknown"
+    }
+  },
+  "unknown_quality": [
+    "native_compaction",
+    "human_origin",
+    "live_subscription"
+  ],
+  "dataset_texts_labels_and_raw_model_responses_not_bundled": true
+}

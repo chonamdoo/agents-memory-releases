@@ -109,8 +109,8 @@
     },
     {
       "id": "live_admission",
-      "status": "partial",
-      "reason": "Fresh fixed-v16 actual Jev194 calls +2guards:80/80 legitimate,40/40 auto precision/recall,0negativekeeps,194/194audit. Recorded exact responses through real Store/Native commit120, explicit80/80. Single-author/executable-contract engineering scope; original independent-label claim unverified.",
+      "status": "met",
+      "reason": "Last measured SDK14ba/Corebb independent196/40 census: legitimate80/80 andauto40/40 actual Native/server/local commits; original labels/signoffs and priors unchanged. Success does not qualify the separate repaired successor without its own run.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-jev197/FRESH-ADMISSION.json",
@@ -123,13 +123,17 @@
         {
           "path": "release-candidates/v2.0.0-jev197/FRESH-JEV-LATENCY.json",
           "sha256": "8e45789d85c8efb98a5c9e399fb632dab37281966c73dd3e1426d45475cb4f7f"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/live-quality-v1/STRICT-METRICS.json",
+          "sha256": "fc92306150d7cc730800e9610e9f0198a0299e4bb2a479e332be91f7751477b5"
         }
       ]
     },
     {
       "id": "live_retrieval",
-      "status": "partial",
-      "reason": "Final same-byte actualMCP/SDK/Native40query engineering run completed: related40/40,all-required40/40 (Wilson lower0.912378),noise20/140 (upper0.210370). Numeric thresholds met; ten corrected development questions, consumed one-author data and missing original independent labels/signoffs prevent treating it as the original contract or v43 passing evaluation.",
+      "status": "fail",
+      "reason": "Independent real196/40 complete: hit/all-required40/40, but noise80/200=.40 Wilsonupper.46916327960737997>.30. Original questions/gold/filter/denominator unchanged. Consumed cohort retained for diagnosis; successor not yet evaluated.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-jev197/FRESH-BASELINE-RETRIEVAL.json",
@@ -146,6 +150,10 @@
         {
           "path": "release-candidates/v2.0.0-jev197/QUESTION-REPAIR-PLAN.json",
           "sha256": "a3b3cec4c3356dacfef0a5a2c35805fd7ee7f40305e25d7df2de4e5a7f961ad9"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/live-quality-v1/STRICT-METRICS.json",
+          "sha256": "fc92306150d7cc730800e9610e9f0198a0299e4bb2a479e332be91f7751477b5"
         }
       ]
     },
@@ -169,6 +177,10 @@
         {
           "path": "release-candidates/v2.0.3-independent/OFFLINE-FAULTS.json",
           "sha256": "ae97e510240076097c6879ee90e17af8b599bfea459a4ea307ef262f8420f5ab"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/live-quality-v1/STRICT-METRICS.json",
+          "sha256": "fc92306150d7cc730800e9610e9f0198a0299e4bb2a479e332be91f7751477b5"
         }
       ]
     },
@@ -271,7 +283,7 @@
     {
       "id": "resources_and_budget",
       "status": "partial",
-      "reason": "New source-free Linux full-runtime preparation passed freshPG/Native1.1/E5/BGE/49pins under2CPU4GiB swap0 OOM0; actual196 quality load not executed. Jev418spent/615capacity metadata/1000ceiling preserved. Past Codex117 nativeops and OMP3 fetch callbacks do not establish exact supplier attempts; neither old budget passes nor overrun is claimed. Future common counters and approval-before-claim are prepared, no new actual authorization.",
+      "reason": "Last measured run passed2CPU4GiB swap0/OOM0 and completed196bounded Jev sends. Cumulative Jev614/1000; shared new1000pool196spent/804remaining. Earlier Codex117operations/OMP3fetch underlying wire counts remain unknown. Successor runtime and genuine host-provider verification remain pending.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-jev197/FINAL-RESOURCE-AUDIT.json",
@@ -308,6 +320,18 @@
         {
           "path": "release-candidates/v2.0.3-independent/FUTURE-CALL-PLAN.json",
           "sha256": "61094e9f4b2126ea5aea2f18ca5bc84a237fb654ad56b78f08ece63cbc1b80de"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/live-quality-v1/CALL-LEDGER-196.json",
+          "sha256": "cb8cb04353985003d5d2cb6b36e2cff8bc629f1724fb6eafb9b8fae01e128592"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/live-quality-v1/RESOURCES-CLEANUP.json",
+          "sha256": "d1e0b947658029e61b7f27b26b96b2cdc4589986f0028d2121e3cb7a9b6708d2"
+        },
+        {
+          "path": "release-candidates/v2.0.4-relevance/FUTURE-CALL-CONFIRMATION.json",
+          "sha256": "baed642ce19f0994168004bdc7fc58855d0b692a82f7af35037c271c68845a6c"
         }
       ]
     },
@@ -382,8 +406,8 @@
   },
   "current_extra_jev_attempts": {
     "authorized_cumulative": 1000,
-    "reserved_in_this_evaluation": 418,
-    "remaining": 582,
+    "reserved_in_this_evaluation": 614,
+    "remaining": 386,
     "original_197_preserved": 197,
     "followup_19_preserved": 19,
     "failed_process_reservations": 1,
@@ -455,13 +479,43 @@
     "exact_known_overlap": 0
   },
   "future_actual_execution": {
-    "approval_received": false,
-    "new_supplier_calls": 0,
-    "new196_product_inferences": 0,
+    "approval_received": true,
+    "new_supplier_calls": 196,
+    "new196_product_inferences": 196,
     "codex_counted_controller": "36/36 fake only,108local transmissions",
     "claude_counted_controller": "36/36 fake only,144local transmissions",
     "omp_counted_controller": "36/36 fake only,144local transmissions; optional metadata removal afterward verified on exact final freeze1case/4transmissions",
     "historical_native_wire_counts_recoverable": false,
-    "proposal": "FUTURE-CALL-PLAN.json; explicit NEW future-pool approval absent; old unknown counts not reset"
+    "proposal": "Explicitly confirmed same future1000 pool;196spent preserved, shared804remaining/Jev386remaining",
+    "measured_cohort": "independent-ai-v1; complete196/40; FAILnoise80/200",
+    "new_v2_product_inferences": 0
+  },
+  "candidate_role": "Last fully measured candidate. Repaired successor is separately identified in next_candidate.",
+  "next_candidate": {
+    "release_tag": "v2.0.4",
+    "marketplace_package_version": "2.0.4",
+    "runtime_version": "2.0.0",
+    "sdk_wheel_sha256": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+    "archive_sha256": "62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef",
+    "identity_path": "release-candidates/v2.0.4-relevance/CANDIDATE.json",
+    "identity_sha256": "069b86b96c435013721e1ef89b1afc759ce5260cae006b52fa65f72491b600d8",
+    "source_postgresql_regression": {
+      "collected": 110,
+      "passed": 110,
+      "failed": 0,
+      "skipped": 0,
+      "scope": "owned PostgreSQL/HTTP/MCP and scripted engines, unchanged fixtures, not real Hindsight semantic quality"
+    },
+    "new_raw_labels": {
+      "authors": "two new separate AI annotators",
+      "class_kappa": 1.0,
+      "relevance_kappa": 1.0,
+      "question_changes": 0,
+      "known_available_reference_fields": 764,
+      "exact_known_overlap": 0,
+      "final_candidate_signoffs": false
+    },
+    "real_quality": "not_run",
+    "ready_to_promote": false
   }
 }
