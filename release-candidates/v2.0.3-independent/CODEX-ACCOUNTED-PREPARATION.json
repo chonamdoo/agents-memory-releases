@@ -1,0 +1,26 @@
+{
+  "schema": "accounted-codex-zero-paid-preparation-public-v1",
+  "status": "fake_functional_passed_actual_live_unverified",
+  "private_readiness_sha256": "c203c13b7fdd9bafe340b230fef127c82a42256b03be89ffee1018caee2b574b",
+  "execution_freeze_sha256": "4262865c5557901bd351da32c8b5d5f6085bee27f093c0b4c4b4fccb1facb7b9",
+  "cases": 36,
+  "fake_functional_successes": 36,
+  "native_operations": 108,
+  "counted_fake_http_attempts": 108,
+  "official_cli_one_app_server": true,
+  "new_threads": 36,
+  "real_provider_calls": 0,
+  "real_credential_profile_reads": 0,
+  "hard_resource_total": {
+    "cpu": 2,
+    "memory_bytes": 4294967296,
+    "swap": 0,
+    "pids": 256
+  },
+  "resource_method": "Partitioned worker1.75CPU/3.75GiB and relay0.25CPU/0.25GiB; sum2CPU/4GiB, same two CPU cpuset; not one parent cgroup",
+  "network_egress_enforced": "network-none native client -> private loopback/0600 UDS -> fixed official upstream relay with common counter",
+  "redirect_websocket": "No redirects followed; WebSocket fails closed",
+  "auth_gate": "Missing/proposal/synthetic approvals rejected before auth read",
+  "previous_117_exact_supplier_count": null,
+  "actual_live_oauth_and_provider_compatibility": "unverified"
+}

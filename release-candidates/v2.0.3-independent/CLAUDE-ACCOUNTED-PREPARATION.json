@@ -1,0 +1,24 @@
+{
+  "schema": "accounted-claude-zero-paid-preparation-public-v1",
+  "private_readiness_sha256": "d60355787723f828ea1105e023ef69a27432a3b11c855bc0e7a67eb6752328c5",
+  "execution_freeze_sha256": "ca240a80ea2a73d0189ea9389d7658fdf4984f8bc0925a695687d643c5b8a792",
+  "status": "fake_functional_passed_actual_live_unverified",
+  "cases": 36,
+  "fake_functional_successes": 36,
+  "native_operations": 108,
+  "counted_fake_http_attempts": 144,
+  "per_provider_cap": 150,
+  "fake_oauth_bearer_on_all_144": true,
+  "actual_credentials_read": false,
+  "real_provider_calls": 0,
+  "native_tools_executed": 0,
+  "hard_resource_total": {
+    "cpu": 2,
+    "memory_bytes": 4294967296,
+    "swap": 0,
+    "pids": 256
+  },
+  "resource_method": "Partitioned worker1.75CPU/3.75GiB+relay0.25CPU/0.25GiB",
+  "auth_gate": "Actual explicit hash-bound approval required before auth-profile read; Native CLI reads only private copied profile",
+  "actual_oauth_provider_and_model_quality": "unverified"
+}

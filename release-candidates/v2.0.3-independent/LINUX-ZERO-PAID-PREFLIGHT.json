@@ -1,0 +1,84 @@
+{
+  "schema": "strict-linux-full-runtime-zero-paid-preparation-v2",
+  "status": "passed_dryrun_only",
+  "ready_for_paid_execution": false,
+  "executed_adapter_sha256": "5424dfaa8b81d2b843c0e329d9266d768c78b86cb96ffa9c22198f27655f93d1",
+  "corpus_manifest_sha256": "210fc22f7dce17b99c38525d8f2903f6a39ddbeb000dcaa714272da1bf78ed45",
+  "quality_function_AST_unchanged": {
+    "release_integrated_evaluate.py:inspect_case": true,
+    "release_integrated_evaluate.py:report_results": true,
+    "release_integrated_evaluate.py:continuation": true,
+    "release_evaluate.py:metric": true,
+    "release_evaluate.py:raw_audit": true,
+    "release_evaluate.py:summary": true,
+    "release_evaluate.py:refresh_case_evidence": true
+  },
+  "strict_manifest_sha256": "461a5abe55c5952e7165be6e5e37ac3b7ecd6d1c6988d4cad3b5ef37ab50c1f2",
+  "strict_dryrun_report_sha256": "251601d6f9d4d8313919ebe11050e679a44297f56884edb44b26e548ed0a992e",
+  "config_sha256": "27a33c62167ec847a64768ddc865dd45892919dccaac53a235f8e66d01468748",
+  "runtime": {
+    "fresh_owned_postgres": true,
+    "old_snapshot_restored": false,
+    "hindsight_version": "1.1.0",
+    "hindsight_python_tree_sha256": "5a147dfc212e2f2bf5d13b405413e0fc13e9d48654e46a097c0b6e9c895e3783",
+    "installed_source_free_wheels_and_sql_verified": true,
+    "gateway_dependencies_checked": 55,
+    "e5_384_cpu_and_bge_onnx_initialized": true,
+    "profile_pins_verified": 49,
+    "e5_and_bge_full_asset_hashes_verified": true,
+    "gateway_listener_started": false,
+    "gateway_scope": "Strict dryrun returns before Gateway start; no Gateway readiness, storage, recall or quality pass claimed"
+  },
+  "inputs": {
+    "cases": 196,
+    "questions": 40,
+    "class_kappa": 1.0,
+    "relevance_kappa": 1.0,
+    "question_changes": 0,
+    "full_historical_comparison_verified": false,
+    "six_missing_references_disclosed": true
+  },
+  "calls": {
+    "new_supplier_calls": 0,
+    "new_196_product_inferences": 0,
+    "new_196_storage_operations": 0,
+    "new_196_recall_queries": 0,
+    "jev_reserved_before_and_after": 418,
+    "allocated_capacity": 615,
+    "child_attempts": 0,
+    "real_key_visible": false,
+    "future_authorization": "proposal_only; actual paid factory rejects before reading key",
+    "past_codex_http_count": null
+  },
+  "isolation": {
+    "network": "none",
+    "read_only_root": true,
+    "uid": "1000:1000",
+    "cap_drop": "ALL",
+    "no_new_privileges": true,
+    "resource_limits": {
+      "cpu.max": "200000 100000",
+      "memory.max": "4294967296",
+      "memory.swap.max": "0",
+      "pids.max": "256",
+      "memory.peak": "3818864640",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+      "pids.events": "max 0",
+      "cpu.stat": "usage_usec 33264117\nuser_usec 19000434\nsystem_usec 14263682\nnice_usec 0\nnr_periods 336\nnr_throttled 1\nthrottled_usec 42300\nnr_bursts 0\nburst_usec 0"
+    },
+    "actual_process_cleanup_confirmed": true,
+    "exit_code": 0,
+    "oom_killed": false
+  },
+  "actual_labeled_quality_evaluation_completed": false,
+  "private_source_report_sha256": "d0c937b187e601d28100d9dada4c24caf316b765d585f10b9d384917b9341f6e",
+  "core_pr": 76,
+  "core_merge_commit": "130b633010ecae0009ae187c068f8ac4116e20c9",
+  "approval_order_regression": {
+    "review_comment": 4505851387,
+    "negative_result_sha256": "5b99b4f4c976d87cdab86e231b2d5903305f7032e2813101c6405749694efda6",
+    "proposal_execute_rejected_before_one_shot_claim": true,
+    "model_calls": 0,
+    "manifest_journal_checkpoint_created": false
+  }
+}
