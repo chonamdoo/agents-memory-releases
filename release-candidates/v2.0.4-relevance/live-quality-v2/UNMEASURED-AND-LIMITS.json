@@ -1,0 +1,42 @@
+{
+  "strict_release_gate_status": "unknown",
+  "shared_budget_gate_status": "unknown",
+  "unknown_quality": [
+    "native_compaction",
+    "human_origin",
+    "live_subscription"
+  ],
+  "unmeasured_gates": {
+    "compaction_survival": {
+      "minimum_wilson95_lower": 0.9,
+      "reason": "admission_only_no_compaction_probe",
+      "status": "unknown"
+    },
+    "shared_provider_call_cap": {
+      "maximum": 1000,
+      "reason": "Jev child reservations are measured separately; other provider HTTP attempt counts are not certified by this adapter",
+      "status": "unknown"
+    }
+  },
+  "complete_shared_cap_certified": false,
+  "isolation": {
+    "per_case_replicas": true,
+    "projects": 1,
+    "queue_liveness_proven": false,
+    "sessions": 1,
+    "users": 1
+  },
+  "interpretation": "Unknown fields remain unknown, not passes. AI annotation authorization and other component evidence require separate release review. This adapter does not certify real subscription/native compaction or other-provider historical HTTP caps.",
+  "coverage_gap": {
+    "auto_true_positive": 39,
+    "auto_false_negative": 1,
+    "auto_denominator": 40,
+    "joint_required_evidence_sufficient": 39,
+    "query_denominator": 40,
+    "question_wording_changes": 0,
+    "post_result_relabels_or_retries": 0
+  },
+  "historical_codex117_underlying_http_count": null,
+  "historical_omp3_underlying_http_count": null,
+  "historical_unknowns_reset": false
+}

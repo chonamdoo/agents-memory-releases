@@ -406,13 +406,13 @@
   },
   "current_extra_jev_attempts": {
     "authorized_cumulative": 1000,
-    "reserved_in_this_evaluation": 614,
-    "remaining": 386,
+    "reserved_in_this_evaluation": 804,
+    "remaining": 196,
     "original_197_preserved": 197,
     "followup_19_preserved": 19,
     "failed_process_reservations": 1,
     "original_shared_ledger": "Old historical844/1000 remains unconnected; not reset or represented as this new session ledger.",
-    "allocated_child_capacity": 615
+    "allocated_child_capacity": 812
   },
   "validation_ready": false,
   "ready_to_promote": false,
@@ -473,24 +473,36 @@
     "class_kappa": 1.0,
     "relevance_kappa": 1.0,
     "question_changes": 0,
-    "product_inference_on_new196": false,
+    "product_inference_on_new196": true,
     "historical_full_comparison_verified": false,
-    "known_reference_texts": 528,
-    "exact_known_overlap": 0
+    "known_reference_texts": 764,
+    "exact_known_overlap": 0,
+    "method": "two separately authorized AI annotators, no human annotation claim"
   },
   "future_actual_execution": {
     "approval_received": true,
-    "new_supplier_calls": 196,
+    "new_supplier_calls": 387,
     "new196_product_inferences": 196,
     "codex_counted_controller": "36/36 fake only,108local transmissions",
     "claude_counted_controller": "36/36 fake only,144local transmissions",
     "omp_counted_controller": "36/36 fake only,144local transmissions; optional metadata removal afterward verified on exact final freeze1case/4transmissions",
     "historical_native_wire_counts_recoverable": false,
-    "proposal": "Explicitly confirmed same future1000 pool;196spent preserved, shared804remaining/Jev386remaining",
-    "measured_cohort": "independent-ai-v1; complete196/40; FAILnoise80/200",
-    "new_v2_product_inferences": 0
+    "proposal": "Same approved pool1000,387 charged/613 remaining; Jev386/582; Claude1/150 failed HTTP404; no cap reset",
+    "measured_cohort": "v1 failed noise80/200; fresh preregistered v2 complete196/40 measured gates pass, strict overall unknown",
+    "new_v2_product_inferences": 190,
+    "current_provider_states": {
+      "jev": {
+        "completed": 386
+      },
+      "claude": {
+        "failed": 1
+      },
+      "codex": {},
+      "omp": {}
+    },
+    "failed_attempts_counted": true
   },
-  "candidate_role": "Last fully measured candidate. Repaired successor is separately identified in next_candidate.",
+  "candidate_role": "Historical v2.0.3 last full candidate evaluation failed retrieval noise. Do not apply its component results as v2.0.4 evidence; current v2.0.4 is separately identified in next_candidate.",
   "next_candidate": {
     "release_tag": "v2.0.4",
     "marketplace_package_version": "2.0.4",
@@ -519,7 +531,7 @@
         "b": "7276f7a85fd9d76dc346357e6eb9b5f1e3e80a2190d75f15e2cb14de79a1c8dc"
       }
     },
-    "real_quality": "running_after_preregistered_inputs_and_both_AI_signoffs",
+    "real_quality": "complete_all_measured_gates_pass_strict_overall_unknown",
     "ready_to_promote": false,
     "preregistration_commit": "392367ef075b8cb8baec59aafa444cb09002232e",
     "sourcefree_cp313_affected_regression": {
@@ -560,7 +572,62 @@
       "codex_marketplace_entry": "skillonly; standalonepackagedconnectorstatus is notnativeCodexMCPtransportproof",
       "central_directory_approval": false,
       "new_actual_provider_calls": 0
-    }
+    },
+    "measured_live_quality": {
+      "cases": 196,
+      "questions": 40,
+      "explicit_stored": [
+        80,
+        80
+      ],
+      "auto_stored": [
+        39,
+        40
+      ],
+      "confirmed_native_server_provenance": 119,
+      "hit": [
+        40,
+        40
+      ],
+      "joint_required_evidence": [
+        39,
+        40
+      ],
+      "noise": [
+        0,
+        119
+      ],
+      "noise_wilson95_upper": 0.031271680241939506,
+      "background_p95_seconds": 22.35975532500015,
+      "actual_jev_attempts": 190,
+      "source_secret_preprovider_guards": 6,
+      "strict_release_gate_status": "unknown",
+      "generated_answer_quality_evaluated": false,
+      "inputs_labels_denominators_thresholds_unchanged": true
+    },
+    "unified_repeat_update_rollback": {
+      "status": "met",
+      "exact_v17": true,
+      "preserved_database_tables": 13,
+      "preserved_protected_files": 6,
+      "preserved_same_unsent_intent": true,
+      "provider": "localfakeTLS only, no actual auth/profile/model/cohortDB",
+      "peak_memory_bytes": 4294967296,
+      "oom": 0
+    },
+    "remaining_actual_native_verification": {
+      "claude": "not_passed; first live request HTTP404, failed attempt retained and charged; original cause unknown",
+      "codex": "not_run_on_successor",
+      "omp": "not_run_on_successor; supported compaction mode official soft",
+      "all_paid_runs": "stopped pending reviewed error-observation/model and append-only resumption fixes",
+      "claude_native_default_alias_offline": "claude-sonnet-5-5; not actual entitlement proof"
+    },
+    "strict_unknowns_preserved": [
+      "native_compaction",
+      "human_origin (user-authorized AI annotation, not human)",
+      "live_subscription",
+      "past native underlying HTTP counts"
+    ]
   },
   "repaired_candidate_references": [
     {
@@ -630,6 +697,38 @@
     {
       "path": "release-candidates/v2.0.4-relevance/marketplace-delivery/PUBLIC-UPGRADE.json",
       "sha256": "c0210a51394c488e71d2ff6645c46dba587b2be1e95ddb1c60c08ad8bac9b012"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/EXACT-V17-REPEAT-ROLLBACK.json",
+      "sha256": "778591585cf505d8ce2938ad49ce46231767c863791c05419c08b6478808f6b9"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/FROZEN-CALL-COUNTS.json",
+      "sha256": "efac4c301482c39375125156cc04ceec175dc50ca92b751fbc72d3339f518014"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/MEASURED-METRICS.json",
+      "sha256": "9bce71d803e4536de64a1aa9aed89bbc32667cb8634b4b8abc79afb9e86cbb28"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/README.ko.md",
+      "sha256": "b1798df6a18c896ebeaf1056c529551cabde70f1a7511e7ab47206bc7b7efee4"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/REGISTRATION-EXECUTION-HASHES.json",
+      "sha256": "6120f155d47d2380071f9ef891c0482d64285730cd29865489a5a17e23535f7e"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/RESOURCE-CLEANUP.json",
+      "sha256": "861c243dba23aa461e432cc118a92c8e6809836583a794b7fb836456e84032fe"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/SHA256.json",
+      "sha256": "3f0fe1db84ad36845cf17f28620662633e37ba238c58fe89e6f298afdda23045"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/live-quality-v2/UNMEASURED-AND-LIMITS.json",
+      "sha256": "4e4f81e1ed0e3f2e7e3ddeaf6f8a5bfda7c6aed7f785810c1670b652f5f337b9"
     }
   ]
 }

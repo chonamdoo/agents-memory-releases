@@ -1,0 +1,37 @@
+{
+  "source_finish_signal_sha256": "f8d77a3d19bf9e9a47a2c45210cce93954b99957c2b3e8dfdadde94feab13712",
+  "container": {
+    "Status": "exited",
+    "Running": false,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 0,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-11-08T14:37:10.150046546Z",
+    "FinishedAt": "2026-11-08T16:18:52.208548029Z"
+  },
+  "cleanup": {
+    "container_running": false,
+    "container_oom_killed": false,
+    "runtime_residual_pids": [],
+    "fresh_pg_postmaster_pid_present": false,
+    "resources": {
+      "cpu.max": "200000 100000",
+      "memory.max": "4294967296",
+      "memory.swap.max": "0",
+      "pids.max": "256",
+      "memory.peak": "4294336512",
+      "memory.events": "low 0\nhigh 0\nmax 4\noom 0\noom_kill 0\noom_group_kill 0",
+      "pids.events": "max 0",
+      "cpu.stat": "usage_usec 3943762484\nuser_usec 3852417876\nsystem_usec 91344608\nnice_usec 0\nnr_periods 45722\nnr_throttled 93\nthrottled_usec 2952258\nnr_bursts 0\nburst_usec 0"
+    }
+  },
+  "resource_limit_bytes": 4294967296,
+  "actual_peak_bytes": 4294336512,
+  "memory_max_pressure_events": 4,
+  "oom": 0,
+  "scope": "Single Docker cgroup includes fresh PostgreSQL/Native/E5/BGE/SDK/gateway and strict evaluator; CPU2/memory4GiB/swap0/pids256/nonroot/read-only/capdropALL. No prior PG snapshot."
+}
