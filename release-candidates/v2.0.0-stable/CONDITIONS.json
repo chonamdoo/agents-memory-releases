@@ -20,7 +20,7 @@
       "repository": "chonamdoo/agents-memory",
       "commit": "056f0342e9c5f28535cb2561d5091f5b42e601a1",
       "path": "docs/verification.ko.md",
-      "section": "\ud604\uc7ac v43 \ub3c5\ub9bd \uc2e4\uce21 \u2014 \uc815\uc2dd \ucd9c\uc2dc \uc2e4\ud328"
+      "section": "현재 v43 독립 실측 — 정식 출시 실패"
     },
     "user_authorized_local_ci": {
       "through": "2026-12-01",
@@ -35,6 +35,14 @@
     "user_selected_distribution": {
       "channel": "MCP marketplace in chonamdoo/agents-memory-releases, pinned runtime bundle links and installation instructions",
       "release_assets": "Existing9assets/tag preserved; adding a new binary release asset is optional for this user-selected delivery mode. A401 upload remains a distinct asset status, not a requirement to block repository-pinned MCP delivery."
+    },
+    "user_authorized_platform_scope": {
+      "as_of": "2026-11-08",
+      "timezone": "Asia/Seoul",
+      "source": "user instruction in this task",
+      "instruction": "기존 배포 기준에서 맥은 빼 내가 맥에서 테스트할테니 그냥 신경쓰지말고 그거 이외에 동작되면 검증되면 배포해",
+      "macos_required_for_release": false,
+      "other_release_criteria_preserved": true
     }
   },
   "evidence_contract": {
@@ -214,5 +222,29 @@
     ]
   },
   "decision_rule": "All required conditions must be met on the pinned candidate. Partial, blocked, unverified and stale evidence never count as met. No points or averaging.",
-  "execution_safety": "This is a documented contract and status snapshot, not a publisher or an independent evidence verifier."
+  "execution_safety": "This is a documented contract and status snapshot, not a publisher or an independent evidence verifier.",
+  "platform_scope": {
+    "required_release_platforms": [
+      "ubuntu-24.04-linux-x86_64"
+    ],
+    "verified_environment": {
+      "os": "Ubuntu 24.04",
+      "architecture": "x86_64",
+      "glibc": "2.39",
+      "python": [
+        "3.12",
+        "3.13"
+      ]
+    },
+    "macos": {
+      "required_for_release": false,
+      "validation_owner": "requesting_user",
+      "validation_status": "not_verified",
+      "support_claim": "separate user testing; not included in verified Linux release support"
+    },
+    "debian_12_glibc_2_36": {
+      "support_status": "not_supported",
+      "reason": "Preserve observed pinned pgvector loader failure; Linux scope does not imply every Linux distribution is supported."
+    }
+  }
 }

@@ -4,6 +4,9 @@ Claude Code·Codex·OMP에서 함께 사용하는 기억 MCP입니다.
 
 현재 **2.0.0 시험판**입니다. [릴리즈·배포 상태](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0) · [최신 정식 버전 1.0.8](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v1.0.8)
 
+배포 검증 대상은 Ubuntu 24.04의 Linux x86_64입니다. macOS는 사용자 직접 테스트
+대상이며 Linux 정식 배포의 필수 검증 조건에서 제외합니다.
+
 ## 설치
 
 ### Claude Code

@@ -2,7 +2,7 @@
   "schema": "agents-memory-stable-release-status-v1",
   "as_of": "2026-11-08",
   "timezone": "Asia/Seoul",
-  "policy_sha256": "9011b7fc3834b4e563f41a75b2213e8566e76d8e14b0e5027ba49520de4cb86d",
+  "policy_sha256": "4f24f821e4bba861e2e03431012024a5ed50263a209810b949f25227efa098a8",
   "candidate": {
     "runtime_version": "2.0.0",
     "marketplace_package_version": "2.0.3",
@@ -48,7 +48,7 @@
     {
       "id": "regression",
       "status": "met",
-      "reason": "Final SDK322passed zero failures/skips; separate owned QA databases. Shipping search59each on CP312/CP313; serial-runtime38each on source and both shipping wheels. Core base5334/installed899 and explicit Darwin-only5 exclusions retained.",
+      "reason": "Final SDK322passed zero failures/skips; separate owned QA databases. Shipping search59each on CP312/CP313; serial-runtime38each on source and both shipping wheels. Core base5334/installed899 and explicit Darwin-only5 exclusions retained. User excludes macOS validation from release prerequisites; the five Darwin-only cases remain unexecuted, not passed.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-jev197/LOCAL-CI.json",
@@ -195,8 +195,8 @@
     },
     {
       "id": "installation",
-      "status": "partial",
-      "reason": "Genuine pinned bootstrap installation, repeated production updates and final cold configured MCP autostart pass on Linux; credentials/database/models/connection preserved. Supported isolated measurement Ubuntu24.04/glibc2.39 Linuxx86_64. Debian12/glibc2.36 pgvector loader failure preserved; macOS full installation not verified.",
+      "status": "met",
+      "reason": "Linux-only release scope per user instruction: genuine pinned bootstrap, repeated installed updates and cold configured MCP autostart pass on Ubuntu24.04/glibc2.39 x86_64. A real owned failed update restored the prior generation and healthy service; six protected files, models directory, all13existing am_collab database tables and the same queued operation ID/body/status were preserved. Provider verification was fault-injected before process launch (0Jevcalls); this is functional rollback evidence. macOS is user-tested separately and is not required. Debian12 loader failure stays unsupported.",
       "references": [
         {
           "path": "release-candidates/v2.0.0-jev197/OWNED-UPDATE7.json",
@@ -213,6 +213,10 @@
         {
           "path": "release-candidates/v2.0.0-jev197/CP313-V16-RUNTIME.json",
           "sha256": "8ca9ba0e863ea7560e0e21d1871d8c9f6df20c52d49463bc4d915a61ab2ddc48"
+        },
+        {
+          "path": "release-candidates/v2.0.0-jev197/OWNED-LINUX-ROLLBACK.json",
+          "sha256": "bfd870bdfd47306a00486b0eed141f95b4c3df3ff1609d6ff26a5fce7fb90e5f"
         }
       ]
     },
@@ -348,5 +352,29 @@
     "selected": "original-independent-verification",
     "software_only_ga_alternative": "not adopted",
     "all_existing_gates_preserved": true
+  },
+  "platform_scope": {
+    "required_release_platforms": [
+      "ubuntu-24.04-linux-x86_64"
+    ],
+    "verified_environment": {
+      "os": "Ubuntu 24.04",
+      "architecture": "x86_64",
+      "glibc": "2.39",
+      "python": [
+        "3.12",
+        "3.13"
+      ]
+    },
+    "macos": {
+      "required_for_release": false,
+      "validation_owner": "requesting_user",
+      "validation_status": "not_verified",
+      "support_claim": "separate user testing; not included in verified Linux release support"
+    },
+    "debian_12_glibc_2_36": {
+      "support_status": "not_supported",
+      "reason": "Preserve observed pinned pgvector loader failure; Linux scope does not imply every Linux distribution is supported."
+    }
   }
 }
