@@ -1,0 +1,31 @@
+{
+  "financial_authority_sha256": "31636c1cdb02970c35a617118765fc3210cd7134c041edd960e4ea8f9ac59b32",
+  "same_financial_authority_and_ledger": true,
+  "new_corpus_actual_provider_requests": 190,
+  "source_guard_preprovider_cases": 6,
+  "full_source_denominator": 196,
+  "child_cap": 197,
+  "child_failed_or_pending": 0,
+  "future_counts_frozen": [
+    [
+      "jev",
+      "completed",
+      386
+    ]
+  ],
+  "future_total_cap": 1000,
+  "future_remaining": 614,
+  "future_jev_cap": 582,
+  "future_jev_remaining": 196,
+  "original_jev_prior_at_start": 614,
+  "original_jev_session_at_finish": 804,
+  "original_jev_session_remaining": 196,
+  "counter_backups_sha256": {
+    "common": "3043f4535e4d6b5ce3e10d2fb95d9a0d8a5a8794cb0e2c49a82316e1098221b5",
+    "child": "85c196426c96a8ae5a0ae5e113c0ac25cd8973b73103a494dcd9cd38a1308314"
+  },
+  "cli_calls_during_quality_run": 0,
+  "actual_dollar_spend": null,
+  "no_automatic_controller_retry": true,
+  "unknown_past_counts_not_zeroed": true
+}

@@ -1,0 +1,72 @@
+{
+  "result": {
+    "schema": "owned-v17-repeat-rollback-offline-v1",
+    "real_provider_calls": 0,
+    "real_user_auth_profile_reads": 0,
+    "v2_product_calls": 0,
+    "scope": "Same owned009 QA prefix; genuine public v17 repeat and original injected rollback assertions with approved local synthetic HTTPS only",
+    "bootstrap_reinstalled": false,
+    "repeat_install_exit": 0,
+    "repeat_preserved_files": {
+      "PRODUCT.json": true,
+      "settings/unified.json": true,
+      "settings/jev-credential.json": true,
+      "settings/mcp-database.json": true,
+      "settings/unified-manager.json": true,
+      "client/local/connection.json": true
+    },
+    "repeat_all13_tables_unchanged": true,
+    "repeat_models_preserved": true,
+    "genuine_new_generation": true,
+    "rollback_ok": true,
+    "rollback_tables_checked": 13,
+    "pending_intent_preserved": true,
+    "provider_verification_intercepted_before_launch": 1,
+    "stop_exit": 0,
+    "pg_stopped": true,
+    "local_fake_tls_requests": 1,
+    "resources": {
+      "cpu.max": "200000 100000",
+      "memory.max": "4294967296",
+      "memory.swap.max": "0",
+      "pids.max": "256",
+      "memory.peak": "4294967296",
+      "memory.events": "low 0\nhigh 0\nmax 3884\noom 0\noom_kill 0\noom_group_kill 0"
+    },
+    "exit": 0
+  },
+  "rollback": {
+    "schema": "owned-linux-install-rollback-v1",
+    "installer_sha256": "17ea040a6d5a7e0157594ef2abec2a0cbcdd37e52dfcacdfe6a2da8296d4421d",
+    "scenario": "Real owned update; provider verification process fault-injected before launch; automatic restoration to prior installed generation",
+    "provider_verification_processes_intercepted_before_launch": 1,
+    "external_jev_calls": 0,
+    "failed_update_observed": true,
+    "previous_generation_restored": true,
+    "protected_files_preserved": {
+      "PRODUCT.json": true,
+      "settings/unified.json": true,
+      "settings/jev-credential.json": true,
+      "settings/mcp-database.json": true,
+      "settings/unified-manager.json": true,
+      "client/local/connection.json": true
+    },
+    "all_model_files_preserved": true,
+    "existing_database_schema_tables_checked": 13,
+    "existing_database_table_contents_preserved": true,
+    "same_pending_operation_id_body_and_status_preserved": true,
+    "previous_service_healthy_after_automatic_rollback": true,
+    "independent_quality_evaluation": false,
+    "ok": true
+  },
+  "result_sha256": "a584b641622618e915a5beabd872fb6e30a05f7ea8508cdd0835b969eb425db9",
+  "rollback_sha256": "cec7bf377a8422ef26bc5a9a52e6292608479a98d411ae11f4ad7cdc7fd27273",
+  "candidate_archive_sha256": "62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef",
+  "candidate_sdk_sha256": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+  "full_resource_limit_observed": true,
+  "peak_equals_4GiB_limit": true,
+  "below_cap_claim": false,
+  "memory_max_pressure_events": 3884,
+  "real_supplier_auth_verified": false,
+  "scope": "Existing actual owned QA runtime repeated and rolled back using synthetic local HTTPS only. Actual installed candidate, no actual corpus DB/auth/financial ledger mounted. Bootstrap/model components reused read-only under explicit authorization."
+}

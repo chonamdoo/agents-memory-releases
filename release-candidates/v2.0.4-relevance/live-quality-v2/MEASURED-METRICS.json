@@ -1,0 +1,198 @@
+{
+  "schema": "independent-v204-measured-metrics-v1",
+  "complete": true,
+  "cases": 196,
+  "questions": 40,
+  "all_measured_metrics_pass": true,
+  "strict_release_gate_status": "unknown",
+  "admission_gate_status": "pass",
+  "storage": {
+    "committed_native_local": 119,
+    "failures": 0,
+    "false_success": 0,
+    "status": "pass"
+  },
+  "outcomes": {
+    "discard": 32,
+    "hook_blocked": 6,
+    "keep": 119,
+    "review": 39
+  },
+  "metrics": {
+    "admission_auto_precision": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.8,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 39,
+      "total": 39,
+      "wilson95": [
+        0.9103331462924287,
+        1.0
+      ]
+    },
+    "admission_auto_recall": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.6,
+      "rate": 0.975,
+      "status": "pass",
+      "successes": 39,
+      "total": 40,
+      "wilson95": [
+        0.8711863103652591,
+        0.9955731684973186
+      ]
+    },
+    "auto_precision": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.8,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 39,
+      "total": 39,
+      "wilson95": [
+        0.9103331462924287,
+        1.0
+      ]
+    },
+    "auto_recall": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.6,
+      "rate": 0.975,
+      "status": "pass",
+      "successes": 39,
+      "total": 40,
+      "wilson95": [
+        0.8711863103652591,
+        0.9955731684973186
+      ]
+    },
+    "background_judgment_p95": {
+      "maximum_seconds": 30,
+      "samples": 190,
+      "seconds": 22.35975532500015,
+      "status": "pass",
+      "timing": "case_wall_clock_including_guard_and_processing"
+    },
+    "continuation_hit_at_5": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.75,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 40,
+      "total": 40,
+      "wilson95": [
+        0.9123783988027135,
+        1.0
+      ]
+    },
+    "decision_audit_coverage_all": {
+      "comparison": "exact_census",
+      "minimum": 1.0,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 196,
+      "total": 196,
+      "wilson95": [
+        0.980777468082132,
+        1.0
+      ]
+    },
+    "explicit_processed": {
+      "comparison": "exact_census",
+      "minimum": 1.0,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 80,
+      "total": 80,
+      "wilson95": [
+        0.9541818704644728,
+        0.9999999999999999
+      ]
+    },
+    "legitimate_explicit_admitted": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.95,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 80,
+      "total": 80,
+      "wilson95": [
+        0.9541818704644728,
+        0.9999999999999999
+      ]
+    },
+    "legitimate_explicit_stored": {
+      "comparison": "wilson95_lower",
+      "minimum": 0.95,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 80,
+      "total": 80,
+      "wilson95": [
+        0.9541818704644728,
+        0.9999999999999999
+      ]
+    },
+    "raw_audit_coverage_decisions_including_review": {
+      "comparison": "exact_census",
+      "minimum": 1.0,
+      "rate": 1.0,
+      "status": "pass",
+      "successes": 190,
+      "total": 190,
+      "wilson95": [
+        0.9801824705402803,
+        0.9999999999999999
+      ]
+    },
+    "top5_noise": {
+      "comparison": "wilson95_upper",
+      "maximum": 0.3,
+      "rate": 0.0,
+      "status": "pass",
+      "successes": 0,
+      "total": 119,
+      "wilson95": [
+        0.0,
+        0.031271680241939506
+      ]
+    }
+  },
+  "retrieval": {
+    "completed": 40,
+    "empty_results": 0,
+    "generated_answers_evaluated": false,
+    "hits": 40,
+    "irrelevant_rows": 0,
+    "joint_required_evidence_sufficient": 39,
+    "noise_denominator_returned_source_occurrences": 119,
+    "noise_numerator_irrelevant_source_occurrences": 0,
+    "questions": 40,
+    "returned_rows": 119
+  },
+  "hard_gate_observations": {
+    "chatter_admitted": 0,
+    "class_label_eligible": true,
+    "explicit_promotion_by_class": {
+      "chatter": 0,
+      "quote": 0,
+      "unsafe": 0
+    },
+    "explicit_unexplained": 0,
+    "false_success": 0,
+    "idempotency_attribution_false_success": 0,
+    "immutable_storage_receipts": 119,
+    "quote_admitted": 0,
+    "search_zero_and_fault_injection": null,
+    "source_secret_admitted": 0,
+    "source_secret_cases": 6,
+    "source_secret_native_documents": 0,
+    "source_secret_outbox_rows": 0,
+    "source_secret_provider_transmissions": 0,
+    "source_secret_raw_jobs": 0,
+    "source_secret_server_memories": 0,
+    "unsafe_admitted": 0
+  },
+  "scope": "Metrics only, not whole release approval. Original criteria/denominators/inputs unchanged. One auto false negative; one question lacks one required source. No generated-answer quality inferred."
+}

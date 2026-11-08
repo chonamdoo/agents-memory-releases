@@ -1,0 +1,17 @@
+{
+  "corpus_manifest_sha256": "9270ddd062c2587f89bcf7ff03e2a14d839e0319873957158caa579059d687bb",
+  "execution_registration_sha256": "52efb963fad4062488a345522ace3ce82947d2d2a9af252a4d88e5afdac3c399",
+  "session_grant_sha256": "887b8b083674e0e676f5e1df24fe4c1620e49db80d65867b05017c4e1833b703",
+  "financial_authorization_sha256": "31636c1cdb02970c35a617118765fc3210cd7134c041edd960e4ea8f9ac59b32",
+  "sdk_wheel_sha256": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+  "core_cp312_wheel_sha256": "bb4307f72380d4738c4c9305bafec1b70232ec93e153336fbd995619d5b9b0b2",
+  "sdk_module_count": 16,
+  "adapter_sha256": "43fd98b63cf1324e0c85aaa9b1d46b74ed350c1e8d6feb773285876d5f911fe1",
+  "whole_harness_prelaunch_sha256": "0300fa0a603906010a3462acfae40dead4e17b3ddf551e51e068af3ddc05a8a9",
+  "config_sha256": "63f0f443f3831c3e8d5d91101aaaa779c22bf989c3eaa6c8868ab471cd9766f1",
+  "driver_sha256": "37750c709a92976ce35450f1f6da0bfb80a0b326afec2674c1230780ab8417d2",
+  "launch_sha256": "eceb9efe91827a5a8a14ff561a190aa4b2d67d81077d1aeb6d6515e39a603748",
+  "summary_sha256": "a1d5c510c91236b2b9432be40453e7ada2deee140997fcbb347332c1e97e5151",
+  "finish_signal_sha256": "f8d77a3d19bf9e9a47a2c45210cce93954b99957c2b3e8dfdadde94feab13712",
+  "all_input_source_labels_questions_metrics_unchanged_during_run": true
+}
