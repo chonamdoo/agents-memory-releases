@@ -11,5 +11,8 @@
   "omp_reason": "Old wrapper recorded fetch call/status, not response.redirected/manual-redirect or wire-attempt telemetry. Observed200/200/400 retained; no exact wire-count claim.",
   "historical_counts_reset": false,
   "historical_cost": null,
-  "future_execution_authority": "not granted by these records; future common physical-send counting and explicit approval required"
+  "future_execution_authority": "not granted by these records; future common physical-send counting and explicit approval required",
+  "omp_private_audit_sha256": "63227b17ba17e3bcce0c9bb63494482fdd7c6ab5908a4f9e20128b326b436511",
+  "omp_private_audit_addendum_sha256": "fbd3d00fa7e95cec03c3c8efb0a6c0d6d9b00f008016bd5964344abafde3fb63",
+  "local_redirect_probe_scope": "Current local Bun probe: default1fetch followed2HTTP; manual1fetch made1HTTP. This does not establish any historical redirect."
 }

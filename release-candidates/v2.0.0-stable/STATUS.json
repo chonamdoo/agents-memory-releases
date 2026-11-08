@@ -211,6 +211,10 @@
         {
           "path": "release-candidates/v2.0.3-independent/CLAUDE-ACCOUNTED-PREPARATION.json",
           "sha256": "e2e134d83a934977d409612b8b057d7c6966f2c67fad9e052c0f4bcaf298dfba"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/OMP-ACCOUNTED-PREPARATION.json",
+          "sha256": "0c84a751f819f5c122a7a8a53d36b8227ee9c848eae6c4815d4cf6a22b19d0db"
         }
       ]
     },
@@ -299,7 +303,11 @@
         },
         {
           "path": "release-candidates/v2.0.3-independent/PAST-CALL-COUNT-LIMITATIONS.json",
-          "sha256": "bb489674a92eeea486dee3d5b3c88970294587bbd8deadd126443338a948a19d"
+          "sha256": "a895fd1fe103b173e4288b6f27511255a3b2a7127e000ac59f5c11bba224945d"
+        },
+        {
+          "path": "release-candidates/v2.0.3-independent/FUTURE-CALL-PLAN.json",
+          "sha256": "61094e9f4b2126ea5aea2f18ca5bc84a237fb654ad56b78f08ece63cbc1b80de"
         }
       ]
     },
@@ -452,7 +460,8 @@
     "new196_product_inferences": 0,
     "codex_counted_controller": "36/36 fake only,108local transmissions",
     "claude_counted_controller": "36/36 fake only,144local transmissions",
-    "omp_counted_controller": "in preparation; previous three fetch records preserved separately",
-    "historical_native_wire_counts_recoverable": false
+    "omp_counted_controller": "36/36 fake only,144local transmissions; optional metadata removal afterward verified on exact final freeze1case/4transmissions",
+    "historical_native_wire_counts_recoverable": false,
+    "proposal": "FUTURE-CALL-PLAN.json; explicit NEW future-pool approval absent; old unknown counts not reset"
   }
 }
