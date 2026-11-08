@@ -1,6 +1,6 @@
-# agents-memory 공통 MCP 2.0.0
+# agents-memory 공통 MCP 2.0.4
 
-**MCP 2.0.4는 정식 전환 검증 중입니다. 엔진·SDK ABI는 2.0.0이며 전체 출시 기준은 아직 미통과입니다.**
+**MCP 2.0.4 출시 검증을 완료했습니다. 엔진·SDK ABI는 2.0.0입니다. [게시 상태·검증 범위](../../release-candidates/v2.0.4-relevance/README.ko.md)를 확인하세요.**
 로컬·개인 서버·팀 서버·회사 서버에서 같은 Hindsight 엔진을 사용합니다.
 Claude·Codex·omp는 MCP·훅·압축 문맥 연결 앱이고, 저장 판단 공급자는 **Jev 하나**입니다.
 구독 CLI 추론과 공급자 선택 메뉴는 제거했습니다. 장애 때 native CLI로 대체하지
@@ -9,7 +9,7 @@ Claude·Codex·omp는 MCP·훅·압축 문맥 연결 앱이고, 저장 판단 �
 
 ## 보존된 제출 원문 직접 검색
 
-`source-search` 후보의 서버와 MCP 클라이언트는 `source_search`를 제공합니다.
+이 버전의 서버와 MCP 클라이언트는 `source_search`를 제공합니다.
 이전 `search-calibrated` 번들에는 이 변경이 없으므로 양쪽 업데이트가 필요합니다.
 
 ```json
@@ -31,19 +31,19 @@ Claude·Codex·omp는 MCP·훅·압축 문맥 연결 앱이고, 저장 판단 �
 
 ## 로컬 설치: Claude·Codex·omp
 
-[MCP 2.0.4 검색 수정 후보](../../release-candidates/v2.0.4-relevance/README.ko.md)의
+[MCP 2.0.4 검증·설치](../../release-candidates/v2.0.4-relevance/README.ko.md)의
 [`agents-memory-unified-2.0.0-source-subject-v17.tar.gz`](https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/1903a3d379983883c6069692f249fe470d7d0a61/release-candidates/v2.0.4-relevance/agents-memory-unified-2.0.0-source-subject-v17.tar.gz)와
 [`SHA256SUMS`](https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/1903a3d379983883c6069692f249fe470d7d0a61/release-candidates/v2.0.4-relevance/SHA256SUMS)를 내려받아 검증하세요.
 번들 SHA-256은 `62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef`입니다.
-첫 독립 평가는 검색 잡음 기준에 실패했습니다. 새 후보의 독립196건·40질문 평가는 측정된 저장·검색 기준을 통과했습니다. 실제 Claude36건은 통과했고 Codex·OMP 실검증은 남아 있습니다.
+첫 독립 평가는 검색 잡음 기준에 실패했습니다. 새 후보의 독립196건·40질문 평가는 측정된 저장·검색 기준을 통과했습니다. 실제 Claude·Codex·OMP 수명주기도 앱별36/36 통과했습니다. OMP는 공식 soft 압축 범위입니다.
 [현재 판정](../../release-candidates/v2.0.0-stable/STATUS.json)을 확인하세요.
 모델 companion `agents-memory-reranker-2.0.0.tar.gz`는
 [v2.0.0 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0)의 기존 `SHA256SUMS`로 검증합니다.
 MCP 패키지는2.0.4이고 엔진·SDK ABI는2.0.0입니다. 이전 원문 검색·v16 번들은
-이 후보의 검색 수정을 포함하지 않습니다.
+이 버전의 검색 수정을 포함하지 않습니다.
 검증을 마친 파일을 압축 해제하세요.
 설치기는 압축 해제한 로컬 번들을 사용하며 제품 번들·모델을 자동 다운로드하지 않습니다.
-이전 정식 최신 버전 v1.0.8은 그대로 유지합니다. Docker는 필요 없습니다.
+게시된 버전은 [최신 정식 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/latest)에서 확인하세요. Docker는 필요 없습니다.
 최초 엔진 설치에는 PostgreSQL·pgvector, 고정 Python·Hindsight·E5와 별도의
 준비된 ONNX 재순위 모델 디렉터리가 필요합니다.
 
@@ -87,6 +87,8 @@ bootstrap 실패·시간 초과는 오류에 표시된 비공개 임시 디렉�
 - Codex: `.codex/config.toml`과 `.codex/hooks.json`을 사용합니다.
 - OMP: `.omp/mcp.json`과 `.omp/extensions/agents-memory-cloud.ts`를 사용합니다.
 
+OMP의 검증된 압축은 `/compact soft`(keepRecentTokens20000·padding3회)입니다. 기본 remoteV2 압축의 과거 HTTP400 원인은 미확인이며 그 방식의 성공을 보장하지 않습니다.
+
 설치 후 앱을 다시 열고 `agents-memory-cloud`의 `setup_status`를 확인하세요.
 `ready`뿐 아니라 `server_ready`와 미전송·충돌 상태를 함께 봅니다. 준비 중 MCP 초기화는
 응답하며 메모리 준비 전 저장을 완료했다고 표시하지 않습니다. 로컬 서비스와 native DB는
@@ -99,12 +101,12 @@ MCP 연결 시 다시 시작됩니다. OS 로그인 서비스는 임의로 등�
 
 ## 플러그인 연결
 
-`agents-memory-unified@agents-memory` 연결 패키지 **2.0.4**를 자체 공개 마켓의 후보로 준비합니다.
-새 버전은 고정된 v17 번들과 설치 지침을 사용합니다. 정식 판정 전까지 후보 상태입니다.
+`agents-memory-unified@agents-memory` 연결 패키지 **2.0.4**를 자체 공개 마켓에서 제공합니다.
+고정된 v17 번들과 아래 설치 지침을 사용합니다.
 엔진·SDK ABI 버전은 **2.0.0**입니다. 버전 번호와 별개로 정식 판정은 현재 후보의 증거를 따릅니다.
 `agents-memory-local` 1.0.8은 이전 공급자를 유지하는 별도 항목입니다. 둘을 같은
 프로젝트에 중복 등록하지 마세요. 아래 마켓 설치는 엔진·모델·키 준비와 별도이며,
-현재 2.0.0 릴리스의 시험 배포 상태와 저장 품질 제한을 바꾸지 않습니다.
+엔진·모델·키 준비가 끝나야 실제 기억 기능을 사용할 수 있습니다.
 
 Claude Code:
 
@@ -218,17 +220,17 @@ FP16 가중치·eager encoder·FP32 Sigmoid 출력의 단일 파일 그래프이
 개인 기억은 공유 매핑을 설정하기 전 팀에 공개되지 않습니다. 검색 제외·삭제 전파와
 백업/과거 로그의 원문 파기는 별개의 정책입니다. E2EE 서비스가 아닙니다.
 
-사용자는 수정·검증을 반복하고 전체 기준을 통과하면 정식 MCP로 배포하도록 승인했습니다. 현재 전체 기준은 아직 미통과입니다.
+MCP 2.0.4는 현재 후보의 품질·안전·설치·앱별 실제 수명주기·자원·호출 기준을 통과했습니다. 게시 여부는 위 상태 링크에서 확인하세요.
 과거 독립 v43의 정당한 명시 저장 70/80·이어가기 Hit@5 30/40은 고정 Wilson 하한
 기준에 실패했고 필수 근거 전체 회수는 2/40입니다. 이전 v22/v27 실패도 보존합니다.
 새 후보의 별도 독립196건·40질문 측정 결과는 [검증 기록](../../release-candidates/v2.0.4-relevance/live-quality-v2/README.ko.md)에 공개합니다. 과거 실패를 새 결과로 덮어쓰지 않으며 생성 답변 품질이나 실제 사용자 모집단 성능을 주장하지 않습니다. 과거 원본6개 대조와 과거 native HTTP 수는 미확인으로 남깁니다.
-소유한 임시 Mac에서 genuine 설치·업데이트와 실제 shipping connector의 저장·회상,
+과거 후보에서는 소유한 임시 Mac에서 당시 genuine 설치·업데이트와 connector의 저장·회상,
 업데이트 후 세 앱 등록 명령의 동일 ID·revision·전체 원문 회상을 검증했습니다.
-이는 GUI·실제 회사 모델 추론이나 각 앱의 자동화 실행 증거가 아닙니다.
+이는 현재 2.0.4의 macOS 검증이나 GUI·실제 회사 모델 추론·각 앱 자동화 실행 증거가 아닙니다.
 `service_ready/server_ready=true`라도 요청한 자동화 실행이 미검증이면 `ready=false`입니다.
 
-엔진 번들은 Apple Silicon macOS 15+ 및 glibc Linux x64용입니다. Windows는 WSL2 x64
-Linux 홈에 설치하는 경로이며 native Windows는 지원 검증되지 않았습니다. thin 원격
-클라이언트는 macOS x64·arm64, glibc Linux x64·arm64용입니다. 실제 실행한 플랫폼과
-미검증 플랫폼을 릴리즈 검증 보고서에서 구분합니다. 바이트코드 코어는 원본 Python 소스를
+이번 정식 배포의 검증 범위는 Ubuntu24.04·Linux x86_64·glibc2.39·Python3.12/3.13입니다.
+macOS는 사용자 별도 시험이며 정식 지원 검증을 주장하지 않습니다. Debian12·glibc2.36은
+pgvector 로더 실패로 지원하지 않습니다. 다른 Linux 배포판·arm64·Windows/WSL2와
+다른 플랫폼용 thin 빌드도 이번 검증 범위에 포함하지 않습니다. 바이트코드 코어는 원본 Python 소스를
 배포하지 않지만 암호화·역공학 방지를 보장하지 않습니다.
