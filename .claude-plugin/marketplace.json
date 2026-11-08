@@ -20,7 +20,7 @@
     {
       "name": "agents-memory-unified",
       "source": "./plugins/agents-memory-unified",
-      "description": "2.0.4 MCP package for the 2.0.0 source-subject recall candidate. Qualification pending; see measured quality limits.",
+      "description": "Shared Jev-backed memory MCP for Claude, Codex and OMP. Separate verified runtime setup required; see published release status.",
       "version": "2.0.4"
     }
   ]
