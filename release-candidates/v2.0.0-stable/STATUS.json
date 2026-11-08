@@ -519,7 +519,7 @@
         "b": "7276f7a85fd9d76dc346357e6eb9b5f1e3e80a2190d75f15e2cb14de79a1c8dc"
       }
     },
-    "real_quality": "not_run",
+    "real_quality": "running_after_preregistered_inputs_and_both_AI_signoffs",
     "ready_to_promote": false,
     "preregistration_commit": "392367ef075b8cb8baec59aafa444cb09002232e",
     "sourcefree_cp313_affected_regression": {
@@ -549,7 +549,8 @@
       "exact_four_gib_peak_with_no_oom": true,
       "real_provider_auth_in_QA": false,
       "local_fake_auth_only": true
-    }
+    },
+    "frontend_guidance": "Neutralreference to published release status; no hardcoded pending/pass. Runtime wheels, SDK16 and v17archive unchanged. Interim same-versioncandidate refresh requires official unregister/reinstall --keep-data; finalpublicrefreshverificationpending."
   },
   "repaired_candidate_references": [
     {
@@ -562,7 +563,7 @@
     },
     {
       "path": "release-candidates/v2.0.4-relevance/MARKETPLACE-BUILD.json",
-      "sha256": "d853e07e8de13c2f4ad14fb4035d422d16befef85d729b6933cf7371f3efad8a"
+      "sha256": "61ed1bcc6482484f4e9b5aac0f8d655345ed317f93b18992fc4e036400e05a73"
     },
     {
       "path": "release-candidates/v2.0.4-relevance/OFFLINE-FAULTS.json",
