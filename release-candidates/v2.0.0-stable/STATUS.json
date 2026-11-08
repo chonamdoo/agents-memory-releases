@@ -550,7 +550,17 @@
       "real_provider_auth_in_QA": false,
       "local_fake_auth_only": true
     },
-    "frontend_guidance": "Neutralreference to published release status; no hardcoded pending/pass. Runtime wheels, SDK16 and v17archive unchanged. Interim same-versioncandidate refresh requires official unregister/reinstall --keep-data; finalpublicrefreshverificationpending."
+    "frontend_guidance": "Published-status neutral wording verified through actual publicGit sameversionrefresh; runtimewheels/archiveunchanged",
+    "marketplace_delivery": {
+      "status": "met",
+      "actual_public_source_commit": "92c24e506deeeae13dc5cee0dd6c48f485229deb",
+      "previous_to_current_upgrade": "2.0.3 to2.0.4 allthree officialCLIs",
+      "sameversion_final_refresh": "2.0.4 to2.0.4 newneutralfrontend allthree13filesexact andactualunconfiguredprotocol",
+      "linux_connector_sha256": "30ab2a8708e07799862e4cd4b4e7c5672346a537aeedb4307c987bfe80939a58",
+      "codex_marketplace_entry": "skillonly; standalonepackagedconnectorstatus is notnativeCodexMCPtransportproof",
+      "central_directory_approval": false,
+      "new_actual_provider_calls": 0
+    }
   },
   "repaired_candidate_references": [
     {
@@ -563,7 +573,7 @@
     },
     {
       "path": "release-candidates/v2.0.4-relevance/MARKETPLACE-BUILD.json",
-      "sha256": "61ed1bcc6482484f4e9b5aac0f8d655345ed317f93b18992fc4e036400e05a73"
+      "sha256": "21cd5f6a2d31a9b051be885645f93d20b5c152cdfd0b3a8ae73adcf6bb6d5f7d"
     },
     {
       "path": "release-candidates/v2.0.4-relevance/OFFLINE-FAULTS.json",
@@ -608,6 +618,18 @@
     {
       "path": "release-candidates/v2.0.4-relevance/NATIVE-R2-ACCOUNTED-PREPARATION.json",
       "sha256": "19b7c73f0cf8e0a38faad8da85911f16bec7390a02e2a359af1f36f1c8bb0776"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/marketplace-delivery/LOCAL-CACHE-REFRESH.json",
+      "sha256": "e205047ce0a21a4072458fddc0c8f1a88ff97d67348e6b5fc96bc39b13c4f133"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/marketplace-delivery/PUBLIC-FINAL-REFRESH.json",
+      "sha256": "701b7bbdf56286aa67f3973222c543bc4bd86ea69e3e33db810ee6cd834b22c1"
+    },
+    {
+      "path": "release-candidates/v2.0.4-relevance/marketplace-delivery/PUBLIC-UPGRADE.json",
+      "sha256": "c0210a51394c488e71d2ff6645c46dba587b2be1e95ddb1c60c08ad8bac9b012"
     }
   ]
 }

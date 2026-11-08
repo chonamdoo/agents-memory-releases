@@ -1,0 +1,184 @@
+{
+  "schema": "public-native-plugin-r2-installed-delivery-v1",
+  "status": "public_sameversion_frontend_refresh_selected13_and_new_setup_connection_verified",
+  "public_repository": "chonamdoo/agents-memory-releases",
+  "public_main_commit": "92c24e506deeeae13dc5cee0dd6c48f485229deb",
+  "public_tree": "cb6097f230625404c89a26c283c671307c0a86fd",
+  "official_cli_upgrade_commands": {
+    "claude": [
+      {
+        "subcommands": [
+          "plugin",
+          "marketplace",
+          "update",
+          "agents-memory",
+          "--json"
+        ],
+        "exit_code": 0,
+        "log_sha256": "916bd21e8a5e4f09ce161819b9253fbe19d3b51b0b5ad30caa27596f3c3e8a39"
+      },
+      {
+        "subcommands": [
+          "plugin",
+          "uninstall",
+          "agents-memory-unified@agents-memory",
+          "--keep-data",
+          "--json"
+        ],
+        "exit_code": 0,
+        "log_sha256": "2ca36d8f581a3ec52fa68ea8a1261b8c686c03bad534d103a27292a4c01a8ce7"
+      },
+      {
+        "subcommands": [
+          "plugin",
+          "install",
+          "agents-memory-unified@agents-memory",
+          "--json"
+        ],
+        "exit_code": 0,
+        "log_sha256": "8817066dde52e7e8f0b1d0e77aa6d91273849547312a96fb503e74d22c700ea1"
+      }
+    ],
+    "codex": [
+      {
+        "subcommands": [
+          "plugin",
+          "marketplace",
+          "upgrade",
+          "agents-memory",
+          "--json"
+        ],
+        "exit_code": 0,
+        "log_sha256": "02cc502aedda5ab603e8e9db158614d18d7761ac20dd539c388432e666a1dc6d"
+      },
+      {
+        "subcommands": [
+          "plugin",
+          "add",
+          "agents-memory-unified@agents-memory",
+          "--json"
+        ],
+        "exit_code": 0,
+        "log_sha256": "a09dd1aa97313a1613b6f9d873b225ea5b0880282fccb67f2f9655a5285b15c6"
+      }
+    ],
+    "omp": [
+      {
+        "subcommands": [
+          "plugin",
+          "marketplace",
+          "update",
+          "agents-memory"
+        ],
+        "exit_code": 0,
+        "log_sha256": "d3c7e8b71f0fdeb589743e2b61b505f77b6d7167c97f1f35f00602a943c93e37"
+      },
+      {
+        "subcommands": [
+          "plugin",
+          "upgrade",
+          "agents-memory-unified@agents-memory",
+          "--json"
+        ],
+        "exit_code": 0,
+        "log_sha256": "6055a47b448816cff1f70008eecd9dcbb1625e1975cbe4d296fda62b6e8b1885"
+      }
+    ]
+  },
+  "hosts": {
+    "claude": {
+      "before_version_observed": "2.0.4",
+      "after_version_observed": "2.0.4",
+      "selected_files_verified": 13,
+      "all_selected_bytes_match_public_commit": true,
+      "linux_binary_sha256": "30ab2a8708e07799862e4cd4b4e7c5672346a537aeedb4307c987bfe80939a58",
+      "setup_state": "setup_required",
+      "ready": false,
+      "server_ready": false,
+      "runtime_abi_version": "2.0.0",
+      "marketplace_version": "2.0.4",
+      "candidate_archive": "agents-memory-unified-2.0.0-source-subject-v17.tar.gz",
+      "codex_skill_only_no_native_transport_claim": null
+    },
+    "omp": {
+      "before_version_observed": "2.0.4",
+      "after_version_observed": "2.0.4",
+      "selected_files_verified": 13,
+      "all_selected_bytes_match_public_commit": true,
+      "linux_binary_sha256": "30ab2a8708e07799862e4cd4b4e7c5672346a537aeedb4307c987bfe80939a58",
+      "setup_state": "setup_required",
+      "ready": false,
+      "server_ready": false,
+      "runtime_abi_version": "2.0.0",
+      "marketplace_version": "2.0.4",
+      "candidate_archive": "agents-memory-unified-2.0.0-source-subject-v17.tar.gz",
+      "codex_skill_only_no_native_transport_claim": null
+    },
+    "codex": {
+      "before_version_observed": "2.0.4",
+      "after_version_observed": "2.0.4",
+      "selected_files_verified": 13,
+      "all_selected_bytes_match_public_commit": true,
+      "linux_binary_sha256": "30ab2a8708e07799862e4cd4b4e7c5672346a537aeedb4307c987bfe80939a58",
+      "setup_state": "setup_required",
+      "ready": false,
+      "server_ready": false,
+      "runtime_abi_version": "2.0.0",
+      "marketplace_version": "2.0.4",
+      "candidate_archive": "agents-memory-unified-2.0.0-source-subject-v17.tar.gz",
+      "codex_skill_only_no_native_transport_claim": true
+    }
+  },
+  "bundle": {
+    "immutable_commit": "1903a3d379983883c6069692f249fe470d7d0a61",
+    "archive_name": "agents-memory-unified-2.0.0-source-subject-v17.tar.gz",
+    "prior_public_archive_http_status": 200,
+    "new_archive_network_requests_in_this_recheck": 0,
+    "archive_sha256": "62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef",
+    "assets_entries_verified": 13,
+    "sdk_wheel_sha256": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+    "sdk_python_modules": 16,
+    "sdk_package_files": 18,
+    "runtime_service_installed_or_bootstrapped": false
+  },
+  "owned_cache_reuse": true,
+  "manual_repository_clones": 0,
+  "native_cli_internal_clone_operations_instrumented": false,
+  "duplicate_full_git_cache_created_by_harness": false,
+  "original_receipts_logs_and_old_selected13_backed_up": true,
+  "calls_by_this_delivery_check": {
+    "real_provider_model": 0,
+    "jev": 0,
+    "bootstrap_auth": 0,
+    "github_actions": 0,
+    "real_provider_profile_or_key_reads": 0
+  },
+  "resource_scope": "Only official plugin management commands and unconfigured connector status; no additional heavy Native/model runtime. Existing managed proxy/CA preserved, TLS verification enabled.",
+  "quality_scope": "Installation and unconfigured setup MCP only, not configured memory service, answer quality, independent integrated evaluation or stable-release approval. Codex plugin is skill-only, not native MCP transport evidence.",
+  "historical_limitations": {
+    "codex117_underlying_physical_attempts": null,
+    "omp_prior_observed_fetch_dispatches": 3,
+    "omp_prior_wire_http": null,
+    "past_plus_future_omp150_pass": false,
+    "unknown_reset_to_zero": false
+  },
+  "omp_native_compaction_scope": "Previously prepared official soft only; default/remoteV2HTTP400 remains failed/cause unknown; this delivery check does not re-test compaction.",
+  "full_quality_status": "fresh independent evaluation running separately; unchanged by this installer check",
+  "platform": "Linux x86_64; Darwin bytes compared only, no Darwin execution",
+  "frontend_release_channel": "see_release_status",
+  "frontend_release_status_url": "https://github.com/chonamdoo/agents-memory-releases/blob/main/release-candidates/v2.0.0-stable/STATUS.json",
+  "sameversion_refresh_observation": {
+    "claude": "Official marketplace update, uninstall --keep-data, install; new MCP process observes new30ab binary and status.",
+    "codex": "Official marketplace upgrade and plugin add rewrote all13 same-version bytes; remains skill-only.",
+    "omp": "Official marketplace update and plugin upgrade rewrote all13 same-version bytes."
+  },
+  "earlier_public_2_0_3_to_2_0_4_proof_preserved_sha256": "c0210a51394c488e71d2ff6645c46dba587b2be1e95ddb1c60c08ad8bac9b012",
+  "proof_sha256": {
+    "BEFORE.json": "c26dbcbe881aedb69c98aba5635c4250b087939a1d7eeff3230a5114d1f1e800",
+    "COMMANDS.json": "c15e6bb158b1d619700d2cbcfcf6d56f43176f8e2344f3a6f9caf3db6d919f15",
+    "CACHE-HEADS.json": "05f4e4826c4a2d83d5aa80d527ead5f2173dc0ce72baf4a0508d29cf37ebb3e7",
+    "INSTALLED-SELECTED13.json": "ca94ce2fa4bbe1b81fd804e2aabad9b2f76b4c0db944ebbe70dfdd55cbd417c0",
+    "PUBLIC-BUNDLE.json": "17c7d93a3ae491a871f677aba2ac68c9458eba2a76068dee587f5faa2427a412",
+    "BOOTSTRAP-STATUS.json": "2d9045042aef75af2e8d068b0c91eb6ec16fbbfad2102d2334528ca7631a4048"
+  }
+}

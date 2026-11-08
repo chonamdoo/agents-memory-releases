@@ -1,0 +1,42 @@
+{
+  "schema": "claude-same-version-refresh-safe-evidence-v1",
+  "cli_version": "2.1.319",
+  "scope": "Official CLI help plus tiny owned local-directory marketplace fixture with Git history; no actual user homes or public plugin cache modified by this refresh inspection.",
+  "same_package_version": "2.0.4",
+  "help_has_force_update_or_install_option": false,
+  "native_same_version_update_refreshed": false,
+  "native_same_version_install_refreshed": false,
+  "official_uninstall_keep_data_removed_cache_directory": false,
+  "official_uninstall_keep_data_then_install_refreshed_contents": true,
+  "persistent_fixture_data_sentinel_preserved": true,
+  "manual_cache_deletions": 0,
+  "official_fixture_commands_exit0": 7,
+  "observed_marker_transitions": {
+    "initial": "ONE",
+    "after_update": "ONE",
+    "after_install": "ONE",
+    "after_official_uninstall_reinstall": "TWO"
+  },
+  "candidate_sameversion_recovery_sequence": [
+    "claude plugin marketplace update agents-memory --json",
+    "claude plugin uninstall agents-memory-unified@agents-memory --keep-data --json",
+    "claude plugin install agents-memory-unified@agents-memory --json",
+    "Restart host and verify installed13 files and actual setup_status."
+  ],
+  "ordinary_previous_version_users": "Observed2.0.3 to2.0.4 normal public upgrade already passed separately.",
+  "required_before_public_sameversion_refresh_pass": "After root frontend edit is public, verify actual Git marketplace uninstall/reinstall and selected13+Linux bootstrap status. Local-directory cache behavior alone is not a public changed-byte refresh certification.",
+  "models_auth_provider_calls": 0,
+  "real_provider_profile_or_key_reads": false,
+  "new_quality_corpus_or_labels_accessed": false,
+  "sdk_wheel_or_runtime_archive_changed_by_inspection": false,
+  "sdk_wheel_sha256_unchanged_by_this_inspection": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+  "archive_sha256_unchanged_by_this_inspection": "62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef",
+  "quality_or_stable_release_approval": false,
+  "historical_unknown_counts_and_omp_soft_scope_changed": false,
+  "proof_sha256": {
+    "help_commands": "7fed562b106dc775a05b95d50cb1ba3e6f55f565520c8bc46bc69fa3d77046b7",
+    "probe_commands": "128a935e90021cadf0a1891312426e02cd1e8499f0faeaaaae9256e152d9b844",
+    "raw_synthetic_result": "8bfaf5cbb790fc01abd223830389d3a60937b1a9f12ef8baf197176a532ae84f"
+  },
+  "preserved_input_diagnostic": "The official marketplace parser rejected file:// URI. A separate owned local-directory fixture was used; no external Git/provider source failure occurred."
+}
