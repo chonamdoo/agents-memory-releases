@@ -46,6 +46,8 @@ Jev 키는 설치기의 숨김 입력 또는 비공개 파일로 설정합니다
 
 이미 같은 2.0.4 시험 패키지를 설치했다면 [동일 버전 갱신 안내](plugins/agents-memory-unified/README.md)를 확인하세요.
 
+OMP에서 중복 연결·자동 수집 미설정·동기화 오류가 이어지면 [DB 보존 복구 절차](tools/OMP-REPAIR.ko.md)를 사용하세요.
+
 런타임 설치기도 기존 경로와 같은 인자로 다시 실행한 뒤 앱을 재시작합니다. 키·DB·설정은 플러그인 캐시 밖에 보존합니다.
 
 [상세 연결·원격 서버 안내](distribution/server/README.ko.md) · [MCP 패키지](plugins/agents-memory-unified) · [검증 기록과 정식 전환 조건](release-candidates/v2.0.0-stable/CONDITIONS.ko.md)
