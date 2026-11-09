@@ -34,6 +34,13 @@ class RepairError(Exception):
     pass
 
 
+class WorkerBusy(RepairError):
+    def __init__(self, pid, remaining):
+        super().__init__("replica_worker_busy_close_OMP_and_retry_after_90_seconds")
+        self.details = {"worker_pid": pid if type(pid) is int and pid > 0 else None,
+                        "lease_remaining_seconds": max(0, round(remaining))}
+
+
 def safe(path: Path, *, private=False):
     for part in [path, *path.parents]:
         if part.is_symlink():
@@ -74,8 +81,26 @@ def check_worker(path):
     with sqlite_ro(path) as db:
         row = db.execute("SELECT owner,expires,pid FROM worker WHERE id=1").fetchone()
     if row and row[0] and row[1] >= time.time():
-        # Never break or clear a lease; expiry/PID recovery belongs to the SDK.
-        raise RepairError("replica_worker_busy_close_OMP_and_retry_after_90_seconds")
+        pid = row[2]
+        if type(pid) is int and pid > 0 and os.name == "posix":
+            try:
+                os.kill(pid, 0)  # Liveness check only, never terminate a process.
+            except ProcessLookupError:
+                return  # The SDK itself permits reclaiming abandoned owners.
+            except PermissionError:
+                pass  # Alive or unverified: preserve the lease and stop.
+            else:
+                if sys.platform.startswith("linux"):
+                    try:
+                        process = (Path("/proc") / str(pid) / "stat").read_text()
+                        if process.rpartition(")")[2].split()[0] in {"Z", "X"}:
+                            return
+                    except FileNotFoundError:
+                        return
+                    except (PermissionError, IndexError):
+                        pass
+        # Do not overwrite, release or otherwise edit the recorded owner.
+        raise WorkerBusy(pid, row[1] - time.time())
 
 
 def snapshot_files(prefix, project, agent_dir, backup):
@@ -315,7 +340,8 @@ if __name__ == "__main__":
     try:
         sys.exit(main())
     except RepairError as error:
-        print(json.dumps({"repair_error": str(error), "database_reset": False}), file=sys.stderr)
+        print(json.dumps({"repair_error": str(error), "database_reset": False,
+                          **(error.details if isinstance(error, WorkerBusy) else {})}), file=sys.stderr)
         sys.exit(1)
     except Exception as error:
         print(json.dumps({"repair_error_type": type(error).__name__, "database_reset": False}), file=sys.stderr)
