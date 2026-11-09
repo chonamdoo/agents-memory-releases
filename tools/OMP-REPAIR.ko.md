@@ -9,7 +9,7 @@ OMP를 완전히 종료하고, 사용하던 프로젝트의 터미널에서 실�
 ```bash
 am_repair_file="$(mktemp)"
 curl -fsSL https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/main/tools/repair-omp.py -o "$am_repair_file"
-python3 -c 'import hashlib,sys; assert hashlib.sha256(open(sys.argv[1],"rb").read()).hexdigest()==sys.argv[2], "repair checksum mismatch"' "$am_repair_file" 405ac6a3c3c3664e3200c1b2fcde91bdecbd25c59d086561fa4897d82af59139 && python3 "$am_repair_file" --project "$PWD" --apply
+python3 -c 'import hashlib,sys; assert hashlib.sha256(open(sys.argv[1],"rb").read()).hexdigest()==sys.argv[2], "repair checksum mismatch"' "$am_repair_file" 172089b0b3bf0f7aead32f4162bd7af4ac3074fc105a336a0dc7cc31246bea6b && python3 "$am_repair_file" --project "$PWD" --apply
 ```
 
 기존 설치 경로가 기본값 `~/.local/share/agents-memory-unified`와 다르면 마지막 명령에 `--prefix /기존/설치/경로`를 추가합니다. DB를 새 위치로 복사해 연결하지 않습니다.
@@ -26,4 +26,6 @@ OMP를 같은 프로젝트에서 다시 열고 일반 입력을 한 번 보낸 �
 
 이 작업은 보존형 재설치입니다. 기존 이력을 전부 삭제하는 초기화가 아닙니다. 과거 `needs_review`는 원인별 검토가 필요합니다. `native_trust`·`model_compliance`는 별도 검증 항목이며 연결 설정 복구만으로 true로 바꾸지 않습니다.
 
-검증: 오프라인 보존·오류 처리 20개, 고정 실제 번들 검증·압축 해제, 실제 shipping SDK 설정 생성기를 사용한 외부 호출 없는 합성 설치 점검. 실제 사용자 환경·새 유료 평가·새 macOS 실행 검증을 주장하지 않습니다. 기존 v2.0.4 번들·wheel·마켓 파일과 출시 판정 증거는 변경하지 않습니다.
+검증: 오프라인 보존·오류 처리 25개, 고정 실제 번들 검증·압축 해제, 실제 shipping SDK 설정 생성기를 사용한 외부 호출 없는 합성 설치 점검. 실제 사용자 환경·새 유료 평가·새 macOS 실행 검증을 주장하지 않습니다. 기존 v2.0.4 번들·wheel·마켓 파일과 출시 판정 증거는 변경하지 않습니다.
+
+`replica_worker_busy`에서는 OMP와 같은 기억 MCP를 사용하는 다른 앱을 종료하세요. 도구는 기록된 PID의 존재만 확인하며 프로세스를 종료하거나 DB 잠금을 지우지 않습니다. 종료가 확인된 PID(또는 Linux zombie)는 SDK의 기존 복구 절차로 넘깁니다. 살아 있거나 확인할 수 없는 PID는 `worker_pid`·`lease_remaining_seconds`와 함께 차단합니다. 이 값은 진단용이며 해당 PID를 무조건 종료하라는 뜻이 아닙니다.

@@ -73,8 +73,50 @@ def test_live_lease_is_never_broken(existing):
     with sqlite3.connect(state) as db:
         db.execute("UPDATE worker SET owner='another',expires=?,pid=?", (time.time() + 60, os.getpid()))
     before = rows(state)
-    with pytest.raises(repair.RepairError, match="replica_worker_busy"):
+    with pytest.raises(repair.WorkerBusy, match="replica_worker_busy") as result:
         repair.check_worker(state)
+    assert result.value.details['worker_pid'] == os.getpid()
+    assert 0 < result.value.details['lease_remaining_seconds'] <= 60
+    assert rows(state) == before
+
+
+@pytest.mark.parametrize("kind", ['dead', 'permission', 'unknown_pid', 'zero_pid'])
+def test_worker_liveness_is_conservative_and_never_writes_lease(existing, monkeypatch, kind):
+    prefix, *_ = existing
+    state = prefix / 'client/local/replica.sqlite'
+    pid = None if kind == 'unknown_pid' else 0 if kind == 'zero_pid' else 234567
+    with sqlite3.connect(state) as db:
+        db.execute("UPDATE worker SET owner='previous',expires=?,pid=?", (time.time()+60, pid))
+    before, probes = rows(state), []
+    def probe(actual, signal):
+        probes.append((actual, signal))
+        assert signal == 0 and actual == pid
+        raise ProcessLookupError() if kind == 'dead' else PermissionError()
+    monkeypatch.setattr(repair.os, 'kill', probe)
+    if kind == 'dead':
+        repair.check_worker(state)
+    else:
+        with pytest.raises(repair.WorkerBusy):
+            repair.check_worker(state)
+    assert rows(state) == before
+    assert probes == ([] if pid in (None, 0) else [(pid, 0)])
+
+
+def test_linux_zombie_owner_is_abandoned_without_clearing_lease(existing, monkeypatch):
+    prefix, *_ = existing
+    state = prefix / 'client/local/replica.sqlite'
+    with sqlite3.connect(state) as db:
+        db.execute("UPDATE worker SET owner='exited',expires=?,pid=234567", (time.time()+60,))
+    before = rows(state)
+    monkeypatch.setattr(repair.sys, 'platform', 'linux')
+    monkeypatch.setattr(repair.os, 'kill', lambda pid, signal: None)
+    original = Path.read_text
+    def stat_text(path, *args, **kwargs):
+        if str(path) == '/proc/234567/stat':
+            return '234567 (old) worker) Z 1 0'
+        return original(path, *args, **kwargs)
+    monkeypatch.setattr(Path, 'read_text', stat_text)
+    repair.check_worker(state)
     assert rows(state) == before
 
 
