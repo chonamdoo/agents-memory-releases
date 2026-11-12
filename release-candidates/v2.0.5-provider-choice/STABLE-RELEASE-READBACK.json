@@ -1,0 +1,50 @@
+{
+  "checked_at": "2026-11-12T04:33:43.237134+00:00",
+  "release_id": 442499055,
+  "release_url": "https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.5",
+  "tag": "v2.0.5",
+  "published_at": "2026-11-12T04:32:52Z",
+  "draft": false,
+  "prerelease": false,
+  "latest_readback": "v2.0.5",
+  "target_commit": "bde2a9eb9d26632ab0997aee8943013b94ff9c93",
+  "assets": 0,
+  "delivery_channel": "immutable public repository commit; release attachment upload unavailable (401)",
+  "artifact_commit": "895de0e51f85ef90a1607b99545f0966091966f7",
+  "verified_tag_files": {
+    ".claude-plugin/marketplace.json": {
+      "sha256": "484df68d6271cfb0145005f056265776b51861b6eb6ae53eedc01ed22310d143",
+      "bytes": 904,
+      "match_local": true
+    },
+    "plugins/agents-memory-unified/.claude-plugin/plugin.json": {
+      "sha256": "9b48263c0af8f8da8729f3a70d46cd0a15a09152acb5301f83327563d85bdd8a",
+      "bytes": 413,
+      "match_local": true
+    },
+    "plugins/agents-memory-unified/.codex-plugin/plugin.json": {
+      "sha256": "f7ccf18aded06be87dd0c558f74933ad9642cb6b061af4da49023cdc96223f4b",
+      "bytes": 927,
+      "match_local": true
+    },
+    "plugins/agents-memory-unified/bin/connector-linux-x86_64": {
+      "sha256": "8b6fdccebf56760124734561eeb9f3366aa92651150bb460aef972bc0c163f3c",
+      "bytes": 2670752,
+      "match_local": true
+    },
+    "plugins/agents-memory-unified/bin/connector-darwin-arm64": {
+      "sha256": "4e9d487a1ba46b7941a262eabc0efa9a57e589396c31a31772387e59a748f837",
+      "bytes": 2562386,
+      "match_local": true
+    },
+    "release-candidates/v2.0.5-provider-choice/agents-memory-unified-2.0.0-local-provider-v18.tar.gz": {
+      "sha256": "bf08321c8bffcc57edf92fc3d991c9427a3dc13e21218587bf18513c8840d408",
+      "bytes": 285837,
+      "match_local": true
+    }
+  },
+  "core_pr": 93,
+  "distribution_pr": 54,
+  "new_actual_model_calls": 0,
+  "quality_scope": "Incremental functional checks; historical v2.0.4 Jev quality is not a local/subscription model result"
+}
