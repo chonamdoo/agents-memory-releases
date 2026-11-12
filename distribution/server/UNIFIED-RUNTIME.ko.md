@@ -5,10 +5,10 @@
 선택하며 저장 판단 알고리즘을 바꾸지 않는다. 팀·프로젝트 권한은 기존 인증
 게이트웨이가 처리한다. 별도의 관리형 서비스나 그래프 DB를 추가하지 않는다.
 
-2.0.0은 사용자가 품질 실패를 확인하고 배포를 선택한 공개 시험 릴리즈(prerelease)다. 원래 새 독립 v43에서 정당한 명시 저장
-70/80·이어가기 Hit@5 30/40은 고정 Wilson 하한 기준에 실패했고 필수 근거 전체 회수는
-2/40이다. 이전 v22/v27·현재 실패를 보존한다. 실제 CLI·소유 Mac·Linux·MCP 실행은
-검증했지만 실제 회사 모델 추론이나 독립 품질 통과를 대신하지 않는다.
+MCP 2.0.5의 런타임 ABI는 2.0.0이다. v2.0.4의 Jev 독립 품질·앱 수명주기 검증은
+그 버전의 근거로 보존한다. 이번 변경은 로컬 공급자 선택·격리·설치 기능 검증이며
+새 로컬 모델·구독 모델의 독립 품질 측정을 뜻하지 않는다. 과거 v43 실패와 누락된
+원본 6개는 기존 공개 기록대로 남긴다. macOS 실기기 검증은 사용자가 담당한다.
 
 공통 엔진은 수정하지 않은 `hindsight-api-slim==1.1.0` 휠
 (`sha256:d19a323afb7f9820e738ac9372f7a59ded21c1329b379195e7933a7dcefd2481`)로
@@ -16,14 +16,14 @@
 기존 실험 포크가 섞이면 서비스를 준비 완료로 표시하지 않고 자식 프로세스를 종료한다. 과거 `14e7306` 실험 포크와
 이번 공통 경로의 실행 증거를 혼용하지 않는다.
 
-이 문서는 공통 런타임과 데이터 계약 안내다. 새 설치는 [시험 릴리즈 수동 번들 설치기](README.ko.md)를 사용한다. 기존 1.0.7 코어와 0.2.1 Docker/bootstrap은 새 런타임이 아니다.
+이 문서는 공통 런타임과 데이터 계약 안내다. 새 설치는 [정식 릴리즈 번들 설치기](README.ko.md)를 사용한다. 기존 1.0.7 코어와 0.2.1 Docker/bootstrap은 새 런타임이 아니다.
 
 ## 공통 처리
 
 ```text
 Claude / Codex / OMP 사용자 입력 훅 → 비공개 SQLite 전송함
   → 인증된 공통 게이트웨이 → 영속 received 작업
-  → Jev 저장 판단·근거 구간 선택 → extracted
+  → 선택한 공급자의 저장 판단·근거 구간 선택 → extracted
   → Hindsight 저장·본문/메타데이터 재조회·원문 보존 통합 완료 → indexed
   → 현재 revision과 변경 로그 공개 → ready → 다른 PC 적용·회상
 ```
@@ -42,13 +42,15 @@ Claude / Codex / OMP 사용자 입력 훅 → 비공개 SQLite 전송함
 
 ## 엔진 실행 위치와 판단 공급자
 
-Claude·Codex·omp는 MCP·훅·압축 문맥 연결 앱이며 판단 공급자가 아니다.
-판단은 엔진 호스트의 Jev HTTPS API만 사용한다. 구독 CLI 추론과 공급자 선택
-메뉴는 제거했다. native CLI 자동 fallback·과거 엔진으로의 복귀는 하지 않는다.
-기존 Jev 선택 모델을 보존하며 과거 native 설정은 설치기에 `--provider jev`를
-명시해 전환한다. 키는 비공개 파일 또는 숨김 입력으로 제공하고 stdout에 출력하지 않는다.
+Claude·Codex·omp는 MCP·훅·압축 문맥 연결 앱이다.
+로컬 설치는 `--provider local --local-host openai|claude|codex` 또는 `--provider jev`를
+명시한다. `openai`는 Ollama·LM Studio의 loopback HTTP `/v1`이고 실제 설치된 모델 ID를
+지정한다. Claude·Codex는 PC의 로그인된 CLI를 실행하지만 모델 추론은 업체 서버에서
+이뤄진다. 이 CLI 경로는 도구·MCP·규칙·세션 저장을 끄고 API 경로 재정의가 있으면 거절한다.
+서버 모드(personal/team/company)는 Jev만 허용한다. 실패 시 다른 공급자로 대체하지 않는다.
+기존 선택·DB·키는 보존하며 명시적 공급자 전환을 요구한다. 로컬 선택은 Jev 키를 읽지 않는다.
 전환 중인 설정은 `provider_verified=false`이며 MCP가 서비스를 시작할 수 없다.
-선택한 키의 실제 API 확인 뒤에만 `true`로 공개한다. 새 키의 임시 파일은 성공·실패
+선택한 공급자의 합성 입력 처리 확인 뒤에만 `true`로 공개한다. 새 키의 임시 파일은 성공·실패
 모두 제거하며, 기존 키를 다른 입력으로 묵시적으로 교체하지 않는다. 설치는 소유
 activation lock, 서비스 시작·중지는 공통 service lock을 사용한다. native→Jev
 전환 실패는 native를 복원하지 않으며, 기존 Jev의 업데이트 실패만 같은 Jev로
@@ -72,7 +74,7 @@ bootstrap·설치 subprocess의 Python 주입 변수도 제거하고, ambient ad
 출처·라이선스는 밖에 두고, 그래프·tokenizer는 canonical
 `reranker-assets.sha256.json`으로 검증한다. 모델 자동 다운로드는 하지 않는다.
 기존 원격 `--connect-server` 클라이언트는 모델·bootstrap 없이 설치한다.
-제품은 2.0.0이며 genuine bootstrap의 역사적 소유권 버전 1.0.2는 그대로다.
+MCP 배포는 2.0.5, 런타임 ABI는 2.0.0이며 genuine bootstrap의 역사적 소유권 버전 1.0.2는 그대로다.
 
 검토된 코어와 게이트웨이 패키지, 기존 PostgreSQL/pgvector, 고정 E5와 ONNX
 재순위 모델이 준비된 격리 환경의 직접 실행 예시다. 비밀값을 명령 인자에 넣지 않는다.

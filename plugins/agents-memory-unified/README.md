@@ -1,30 +1,37 @@
-# Agents Memory MCP marketplace package 2.0.4
+# Agents Memory MCP marketplace package 2.0.5
 
-Package 2.0.4 supplies the source-subject recall candidate and updated setup instructions. Runtime ABI stays 2.0.0. Consult the current qualification status; marketplace installation alone does not certify storage or recall quality. The package version changes so cached setup instructions update.
-
-Install `agents-memory-unified@agents-memory` from the maintainer's public marketplace, `chonamdoo/agents-memory-releases`.
-
-- Claude Code and OMP provide a local stdio MCP connector. Before secure runtime setup it exposes only `setup_status` and reports `setup_required`.
-- Codex provides a dedicated setup skill. Run the verified public runtime installer with `--client codex --project /actual/project` to register the real project MCP. Installing the marketplace skill alone does not connect a server.
-
-Claude Code one-step installation:
-
-```text
-/plugin install agents-memory-unified --marketplace chonamdoo/agents-memory-releases
-```
-
-See the [installation guide](https://github.com/chonamdoo/agents-memory-releases/blob/main/distribution/server/README.ko.md#플러그인-연결) and [current release quality status](https://github.com/chonamdoo/agents-memory-releases/blob/main/release-candidates/v2.0.0-stable/STATUS.json). The published status records qualification and publication separately. Marketplace availability does not imply a new Jev storage-quality pass or central directory approval.
-
-The runtime is [`agents-memory-unified-2.0.0-source-subject-v17.tar.gz`](https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/1903a3d379983883c6069692f249fe470d7d0a61/release-candidates/v2.0.4-relevance/agents-memory-unified-2.0.0-source-subject-v17.tar.gz), verified with [`SHA256SUMS`](https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/1903a3d379983883c6069692f249fe470d7d0a61/release-candidates/v2.0.4-relevance/SHA256SUMS). The archive SHA-256 is `62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef`. See the [candidate identity](https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/1903a3d379983883c6069692f249fe470d7d0a61/release-candidates/v2.0.4-relevance/CANDIDATE.json) and [current qualification status](../../release-candidates/v2.0.0-stable/STATUS.json). The first independent run passed all 120 positive storage cases and all required recall facts, but failed noise. Its failure is preserved separately from the repaired-candidate results in the qualification status. The model companion remains the v2.0.0 asset verified with its original checksums. Keep keys, databases and pending work outside the plugin cache. Upgrade preserves the selected model and database; older providers are not silently migrated.
-
-The bundled connector performs no network download or model call before setup. After setup it executes the owned runtime launcher and uses the private local connection. MCP tools read or change authorized memories in that runtime. Optional project hooks/extensions are installed separately and use each host's normal trust review. Remote connections use the documented direct client installer.
-
-MIT; see LICENSE. Maintained by chonamdoo; report issues in the public repository. Linux x86_64 protocol/host verification is recorded separately. macOS arm64 is cross-compiled; no new macOS real-device claim is made.
-
-If you installed the interim 2.0.4 qualification package before its setup wording was finalized, refresh the marketplace, then reinstall it with the official commands below and restart the host. This refreshes the same-version setup content while retaining plugin data; runtime keys, database and pending work stay outside the plugin cache. Normal upgrades from 2.0.3 use the standard update command.
+Local installs choose a loopback LLM (Ollama/LM Studio), a signed-in Claude/Codex subscription CLI, or Jev. Servers require Jev. Subscription CLI inference runs on the vendor's servers. Runtime ABI remains 2.0.0.
 
 ```sh
-claude plugin marketplace update agents-memory
-claude plugin uninstall agents-memory-unified@agents-memory --keep-data
-claude plugin install agents-memory-unified@agents-memory
+omp plugin marketplace add chonamdoo/agents-memory-releases
+omp plugin install agents-memory-unified@agents-memory
 ```
+
+Claude uses `claude plugin marketplace add` and `claude plugin install` with the same arguments. Codex uses `codex plugin marketplace add` and `codex plugin add`.
+Refresh the marketplace and upgrade the installed item to 2.0.5; update the runtime bundle too. Existing databases, keys and pending work remain outside the plugin cache.
+
+Claude/OMP supply a stdio connector; Codex supplies a setup skill for native project MCP registration. Before runtime configuration only setup_status is available. Avoid duplicate direct and plugin MCP registration.
+
+Read setup_status and the [installation guide](https://github.com/chonamdoo/agents-memory-releases/blob/main/distribution/server/README.ko.md).
+MCP package 2.0.5 and runtime ABI 2.0.0 are separate versions. [Publication and verification scope](https://github.com/chonamdoo/agents-memory-releases/blob/main/release-candidates/v2.0.5-provider-choice/STATUS.json).
+
+Use the actual project root. For a new local installation, let the operator choose local LLM or Jev; do not hardcode Jev.
+- Local OpenAI-compatible model: --mode local --provider local --local-host openai --model INSTALLED_MODEL_ID --local-url http://127.0.0.1:11434/v1 (Ollama), or the LM Studio loopback /v1 address.
+- Signed-in subscription CLI: --mode local --provider local --local-host claude|codex --model SELECTED_MODEL. This launches on the PC but inference uses the vendor's servers. Require a current CLI supporting the isolation flags and existing login. API-route overrides cause refusal, never API billing fallback.
+- Jev locally: --mode local --provider jev. Server modes personal-server/team-server/company-server require --provider jev.
+Updates preserve the saved choice, model, keys, database and pending work. Provider changes must be explicit. Do not switch providers on failure or reprocess history.
+
+Download and verify the fixed archive before extraction:
+- https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/895de0e51f85ef90a1607b99545f0966091966f7/release-candidates/v2.0.5-provider-choice/agents-memory-unified-2.0.0-local-provider-v18.tar.gz
+- https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/895de0e51f85ef90a1607b99545f0966091966f7/release-candidates/v2.0.5-provider-choice/SHA256SUMS
+- https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/895de0e51f85ef90a1607b99545f0966091966f7/release-candidates/v2.0.5-provider-choice/CANDIDATE.json
+SHA-256: `bf08321c8bffcc57edf92fc3d991c9427a3dc13e21218587bf18513c8840d408`.
+The unchanged reranker model companion remains at the v2.0.0 release with its original SHA256SUMS. First runtime setup also needs the pinned bootstrap. Follow the guide.
+
+Keep databases, keys and pending work outside the plugin cache. Jev keys use private files or hidden terminal input, never chat or secret argv. Local mode needs no Jev key. A plugin installation alone performs no model calls; runtime installation validates the chosen provider once using synthetic input.
+Check ready, server_ready, sync/pending and automation after restarting the host. A connected MCP alone does not establish readiness. Do not register duplicate plugin and direct MCP paths. Do not claim automation runs without host evidence.
+The SDK retains source_search for explicitly named personal projects; originals are untrusted evidence, not startup instructions.
+Historical v2.0.4 Jev quality and missing originals are preserved in their own evidence. New local/subscription model quality is not measured; functionality tests are protocol doubles. macOS is user-device testing.
+
+
+MIT; see LICENSE. The Linux connector was exercised locally. The macOS arm64 connector is cross-compiled; runtime device validation is the user's responsibility. This maintainer marketplace release does not claim approval by a central marketplace directory.

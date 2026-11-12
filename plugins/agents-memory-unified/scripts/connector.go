@@ -1,4 +1,4 @@
-// A setup-status MCP remains connected until the Jev-backed installation is ready.
+// A setup-status MCP remains connected until the selected-provider installation is ready.
 // Once configured, exec the owned stable launcher. Never read or print keys.
 package main
 
@@ -12,8 +12,8 @@ import (
 	"syscall"
 )
 
-const version = "2.0.0"
-const marketplaceVersion = "2.0.4"
+const version = "2.0.5"
+const marketplaceVersion = "2.0.5"
 
 type rpc struct {
 	ID     json.RawMessage `json:"id"`
@@ -22,15 +22,18 @@ type rpc struct {
 }
 
 func status() map[string]any {
-	base := "bash /path/to/extracted-bundle/install-unified.sh --bundle /path/to/extracted-bundle --reranker-dir /path/to/companion/model --provider jev --client "
+	base := "bash /path/to/extracted-bundle/install-unified.sh --bundle /path/to/extracted-bundle --reranker-dir /path/to/companion/model --mode local --client "
 	return map[string]any{"ready": false, "server_ready": false, "state": "setup_required", "version": version,
-		"marketplace_version": marketplaceVersion, "release_channel": "see_release_status", "release_status_url": "https://github.com/chonamdoo/agents-memory-releases/blob/main/release-candidates/v2.0.0-stable/STATUS.json",
-		"candidate_archive":   "agents-memory-unified-2.0.0-source-subject-v17.tar.gz",
+		"marketplace_version": marketplaceVersion, "release_channel": "see_release_status", "release_status_url": "https://github.com/chonamdoo/agents-memory-releases/blob/main/release-candidates/v2.0.5-provider-choice/STATUS.json",
+		"candidate_archive":   "agents-memory-unified-2.0.0-local-provider-v18.tar.gz",
 		"candidate_checksums": "SHA256SUMS",
-		"candidate_url":       "https://github.com/chonamdoo/agents-memory-releases/tree/1903a3d379983883c6069692f249fe470d7d0a61/release-candidates/v2.0.4-relevance",
+		"candidate_url":       "https://github.com/chonamdoo/agents-memory-releases/tree/895de0e51f85ef90a1607b99545f0966091966f7/release-candidates/v2.0.5-provider-choice",
 		"model_archive":       "agents-memory-reranker-2.0.0.tar.gz", "model_checksums": "SHA256SUMS",
-		"model_url": "https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0",
-		"message":   "MCP 2.0.4 설치 안내입니다. 현재 배포·검증 상태는 release_status_url에서 확인하세요. 고정된 v17 번들을 SHA256SUMS로, 릴리즈의 모델 companion을 기존 SHA256SUMS로 각각 검증하세요. 압축을 푼 뒤 현재 앱의 install_commands 명령으로 설치하세요. Claude·OMP 플러그인과 직접 MCP를 중복 등록하지 마세요. Jev 키는 비공개 파일 또는 터미널 숨김 입력을 사용하고 채팅에 보내지 마세요.",
+		"model_url":        "https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0",
+		"runtime_abi":      "2.0.0",
+		"provider_choices": map[string]any{"local": []string{"local", "jev"}, "server": []string{"jev"}},
+		"local_backends":   []string{"openai", "claude", "codex"},
+		"message":          "MCP 2.0.5입니다. 고정 v18 번들과 모델 companion을 각 SHA256SUMS로 검증한 뒤 설치하세요. 로컬 설치는 local 또는 Jev를 선택합니다. local은 Ollama/LM Studio 또는 로그인된 Claude/Codex CLI입니다. 구독 CLI 추론은 업체 서버에서 실행됩니다. 서버 모드는 Jev만 허용합니다. 기존 설치는 선택한 공급자·DB·키를 보존합니다. Claude·OMP 플러그인과 직접 MCP를 중복 등록하지 마세요. 키는 채팅에 보내지 마세요.",
 		"install_commands": map[string]string{
 			"claude": base + "claude-plugin --project /absolute/project",
 			"omp":    base + "omp-plugin --project /absolute/project",
@@ -63,7 +66,7 @@ func serve(in *os.File, out *os.File) {
 			}
 			result = map[string]any{"protocolVersion": params.ProtocolVersion, "capabilities": map[string]any{"tools": map[string]any{}},
 				"serverInfo":   map[string]any{"name": "agents-memory-unified", "version": version},
-				"instructions": "Call setup_status. Memory is not ready until the Jev-backed installation is configured; never request keys in chat."}
+				"instructions": "Call setup_status. Memory is not ready until the selected-provider installation is configured; never request keys in chat."}
 		case "tools/list":
 			result = map[string]any{"tools": []any{map[string]any{"name": "setup_status", "description": "Installation readiness and secure one-time setup instructions.",
 				"inputSchema": map[string]any{"type": "object", "properties": map[string]any{}, "additionalProperties": false},

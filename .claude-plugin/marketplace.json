@@ -20,8 +20,8 @@
     {
       "name": "agents-memory-unified",
       "source": "./plugins/agents-memory-unified",
-      "description": "Shared Jev-backed memory MCP for Claude, Codex and OMP. Separate verified runtime setup required; see published release status.",
-      "version": "2.0.4"
+      "description": "Shared memory MCP: local LLM or Jev on local installs; Jev on servers. Verified runtime setup required.",
+      "version": "2.0.5"
     }
   ]
 }

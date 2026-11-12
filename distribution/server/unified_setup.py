@@ -20,7 +20,7 @@ import urllib.request
 import uuid
 from pathlib import Path
 from types import ModuleType
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urlunsplit
 
 DEFAULT = Path.home() / ".local/share/agents-memory-unified"
 DEFAULT_MODEL = "jev-1.14.0"
@@ -42,10 +42,32 @@ def require_jev(provider):
         )
 
 
+def require_provider(provider, mode):
+    if provider not in {"jev", "local"}:
+        raise ProviderMigrationRequired("Choose --provider jev or --provider local explicitly; memories are preserved")
+    if provider == "local" and mode != "local":
+        raise SetupInputError("Server deployments require --provider jev; local LLM requires --mode local")
+
+
+def local_endpoint(value):
+    try:
+        url = urlsplit(value)
+        port = url.port
+        if (any(c.isspace() for c in value) or url.scheme != "http"
+                or url.hostname not in {"localhost", "127.0.0.1", "::1"}
+                or url.username is not None or url.password is not None or url.query or url.fragment
+                or url.path.rstrip("/") != "/v1"):
+            raise ValueError()
+    except (TypeError, ValueError):
+        raise SetupInputError("Local LLM URL must be a loopback HTTP /v1 endpoint") from None
+    host = "[::1]" if url.hostname == "::1" else "127.0.0.1"
+    return urlunsplit(("http", host + (":" + str(port) if port is not None else ""), "/v1", "", ""))
+
+
 def _require_verified_provider(config):
-    require_jev(config["provider"])
+    require_provider(config["provider"], config.get("mode"))
     if config.get("provider_verified") is not True:
-        raise SetupInputError("Jev configuration is awaiting explicit provider validation")
+        raise SetupInputError("Selected provider is awaiting explicit validation")
 
 
 def _python_environment():
@@ -206,21 +228,32 @@ def read_settings(prefix):
 
 
 def service_environment(prefix, h, config):
-    require_jev(config["provider"])
+    require_provider(config["provider"], config.get("mode"))
     environment = _python_environment()
     environment.update(
         AM_COLLAB_DATABASE_URL=h.read_json(prefix / "settings/mcp-database.json")[
             "url"
         ],
-        AM_MEMORY_PROVIDER="jev",
+        AM_MEMORY_PROVIDER=config["provider"],
+        AM_MEMORY_DEPLOYMENT_MODE=config["mode"],
         AM_MEMORY_MODEL=config["model"],
         AM_MEMORY_PROCESSING="integrated",
         PATH=config["path"],
     )
     for name in ("AM_MEMORY_EXECUTABLE", "AM_MEMORY_WORKDIR", "AM_MEMORY_SERVICE_INSTANCE",
-                 "HINDSIGHT_API_MEMORY_ADMISSION_API_KEY"):
+                 "HINDSIGHT_API_MEMORY_ADMISSION_API_KEY", "AM_MEMORY_JEV_KEY_FILE",
+                 "AM_MEMORY_LOCAL_URL", "AM_MEMORY_LOCAL_HOST", "AM_MEMORY_LOCAL_EXECUTABLE", "AM_MEMORY_LOCAL_WORKDIR"):
         environment.pop(name, None)
-    environment["AM_MEMORY_JEV_KEY_FILE"] = str(prefix / "settings/jev-credential.json")
+    if config["provider"] == "jev":
+        environment["AM_MEMORY_JEV_KEY_FILE"] = str(prefix / "settings/jev-credential.json")
+    else:
+        host = config.get("local_host", "openai")
+        environment["AM_MEMORY_LOCAL_HOST"] = host
+        if host == "openai":
+            environment["AM_MEMORY_LOCAL_URL"] = local_endpoint(config["local_url"])
+        else:
+            environment["AM_MEMORY_LOCAL_EXECUTABLE"] = config["local_executable"]
+            environment["AM_MEMORY_LOCAL_WORKDIR"] = str(prefix / "settings/local-llm-runs")
     return environment
 
 
@@ -421,13 +454,70 @@ def ensure(prefix):
 def _selected_configuration(args, h, prefix):
     saved_path = prefix / "settings/unified.json"
     saved = h.read_json(saved_path) if saved_path.exists() else None
-    require_jev(args.provider or (saved["provider"] if saved else "jev"))
-    migrating = saved is not None and saved["provider"] != "jev"
-    model = args.model or (saved["model"] if saved and not migrating else DEFAULT_MODEL)
-    if saved and not migrating and model != saved["model"]:
+    mode = getattr(args, "mode", "local")
+    raw = getattr(args, "_selected_provider", None) or args.provider
+    if raw is None:
+        if saved:
+            raw = saved["provider"]
+        elif mode == "local" and sys.stdin.isatty():
+            choice = input("기억 처리 공급자 [1: 로컬 LLM, 2: Jev]: ").strip()
+            if choice not in {"1", "2"}:
+                raise SetupInputError("Select 1 or 2")
+            raw = "local" if choice == "1" else "jev"
+        else:
+            raw = "jev"
+    legacy_cli = raw == "local-llm"
+    provider = "local" if legacy_cli else raw
+    require_provider(provider, mode)
+    if saved:
+        require_provider(provider, saved.get("mode", mode))
+        if saved.get("mode", mode) != mode:
+            raise SetupInputError("Update preserves the saved deployment mode")
+    args._selected_provider = provider
+    host = None
+    if provider == "local":
+        if getattr(args, "jev_key_file", None):
+            raise SetupInputError("Local LLM does not use --jev-key-file")
+        host = (getattr(args, "_local_host", None) or getattr(args, "local_host", None)
+                or (saved.get("local_host", "openai") if saved and saved["provider"] == "local" else None))
+        if host is None and legacy_cli:
+            host = "codex"
+        if host is None and sys.stdin.isatty() and not args.model and not getattr(args, "local_url", None):
+            choice = input("로컬 실행 방식 [1: Codex 구독 CLI, 2: Claude 구독 CLI, 3: Ollama/LM Studio]: ").strip()
+            host = {"1": "codex", "2": "claude", "3": "openai"}.get(choice)
+            if host is None:
+                raise SetupInputError("Select 1, 2 or 3")
+        host = host or "openai"
+        if host not in {"openai", "claude", "codex"}:
+            raise SetupInputError("Invalid --local-host")
+        args._local_host = host
+    elif any(getattr(args, name, None) for name in ("local_host", "local_url", "local_executable")):
+        raise SetupInputError("Local options require --provider local")
+    migrating = saved is not None and (saved["provider"] != provider or
+        (provider == "local" and saved.get("local_host", "openai") != host))
+    model = args.model or (saved["model"] if saved and not migrating else
+        {"jev": DEFAULT_MODEL, "claude": "claude-sonnet-5-5", "codex": "gpt-6.1-terra"}.get(provider if provider == "jev" else host))
+    if model is None and sys.stdin.isatty():
+        model = input("설치된 로컬 모델 ID: ").strip()
+    if not isinstance(model, str) or not model.strip() or len(model) > 64:
+        raise SetupInputError("Supply --model with your installed model ID")
+    if provider == "jev" and saved and not migrating and model != saved["model"]:
         raise SetupInputError("Update preserves the saved Jev model")
     if args.public_url and saved and args.public_url != saved["public_url"]:
         raise SetupInputError("Saved connection URL is preserved on update")
+    if provider == "local" and host == "openai":
+        if getattr(args, "local_executable", None):
+            raise SetupInputError("--local-executable requires a CLI backend")
+        args._local_url = local_endpoint(getattr(args, "local_url", None) or
+            (saved.get("local_url") if saved and not migrating else None) or "http://127.0.0.1:11434/v1")
+    elif provider == "local":
+        if getattr(args, "local_url", None):
+            raise SetupInputError("--local-url requires --local-host openai")
+        executable = (getattr(args, "local_executable", None) or
+            (saved.get("local_executable") if saved and not migrating else None) or shutil.which(host))
+        if not executable or not Path(executable).is_file() or not os.access(executable, os.X_OK):
+            raise SetupInputError("Install and sign in to the selected CLI; supply --local-executable if needed")
+        args._local_executable = str(Path(executable).resolve())
     return saved, migrating, model
 
 
@@ -455,15 +545,17 @@ def install(args):
     if args.reranker_dir is None and not reranker_directory(prefix, bundle).exists():
         raise SetupInputError("First installation requires --reranker-dir with the reviewed model assets")
     credential = prefix / "settings/jev-credential.json"
-    key = _read_key_file(args.jev_key_file, h) if args.jev_key_file else None
-    if credential.exists():
-        if key is not None and key != _read_key_file(credential, h):
-            raise SetupInputError("A different --jev-key-file cannot replace the saved credential implicitly")
-    elif key is None:
-        if sys.stdin.isatty():
-            key = _key_value(getpass.getpass("Jev API 키 (입력 숨김, Enter로 확정): ").strip())
-        else:
-            raise SetupInputError("A private --jev-key-file or secure terminal input is required")
+    key = None
+    if args._selected_provider == "jev":
+        key = _read_key_file(args.jev_key_file, h) if args.jev_key_file else None
+        if credential.exists():
+            if key is not None and key != _read_key_file(credential, h):
+                raise SetupInputError("A different --jev-key-file cannot replace the saved credential implicitly")
+        elif key is None:
+            if sys.stdin.isatty():
+                key = _key_value(getpass.getpass("Jev API 키 (입력 숨김, Enter로 확정): ").strip())
+            else:
+                raise SetupInputError("A private --jev-key-file or secure terminal input is required")
     # Reuse the pinned, hash-locked Python/Hindsight/E5 bootstrap. Its old
     # memory binary is never started: the new package supplies the actual engine.
     bootstrap = [
@@ -475,14 +567,19 @@ def install(args):
         "--prefix",
         str(prefix),
         "--provider",
-        "jev",
+        "jev" if args._selected_provider == "jev" else "local-llm",
         "--model",
         model,
     ]
+    if args._selected_provider == "local":
+        bootstrap.extend(["--host", args._local_host if args._local_host != "openai" else "codex"])
     if platform.system() == "Linux":
         bootstrap.append("--virtual-linux")
     environment = _python_environment()
-    if key is not None:
+    if args._selected_provider == "local":
+        environment.pop("HINDSIGHT_API_MEMORY_ADMISSION_API_KEY", None)
+        environment.pop("AM_MEMORY_JEV_KEY_FILE", None)
+    elif key is not None:
         environment["HINDSIGHT_API_MEMORY_ADMISSION_API_KEY"] = key
     prefix.parent.mkdir(parents=True, exist_ok=True)
     existing = (prefix / "PRODUCT.json").exists()
@@ -506,7 +603,7 @@ def _install_owned(args, h, key, manifest):
         raise SetupInputError("The release bundle changed during preparation")
     saved_path = prefix / "settings/unified.json"
     saved, migrating, model = _selected_configuration(args, h, prefix)
-    provider = "jev"
+    provider = args._selected_provider
     h.OPERATION_LOG = prefix / "settings/unified-operations.log"
 
 
@@ -514,12 +611,13 @@ def _install_owned(args, h, key, manifest):
     with h.locked(prefix, "reranker-install.lock"), h.phase("검색 재정렬 모델 준비"):
         install_reranker(prefix, bundle, args.reranker_dir)
     credential = prefix / "settings/jev-credential.json"
-    if credential.exists():
-        if key is not None and key != _read_key_file(credential, h):
-            raise SetupInputError("A different key cannot replace the saved credential implicitly")
-        key = None
-    elif key is None:
-        raise SetupInputError("The saved credential disappeared; supply a private --jev-key-file")
+    if provider == "jev":
+        if credential.exists():
+            if key is not None and key != _read_key_file(credential, h):
+                raise SetupInputError("A different key cannot replace the saved credential implicitly")
+            key = None
+        elif key is None:
+            raise SetupInputError("The saved credential disappeared; supply a private --jev-key-file")
     # Native DB setup must never silently adopt an inherited DATABASE_URL.
     inherited = os.environ.pop("DATABASE_URL", None)
     try:
@@ -583,7 +681,15 @@ def _install_owned(args, h, key, manifest):
         "hindsight_port": h.available_port(),
         "path": os.environ.get("PATH", os.defpath),
     }
-    config.update(provider="jev", model=model, provider_verified=False)
+    config.update(provider=provider, model=model, provider_verified=False)
+    for name in ("local_host", "local_url", "local_executable"):
+        config.pop(name, None)
+    if provider == "local":
+        config["local_host"] = args._local_host
+        if args._local_host == "openai":
+            config["local_url"] = args._local_url
+        else:
+            config["local_executable"] = args._local_executable
     config.pop("executable", None)
     config.setdefault(
         "public_url", args.public_url or "http://127.0.0.1:" + str(config["port"])
@@ -739,7 +845,10 @@ def main():
     parser.add_argument("--bundle", type=Path, default=Path(__file__).resolve().parent)
     parser.add_argument("--bootstrap-bundle", type=Path)
     parser.add_argument("--reranker-dir", type=Path)
-    parser.add_argument("--provider", choices=["jev"])
+    parser.add_argument("--provider", choices=["jev", "local", "local-llm"])
+    parser.add_argument("--local-host", choices=["openai", "claude", "codex"])
+    parser.add_argument("--local-url")
+    parser.add_argument("--local-executable", type=Path)
     parser.add_argument("--model")
     parser.add_argument("--jev-key-file", type=Path)
     parser.add_argument(
