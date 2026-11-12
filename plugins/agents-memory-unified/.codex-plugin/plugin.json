@@ -1,7 +1,7 @@
 {
   "name": "agents-memory-unified",
-  "version": "2.0.4",
-  "description": "Install and configure Agents Memory 2.0.0 using the verified public runtime and native project MCP registration.",
+  "version": "2.0.5",
+  "description": "Memory MCP with local LLM or Jev selection for local installs; servers use Jev. Runtime ABI 2.0.0.",
   "author": {
     "name": "chonamdoo"
   },
@@ -13,7 +13,7 @@
   "interface": {
     "displayName": "Agents Memory",
     "shortDescription": "Shared memory for your coding agents",
-    "longDescription": "Connect to your locally installed Jev-backed memory authority. Secure runtime setup is required. Release quality status is documented in the public release.",
+    "longDescription": "Connect to your installed memory authority. Local installs choose a loopback LLM, signed-in Claude/Codex CLI, or Jev; servers use Jev. Secure runtime setup is required.",
     "developerName": "chonamdoo",
     "category": "Developer Tools",
     "logo": "./assets/icon.png",

@@ -1,7 +1,7 @@
 {
   "name": "agents-memory-unified",
-  "version": "2.0.4",
-  "description": "Jev-backed memory MCP for Claude, Codex and OMP. Install the verified public 2.0.0 runtime bundle; see release quality status.",
+  "version": "2.0.5",
+  "description": "Memory MCP with local LLM or Jev selection for local installs; servers use Jev. Runtime ABI 2.0.0.",
   "author": {
     "name": "chonamdoo"
   },

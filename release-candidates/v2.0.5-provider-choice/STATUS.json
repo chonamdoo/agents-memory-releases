@@ -1,0 +1,32 @@
+{
+  "version": "2.0.5",
+  "runtime_abi": "2.0.0",
+  "qualification": "incremental_provider_functionality",
+  "core_tests": {
+    "passed": 246,
+    "skipped": 2,
+    "skip_reason": "pre-existing native integration fixtures unavailable"
+  },
+  "installer_tests": {
+    "passed": 52
+  },
+  "installed_sourceless_core": {
+    "cp312": "PASS",
+    "cp313": "PASS",
+    "modules": 15,
+    "checks": [
+      "imports",
+      "HTTP processor",
+      "CLI wrapper",
+      "server rejection"
+    ]
+  },
+  "actual_new_model_calls": 0,
+  "independent_quality_evidence": "../v2.0.4-relevance/live-quality-v2/README.ko.md",
+  "independent_quality_scope": "Historical v2.0.4 Jev only; not a new local/subscription model result",
+  "macos_release_gate": "excluded by user; user device testing",
+  "historical_missing_originals": 6,
+  "historical_results_preserved": true,
+  "github_actions_used": false,
+  "published": false
+}

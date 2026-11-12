@@ -1,5 +1,5 @@
 #!/bin/bash
-# The 2.0.0 prerelease requires a manually downloaded, verified, extracted bundle.
+# The runtime ABI 2.0.0 bundle requires a manually downloaded, verified, extracted bundle.
 set -euo pipefail
 umask 077
 am_bootstrap_sha=3324b7fb06618a0c9d466bb4876e1d810eb4ef03b92f66ae996118f04d632b34
@@ -19,17 +19,17 @@ am_value() { [[ $# -ge 2 && -n $2 && $2 != -* ]] || am_fail "Missing value for $
 while [[ $# -gt 0 ]]; do
   am_option=${1%%=*}
   case "$am_option" in
-    --bootstrap-bundle|--reranker-dir|--provider|--model|--jev-key-file|--mode|--host|--public-url) am_local_options+=("$am_option") ;;
+    --bootstrap-bundle|--reranker-dir|--provider|--local-host|--local-url|--local-executable|--model|--jev-key-file|--mode|--host|--public-url) am_local_options+=("$am_option") ;;
     --url|--profile|--credential-file|--project-name|--python-launcher|--root|--device-name|--no-automatic-memory|--replace-credential|--recover) am_remote_options+=("$am_option") ;;
   esac
   case "$am_option" in
     --help|-h)
       printf '%s\n' \
-        '2.0.0 prerelease (quality gates failed): manually download, verify and extract the release bundle; this installer does not download it.' \
+        'MCP 2.0.5: manually download, verify and extract the release bundle; this installer does not download it.' \
         'Local/server: bash install-unified.sh [--bundle PATH] [--bootstrap-bundle PATH] --reranker-dir PATH --mode local|personal-server|team-server|company-server --client claude|codex|omp|all --project /absolute/project' \
         'Existing server client only: bash install-unified.sh [--bundle PATH] --connect-server --url https://YOUR_GATEWAY --profile personal --client all' \
         '--bundle defaults to the adjacent bundle only when ASSETS.json validates. --bootstrap-bundle is an extracted genuine 1.0.2 bundle or its pinned .tar.gz.' \
-        'Jev is the only judgment backend: --provider jev [--model ID] [--jev-key-file PRIVATE_FILE]. Frontends remain Claude, Codex and omp.' \
+        'Local: --provider local --local-host openai|claude|codex --model ID; OpenAI-compatible loopback uses --local-url. Server modes require --provider jev [--jev-key-file PRIVATE_FILE].' \
         'First local installation requires a prepared six-file reranker directory. Updates may reuse the owned verified model cache. No model is downloaded.' \
         'Remote clients need no bootstrap/model; a working python3 is required to validate the local release before client provisioning.' \
         'Keys use hidden terminal input; never paste keys into chat. Existing credentials and DB are preserved.'
@@ -38,7 +38,7 @@ while [[ $# -gt 0 ]]; do
       [[ $1 == "$am_option" ]] || am_fail "$am_option does not take a value"
       if [[ $am_option == --connect-server ]]; then am_remote=true; else am_args+=("$1"); fi
       shift ;;
-    --bundle|--bootstrap-bundle|--prefix|--reranker-dir|--provider|--model|--jev-key-file|--mode|--host|--public-url|--client|--project|--url|--profile|--credential-file|--project-name|--python-launcher|--root|--device-name)
+    --bundle|--bootstrap-bundle|--prefix|--reranker-dir|--provider|--local-host|--local-url|--local-executable|--model|--jev-key-file|--mode|--host|--public-url|--client|--project|--url|--profile|--credential-file|--project-name|--python-launcher|--root|--device-name)
       if [[ $1 == *=* ]]; then am_parameter=${1#*=}; am_value "$am_option" "$am_parameter"; shift
       else am_value "$am_option" "${2-}"; am_parameter=$2; shift 2; fi
       case "$am_option" in
@@ -57,7 +57,7 @@ else
   [[ -z ${am_remote_options[0]-} ]] || am_fail "Remote-only option requires --connect-server: ${am_remote_options[0]}"
 fi
 [[ -n $am_bundle ]] || am_bundle=$am_source
-[[ -d $am_bundle && ! -L $am_bundle && -s "$am_bundle/ASSETS.json" && ! -L "$am_bundle/ASSETS.json" ]] || am_fail 'A valid extracted 2.0.0 prerelease bundle with ASSETS.json is required; supply --bundle PATH. Manually download it from https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0.'
+[[ -d $am_bundle && ! -L $am_bundle && -s "$am_bundle/ASSETS.json" && ! -L "$am_bundle/ASSETS.json" ]] || am_fail 'A valid extracted runtime ABI 2.0.0 bundle with ASSETS.json is required; supply --bundle PATH. Manually download it from https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.5.'
 am_bundle="$(cd -- "$am_bundle" && pwd -P)"
 case "$(uname -s):$(uname -m)" in
   Darwin:arm64) am_target=darwin-arm64 ;;

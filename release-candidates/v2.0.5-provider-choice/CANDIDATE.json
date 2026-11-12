@@ -1,0 +1,77 @@
+{
+  "mcp_version": "2.0.5",
+  "runtime_abi": "2.0.0",
+  "archive": "agents-memory-unified-2.0.0-local-provider-v18.tar.gz",
+  "sha256": "bf08321c8bffcc57edf92fc3d991c9427a3dc13e21218587bf18513c8840d408",
+  "bytes": 285837,
+  "core_source_commit": "da7c341a7647034a62cfcbda1c9035a473798527",
+  "sdk_sha256": "1a8d2c9603cdcf6fba96b69fc4dfa64788ffb72b3f55272e1d0e0eace839a1db",
+  "core_builds": {
+    "312": {
+      "wheel": "agents_memory_core-2.0.0-cp312-none-any.whl",
+      "sha256": "0a1df5c44bc43c3d1649152fbc8c647ba33b4d97764878afb5ee9e234bbeac6b",
+      "python_minor": [
+        3,
+        12
+      ],
+      "private_python_sources_in_wheel": false,
+      "bytecode_is_not_encryption": true,
+      "runtime_platform": "POSIX; native OS validation reported separately",
+      "modules": {
+        "local_llm": "c78aa6f3ecf05b9328dd2bab55d9ab144f5c6dc9c3cd6a8be9763545e9307a50",
+        "subscription": "0563370e7bce7f5699110077f6fc59d8c118fa06d2c82e5b856c5ca627a0c9b1",
+        "admission_provider": "7db880885b758478a4d2cbd1bbf19de9df13862a4ae5a0cc59701c9f839f290a",
+        "capture_guard": "ec443b073307728a27a58b542dc3b5e5bffd66a683d0e42e527c9d65f9043728",
+        "errors": "bc321442dfc49f3b442246a61debbe9d294e74d0db8bf004e43715aae0812741",
+        "generation_provider": "62c574b8487d76173500858307fe96761e0050bf1037429fc249c49c74e8e03f",
+        "hindsight_admission_limits": "9a6c196cd378d5d499d82cb0f31e4a679e8bff2a673564b1e45c2fec7beb8760",
+        "hindsight_admission_policy": "9fa41d8a0ddf445cdded4f143e8cf3ad9ea4cb762d41ea939cb9b7cbda4b22b5",
+        "jev": "e7438d14fc9507d8e75d0dcc208f6e6fe9169061a02af84164457fa0cbc4863f",
+        "source_integration": "34cb33dd12111188a864ddadfbb8a1a2fc08978a49a42eb8e45a99ab55e58de7",
+        "memory_categories": "6b9eed614c73482ab8db025bc6eeb53f4ea7c4be7995faaad8b7706ca0870a7f",
+        "memory_content": "ed8792c40defbc3e93b2431b6ae0941f2e80b2cdbaf3c309e726b7cf534c9e69",
+        "memory_processor": "32f1054df1155b67be6a4e05d58f93850b3e3187e48d17af0d164a5072d8be8f",
+        "reranker_assets": "8eb9c43ce9bd09172502e3f86bf846fcaeb40f3f98cd7c9af1cf2ed2ead5523c",
+        "unified_runtime": "be4f8a025659b904f6a8426ff7961996085febae6048f811ffbc082c934f21a4"
+      }
+    },
+    "313": {
+      "wheel": "agents_memory_core-2.0.0-cp313-none-any.whl",
+      "sha256": "00f056ec2a25e7b6442a88e78bc7406c5affbd4cb92e3e427eb1d5bc50cb215c",
+      "python_minor": [
+        3,
+        13
+      ],
+      "private_python_sources_in_wheel": false,
+      "bytecode_is_not_encryption": true,
+      "runtime_platform": "POSIX; native OS validation reported separately",
+      "modules": {
+        "local_llm": "c78aa6f3ecf05b9328dd2bab55d9ab144f5c6dc9c3cd6a8be9763545e9307a50",
+        "subscription": "0563370e7bce7f5699110077f6fc59d8c118fa06d2c82e5b856c5ca627a0c9b1",
+        "admission_provider": "7db880885b758478a4d2cbd1bbf19de9df13862a4ae5a0cc59701c9f839f290a",
+        "capture_guard": "ec443b073307728a27a58b542dc3b5e5bffd66a683d0e42e527c9d65f9043728",
+        "errors": "bc321442dfc49f3b442246a61debbe9d294e74d0db8bf004e43715aae0812741",
+        "generation_provider": "62c574b8487d76173500858307fe96761e0050bf1037429fc249c49c74e8e03f",
+        "hindsight_admission_limits": "9a6c196cd378d5d499d82cb0f31e4a679e8bff2a673564b1e45c2fec7beb8760",
+        "hindsight_admission_policy": "9fa41d8a0ddf445cdded4f143e8cf3ad9ea4cb762d41ea939cb9b7cbda4b22b5",
+        "jev": "e7438d14fc9507d8e75d0dcc208f6e6fe9169061a02af84164457fa0cbc4863f",
+        "source_integration": "34cb33dd12111188a864ddadfbb8a1a2fc08978a49a42eb8e45a99ab55e58de7",
+        "memory_categories": "6b9eed614c73482ab8db025bc6eeb53f4ea7c4be7995faaad8b7706ca0870a7f",
+        "memory_content": "ed8792c40defbc3e93b2431b6ae0941f2e80b2cdbaf3c309e726b7cf534c9e69",
+        "memory_processor": "32f1054df1155b67be6a4e05d58f93850b3e3187e48d17af0d164a5072d8be8f",
+        "reranker_assets": "8eb9c43ce9bd09172502e3f86bf846fcaeb40f3f98cd7c9af1cf2ed2ead5523c",
+        "unified_runtime": "be4f8a025659b904f6a8426ff7961996085febae6048f811ffbc082c934f21a4"
+      }
+    }
+  },
+  "local_providers": [
+    "openai-compatible-loopback",
+    "claude-subscription-cli",
+    "codex-subscription-cli"
+  ],
+  "server_providers": [
+    "jev"
+  ],
+  "actual_new_model_quality_tested": false,
+  "macos_runtime_tested": false
+}

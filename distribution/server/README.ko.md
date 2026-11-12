@@ -1,11 +1,12 @@
-# agents-memory 공통 MCP 2.0.4
+# agents-memory 공통 MCP 2.0.5
 
-**MCP 2.0.4 출시 검증을 완료했습니다. 엔진·SDK ABI는 2.0.0입니다. [게시 상태·검증 범위](../../release-candidates/v2.0.4-relevance/README.ko.md)를 확인하세요.**
-로컬·개인 서버·팀 서버·회사 서버에서 같은 Hindsight 엔진을 사용합니다.
-Claude·Codex·omp는 MCP·훅·압축 문맥 연결 앱이고, 저장 판단 공급자는 **Jev 하나**입니다.
-구독 CLI 추론과 공급자 선택 메뉴는 제거했습니다. 장애 때 native CLI로 대체하지
-않습니다. native→Jev 전환 실패 뒤에도 native를 다시 시작하지 않으며, 같은 Jev
-업데이트의 실패만 이전 Jev 설정·번들로 복구합니다. 기존 DB를 자동 이전·재처리하지 않습니다.
+**MCP 2.0.5: 로컬 설치에서 로컬 LLM 또는 Jev를 선택합니다. 서버 설치는 Jev입니다. 엔진·SDK ABI는 2.0.0입니다.**
+[이번 배포·검증 범위](../../release-candidates/v2.0.5-provider-choice/README.ko.md)를 확인하세요.
+
+로컬 LLM은 Ollama·LM Studio의 loopback OpenAI 호환 `/v1` 또는 로그인된 Claude·Codex CLI입니다.
+구독 CLI는 PC에서 실행되지만 추론은 업체 서버에서 이뤄집니다. API 키·다른 경로 설정이 있으면
+구독 CLI 경로를 거절하며, 실패 시 Jev·다른 공급자로 대체하지 않습니다. 기존 DB·키·선택 공급자를 보존합니다.
+새 로컬·구독 모델의 독립 품질은 미측정이며 v2.0.4 Jev 결과를 해당 모델의 근거로 쓰지 않습니다.
 
 ## 보존된 제출 원문 직접 검색
 
@@ -31,15 +32,15 @@ Claude·Codex·omp는 MCP·훅·압축 문맥 연결 앱이고, 저장 판단 �
 
 ## 로컬 설치: Claude·Codex·omp
 
-[MCP 2.0.4 검증·설치](../../release-candidates/v2.0.4-relevance/README.ko.md)의
-[`agents-memory-unified-2.0.0-source-subject-v17.tar.gz`](https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/1903a3d379983883c6069692f249fe470d7d0a61/release-candidates/v2.0.4-relevance/agents-memory-unified-2.0.0-source-subject-v17.tar.gz)와
-[`SHA256SUMS`](https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/1903a3d379983883c6069692f249fe470d7d0a61/release-candidates/v2.0.4-relevance/SHA256SUMS)를 내려받아 검증하세요.
-번들 SHA-256은 `62b46c6393876be19df7ccfea96343b3baa0ced2f599cee2f06438dd449275ef`입니다.
-첫 독립 평가는 검색 잡음 기준에 실패했습니다. 새 후보의 독립196건·40질문 평가는 측정된 저장·검색 기준을 통과했습니다. 실제 Claude·Codex·OMP 수명주기도 앱별36/36 통과했습니다. OMP는 공식 soft 압축 범위입니다.
-[현재 판정](../../release-candidates/v2.0.0-stable/STATUS.json)을 확인하세요.
+[MCP 2.0.5 검증·설치](../../release-candidates/v2.0.5-provider-choice/README.ko.md)의
+[`agents-memory-unified-2.0.0-local-provider-v18.tar.gz`](https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/895de0e51f85ef90a1607b99545f0966091966f7/release-candidates/v2.0.5-provider-choice/agents-memory-unified-2.0.0-local-provider-v18.tar.gz)와
+[`SHA256SUMS`](https://raw.githubusercontent.com/chonamdoo/agents-memory-releases/895de0e51f85ef90a1607b99545f0966091966f7/release-candidates/v2.0.5-provider-choice/SHA256SUMS)를 내려받아 검증하세요.
+번들 SHA-256은 `bf08321c8bffcc57edf92fc3d991c9427a3dc13e21218587bf18513c8840d408`입니다.
+이전 v2.0.4의 독립196건·40질문과 앱별36회 수명주기 결과는 [기존 기록](../../release-candidates/v2.0.4-relevance/README.ko.md)에 남깁니다.
+이번 공급자 선택 변경은 기능 검사이며 새 모델 품질 측정을 대신하지 않습니다.
 모델 companion `agents-memory-reranker-2.0.0.tar.gz`는
 [v2.0.0 릴리즈](https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.0)의 기존 `SHA256SUMS`로 검증합니다.
-MCP 패키지는2.0.4이고 엔진·SDK ABI는2.0.0입니다. 이전 원문 검색·v16 번들은
+MCP 패키지는2.0.5이고 엔진·SDK ABI는2.0.0입니다. 이전 원문 검색·v16 번들은
 이 버전의 검색 수정을 포함하지 않습니다.
 검증을 마친 파일을 압축 해제하세요.
 설치기는 압축 해제한 로컬 번들을 사용하며 제품 번들·모델을 자동 다운로드하지 않습니다.
@@ -63,10 +64,29 @@ bootstrap의 역사적 소유권 버전이며 제품 버전 2.0.0과 다릅니�
 로컬 `--bootstrap-bundle`은 고정 해시를 확인하는 genuine 1.0.2 `.tar.gz` 또는
 그 압축을 푼 디렉터리입니다. 로컬 최초 설치의 Python은 이 bootstrap에서 준비합니다.
 
-기존 Jev 설치의 선택 모델·키·DB·기기 연결을 보존합니다. 기존 `claude`/`codex`
-공급자 설정은 같은 설치 명령에 **`--provider jev`를 명시**하여 전환하세요.
-Jev 키는 비공개 키 파일 또는 터미널 숨김 입력으로 제공하며 stdout·채팅에 출력하지
-않습니다. 비밀값을 명령 인자에 넣지 마세요. 설치가 기존 Jev 모델을 임의로 바꾸지 않습니다.
+첫 로컬 대화형 설치에서 공급자를 생략하면 선택 메뉴가 나옵니다. 자동 설치는 명시하세요.
+위 명령의 `--provider jev`를 아래 선택 중 하나로 바꿉니다. OMP 플러그인은 `--client omp-plugin`,
+Claude 플러그인은 `--client claude-plugin`, Codex 프로젝트 MCP는 `--client codex`를 사용합니다.
+
+```bash
+# 설치된 Ollama 모델 ID (예시를 실제 모델 ID로 교체)
+--provider local --local-host openai --model MODEL_ID --local-url http://127.0.0.1:11434/v1
+# LM Studio는 해당 서버의 loopback /v1 주소 사용
+--provider local --local-host openai --model MODEL_ID --local-url http://127.0.0.1:1234/v1
+# 최신 CLI 설치·로그인 후 사용: 업체 서버 추론
+--provider local --local-host codex --model gpt-6.1-terra
+--provider local --local-host claude --model claude-sonnet-5-5
+# 로컬에서 Jev 선택 또는 서버 설치
+--provider jev
+```
+
+이 코드는 전체 명령에 붙일 **옵션 예시**입니다. 로컬 모델은 엄격한 JSON schema 출력을 지원해야 합니다.
+로컬 API는 loopback HTTP `/v1`만 허용합니다. `--provider local-llm`은 Codex CLI를 선택하는 호환 별칭입니다.
+CLI는 도구·MCP·규칙·세션 저장을 비활성화하며 지원 플래그가 없는 구버전은 실패합니다.
+설치 시 선택 공급자에 합성 입력을 보내 정상 처리를 확인합니다. 마켓 항목 설치 자체는 추론하지 않습니다.
+Jev 키는 선택한 경우만 비공개 `--jev-key-file` 또는 숨김 입력으로 제공하고 로컬 선택에서는 읽지 않습니다.
+업데이트는 저장된 공급자·모델·DB·기기 연결을 보존합니다. 명시적 공급자·백엔드 전환 실패 시 이전 공급자로
+자동 복귀하지 않습니다. 같은 공급자 업데이트 실패만 이전 설치로 복구합니다. 과거 데이터를 자동 재처리하지 않습니다.
 
 설치기 소유 activation lock으로 설치를 직렬화하고, 서비스 시작·중지는 같은
 서비스 lock으로 보호합니다. 새 키는 비공개 임시 파일에서 실제 공급자 확인을
@@ -101,8 +121,8 @@ MCP 연결 시 다시 시작됩니다. OS 로그인 서비스는 임의로 등�
 
 ## 플러그인 연결
 
-`agents-memory-unified@agents-memory` 연결 패키지 **2.0.4**를 자체 공개 마켓에서 제공합니다.
-고정된 v17 번들과 아래 설치 지침을 사용합니다.
+`agents-memory-unified@agents-memory` 연결 패키지 **2.0.5**를 자체 공개 마켓에서 제공합니다.
+고정된 v18 번들과 아래 설치 지침을 사용합니다.
 엔진·SDK ABI 버전은 **2.0.0**입니다. 버전 번호와 별개로 정식 판정은 현재 후보의 증거를 따릅니다.
 `agents-memory-local` 1.0.8은 이전 공급자를 유지하는 별도 항목입니다. 둘을 같은
 프로젝트에 중복 등록하지 마세요. 아래 마켓 설치는 엔진·모델·키 준비와 별도이며,
@@ -220,16 +240,18 @@ FP16 가중치·eager encoder·FP32 Sigmoid 출력의 단일 파일 그래프이
 개인 기억은 공유 매핑을 설정하기 전 팀에 공개되지 않습니다. 검색 제외·삭제 전파와
 백업/과거 로그의 원문 파기는 별개의 정책입니다. E2EE 서비스가 아닙니다.
 
-MCP 2.0.4는 현재 후보의 품질·안전·설치·앱별 실제 수명주기·자원·호출 기준을 통과했습니다. 게시 여부는 위 상태 링크에서 확인하세요.
+이전 MCP 2.0.4는 당시 Jev 후보의 품질·안전·설치·앱별 실제 수명주기·자원·호출 기준을 통과했습니다. 게시 여부는 위 상태 링크에서 확인하세요.
 과거 독립 v43의 정당한 명시 저장 70/80·이어가기 Hit@5 30/40은 고정 Wilson 하한
 기준에 실패했고 필수 근거 전체 회수는 2/40입니다. 이전 v22/v27 실패도 보존합니다.
-새 후보의 별도 독립196건·40질문 측정 결과는 [검증 기록](../../release-candidates/v2.0.4-relevance/live-quality-v2/README.ko.md)에 공개합니다. 과거 실패를 새 결과로 덮어쓰지 않으며 생성 답변 품질이나 실제 사용자 모집단 성능을 주장하지 않습니다. 과거 원본6개 대조와 과거 native HTTP 수는 미확인으로 남깁니다.
+이전 v2.0.4 후보의 독립196건·40질문 측정 결과는 [검증 기록](../../release-candidates/v2.0.4-relevance/live-quality-v2/README.ko.md)에 공개합니다. 과거 실패를 새 결과로 덮어쓰지 않으며 생성 답변 품질이나 실제 사용자 모집단 성능을 주장하지 않습니다. 과거 원본6개 대조와 과거 native HTTP 수는 미확인으로 남깁니다.
 과거 후보에서는 소유한 임시 Mac에서 당시 genuine 설치·업데이트와 connector의 저장·회상,
 업데이트 후 세 앱 등록 명령의 동일 ID·revision·전체 원문 회상을 검증했습니다.
-이는 현재 2.0.4의 macOS 검증이나 GUI·실제 회사 모델 추론·각 앱 자동화 실행 증거가 아닙니다.
+이는 새 2.0.5의 macOS 검증이나 GUI·실제 회사 모델 추론·각 앱 자동화 실행 증거가 아닙니다.
 `service_ready/server_ready=true`라도 요청한 자동화 실행이 미검증이면 `ready=false`입니다.
 
-이번 정식 배포의 검증 범위는 Ubuntu24.04·Linux x86_64·glibc2.39·Python3.12/3.13입니다.
+기존 v2.0.4의 전체 런타임 검증 대상은 Ubuntu24.04·Linux x86_64·glibc2.39·Python3.12/3.13입니다.
+이번 v2.0.5 추가 기능 CI는 Debian13·glibc2.41·CPython3.12.14/3.13.16에서 실행했습니다.
+이 추가 기능 검사는 Debian13의 전체 DB·Hindsight 설치 지원 검증을 뜻하지 않습니다.
 macOS는 사용자 별도 시험이며 정식 지원 검증을 주장하지 않습니다. Debian12·glibc2.36은
 pgvector 로더 실패로 지원하지 않습니다. 다른 Linux 배포판·arm64·Windows/WSL2와
 다른 플랫폼용 thin 빌드도 이번 검증 범위에 포함하지 않습니다. 바이트코드 코어는 원본 Python 소스를

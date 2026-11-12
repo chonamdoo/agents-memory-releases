@@ -1,0 +1,30 @@
+{
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "libc": [
+    "glibc",
+    "2.41"
+  ],
+  "python": "3.12.14",
+  "go": "go version go1.27.4 linux/amd64",
+  "version": "2.0.5",
+  "linux_connector_initialize_and_setup_status": "PASS",
+  "configured_sdk_delegation": "PASS",
+  "manifest_versions": "PASS",
+  "connector_hashes": {
+    "connector-darwin-arm64": "4e9d487a1ba46b7941a262eabc0efa9a57e589396c31a31772387e59a748f837",
+    "connector-linux-x86_64": "8b6fdccebf56760124734561eeb9f3366aa92651150bb460aef972bc0c163f3c"
+  },
+  "macos_cross_compiled_only": true,
+  "actual_model_calls": 0,
+  "core_tests": {
+    "passed": 246,
+    "skipped": 2
+  },
+  "installer_tests": {
+    "passed": 52
+  },
+  "installed_core": {
+    "cp312": "PASS",
+    "cp313": "PASS"
+  }
+}
