@@ -28,5 +28,10 @@
   "historical_missing_originals": 6,
   "historical_results_preserved": true,
   "github_actions_used": false,
-  "published": false
+  "published": true,
+  "release_url": "https://github.com/chonamdoo/agents-memory-releases/releases/tag/v2.0.5",
+  "release_id": 442499055,
+  "is_latest_stable": true,
+  "publication_readback": "STABLE-RELEASE-READBACK.json",
+  "marketplace_delivery": "LOCAL-CI.json"
 }
